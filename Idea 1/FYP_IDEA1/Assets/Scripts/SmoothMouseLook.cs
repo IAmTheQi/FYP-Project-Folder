@@ -47,6 +47,7 @@ public class SmoothMouseLook : MonoBehaviour
 
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         if (axes == RotationAxes.MouseXAndY)
         {
             rotAverageY = 0f;
