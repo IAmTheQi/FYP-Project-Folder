@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
+    MoveCamera cameraLerpScript;
     Transform camTransform;
     enum Inventory
     {
@@ -12,6 +13,14 @@ public class PlayerLogic : MonoBehaviour {
         Knife,
         Katana,
         Sniper
+    }
+
+    enum PlayerStates
+    {
+        Run,
+        Walk,
+        Crouch,
+        Prone
     }
     
     [System.Serializable]
@@ -27,14 +36,17 @@ public class PlayerLogic : MonoBehaviour {
         public float range;
     }
 
+    float walkHeight;
+    float crouchHeight;
+    float proneHeight;
+
     byte currentWeaponIndex;
 
     public Texture2D crossHair;
 
     public byte playerSpeed;
     public float strafeSlow;
-    public float sprintMultiplier;
-    public float crouchMultiplier;
+    public float speedModifier;
     public float jumpForce;
     public float gravity;
 
@@ -44,6 +56,7 @@ public class PlayerLogic : MonoBehaviour {
 
     RaycastHit hit;
     Inventory currentSelected;
+    PlayerStates currentState;
     public Weapons[] weapons;
     float timeStamp;
     bool reloadState;
@@ -52,19 +65,24 @@ public class PlayerLogic : MonoBehaviour {
     void Start() {
         cam1 = GameObject.Find("Main Camera");
         camTransform = cam1.transform;
+        cameraLerpScript = cam1.GetComponent<MoveCamera>();
 
         playerSpeed = 2;
         strafeSlow = 0.5f;
-        sprintMultiplier = 1.0f;
-        crouchMultiplier = 1.0f;
+        speedModifier = 1.0f;
         jumpForce = 3.0f;
         gravity = 10.0f;
+
+        crouchHeight = 1.75f;
+        walkHeight = 2.5f;
+        proneHeight = 1.0f;
 
         controller = GetComponent<CharacterController>();
 
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         currentSelected = Inventory.Rifle;
+        currentState = PlayerStates.Walk;
         currentWeaponIndex = 0;
 
         timeStamp = Time.time;
@@ -80,7 +98,7 @@ public class PlayerLogic : MonoBehaviour {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
             moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= playerSpeed * strafeSlow * sprintMultiplier * crouchMultiplier;
+            moveDirection *= playerSpeed * speedModifier;
 
             //Jumping (Space)
             if (Input.GetKey(KeyCode.Space))
@@ -95,7 +113,7 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         //Player movement modifier
-        controller.Move(moveDirection * playerSpeed * crouchMultiplier * Time.deltaTime);
+        controller.Move(moveDirection * Time.deltaTime);
 
 
         //Weapon change key handler
@@ -160,23 +178,37 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         //Sprinting key (Left Shift)
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.Z))
         {
-            sprintMultiplier = 2.0f;
+            currentState = PlayerStates.Run;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            sprintMultiplier = 1.0f;
+            currentState = PlayerStates.Walk;
         }
 
         //Crouch key (Left Control)
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
         {
-            crouchMultiplier = 0.75f;
+            currentState = PlayerStates.Crouch;
+            cameraLerpScript.LerpCamera("B");
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            crouchMultiplier = 1.0f;
+            currentState = PlayerStates.Walk;
+            cameraLerpScript.LerpCamera("A");
+        }
+
+        //Prone key ("Z" key)
+        if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            currentState = PlayerStates.Prone;
+            cameraLerpScript.LerpCamera("C");
+        }
+        else if (Input.GetKeyUp(KeyCode.Z))
+        {
+            currentState = PlayerStates.Walk;
+            cameraLerpScript.LerpCamera("A");
         }
 
         //Left Mouse Button Shoot
@@ -204,6 +236,27 @@ public class PlayerLogic : MonoBehaviour {
                 ReloadWeapon();
             }
         }
+
+        //Check current movement state to adjust speed multiplier accordingly
+        switch (currentState)
+        {
+            case PlayerStates.Walk:
+                speedModifier = 1.0f;
+                controller.height = walkHeight;
+                break;
+            case PlayerStates.Run:
+                speedModifier = 2.0f;
+                controller.height = walkHeight;
+                break;
+            case PlayerStates.Crouch:
+                speedModifier = 0.75f;
+                controller.height = crouchHeight;
+                break;
+            case PlayerStates.Prone:
+                speedModifier = 0.5f;
+                controller.height = proneHeight;
+                break;
+        }
     }
 
     //Shooting raycast check
@@ -219,14 +272,14 @@ public class PlayerLogic : MonoBehaviour {
     }
 
     //GUI Crosshair
-    void OnGUI()
+    /*void OnGUI()
     {
         //Positions crosshair in the centre of the screen
         float xMin = (Screen.width / 2) - (50);
         float yMin = (Screen.height / 2) - (50);
 
         GUI.DrawTexture(new Rect(xMin, yMin, 100, 100), crossHair);
-    }
+    }*/
 
     //Reload Weapon Function
     void ReloadWeapon()
