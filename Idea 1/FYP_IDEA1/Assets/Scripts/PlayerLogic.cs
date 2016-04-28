@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
     MoveCamera cameraLerpScript;
+    SmoothMouseLook lookScript;
     Transform camTransform;
+
+    GameObject ammoText;
+
     enum Inventory
     {
         Rifle,
@@ -66,6 +71,9 @@ public class PlayerLogic : MonoBehaviour {
         cam1 = GameObject.Find("Main Camera");
         camTransform = cam1.transform;
         cameraLerpScript = cam1.GetComponent<MoveCamera>();
+        lookScript = cam1.GetComponent<SmoothMouseLook>();
+
+        ammoText = GameObject.Find("AmmoText");
 
         playerSpeed = 2;
         strafeSlow = 0.5f;
@@ -243,20 +251,30 @@ public class PlayerLogic : MonoBehaviour {
             case PlayerStates.Walk:
                 speedModifier = 1.0f;
                 controller.height = walkHeight;
+                lookScript.minimumY = -80f;
+                lookScript.maximumY = 80f;
                 break;
             case PlayerStates.Run:
                 speedModifier = 2.0f;
                 controller.height = walkHeight;
+                lookScript.minimumY = -80f;
+                lookScript.maximumY = 80f;
                 break;
             case PlayerStates.Crouch:
                 speedModifier = 0.75f;
                 controller.height = crouchHeight;
+                lookScript.minimumY = -40f;
+                lookScript.maximumY = 80f;
                 break;
             case PlayerStates.Prone:
                 speedModifier = 0.5f;
                 controller.height = proneHeight;
+                lookScript.minimumY = 0f;
+                lookScript.maximumY = 40f;
                 break;
         }
+
+        ammoText.GetComponent<Text>().text = weapons[currentWeaponIndex].currentAmmo + "/" + weapons[currentWeaponIndex].remainingAmmo;
     }
 
     //Shooting raycast check
