@@ -60,6 +60,13 @@ public class PlayerLogic : MonoBehaviour {
     public float jumpForce;
     public float gravity;
 
+    float initialVelocity;
+    float currentVelocity;
+    float maxVelocity;
+    float forwardAccelerationRate;
+    float reverseAccelerationRate;
+    float deccelerationRate;
+
     Vector3 moveDirection;
 
     CharacterController controller;
@@ -102,6 +109,13 @@ public class PlayerLogic : MonoBehaviour {
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
 
+        initialVelocity = 1.0f;
+        currentVelocity = 0.0f;
+        maxVelocity = 5.0f;
+        forwardAccelerationRate = 2.0f;
+        reverseAccelerationRate = 0.5f;
+        deccelerationRate = 0.7f;
+
         timeStamp = Time.time;
         reloadState = false;
     }
@@ -129,7 +143,7 @@ public class PlayerLogic : MonoBehaviour {
                 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
                 moveDirection = transform.TransformDirection(moveDirection);
-                moveDirection *= playerSpeed * speedModifier;
+                moveDirection *= speedModifier;
                 currentState = PlayerStates.Walk;
             }
 
@@ -147,8 +161,29 @@ public class PlayerLogic : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
+        //Input key Handler
+        if (Input.GetKey(KeyCode.W))
+        {
+            currentVelocity += forwardAccelerationRate * Time.deltaTime;
+            maxVelocity = 50.0f;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            currentVelocity += reverseAccelerationRate * Time.deltaTime;
+            maxVelocity = 10.0f;
+        }
+        else
+        {
+            currentVelocity -= deccelerationRate * Time.deltaTime;
+        }
+
+        currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
+        Debug.Log(Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity));
+
+        print(currentVelocity);
+
         //Player movement modifier
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * currentVelocity * Time.deltaTime);
 
 
         //Weapon change key handler

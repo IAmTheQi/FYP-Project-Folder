@@ -5,12 +5,9 @@ using System.Collections;
 public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
-    MoveCamera cameraLerpScript;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
-
-    GameObject ammoText;
 
     enum Inventory
     {
@@ -60,6 +57,13 @@ public class PlayerLogic : MonoBehaviour {
     public float jumpForce;
     public float gravity;
 
+    float initialVelocity;
+    float currentVelocity;
+    float maxVelocity;
+    float forwardAccelerationRate;
+    float reverseAccelerationRate;
+    float deccelerationRate;
+
     Vector3 moveDirection;
 
     CharacterController controller;
@@ -75,12 +79,10 @@ public class PlayerLogic : MonoBehaviour {
     void Start() {
         cam1 = GameObject.Find("Main Camera");
         camTransform = cam1.transform;
-        cameraLerpScript = cam1.GetComponent<MoveCamera>();
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
-        ammoText = GameObject.Find("AmmoText");
+        
 
         playerSpeed = 2;
         strafeSlow = 0.5f;
@@ -101,6 +103,13 @@ public class PlayerLogic : MonoBehaviour {
         currentSelected = Inventory.Rifle;
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
+
+        initialVelocity = 1.0f;
+        currentVelocity = 0.0f;
+        maxVelocity = 50.0f;
+        forwardAccelerationRate = 10.0f;
+        reverseAccelerationRate = 2.0f;
+        deccelerationRate = 15.0f;
 
         timeStamp = Time.time;
         reloadState = false;
@@ -134,8 +143,24 @@ public class PlayerLogic : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
+        //Input key Handler
+        if (Input.GetKey(KeyCode.W))
+        {
+            currentVelocity += forwardAccelerationRate * Time.deltaTime;
+            maxVelocity = 50.0f;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            currentVelocity += reverseAccelerationRate * Time.deltaTime;
+            maxVelocity = 10.0f;
+        }
+        else
+        {
+            currentVelocity -= deccelerationRate * Time.deltaTime;
+        }
+
         //Player movement modifier
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * currentVelocity * Time.deltaTime);
 
 
         //Weapon change key handler
@@ -213,24 +238,20 @@ public class PlayerLogic : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
         {
             currentState = PlayerStates.Crouch;
-            cameraLerpScript.LerpCamera("B");
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             currentState = PlayerStates.Idle;
-            cameraLerpScript.LerpCamera("A");
         }
 
         //Prone key ("Z" key)
         if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
         {
             currentState = PlayerStates.Prone;
-            cameraLerpScript.LerpCamera("C");
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
             currentState = PlayerStates.Idle;
-            cameraLerpScript.LerpCamera("A");
         }
 
         //Left Mouse Button Shoot
