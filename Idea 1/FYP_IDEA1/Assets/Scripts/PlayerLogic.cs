@@ -128,24 +128,11 @@ public class PlayerLogic : MonoBehaviour {
         //Movement Handler for when player is on and off the ground
         if (controller.isGrounded)
         {
-            if (currentState == PlayerStates.Jump && currentState != PlayerStates.Crouch && currentState != PlayerStates.Prone)
-            {
-                currentState = PlayerStates.Idle;
-            }
+            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0 && currentState != PlayerStates.Crouch && currentState != PlayerStates.Prone)
-            {
-                currentState = PlayerStates.Idle;
-            }
-
-            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
-            {
-                moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-                moveDirection = transform.TransformDirection(moveDirection);
-                moveDirection *= speedModifier;
-                currentState = PlayerStates.Walk;
-            }
+            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection *= speedModifier;
+            currentState = PlayerStates.Walk;
 
             //Jumping (Space)
             if (Input.GetKey(KeyCode.Space))
@@ -165,12 +152,12 @@ public class PlayerLogic : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             currentVelocity += forwardAccelerationRate * Time.deltaTime;
-            maxVelocity = 50.0f;
+            maxVelocity = 5.0f;
         }
         else if (Input.GetKey(KeyCode.S))
         {
             currentVelocity += reverseAccelerationRate * Time.deltaTime;
-            maxVelocity = 10.0f;
+            maxVelocity = 2.0f;
         }
         else
         {
@@ -178,9 +165,7 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
-        Debug.Log(Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity));
-
-        print(currentVelocity);
+        Debug.LogFormat("currentVelocity: {0}   initialVelocity: {1}    maxVelocity: {2}", currentVelocity, initialVelocity, maxVelocity);
 
         //Player movement modifier
         controller.Move(moveDirection * currentVelocity * Time.deltaTime);

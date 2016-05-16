@@ -9,6 +9,9 @@ public class PlayerLogic : MonoBehaviour {
     Transform camTransform;
     Vector3 startPosition;
 
+    GameObject animationObject;
+    Animator playerAnimator;
+
     enum Inventory
     {
         Rifle,
@@ -46,6 +49,7 @@ public class PlayerLogic : MonoBehaviour {
     float proneHeight;
 
     bool isWalking;
+    bool idleState;
 
     byte currentWeaponIndex;
 
@@ -81,6 +85,9 @@ public class PlayerLogic : MonoBehaviour {
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
+        animationObject = GameObject.Find("WomanWarrior");
+        playerAnimator = animationObject.GetComponent<Animator>();
+
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         
 
@@ -95,6 +102,7 @@ public class PlayerLogic : MonoBehaviour {
         proneHeight = 1.0f;
 
         isWalking = false;
+        idleState = true;
 
         controller = GetComponent<CharacterController>();
 
@@ -106,10 +114,10 @@ public class PlayerLogic : MonoBehaviour {
 
         initialVelocity = 1.0f;
         currentVelocity = 0.0f;
-        maxVelocity = 50.0f;
-        forwardAccelerationRate = 10.0f;
-        reverseAccelerationRate = 2.0f;
-        deccelerationRate = 15.0f;
+        maxVelocity = 5.0f;
+        forwardAccelerationRate = 2.0f;
+        reverseAccelerationRate = 0.5f;
+        deccelerationRate = 4.0f;
 
         timeStamp = Time.time;
         reloadState = false;
@@ -118,7 +126,6 @@ public class PlayerLogic : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        print(currentState);
 
         //Movement Handler for when player is on and off the ground
         if (controller.isGrounded)
@@ -146,22 +153,34 @@ public class PlayerLogic : MonoBehaviour {
         //Input key Handler
         if (Input.GetKey(KeyCode.W))
         {
+            idleState = false;
             currentVelocity += forwardAccelerationRate * Time.deltaTime;
-            maxVelocity = 50.0f;
+            maxVelocity = 5.0f;
         }
         else if (Input.GetKey(KeyCode.S))
         {
+            idleState = false;
             currentVelocity += reverseAccelerationRate * Time.deltaTime;
-            maxVelocity = 10.0f;
+            maxVelocity = 2.0f;
         }
         else
         {
             currentVelocity -= deccelerationRate * Time.deltaTime;
+            if (currentVelocity < 1.1)
+            {
+                idleState = true;
+            }
         }
+
+        currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
 
         //Player movement modifier
         controller.Move(moveDirection * currentVelocity * Time.deltaTime);
 
+        print(currentVelocity);
+
+        playerAnimator.SetFloat("Velocity", currentVelocity);
+        playerAnimator.SetBool("Idle", idleState);
 
         //Weapon change key handler
         if (Input.GetKeyDown(KeyCode.Alpha1))
