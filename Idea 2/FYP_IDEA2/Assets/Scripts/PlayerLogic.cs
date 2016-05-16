@@ -12,15 +12,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject animationObject;
     Animator playerAnimator;
 
-    enum Inventory
-    {
-        Rifle,
-        Pistol,
-        Knife,
-        Katana,
-        Sniper
-    }
-
     enum PlayerStates
     {
         Run,
@@ -30,18 +21,13 @@ public class PlayerLogic : MonoBehaviour {
         Idle,
         Jump
     }
-    
-    [System.Serializable]
-    public struct Weapons
+
+    enum Weapons
     {
-        public string weaponName;
-        public byte currentAmmo;
-        public byte magazineSize;
-        public byte remainingAmmo;
-        public byte totalAmmo;
-        public float shootDelay;
-        public float reloadDelay;
-        public float range;
+        SwordAndShield,
+        SpearAndShield,
+        BowAndArrow,
+        MagicBook
     }
 
     float walkHeight;
@@ -51,7 +37,12 @@ public class PlayerLogic : MonoBehaviour {
     bool isWalking;
     bool idleState;
 
-    byte currentWeaponIndex;
+    bool attackOne;
+    bool attackTwo;
+
+    float attackWindow;
+    float attackOneLength;
+    float attackTwoLength;
 
     public Texture2D crossHair;
 
@@ -73,11 +64,9 @@ public class PlayerLogic : MonoBehaviour {
     CharacterController controller;
 
     RaycastHit hit;
-    Inventory currentSelected;
     PlayerStates currentState;
-    public Weapons[] weapons;
+    Weapons currentWeapon;
     float timeStamp;
-    bool reloadState;
 
     // Use this for initialization
     void Start() {
@@ -104,13 +93,18 @@ public class PlayerLogic : MonoBehaviour {
         isWalking = false;
         idleState = true;
 
+        attackOne = false;
+        attackTwo = false;
+
+        attackWindow = 0.2f;
+        attackOneLength = 0.8f;
+        attackTwoLength = 0.75f;
+
         controller = GetComponent<CharacterController>();
 
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        currentSelected = Inventory.Rifle;
+        
         currentState = PlayerStates.Idle;
-        currentWeaponIndex = 0;
 
         initialVelocity = 1.0f;
         currentVelocity = 0.0f;
@@ -120,7 +114,6 @@ public class PlayerLogic : MonoBehaviour {
         deccelerationRate = 4.0f;
 
         timeStamp = Time.time;
-        reloadState = false;
     }
 
     // Update is called once per frame
@@ -151,13 +144,13 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         //Input key Handler
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && !attackOne)
         {
             idleState = false;
             currentVelocity += forwardAccelerationRate * Time.deltaTime;
             maxVelocity = 5.0f;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) && !attackOne)
         {
             idleState = false;
             currentVelocity += reverseAccelerationRate * Time.deltaTime;
@@ -166,7 +159,7 @@ public class PlayerLogic : MonoBehaviour {
         else
         {
             currentVelocity -= deccelerationRate * Time.deltaTime;
-            if (currentVelocity < 1.1)
+            if (currentVelocity < 4.5)
             {
                 idleState = true;
             }
@@ -177,71 +170,8 @@ public class PlayerLogic : MonoBehaviour {
         //Player movement modifier
         controller.Move(moveDirection * currentVelocity * Time.deltaTime);
 
-        print(currentVelocity);
-
         playerAnimator.SetFloat("Velocity", currentVelocity);
         playerAnimator.SetBool("Idle", idleState);
-
-        //Weapon change key handler
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Rifle)
-            {
-                currentSelected = Inventory.Rifle;
-                currentWeaponIndex = 0;
-                reloadState = false;
-                timeStamp = Time.time;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Pistol)
-            {
-                currentSelected = Inventory.Pistol;
-                currentWeaponIndex = 1;
-                reloadState = false;
-                timeStamp = Time.time;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Knife)
-            {
-                currentSelected = Inventory.Knife;
-                currentWeaponIndex = 2;
-                reloadState = false;
-                timeStamp = Time.time;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Katana)
-            {
-                currentSelected = Inventory.Katana;
-                currentWeaponIndex = 3;
-                reloadState = false;
-                timeStamp = Time.time;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Sniper)
-            {
-                currentSelected = Inventory.Sniper;
-                currentWeaponIndex = 4;
-                reloadState = false;
-                timeStamp = Time.time;
-            }
-        }
 
         //Sprinting key (Left Shift)
         if (Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.Z))
@@ -276,28 +206,44 @@ public class PlayerLogic : MonoBehaviour {
         //Left Mouse Button Shoot
         if (Input.GetMouseButton(0))
         {
-            if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+            print("click");
+            if (!attackOne)
             {
-                ShootRay();
-                weapons[currentWeaponIndex].currentAmmo -= 1;
+                attackOne = true;
                 timeStamp = Time.time;
             }
-        }
 
-        //Check for Reload need
-        if (weapons[currentWeaponIndex].currentAmmo <= 0)
-        {
-            reloadState = true;
-            timeStamp = Time.time;
-        }
-
-        if (reloadState)
-        {
-            if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
+            if (attackOne)
             {
-                ReloadWeapon();
+                if (Time.time > timeStamp + attackOneLength - attackWindow && Time.time < timeStamp + attackOneLength)
+                {
+                    attackTwo = true;
+                    timeStamp = Time.time;
+                }
             }
         }
+
+        if (attackOne)
+        {
+            if (Time.time > (timeStamp + attackOneLength))
+            {
+                attackOne = false;
+            }
+            
+        }
+
+        if (attackTwo)
+        {
+            if (Time.time > (timeStamp + attackTwoLength))
+            {
+                attackTwo = false;
+            }
+        }
+
+        Debug.LogFormat("Time.time: {0}     timeStamp: {1}      attackone:{2}       attacktwo:{3}", Time.time, timeStamp, attackOne, attackTwo);
+
+        playerAnimator.SetBool("Attack1", attackOne);
+        playerAnimator.SetBool("Attack2", attackTwo);
 
         //Check current movement state to adjust speed multiplier accordingly
         switch (currentState)
@@ -341,18 +287,6 @@ public class PlayerLogic : MonoBehaviour {
         }
     }
 
-    //Shooting raycast check
-    void ShootRay()
-    {
-        //Fires ray from camera, centre of screen into 3D space
-        Ray ray = new Ray(camTransform.position, camTransform.forward);
-        if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
-        {
-            print(hit.collider.name);
-            Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
-        }
-    }
-
     //Enemy detection
     void OnControllerColliderHit(ControllerColliderHit collider)
     {
@@ -365,7 +299,6 @@ public class PlayerLogic : MonoBehaviour {
     //Die function
     void KillPlayer()
     {
-        print("die");
         transform.position = startPosition;
     }
 
@@ -382,56 +315,4 @@ public class PlayerLogic : MonoBehaviour {
 
         return isWalking;
     }
-    //GUI Crosshair
-    /*void OnGUI()
-    {
-        //Positions crosshair in the centre of the screen
-        float xMin = (Screen.width / 2) - (50);
-        float yMin = (Screen.height / 2) - (50);
-
-        GUI.DrawTexture(new Rect(xMin, yMin, 100, 100), crossHair);
-    }*/
-
-    //Reload Weapon Function
-    void ReloadWeapon()
-    {
-        //Check if remaining ammo is not enough to fill up a full magazine
-        if (weapons[currentWeaponIndex].remainingAmmo < weapons[currentWeaponIndex].magazineSize)
-        {
-            weapons[currentWeaponIndex].currentAmmo = weapons[currentWeaponIndex].remainingAmmo;
-            weapons[currentWeaponIndex].remainingAmmo = 0;
-        }
-        else //Normal reload
-        {
-            weapons[currentWeaponIndex].currentAmmo = weapons[currentWeaponIndex].magazineSize;
-            weapons[currentWeaponIndex].remainingAmmo -= weapons[currentWeaponIndex].magazineSize;
-        }
-        
-    }
-    
-    
-    /*
-    var bulletSpeed: float = 1000; // bullet speed in meters/second var shotSound: AudioClip;
-
-    //Delayed raycast shooting (KIV)
-    function Fire()
-    {
-        if (audio) audio.PlayOneShot(shotSound); // the sound plays immediately 
-        var hit: RaycastHit; // do the exploratory raycast first: 
-        if (Physics.Raycast(transform.position, transform.forward, hit))
-        {
-            var delay = hit.distance / bulletSpeed; // calculate the flight time 
-            var hitPt = hit.point;
-            hitPt.y -= delay * 9.8; // calculate the bullet drop at the target 
-            var dir = hitPt - transform.position; // use this to modify the shot direction 
-            yield WaitForSeconds(delay); // wait for the flight time 
-
-            // then do the actual shooting: 
-            if (Physics.Raycast(transform.position, dir, hit)
-            {
-                // do here the usual job when something is hit: 
-                // apply damage, instantiate particles etc. 
-            }
-        }
-    }*/
 }
