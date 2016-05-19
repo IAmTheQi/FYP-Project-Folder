@@ -39,10 +39,12 @@ public class PlayerLogic : MonoBehaviour {
 
     bool attackOne;
     bool attackTwo;
+    bool attackThree;
 
     float attackWindow;
     float attackOneLength;
     float attackTwoLength;
+    float attackThreeLength;
 
     public Texture2D crossHair;
 
@@ -95,10 +97,12 @@ public class PlayerLogic : MonoBehaviour {
 
         attackOne = false;
         attackTwo = false;
+        attackThree = false;
 
-        attackWindow = 0.2f;
+        attackWindow = 2.0f;
         attackOneLength = 0.8f;
         attackTwoLength = 0.75f;
+        attackThreeLength = 1.0f;
 
         controller = GetComponent<CharacterController>();
 
@@ -204,7 +208,7 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         //Left Mouse Button Shoot
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             print("click");
             if (!attackOne)
@@ -215,9 +219,18 @@ public class PlayerLogic : MonoBehaviour {
 
             if (attackOne)
             {
-                if (Time.time > timeStamp + attackOneLength - attackWindow && Time.time < timeStamp + attackOneLength)
+                if (Time.time < timeStamp + attackWindow)
                 {
                     attackTwo = true;
+                    timeStamp = Time.time;
+                }
+            }
+
+            if (attackTwo)
+            {
+                if (Time.time < timeStamp + attackWindow)
+                {
+                    attackThree = true;
                     timeStamp = Time.time;
                 }
             }
@@ -240,10 +253,19 @@ public class PlayerLogic : MonoBehaviour {
             }
         }
 
-        Debug.LogFormat("Time.time: {0}     timeStamp: {1}      attackone:{2}       attacktwo:{3}", Time.time, timeStamp, attackOne, attackTwo);
+        if (attackThree)
+        {
+            if (Time.time > (timeStamp + attackThreeLength))
+            {
+                attackThree = false;
+            }
+        }
+
+        Debug.LogFormat("Time.time: {0}     timeStamp: {1}      attackone:{2}       attacktwo:{3}       attackthree:{4}", Time.time, timeStamp, attackOne, attackTwo, attackThree);
 
         playerAnimator.SetBool("Attack1", attackOne);
         playerAnimator.SetBool("Attack2", attackTwo);
+        playerAnimator.SetBool("Attack3", attackThree);
 
         //Check current movement state to adjust speed multiplier accordingly
         switch (currentState)
