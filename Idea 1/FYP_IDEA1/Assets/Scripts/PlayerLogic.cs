@@ -8,6 +8,7 @@ public class PlayerLogic : MonoBehaviour {
     MoveCamera cameraLerpScript;
     SmoothMouseLook lookScript;
     Transform camTransform;
+    Vector3 startPosition;
 
     GameObject ammoText;
 
@@ -25,7 +26,9 @@ public class PlayerLogic : MonoBehaviour {
         Run,
         Walk,
         Crouch,
-        Prone
+        Prone,
+        Idle,
+        Jump
     }
     
     [System.Serializable]
@@ -45,6 +48,8 @@ public class PlayerLogic : MonoBehaviour {
     float crouchHeight;
     float proneHeight;
 
+    bool isWalking;
+
     byte currentWeaponIndex;
 
     public Texture2D crossHair;
@@ -54,6 +59,13 @@ public class PlayerLogic : MonoBehaviour {
     public float speedModifier;
     public float jumpForce;
     public float gravity;
+
+    float initialVelocity;
+    float currentVelocity;
+    float maxVelocity;
+    float forwardAccelerationRate;
+    float reverseAccelerationRate;
+    float deccelerationRate;
 
     Vector3 moveDirection;
 
@@ -73,6 +85,8 @@ public class PlayerLogic : MonoBehaviour {
         cameraLerpScript = cam1.GetComponent<MoveCamera>();
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
+        startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
         ammoText = GameObject.Find("AmmoText");
 
         playerSpeed = 2;
@@ -85,20 +99,31 @@ public class PlayerLogic : MonoBehaviour {
         walkHeight = 2.5f;
         proneHeight = 1.0f;
 
+        isWalking = false;
+
         controller = GetComponent<CharacterController>();
 
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         currentSelected = Inventory.Rifle;
-        currentState = PlayerStates.Walk;
+        currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
+
+        initialVelocity = 1.0f;
+        currentVelocity = 0.0f;
+        maxVelocity = 5.0f;
+        forwardAccelerationRate = 2.0f;
+        reverseAccelerationRate = 0.5f;
+        deccelerationRate = 0.7f;
 
         timeStamp = Time.time;
         reloadState = false;
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+        print(currentState);
 
         //Movement Handler for when player is on and off the ground
         if (controller.isGrounded)
@@ -106,12 +131,15 @@ public class PlayerLogic : MonoBehaviour {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
             moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= playerSpeed * speedModifier;
+            moveDirection *= speedModifier;
+            currentState = PlayerStates.Walk;
 
             //Jumping (Space)
             if (Input.GetKey(KeyCode.Space))
             {
                 moveDirection.y = jumpForce;
+                currentState = PlayerStates.Jump;
+
             }
         }
         else if (!controller.isGrounded)
@@ -120,8 +148,27 @@ public class PlayerLogic : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
+        //Input key Handler
+        if (Input.GetKey(KeyCode.W))
+        {
+            currentVelocity += forwardAccelerationRate * Time.deltaTime;
+            maxVelocity = 5.0f;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            currentVelocity += reverseAccelerationRate * Time.deltaTime;
+            maxVelocity = 2.0f;
+        }
+        else
+        {
+            currentVelocity -= deccelerationRate * Time.deltaTime;
+        }
+
+        currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
+        Debug.LogFormat("currentVelocity: {0}   initialVelocity: {1}    maxVelocity: {2}", currentVelocity, initialVelocity, maxVelocity);
+
         //Player movement modifier
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * currentVelocity * Time.deltaTime);
 
 
         //Weapon change key handler
@@ -188,35 +235,41 @@ public class PlayerLogic : MonoBehaviour {
         //Sprinting key (Left Shift)
         if (Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.Z))
         {
-            currentState = PlayerStates.Run;
+           currentState = PlayerStates.Run;
+            speedModifier = 2.0f;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            currentState = PlayerStates.Walk;
+            currentState = PlayerStates.Idle;
+            speedModifier = 1.0f;
         }
 
         //Crouch key (Left Control)
         if (Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
         {
+            speedModifier = 0.75f;
             currentState = PlayerStates.Crouch;
             cameraLerpScript.LerpCamera("B");
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            currentState = PlayerStates.Walk;
+            currentState = PlayerStates.Idle;
             cameraLerpScript.LerpCamera("A");
+            speedModifier = 1.0f;
         }
 
         //Prone key ("Z" key)
         if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
         {
+            speedModifier = 0.5f;
             currentState = PlayerStates.Prone;
             cameraLerpScript.LerpCamera("C");
         }
         else if (Input.GetKeyUp(KeyCode.Z))
         {
-            currentState = PlayerStates.Walk;
+           currentState = PlayerStates.Idle;
             cameraLerpScript.LerpCamera("A");
+            speedModifier = 1.0f;
         }
 
         //Left Mouse Button Shoot
@@ -246,7 +299,7 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         //Check current movement state to adjust speed multiplier accordingly
-        switch (currentState)
+        /*switch (currentState)
         {
             case PlayerStates.Walk:
                 speedModifier = 1.0f;
@@ -272,7 +325,19 @@ public class PlayerLogic : MonoBehaviour {
                 lookScript.minimumY = 0f;
                 lookScript.maximumY = 40f;
                 break;
-        }
+            case PlayerStates.Idle:
+                speedModifier = 2.0f;
+                controller.height = walkHeight;
+                lookScript.minimumY = -80f;
+                lookScript.maximumY = 80f;
+                break;
+            case PlayerStates.Jump:
+                speedModifier = 2.0f;
+                controller.height = walkHeight;
+                lookScript.minimumY = -80f;
+                lookScript.maximumY = 80f;
+                break;
+        }*/
 
         ammoText.GetComponent<Text>().text = weapons[currentWeaponIndex].currentAmmo + "/" + weapons[currentWeaponIndex].remainingAmmo;
     }
@@ -289,6 +354,35 @@ public class PlayerLogic : MonoBehaviour {
         }
     }
 
+    //Enemy detection
+    void OnControllerColliderHit(ControllerColliderHit collider)
+    {
+        if (collider.gameObject.tag == "Mutant")
+        {
+            KillPlayer();
+        }
+    }
+
+    //Die function
+    void KillPlayer()
+    {
+        print("die");
+        transform.position = startPosition;
+    }
+
+    public bool IsWalking()
+    {
+        if (currentState == PlayerStates.Walk || currentState == PlayerStates.Run)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
+
+        return isWalking;
+    }
     //GUI Crosshair
     /*void OnGUI()
     {
