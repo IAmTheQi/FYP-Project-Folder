@@ -41,6 +41,12 @@ public class PlayerLogic : MonoBehaviour {
     bool attackTwo;
     bool attackThree;
 
+    bool hitOne;
+    bool hitTwo;
+    bool hitThree;
+
+    float attackRange;
+
     float attackWindow;
     float attackOneLength;
     float attackTwoLength;
@@ -66,16 +72,13 @@ public class PlayerLogic : MonoBehaviour {
     CharacterController controller;
 
     RaycastHit hit;
+    Ray ray;
     PlayerStates currentState;
     Weapons currentWeapon;
     float timeStamp;
 
     // Use this for initialization
     void Start() {
-        cam1 = GameObject.Find("Main Camera");
-        camTransform = cam1.transform;
-        lookScript = cam1.GetComponent<SmoothMouseLook>();
-
         animationObject = GameObject.Find("WomanWarrior");
         playerAnimator = animationObject.GetComponent<Animator>();
 
@@ -98,6 +101,12 @@ public class PlayerLogic : MonoBehaviour {
         attackOne = false;
         attackTwo = false;
         attackThree = false;
+
+        hitOne = false;
+        hitTwo = false;
+        hitThree = false;
+
+        attackRange = 10.0f;
 
         attackWindow = 2.0f;
         attackOneLength = 0.8f;
@@ -173,6 +182,7 @@ public class PlayerLogic : MonoBehaviour {
 
         //Player movement modifier
         controller.Move(moveDirection * currentVelocity * Time.deltaTime);
+        transform.eulerAngles = new Vector3 (0, transform.eulerAngles.y, transform.eulerAngles.z);
 
         playerAnimator.SetFloat("Velocity", currentVelocity);
         playerAnimator.SetBool("Idle", idleState);
@@ -216,8 +226,7 @@ public class PlayerLogic : MonoBehaviour {
                 attackOne = true;
                 timeStamp = Time.time;
             }
-
-            if (attackOne)
+            else if (attackOne)
             {
                 if (Time.time < timeStamp + attackWindow)
                 {
@@ -238,6 +247,11 @@ public class PlayerLogic : MonoBehaviour {
 
         if (attackOne)
         {
+            if (Time.time > (timeStamp + attackOneLength * 0.5))
+            {
+                hitOne = true;
+            }
+
             if (Time.time > (timeStamp + attackOneLength))
             {
                 attackOne = false;
@@ -247,6 +261,11 @@ public class PlayerLogic : MonoBehaviour {
 
         if (attackTwo)
         {
+            if (Time.time > (timeStamp + attackTwoLength * 0.5))
+            {
+                hitTwo = true;
+            }
+
             if (Time.time > (timeStamp + attackTwoLength))
             {
                 attackTwo = false;
@@ -255,66 +274,56 @@ public class PlayerLogic : MonoBehaviour {
 
         if (attackThree)
         {
+            if (Time.time > (timeStamp + attackThreeLength * 0.5))
+            {
+                hitThree = true;
+            }
+
             if (Time.time > (timeStamp + attackThreeLength))
             {
                 attackThree = false;
             }
         }
 
-        Debug.LogFormat("Time.time: {0}     timeStamp: {1}      attackone:{2}       attacktwo:{3}       attackthree:{4}", Time.time, timeStamp, attackOne, attackTwo, attackThree);
+        //Debug.LogFormat("Time.time: {0}     timeStamp: {1}      attackone:{2}       attacktwo:{3}       attackthree:{4}", Time.time, timeStamp, attackOne, attackTwo, attackThree);
+        Debug.LogFormat("Hit1:{0}       Hit2:{1}        Hit3:{2}", hitOne, hitTwo, hitThree);
 
         playerAnimator.SetBool("Attack1", attackOne);
         playerAnimator.SetBool("Attack2", attackTwo);
         playerAnimator.SetBool("Attack3", attackThree);
 
-        //Check current movement state to adjust speed multiplier accordingly
-        switch (currentState)
+        if (hitOne)
         {
-            case PlayerStates.Walk:
-                speedModifier = 1.0f;
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                break;
-            case PlayerStates.Run:
-                speedModifier = 2.0f;
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                break;
-            case PlayerStates.Crouch:
-                speedModifier = 0.75f;
-                controller.height = crouchHeight;
-                lookScript.minimumY = -40f;
-                lookScript.maximumY = 80f;
-                break;
-            case PlayerStates.Prone:
-                speedModifier = 0.5f;
-                controller.height = proneHeight;
-                lookScript.minimumY = 0f;
-                lookScript.maximumY = 40f;
-                break;
-            case PlayerStates.Idle:
-                speedModifier = 2.0f;
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                break;
-            case PlayerStates.Jump:
-                speedModifier = 2.0f;
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                break;
+            ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out hit, attackRange))
+            {
+                Debug.Log(hit.collider.name);
+                Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
+                print("slash");
+            }
+            hitOne = false;
         }
-    }
 
-    //Enemy detection
-    void OnControllerColliderHit(ControllerColliderHit collider)
-    {
-        if (collider.gameObject.tag == "Mutant")
+        if (hitTwo)
         {
-            KillPlayer();
+            ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out hit, attackRange))
+            {
+                Debug.Log(hit.collider.name);
+                Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
+            }
+            hitTwo = false;
+        }
+
+        if (hitThree)
+        {
+            ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out hit, attackRange))
+            {
+                Debug.Log(hit.collider.name);
+                Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
+            }
+            hitThree = false;
         }
     }
 
