@@ -13,5 +13,7 @@ public class BossOne : BossBaseClass {
     void Update()
     {
         base.Update();
+
+        Debug.Log(health);
     }
 }

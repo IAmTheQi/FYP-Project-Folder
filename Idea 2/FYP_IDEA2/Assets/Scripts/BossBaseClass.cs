@@ -90,7 +90,6 @@ public class BossBaseClass: MonoBehaviour{
         /*rotation = Quaternion.LookRotation(relativePosition);
         transform.rotation = rotation;*/
         transform.LookAt(new Vector3(target.transform.position.x, transform.position.y , target.transform.position.z));
-
         //Debug.LogFormat("Grounded:{0}       modifier:{1}        state:{2}", controller.isGrounded, speedModifier, currentState);
     }
 
@@ -100,7 +99,7 @@ public class BossBaseClass: MonoBehaviour{
         {
             health -= value;
         }
-        else if ((health - value) < 0)
+        else if ((health - value) <= 0)
         {
             health = 0;
             Die();

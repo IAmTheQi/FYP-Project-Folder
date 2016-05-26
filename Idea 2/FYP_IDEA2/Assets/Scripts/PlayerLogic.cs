@@ -296,6 +296,19 @@ public class PlayerLogic : MonoBehaviour {
         ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out hit, attackRange))
         {
+            if (attack == 1)
+            {
+                hit.collider.gameObject.SendMessage("TakeDamage", 10.0f);
+            }
+            else if (attack == 2)
+            {
+                hit.collider.gameObject.SendMessage("TakeDamage", 30.0f);
+            }
+            else if (attack == 3)
+            {
+                hit.collider.gameObject.SendMessage("TakeDamage", 50.0f);
+            }
+
             Debug.Log(hit.collider.name);
             Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
         }
