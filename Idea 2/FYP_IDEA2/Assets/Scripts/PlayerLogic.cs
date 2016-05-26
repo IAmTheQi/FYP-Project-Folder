@@ -11,7 +11,7 @@ public class PlayerLogic : MonoBehaviour {
 
     GameObject animationObject;
     Animator playerAnimator;
-
+    
     enum PlayerStates
     {
         Run,
@@ -40,10 +40,6 @@ public class PlayerLogic : MonoBehaviour {
     bool attackOne;
     bool attackTwo;
     bool attackThree;
-
-    bool hitOne;
-    bool hitTwo;
-    bool hitThree;
 
     float attackRange;
 
@@ -101,10 +97,6 @@ public class PlayerLogic : MonoBehaviour {
         attackOne = false;
         attackTwo = false;
         attackThree = false;
-
-        hitOne = false;
-        hitTwo = false;
-        hitThree = false;
 
         attackRange = 10.0f;
 
@@ -247,10 +239,6 @@ public class PlayerLogic : MonoBehaviour {
 
         if (attackOne)
         {
-            if (Time.time > (timeStamp + attackOneLength * 0.5))
-            {
-                hitOne = true;
-            }
 
             if (Time.time > (timeStamp + attackOneLength))
             {
@@ -261,10 +249,6 @@ public class PlayerLogic : MonoBehaviour {
 
         if (attackTwo)
         {
-            if (Time.time > (timeStamp + attackTwoLength * 0.5))
-            {
-                hitTwo = true;
-            }
 
             if (Time.time > (timeStamp + attackTwoLength))
             {
@@ -274,10 +258,6 @@ public class PlayerLogic : MonoBehaviour {
 
         if (attackThree)
         {
-            if (Time.time > (timeStamp + attackThreeLength * 0.5))
-            {
-                hitThree = true;
-            }
 
             if (Time.time > (timeStamp + attackThreeLength))
             {
@@ -285,46 +265,9 @@ public class PlayerLogic : MonoBehaviour {
             }
         }
 
-        //Debug.LogFormat("Time.time: {0}     timeStamp: {1}      attackone:{2}       attacktwo:{3}       attackthree:{4}", Time.time, timeStamp, attackOne, attackTwo, attackThree);
-        Debug.LogFormat("Hit1:{0}       Hit2:{1}        Hit3:{2}", hitOne, hitTwo, hitThree);
-
         playerAnimator.SetBool("Attack1", attackOne);
         playerAnimator.SetBool("Attack2", attackTwo);
         playerAnimator.SetBool("Attack3", attackThree);
-
-        if (hitOne)
-        {
-            ray = new Ray(transform.position, transform.forward);
-            if (Physics.Raycast(ray, out hit, attackRange))
-            {
-                Debug.Log(hit.collider.name);
-                Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
-                print("slash");
-            }
-            hitOne = false;
-        }
-
-        if (hitTwo)
-        {
-            ray = new Ray(transform.position, transform.forward);
-            if (Physics.Raycast(ray, out hit, attackRange))
-            {
-                Debug.Log(hit.collider.name);
-                Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
-            }
-            hitTwo = false;
-        }
-
-        if (hitThree)
-        {
-            ray = new Ray(transform.position, transform.forward);
-            if (Physics.Raycast(ray, out hit, attackRange))
-            {
-                Debug.Log(hit.collider.name);
-                Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
-            }
-            hitThree = false;
-        }
     }
 
     //Die function
@@ -345,5 +288,16 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         return isWalking;
+    }
+
+    public void ShootRay(int attack)
+    {
+        //Fires ray from camera, centre of screen into 3D space
+        ray = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(ray, out hit, attackRange))
+        {
+            Debug.Log(hit.collider.name);
+            Debug.DrawLine(ray.origin, ray.origin + (ray.direction * attackRange), Color.cyan);
+        }
     }
 }

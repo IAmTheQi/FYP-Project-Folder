@@ -18,8 +18,6 @@ public class MutantLogic : MonoBehaviour {
 
     Vector3 moveDirection;
 
-    public float detectionRange;
-
     MutantStates currentState;
 
     CharacterController controller;
