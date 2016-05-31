@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(LineRenderer))]
 public class MutantBaseClass : MonoBehaviour {
 
     public float health;
@@ -11,7 +12,8 @@ public class MutantBaseClass : MonoBehaviour {
         Alerted,
         Chase,
         Attacked,
-        Lost
+        Lost,
+        Distracted
     }
 
     GameObject playerObject;
@@ -28,6 +30,9 @@ public class MutantBaseClass : MonoBehaviour {
     CharacterController controller;
 
     protected GameObject playerLastPosition;
+    protected GameObject noiseLastPosition;
+
+    protected LineRenderer lineRenderer;
 
     // Use this for initialization
     protected void Start () {
@@ -45,7 +50,10 @@ public class MutantBaseClass : MonoBehaviour {
         controller = GetComponent<CharacterController>();
 
         playerLastPosition = GameObject.Find("PlayerLastSeen");
+        noiseLastPosition = GameObject.Find("NoiseLastSeen");
 
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -54,7 +62,7 @@ public class MutantBaseClass : MonoBehaviour {
         //Movement Handler for when mutant is on and off the ground
         if (controller.isGrounded)
         {
-            if (currentState == MutantStates.Lost || currentState == MutantStates.Chase)
+            if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted)
             {
                 moveDirection = new Vector3(0, 0, 1);
             }
@@ -72,7 +80,7 @@ public class MutantBaseClass : MonoBehaviour {
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        if (currentState == MutantStates.Chase || currentState == MutantStates.Lost)
+        if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted)
         {
             mutantSpeed = 1.0f;
         }
@@ -88,6 +96,29 @@ public class MutantBaseClass : MonoBehaviour {
         {
             transform.LookAt(new Vector3(playerLastPosition.transform.position.x, transform.position.y, playerLastPosition.transform.position.z));
         }
+        else if (currentState == MutantStates.Distracted)
+        {
+            transform.LookAt(new Vector3(noiseLastPosition.transform.position.x, transform.position.y, noiseLastPosition.transform.position.z));
+        }
+
+        if (Input.GetKey(KeyCode.F))
+        {
+            if (Vector3.Distance(transform.position, playerObject.transform.position) < 20)
+            {
+                lineRenderer.enabled = true;
+            }
+            else
+            {
+                lineRenderer.enabled = false;
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            lineRenderer.enabled = false;
+        }
+
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, playerObject.transform.position);
     }
 
     public void AlertMutant()
@@ -117,10 +148,16 @@ public class MutantBaseClass : MonoBehaviour {
     {
         currentState = MutantStates.Wander;
         playerLastPosition.SendMessage("Reset");
+        noiseLastPosition.SendMessage("Reset");
     }
 
     protected void Die()
     {
         gameObject.SetActive(false);
+    }
+
+    protected void Distract()
+    {
+        currentState = MutantStates.Distracted;
     }
 }

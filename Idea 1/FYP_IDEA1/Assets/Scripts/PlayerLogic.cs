@@ -75,6 +75,8 @@ public class PlayerLogic : MonoBehaviour {
     CharacterController controller;
 
     RaycastHit hit;
+    RaycastHit interactHit;
+
     Inventory currentSelected;
     PlayerStates currentState;
     public Weapons[] weapons;
@@ -326,6 +328,18 @@ public class PlayerLogic : MonoBehaviour {
                 lookScript.maximumY = 80f;
                 speedModifier = 1.0f;
                 break;
+        }
+
+        Ray ray = new Ray(camTransform.position, camTransform.forward);
+        if (Physics.Raycast(ray, out interactHit, 10))
+        {
+            if (interactHit.collider.tag == "Interactable")
+            {
+                if (Input.GetKey(KeyCode.E))
+                {
+                    interactHit.collider.gameObject.SendMessage("Activate");
+                }
+            }
         }
 
         ammoText.GetComponent<Text>().text = weapons[currentWeaponIndex].currentAmmo + "/" + weapons[currentWeaponIndex].remainingAmmo;
