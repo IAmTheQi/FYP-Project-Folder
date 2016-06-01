@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SettingsConfig : MonoBehaviour {
@@ -15,4 +16,9 @@ public class SettingsConfig : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void ResetScene()
+    {
+        SceneManager.LoadScene("Level1");
+    }
 }
