@@ -13,6 +13,7 @@ public class PlayerLogic : MonoBehaviour {
     public ParticleSystem gunParticle;
 
     GameObject ammoText;
+    GameObject reloadText;
 
     enum Inventory
     {
@@ -93,6 +94,8 @@ public class PlayerLogic : MonoBehaviour {
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         ammoText = GameObject.Find("AmmoText");
+        reloadText = GameObject.Find("ReloadText");
+        reloadText.SetActive(false);
 
         playerSpeed = 2;
         strafeSlow = 0.5f;
@@ -270,6 +273,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 ShootRay();
                 weapons[currentWeaponIndex].currentAmmo -= 1;
+                gunParticle.Emit(1);
                 timeStamp = Time.time;
             }
         }
@@ -283,6 +287,7 @@ public class PlayerLogic : MonoBehaviour {
 
         if (reloadState)
         {
+            reloadText.SetActive(true);
             if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
             {
                 ReloadWeapon();
@@ -354,7 +359,6 @@ public class PlayerLogic : MonoBehaviour {
         {
             print(hit.collider.name);
             Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
-            gunParticle.Emit(1);
             if (hit.collider.tag == "Mutant")
             {
                 hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
@@ -408,6 +412,7 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         reloadState = false;
+        reloadText.SetActive(false);
     }
     
     

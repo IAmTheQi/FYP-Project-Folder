@@ -55,6 +55,7 @@ public class PlayerLogic : MonoBehaviour {
     public float speedModifier;
     public float jumpForce;
     public float gravity;
+    public float rotateSpeed;
 
     float initialVelocity;
     float currentVelocity;
@@ -69,6 +70,7 @@ public class PlayerLogic : MonoBehaviour {
 
     RaycastHit hit;
     Ray ray;
+    Vector3 rayDir;
     PlayerStates currentState;
     Weapons currentWeapon;
     float timeStamp;
@@ -86,6 +88,7 @@ public class PlayerLogic : MonoBehaviour {
         speedModifier = 1.0f;
         jumpForce = 3.0f;
         gravity = 10.0f;
+        rotateSpeed = 100.0f;
 
         crouchHeight = 1.75f;
         walkHeight = 2.5f;
@@ -98,7 +101,7 @@ public class PlayerLogic : MonoBehaviour {
         attackTwo = false;
         attackThree = false;
 
-        attackRange = 10.0f;
+        attackRange = 20.0f;
 
         attackWindow = 2.0f;
         attackOneLength = 0.8f;
@@ -107,9 +110,11 @@ public class PlayerLogic : MonoBehaviour {
 
         controller = GetComponent<CharacterController>();
 
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        
+        moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
+
         currentState = PlayerStates.Idle;
+
+        rayDir = new Vector3(0, 1, 1);
 
         initialVelocity = 1.0f;
         currentVelocity = 0.0f;
@@ -128,7 +133,16 @@ public class PlayerLogic : MonoBehaviour {
         //Movement Handler for when player is on and off the ground
         if (controller.isGrounded)
         {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
+
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                transform.Rotate(-Vector3.up * rotateSpeed * Time.deltaTime);
+            }
+            else if (Input.GetAxis("Horizontal") > 0)
+            {
+                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+            }
 
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= playerSpeed * speedModifier;
@@ -293,7 +307,7 @@ public class PlayerLogic : MonoBehaviour {
     public void ShootRay(int attack)
     {
         //Fires ray from camera, centre of screen into 3D space
-        ray = new Ray(transform.position, transform.forward);
+        ray = new Ray(transform.position, rayDir);
         if (Physics.Raycast(ray, out hit, attackRange))
         {
             if (attack == 1)

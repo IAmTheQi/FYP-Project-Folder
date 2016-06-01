@@ -17,6 +17,7 @@ public class BossBaseClass: MonoBehaviour{
     public GameObject playerObject;
 
     public float health;
+    public bool dead;
     public GameObject pointA;
     public GameObject pointB;
     public GameObject pointC;
@@ -45,6 +46,8 @@ public class BossBaseClass: MonoBehaviour{
 
         moveDirection = new Vector3(0, 0, 0);
 
+        dead = false;
+
         currentState = BossStates.Wander;
 
         controller = GetComponent<CharacterController>();
@@ -56,41 +59,43 @@ public class BossBaseClass: MonoBehaviour{
 	
 	// Update is called once per frame
 	protected void Update () {
-
-        //Movement Handler for when boss is on and off the ground
-        if (controller.isGrounded && (currentState == BossStates.Wander || currentState == BossStates.Chase))
+        if (!dead)
         {
-            moveDirection = new Vector3(0, 0, 1);
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= bossSpeed;
-        }
-        else if (!controller.isGrounded)
-        {
-            //Gravity drop
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
-        
-        switch (currentState)
-        {
-            case BossStates.Wander:
-                speedModifier = 1.0f;
-                break;
+            //Movement Handler for when boss is on and off the ground
+            if (controller.isGrounded && (currentState == BossStates.Wander || currentState == BossStates.Chase))
+            {
+                moveDirection = new Vector3(0, 0, 1);
+                moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection *= bossSpeed;
+            }
+            else if (!controller.isGrounded)
+            {
+                //Gravity drop
+                moveDirection.y -= gravity * Time.deltaTime;
+            }
 
-            case BossStates.Chase:
-                speedModifier = 2.0f;
-                break;
+            switch (currentState)
+            {
+                case BossStates.Wander:
+                    speedModifier = 1.0f;
+                    break;
 
-            default:
-                speedModifier = 0.0f;
-                break;
+                case BossStates.Chase:
+                    speedModifier = 2.0f;
+                    break;
+
+                default:
+                    speedModifier = 0.0f;
+                    break;
+            }
+
+            //Boss movement modifier
+            controller.Move(moveDirection * speedModifier * Time.deltaTime);
+            /*rotation = Quaternion.LookRotation(relativePosition);
+            transform.rotation = rotation;*/
+            transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
+            //Debug.LogFormat("Grounded:{0}       modifier:{1}        state:{2}", controller.isGrounded, speedModifier, currentState);
         }
-
-        //Boss movement modifier
-        controller.Move(moveDirection * speedModifier * Time.deltaTime);
-        /*rotation = Quaternion.LookRotation(relativePosition);
-        transform.rotation = rotation;*/
-        transform.LookAt(new Vector3(target.transform.position.x, transform.position.y , target.transform.position.z));
-        //Debug.LogFormat("Grounded:{0}       modifier:{1}        state:{2}", controller.isGrounded, speedModifier, currentState);
     }
 
     public void TakeDamage(float value)
@@ -111,9 +116,9 @@ public class BossBaseClass: MonoBehaviour{
 
     }
 
-    public void Die()
+    public virtual void Die()
     {
-
+        dead = true;
     }
 
     public void Alert()

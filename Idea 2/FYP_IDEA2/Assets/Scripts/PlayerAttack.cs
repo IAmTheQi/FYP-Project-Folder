@@ -22,6 +22,5 @@ public class PlayerAttack : MonoBehaviour {
     void Attack(int attack)
     {
         parentScript.ShootRay(attack);
-        Debug.Log("attack");
     }
 }
