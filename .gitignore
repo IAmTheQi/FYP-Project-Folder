@@ -7,6 +7,12 @@
 /[Ll]ibrary/
 sysinfo.txt
 *.stackdump
+# unity transients
+Library/
+Temp/
+*.csproj
+*.sln
+*.unityproj
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -33,10 +39,3 @@ Icon?
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
-
-# unity transients
-Library/
-Temp/
-*.csproj
-*.sln
-*.unityproj
