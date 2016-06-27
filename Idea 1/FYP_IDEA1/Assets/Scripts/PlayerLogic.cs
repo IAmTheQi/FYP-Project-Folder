@@ -66,9 +66,9 @@ public class PlayerLogic : MonoBehaviour {
         public float damageValue;
     }
 
-    float walkHeight;
-    float crouchHeight;
-    float proneHeight;
+    public float walkHeight;
+    public float crouchHeight;
+    public float proneHeight;
 
     bool isWalking;
 
