@@ -58,67 +58,73 @@ public class MutantBaseClass : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected void Update () {
-
-        //Movement Handler for when mutant is on and off the ground
-        if (controller.isGrounded)
+        if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().weaponSelect)
         {
-            if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted)
+
+        }
+        else
+        {
+            //Movement Handler for when mutant is on and off the ground
+            if (controller.isGrounded)
             {
-                moveDirection = new Vector3(0, 0, 1);
+                if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted)
+                {
+                    moveDirection = new Vector3(0, 0, 1);
+                }
+                else if (currentState == MutantStates.Wander)
+                {
+                    moveDirection = new Vector3(0, 0, 0);
+                }
+
+                moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection *= mutantSpeed;
             }
-            else if (currentState == MutantStates.Wander)
+            else if (!controller.isGrounded)
             {
-                moveDirection = new Vector3(0, 0, 0);
+                //Gravity drop
+                moveDirection.y -= gravity * Time.deltaTime;
             }
 
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= mutantSpeed;
-        }
-        else if (!controller.isGrounded)
-        {
-            //Gravity drop
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
-
-        if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted)
-        {
-            mutantSpeed = 1.0f;
-        }
-
-        //Mutant movement modifier
-        controller.Move(moveDirection * Time.deltaTime);
-
-        if ((currentState == MutantStates.Alerted || currentState == MutantStates.Chase) && currentState != MutantStates.Lost)
-        {
-            transform.LookAt(new Vector3(playerObject.transform.position.x, transform.position.y, playerObject.transform.position.z));
-        }
-        else if (currentState == MutantStates.Lost)
-        {
-            transform.LookAt(new Vector3(playerLastPosition.transform.position.x, transform.position.y, playerLastPosition.transform.position.z));
-        }
-        else if (currentState == MutantStates.Distracted)
-        {
-            transform.LookAt(new Vector3(noiseLastPosition.transform.position.x, transform.position.y, noiseLastPosition.transform.position.z));
-        }
-
-        if (Input.GetKey(KeyCode.F))
-        {
-            if (Vector3.Distance(transform.position, playerObject.transform.position) < 20)
+            if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted)
             {
-                lineRenderer.enabled = true;
+                mutantSpeed = 1.0f;
             }
-            else
+
+            //Mutant movement modifier
+            controller.Move(moveDirection * Time.deltaTime);
+
+            if ((currentState == MutantStates.Alerted || currentState == MutantStates.Chase) && currentState != MutantStates.Lost)
+            {
+                transform.LookAt(new Vector3(playerObject.transform.position.x, transform.position.y, playerObject.transform.position.z));
+            }
+            else if (currentState == MutantStates.Lost)
+            {
+                transform.LookAt(new Vector3(playerLastPosition.transform.position.x, transform.position.y, playerLastPosition.transform.position.z));
+            }
+            else if (currentState == MutantStates.Distracted)
+            {
+                transform.LookAt(new Vector3(noiseLastPosition.transform.position.x, transform.position.y, noiseLastPosition.transform.position.z));
+            }
+
+            if (Input.GetKey(KeyCode.F))
+            {
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 20)
+                {
+                    lineRenderer.enabled = true;
+                }
+                else
+                {
+                    lineRenderer.enabled = false;
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.F))
             {
                 lineRenderer.enabled = false;
             }
-        }
-        else if (Input.GetKeyUp(KeyCode.F))
-        {
-            lineRenderer.enabled = false;
-        }
 
-        lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, playerObject.transform.position);
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, playerObject.transform.position);
+        }
     }
 
     public void AlertMutant()

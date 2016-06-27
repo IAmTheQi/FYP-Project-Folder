@@ -12,10 +12,23 @@ public class PlayerLogic : MonoBehaviour {
 
     public ParticleSystem gunParticle;
 
+    public bool pauseGame;
+    public bool weaponSelect;
+
     GameObject ammoText;
     GameObject reloadText;
+    GameObject weaponIcon;
 
-    enum Inventory
+    GameObject healthBar;
+
+    GameObject weaponWheel;
+    GameObject riflePanel;
+    GameObject pistolPanel;
+    GameObject knifePanel;
+    GameObject katanaPanel;
+    GameObject sniperPanel;
+
+    public enum Inventory
     {
         Rifle,
         Pistol,
@@ -38,6 +51,11 @@ public class PlayerLogic : MonoBehaviour {
     public struct Weapons
     {
         public string weaponName;
+        public Sprite weaponSprite;
+        public Sprite selectedPanel;
+        public Sprite unselectedPanel;
+        public Sprite lockedPanel;
+        public bool locked;
         public byte currentAmmo;
         public byte magazineSize;
         public byte remainingAmmo;
@@ -54,10 +72,11 @@ public class PlayerLogic : MonoBehaviour {
 
     bool isWalking;
 
-    byte currentWeaponIndex;
+    public byte currentWeaponIndex;
 
     public Texture2D crossHair;
 
+    public float playerHealth;
     public byte playerSpeed;
     public float strafeSlow;
     public float speedModifier;
@@ -78,11 +97,18 @@ public class PlayerLogic : MonoBehaviour {
     RaycastHit hit;
     RaycastHit interactHit;
 
-    Inventory currentSelected;
+    public Inventory currentSelected;
     PlayerStates currentState;
     public Weapons[] weapons;
-    float timeStamp;
-    bool reloadState;
+    public float timeStamp;
+    public bool reloadState;
+
+    [FMODUnity.EventRef]
+    public string footsteps = "event:/PlayerFootstep";
+    FMOD.Studio.EventInstance walkingEv;
+    FMOD.Studio.ParameterInstance walkingParam;
+
+    float param;
 
     // Use this for initialization
     void Start() {
@@ -91,12 +117,26 @@ public class PlayerLogic : MonoBehaviour {
         cameraLerpScript = cam1.GetComponent<MoveCamera>();
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
+        pauseGame = false;
+        weaponSelect = false;
+
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         ammoText = GameObject.Find("AmmoText");
         reloadText = GameObject.Find("ReloadText");
         reloadText.SetActive(false);
+        weaponIcon = GameObject.Find("Weapon Icon");
 
+        healthBar = GameObject.Find("Health Bar");
+
+        weaponWheel = GameObject.Find("Weapon Wheel");
+        riflePanel = GameObject.Find("Rifle Panel");
+        pistolPanel = GameObject.Find("Pistol Panel");
+        knifePanel = GameObject.Find("Knife Panel");
+        katanaPanel = GameObject.Find("Katana Panel");
+        sniperPanel = GameObject.Find("Sniper Panel");
+
+        playerHealth = 100;
         playerSpeed = 2;
         strafeSlow = 0.5f;
         speedModifier = 1.0f;
@@ -122,232 +162,354 @@ public class PlayerLogic : MonoBehaviour {
         maxVelocity = 5.0f;
         forwardAccelerationRate = 2.5f;
         reverseAccelerationRate = 0.5f;
-        deccelerationRate = 2.5f;
+        deccelerationRate = 4.5f;
 
         timeStamp = Time.time;
         reloadState = false;
+
+        walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
+        walkingEv.getParameter("Speed", out walkingParam);
+        walkingEv.start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Movement Handler for when player is on and off the ground
-        if (controller.isGrounded)
+        if (pauseGame)
         {
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            {
-                moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-                currentVelocity += forwardAccelerationRate * Time.deltaTime;
 
-                if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
+        }
+        else if (weaponSelect)
+        {
+            weaponWheel.SetActive(true);
+
+            if (Input.GetKeyUp(KeyCode.Q))
+            {
+                weaponSelect = false;
+            }
+        }
+        else
+        {
+            weaponWheel.SetActive(false);
+
+            //Movement Handler for when player is on and off the ground
+            if (controller.isGrounded)
+            {
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
-                    currentState = PlayerStates.Walk;
+                    moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                    currentVelocity += forwardAccelerationRate * Time.deltaTime;
+
+                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
+                    {
+                        currentState = PlayerStates.Walk;
+                    }
+
+                    moveDirection = transform.TransformDirection(moveDirection);
+
+                    //Sprinting key (Left Shift)
+                    if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Z))
+                    {
+                        currentState = PlayerStates.Run;
+                    }
+                }
+                else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
+                {
+                    currentState = PlayerStates.Idle;
+                    currentVelocity -= deccelerationRate * Time.deltaTime;
                 }
 
-                moveDirection = transform.TransformDirection(moveDirection);
-
-                //Sprinting key (Left Shift)
-                if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Z))
+                //Crouch key (Left Control)
+                if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
                 {
-                    currentState = PlayerStates.Run;
+                    currentState = PlayerStates.Crouch;
+                    cameraLerpScript.LerpCamera("B");
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftControl))
+                {
+                    cameraLerpScript.LerpCamera("A");
+                }
+
+                //Prone key ("Z" key)
+                if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    currentState = PlayerStates.Prone;
+                    cameraLerpScript.LerpCamera("C");
+                }
+                else if (Input.GetKeyUp(KeyCode.Z))
+                {
+                    cameraLerpScript.LerpCamera("A");
+                }
+
+                //Jumping (Space)
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    moveDirection.y = jumpForce;
+                    currentState = PlayerStates.Jump;
                 }
             }
-            else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) &&!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
+            else if (!controller.isGrounded)
             {
-                currentState = PlayerStates.Idle;
-                currentVelocity -= deccelerationRate * Time.deltaTime;
+                //Gravity drop
+                moveDirection.y -= gravity * Time.deltaTime;
             }
 
-            //Crouch key (Left Control)
-            if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
-            {
-                currentState = PlayerStates.Crouch;
-                cameraLerpScript.LerpCamera("B");
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                cameraLerpScript.LerpCamera("A");
-            }
+            currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
 
-            //Prone key ("Z" key)
-            if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
+            //Player movement modifier
+            controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
+            walkingParam.setValue(speedModifier * currentVelocity);
+
+            //Debug.LogFormat("State:{0}      velo:{1}        param:{2}", currentState, (speedModifier * currentVelocity));
+
+            //Weapon change key handler
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                currentState = PlayerStates.Prone;
-                cameraLerpScript.LerpCamera("C");
-            }
-            else if (Input.GetKeyUp(KeyCode.Z))
-            {
-                cameraLerpScript.LerpCamera("A");
+                //If current weapon is not alredy the target weapon
+                if (currentSelected != Inventory.Rifle)
+                {
+                    SwitchWeapon(0);
+                }
             }
 
-            //Jumping (Space)
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                moveDirection.y = jumpForce;
-                currentState = PlayerStates.Jump;
+                //If current weapon is not alredy the target weapon
+                if (currentSelected != Inventory.Pistol)
+                {
+                    SwitchWeapon(1);
+                }
             }
-        }
-        else if (!controller.isGrounded)
-        {
-            //Gravity drop
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
 
-        currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
-
-        //Player movement modifier
-        controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
-
-        //Weapon change key handler
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Rifle)
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                currentSelected = Inventory.Rifle;
-                currentWeaponIndex = 0;
-                reloadState = false;
+                //If current weapon is not alredy the target weapon
+                if (currentSelected != Inventory.Knife)
+                {
+                    SwitchWeapon(2);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4) && !weapons[3].locked)
+            {
+                //If current weapon is not alredy the target weapon
+                if (currentSelected != Inventory.Katana)
+                {
+                    SwitchWeapon(3);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5) && !weapons[4].locked)
+            {
+                //If current weapon is not alredy the target weapon
+                if (currentSelected != Inventory.Sniper)
+                {
+                    SwitchWeapon(4);
+                }
+            }
+
+            //Reload key ("R" key)
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState)
+            {
+                reloadState = true;
                 timeStamp = Time.time;
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Pistol)
+            //Left Mouse Button Shoot
+            if (Input.GetMouseButton(0))
             {
-                currentSelected = Inventory.Pistol;
-                currentWeaponIndex = 1;
-                reloadState = false;
+                if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                {
+                    ShootRay();
+                    weapons[currentWeaponIndex].currentAmmo -= 1;
+                    gunParticle.Emit(1);
+                    timeStamp = Time.time;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                weaponSelect = true;
+            }
+
+            //Check for Reload need
+            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState)
+            {
+                reloadState = true;
                 timeStamp = Time.time;
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Knife)
+            if (reloadState)
             {
-                currentSelected = Inventory.Knife;
-                currentWeaponIndex = 2;
-                reloadState = false;
-                timeStamp = Time.time;
+                reloadText.SetActive(true);
+                if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
+                {
+                    ReloadWeapon();
+                }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Katana)
+            //Check current movement state to adjust speed multiplier accordingly
+            switch (currentState)
             {
-                currentSelected = Inventory.Katana;
-                currentWeaponIndex = 3;
-                reloadState = false;
-                timeStamp = Time.time;
+                case PlayerStates.Walk:
+                    controller.height = walkHeight;
+                    lookScript.minimumY = -80f;
+                    lookScript.maximumY = 80f;
+                    speedModifier = 1.0f;
+                    break;
+                case PlayerStates.Run:
+                    controller.height = walkHeight;
+                    lookScript.minimumY = -80f;
+                    lookScript.maximumY = 80f;
+                    speedModifier = 2.0f;
+                    break;
+                case PlayerStates.Crouch:
+                    controller.height = crouchHeight;
+                    lookScript.minimumY = -40f;
+                    lookScript.maximumY = 80f;
+                    speedModifier = 0.5f;
+                    break;
+                case PlayerStates.Prone:
+                    controller.height = proneHeight;
+                    lookScript.minimumY = 0f;
+                    lookScript.maximumY = 40f;
+                    speedModifier = 0.25f;
+                    break;
+                case PlayerStates.Idle:
+                    controller.height = walkHeight;
+                    lookScript.minimumY = -80f;
+                    lookScript.maximumY = 80f;
+                    speedModifier = 1.0f;
+                    break;
+                case PlayerStates.Jump:
+                    controller.height = walkHeight;
+                    lookScript.minimumY = -80f;
+                    lookScript.maximumY = 80f;
+                    speedModifier = 1.0f;
+                    break;
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            //If current weapon is not alredy the target weapon
-            if (currentSelected != Inventory.Sniper)
+            Ray ray = new Ray(camTransform.position, camTransform.forward);
+            if (Physics.Raycast(ray, out interactHit, 10))
             {
-                currentSelected = Inventory.Sniper;
-                currentWeaponIndex = 4;
-                reloadState = false;
-                timeStamp = Time.time;
+                if (interactHit.collider.tag == "Interactable")
+                {
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        interactHit.collider.gameObject.SendMessage("Activate");
+                    }
+                }
             }
+
+            playerHealth -= 0.05f;
         }
         
-        //Reload key ("R" key)
-        if (Input.GetKeyDown(KeyCode.R) && !reloadState)
-        {
-            reloadState = true;
-            timeStamp = Time.time;
-        }
 
-        //Left Mouse Button Shoot
-        if (Input.GetMouseButton(0))
-        {
-            if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
-            {
-                ShootRay();
-                weapons[currentWeaponIndex].currentAmmo -= 1;
-                gunParticle.Emit(1);
-                timeStamp = Time.time;
-            }
-        }
 
-        //Check for Reload need
-        if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState)
-        {
-            reloadState = true;
-            timeStamp = Time.time;
-        }
+        //UI Elements
+        //Ammo Text
+        ammoText.GetComponent<Text>().text = weapons[currentWeaponIndex].currentAmmo + "|" + weapons[currentWeaponIndex].remainingAmmo;
 
-        if (reloadState)
-        {
-            reloadText.SetActive(true);
-            if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
-            {
-                ReloadWeapon();
-            }
-        }
+        //HUD Weapon Icon
+        weaponIcon.GetComponent<Image>().sprite = weapons[currentWeaponIndex].weaponSprite;
 
-        //Check current movement state to adjust speed multiplier accordingly
-        switch (currentState)
-        {
-            case PlayerStates.Walk:
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                speedModifier = 1.0f;
-                break;
-            case PlayerStates.Run:
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                speedModifier = 2.0f;
-                break;
-            case PlayerStates.Crouch:
-                controller.height = crouchHeight;
-                lookScript.minimumY = -40f;
-                lookScript.maximumY = 80f;
-                speedModifier = 0.5f;
-                break;
-            case PlayerStates.Prone:
-                controller.height = proneHeight;
-                lookScript.minimumY = 0f;
-                lookScript.maximumY = 40f;
-                speedModifier = 0.25f;
-                break;
-            case PlayerStates.Idle:
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                speedModifier = 1.0f;
-                break;
-            case PlayerStates.Jump:
-                controller.height = walkHeight;
-                lookScript.minimumY = -80f;
-                lookScript.maximumY = 80f;
-                speedModifier = 1.0f;
-                break;
-        }
+        //Health Bar
+        healthBar.GetComponent<Image>().fillAmount = (playerHealth / 100) * 0.61f;
+        healthBar.GetComponent<Image>().fillAmount = Mathf.Clamp(healthBar.GetComponent<Image>().fillAmount, 0f, 0.66f) + 0.05f;
 
-        Ray ray = new Ray(camTransform.position, camTransform.forward);
-        if (Physics.Raycast(ray, out interactHit, 10))
+        //Debug.LogFormat("health:{0}        Fill:{1}", playerHealth, healthBar.GetComponent<Image>().fillAmount);
+
+        //Weapon Wheel
+        switch (currentSelected)
         {
-            if (interactHit.collider.tag == "Interactable")
-            {
-                if (Input.GetKey(KeyCode.E))
+            case Inventory.Rifle:
+                riflePanel.GetComponent<Image>().sprite = weapons[0].selectedPanel;
+                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
+                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
+
+                if (weapons[3].locked)
                 {
-                    interactHit.collider.gameObject.SendMessage("Activate");
+                    katanaPanel.GetComponent<Image>().sprite = weapons[3].lockedPanel;
                 }
-            }
-        }
+                else
+                {
+                    katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
+                }
 
-        ammoText.GetComponent<Text>().text = weapons[currentWeaponIndex].currentAmmo + "/" + weapons[currentWeaponIndex].remainingAmmo;
+                if (weapons[4].locked)
+                {
+                    sniperPanel.GetComponent<Image>().sprite = weapons[4].lockedPanel;
+                }
+                else
+                {
+                    sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
+                }
+                break;
+
+            case Inventory.Pistol:
+                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
+                pistolPanel.GetComponent<Image>().sprite = weapons[1].selectedPanel;
+                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
+
+                if (weapons[3].locked)
+                {
+                    katanaPanel.GetComponent<Image>().sprite = weapons[3].lockedPanel;
+                }
+                else
+                {
+                    katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
+                }
+
+                if (weapons[4].locked)
+                {
+                    sniperPanel.GetComponent<Image>().sprite = weapons[4].lockedPanel;
+                }
+                else
+                {
+                    sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
+                }
+                break;
+
+            case Inventory.Knife:
+                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
+                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
+                knifePanel.GetComponent<Image>().sprite = weapons[2].selectedPanel;
+
+                if (weapons[3].locked)
+                {
+                    katanaPanel.GetComponent<Image>().sprite = weapons[3].lockedPanel;
+                }
+                else
+                {
+                    katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
+                }
+
+                if (weapons[4].locked)
+                {
+                    sniperPanel.GetComponent<Image>().sprite = weapons[4].lockedPanel;
+                }
+                else
+                {
+                    sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
+                }
+                break;
+
+            case Inventory.Katana:
+                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
+                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
+                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
+                katanaPanel.GetComponent<Image>().sprite = weapons[3].selectedPanel;
+                sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
+                break;
+
+            case Inventory.Sniper:
+                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
+                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
+                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
+                katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
+                sniperPanel.GetComponent<Image>().sprite = weapons[4].selectedPanel;
+                break;
+        }
     }
 
     //Shooting raycast check
@@ -413,6 +575,46 @@ public class PlayerLogic : MonoBehaviour {
 
         reloadState = false;
         reloadText.SetActive(false);
+    }
+
+    public void SwitchWeapon(int target)
+    {
+        Debug.Log(target);
+        if (target == 0)
+        {
+            currentSelected = Inventory.Rifle;
+            currentWeaponIndex = 0;
+            reloadState = false;
+            timeStamp = Time.time;
+        }
+        else if (target == 1)
+        {
+            currentSelected = Inventory.Pistol;
+            currentWeaponIndex = 1;
+            reloadState = false;
+            timeStamp = Time.time;
+        }
+        else if (target == 2)
+        {
+            currentSelected = Inventory.Knife;
+            currentWeaponIndex = 2;
+            reloadState = false;
+            timeStamp = Time.time;
+        }
+        else if (target == 3 && !weapons[3].locked)
+        {
+            currentSelected = Inventory.Katana;
+            currentWeaponIndex = 3;
+            reloadState = false;
+            timeStamp = Time.time;
+        }
+        else if (target == 4 && !weapons[4].locked)
+        {
+            currentSelected = Inventory.Sniper;
+            currentWeaponIndex = 4;
+            reloadState = false;
+            timeStamp = Time.time;
+        }
     }
     
     
