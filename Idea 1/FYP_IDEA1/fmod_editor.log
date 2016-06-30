@@ -25,10 +25,52 @@
 [LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 1
 [LOG] Thread::callback                         : * FMOD Studio bank load thread started
 [LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
-[LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
+[LOG] LiveUpdate::clientConnected              : client = 000000003C91BF38
+[LOG] Manager::sendConnectTimeHash             : 
+[LOG] LiveUpdate::sendConnectTimeHash          : 
+[LOG] Manager::finishSync                      : 
+[LOG] LiveUpdate::transitionToConnected        : 
+[LOG] LiveUpdate::update                       : Established connection[LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
 [LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
 [LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SoundI::release                          : (null) (00000000322EEA18)
+[LOG] SoundI::release                          : release subsounds. (00000000322EEA18)
+[LOG] SoundI::release                          :     (null) (0000000032445898)
+[LOG] SoundI::release                          : release codec. (00000000322EEA18)
+[LOG] SoundI::release                          : (null) (0000000032902528)
+[LOG] SoundI::release                          : release subsounds. (0000000032902528)
+[LOG] SoundI::release                          :     (null) (00000000324453E8)
+[LOG] SoundI::release                          : release codec. (0000000032902528)
+[LOG] SoundI::release                          : (null) (00000000329023B8)
+[LOG] SoundI::release                          : release subsounds. (00000000329023B8)
+[LOG] SoundI::release                          :     (null) (00000000324450C8)
+[LOG] SoundI::release                          : release codec. (00000000329023B8)
+[LOG] Thread::callback                         : * FMOD Studio update thread finished
+[LOG] Thread::close                            : FMOD Studio update thread thread destroyed
+[LOG] Thread::callback                         : * FMOD Studio bank load thread finished
+[LOG] Thread::close                            : FMOD Studio bank load thread thread destroyed
+[LOG] LiveUpdate::clientDisconnected           : client = 000000003C91BF38
+[LOG] LiveUpdate::disconnect                   : 
+[LOG] LiveUpdate::transitionToListening        : 
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : * FMOD Studio sample load thread finished
+[LOG] Thread::close                            : FMOD Studio sample load thread thread destroyed
+[LOG] LiveUpdate::release                      : 
+[LOG] SystemI::close                           : 
+[LOG] SystemI::close                           : Stop all sounds
+[LOG] Thread::callback                         : * FMOD stream thread finished
+[LOG] Thread::close                            : FMOD stream thread thread destroyed
+[LOG] SystemI::close                           : Stream thread destroyed
+[LOG] Thread::callback                         : * FMOD mixer thread finished
+[LOG] Thread::close                            : FMOD mixer thread thread destroyed
+[LOG] SystemI::close                           : Free master channel group.
+[LOG] SystemI::close                           : Remove 'master' sound group.
+[LOG] SystemI::close                           : Free software output.
+[LOG] SystemI::close                           : Free emulated output.
+[LOG] SystemI::close                           : Free channel pool.
+[LOG] SystemI::close                           : done.
+
 [LOG] Thread::callback                         : * FMOD Studio bank load thread finished
 [LOG] Thread::close                            : FMOD Studio bank load thread thread destroyed
 [LOG] Thread::callback                         : * FMOD Studio sample load thread finished

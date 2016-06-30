@@ -107,6 +107,7 @@ public class PlayerLogic : MonoBehaviour {
     public string footsteps = "event:/PlayerFootstep";
     FMOD.Studio.EventInstance walkingEv;
     FMOD.Studio.ParameterInstance walkingParam;
+    public FMOD.Studio.ParameterInstance surfaceParam;
 
     float param;
 
@@ -169,6 +170,7 @@ public class PlayerLogic : MonoBehaviour {
 
         walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
         walkingEv.getParameter("Speed", out walkingParam);
+        walkingEv.getParameter("Surface", out surfaceParam);
         walkingEv.start();
     }
 
@@ -223,22 +225,22 @@ public class PlayerLogic : MonoBehaviour {
                 if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
                 {
                     currentState = PlayerStates.Crouch;
-                    cameraLerpScript.LerpCamera("B");
+                    //cameraLerpScript.LerpCamera("B");
                 }
                 else if (Input.GetKeyUp(KeyCode.LeftControl))
                 {
-                    cameraLerpScript.LerpCamera("A");
+                    //cameraLerpScript.LerpCamera("A");
                 }
 
                 //Prone key ("Z" key)
                 if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     currentState = PlayerStates.Prone;
-                    cameraLerpScript.LerpCamera("C");
+                    //cameraLerpScript.LerpCamera("C");
                 }
                 else if (Input.GetKeyUp(KeyCode.Z))
                 {
-                    cameraLerpScript.LerpCamera("A");
+                    //cameraLerpScript.LerpCamera("A");
                 }
 
                 //Jumping (Space)
@@ -260,7 +262,7 @@ public class PlayerLogic : MonoBehaviour {
             controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
             walkingParam.setValue(speedModifier * currentVelocity);
 
-            //Debug.LogFormat("State:{0}      velo:{1}        param:{2}", currentState, (speedModifier * currentVelocity));
+            //Debug.LogFormat("State:{0}      velo:{1}", currentState, (speedModifier * currentVelocity));
 
             //Weapon change key handler
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -400,8 +402,6 @@ public class PlayerLogic : MonoBehaviour {
                     }
                 }
             }
-
-            playerHealth -= 0.05f;
         }
         
 
@@ -531,10 +531,15 @@ public class PlayerLogic : MonoBehaviour {
     //Enemy detection
     void OnControllerColliderHit(ControllerColliderHit collider)
     {
-        if (collider.gameObject.tag == "Mutant")
+        /*if (collider.gameObject.tag == "Mutant")
         {
             KillPlayer();
-        }
+        }*/
+    }
+
+    public void TakeDamage(float value)
+    {
+        playerHealth -= value;
     }
 
     //Die function
@@ -617,7 +622,23 @@ public class PlayerLogic : MonoBehaviour {
         }
     }
     
-    
+    public void ChangeSurface(string target)
+    {
+
+        Debug.Log("change");
+        if (target == "Concrete")
+        {
+            surfaceParam.setValue(1.0f);
+        }
+        else if (target == "Dirt")
+        {
+            surfaceParam.setValue(2.0f);
+        }
+        else if (target == "Wood")
+        {
+            surfaceParam.setValue(3.0f);
+        }
+    }
     /*
     var bulletSpeed: float = 1000; // bullet speed in meters/second var shotSound: AudioClip;
 

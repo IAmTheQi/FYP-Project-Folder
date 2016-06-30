@@ -29,6 +29,11 @@ public class MutantBaseClass : MonoBehaviour {
 
     CharacterController controller;
 
+    public float damage;
+    public float attackCounter;
+    public float attackDelay;
+    public float timeStamp;
+
     protected GameObject playerLastPosition;
     protected GameObject noiseLastPosition;
 
@@ -48,6 +53,11 @@ public class MutantBaseClass : MonoBehaviour {
         currentState = MutantStates.Wander;
 
         controller = GetComponent<CharacterController>();
+
+        damage = 5.0f;
+        attackCounter = 0.0f;
+        attackDelay = 2.0f;
+        timeStamp = Time.time;
 
         playerLastPosition = GameObject.Find("PlayerLastSeen");
         noiseLastPosition = GameObject.Find("NoiseLastSeen");
@@ -106,6 +116,21 @@ public class MutantBaseClass : MonoBehaviour {
                 transform.LookAt(new Vector3(noiseLastPosition.transform.position.x, transform.position.y, noiseLastPosition.transform.position.z));
             }
 
+            //Attack Player Counter
+            if (currentState == MutantStates.Alerted)
+            {
+                Debug.Log(Vector3.Distance(transform.position, playerObject.transform.position));
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 10.0f)
+                {
+                    if (Time.time > (timeStamp + attackDelay))
+                    {
+                        AttackPlayer();
+                        timeStamp = Time.time;
+                    }
+                }
+            }
+
+            //Heartbeat sensing
             if (Input.GetKey(KeyCode.F))
             {
                 if (Vector3.Distance(transform.position, playerObject.transform.position) < 20)
@@ -165,5 +190,10 @@ public class MutantBaseClass : MonoBehaviour {
     protected void Distract()
     {
         currentState = MutantStates.Distracted;
+    }
+
+    protected void AttackPlayer()
+    {
+        playerObject.GetComponent<PlayerLogic>().TakeDamage(damage);
     }
 }
