@@ -157,11 +157,11 @@ public class PlayerLogic : MonoBehaviour {
         playerSpeed = 2;
         strafeSlow = 0.5f;
         speedModifier = 1.0f;
-        jumpForce = 3.0f;
+        jumpForce = 2.0f;
         gravity = 10.0f;
 
         crouchHeight = 1.75f;
-        walkHeight = 2.5f;
+        walkHeight = 4.5f;
         proneHeight = 1.0f;
 
         isWalking = false;
