@@ -54,7 +54,7 @@ public class MutantBaseClass : MonoBehaviour {
 
         controller = GetComponent<CharacterController>();
 
-        damage = 5.0f;
+        damage = 10.0f;
         attackCounter = 0.0f;
         attackDelay = 2.0f;
         timeStamp = Time.time;
@@ -117,7 +117,7 @@ public class MutantBaseClass : MonoBehaviour {
             }
 
             //Attack Player Counter
-            if (currentState == MutantStates.Alerted)
+            if (currentState == MutantStates.Chase)
             {
                 Debug.Log(Vector3.Distance(transform.position, playerObject.transform.position));
                 if (Vector3.Distance(transform.position, playerObject.transform.position) < 10.0f)
@@ -133,6 +133,7 @@ public class MutantBaseClass : MonoBehaviour {
             //Heartbeat sensing
             if (Input.GetKey(KeyCode.F))
             {
+                playerObject.GetComponent<PlayerLogic>().focus = true;
                 if (Vector3.Distance(transform.position, playerObject.transform.position) < 20)
                 {
                     lineRenderer.enabled = true;
@@ -144,6 +145,7 @@ public class MutantBaseClass : MonoBehaviour {
             }
             else if (Input.GetKeyUp(KeyCode.F))
             {
+                playerObject.GetComponent<PlayerLogic>().focus = false;
                 lineRenderer.enabled = false;
             }
 

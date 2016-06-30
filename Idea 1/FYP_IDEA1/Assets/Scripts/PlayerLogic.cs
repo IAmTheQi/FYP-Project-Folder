@@ -21,6 +21,11 @@ public class PlayerLogic : MonoBehaviour {
 
     GameObject healthBar;
 
+    GameObject bloodOverlay;
+    Color bloodAlpha;
+    GameObject shadowOverlay;
+    Color shadowAlpha;
+
     GameObject weaponWheel;
     GameObject riflePanel;
     GameObject pistolPanel;
@@ -72,6 +77,8 @@ public class PlayerLogic : MonoBehaviour {
 
     bool isWalking;
 
+    public bool focus;
+
     public byte currentWeaponIndex;
 
     public Texture2D crossHair;
@@ -103,6 +110,10 @@ public class PlayerLogic : MonoBehaviour {
     public float timeStamp;
     public bool reloadState;
 
+    float regenTimer;
+    float regenDelay;
+    bool regenHealth;
+
     [FMODUnity.EventRef]
     public string footsteps = "event:/PlayerFootstep";
     FMOD.Studio.EventInstance walkingEv;
@@ -130,6 +141,11 @@ public class PlayerLogic : MonoBehaviour {
 
         healthBar = GameObject.Find("Health Bar");
 
+        bloodOverlay = GameObject.Find("BloodOverlay");
+        bloodAlpha = bloodOverlay.GetComponent<Image>().color;
+        shadowOverlay = GameObject.Find("ShadowOverlay");
+        shadowAlpha = shadowOverlay.GetComponent<Image>().color;
+
         weaponWheel = GameObject.Find("Weapon Wheel");
         riflePanel = GameObject.Find("Rifle Panel");
         pistolPanel = GameObject.Find("Pistol Panel");
@@ -150,6 +166,8 @@ public class PlayerLogic : MonoBehaviour {
 
         isWalking = false;
 
+        focus = false;
+
         controller = GetComponent<CharacterController>();
 
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -167,6 +185,10 @@ public class PlayerLogic : MonoBehaviour {
 
         timeStamp = Time.time;
         reloadState = false;
+
+        regenTimer = 0.0f;
+        regenDelay = 5.0f;
+        regenHealth = false;
 
         walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
         walkingEv.getParameter("Speed", out walkingParam);
@@ -350,6 +372,52 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
+            //Health Handler
+            if (playerHealth < 100.0f)
+            {
+                if (regenTimer < regenDelay)
+                {
+                    regenTimer += Time.deltaTime;
+                }
+                else
+                {
+                    regenHealth = true;
+                }
+            }
+
+            if (playerHealth < 50.0f)
+            {
+                bloodAlpha = bloodOverlay.GetComponent<Image>().color;
+                bloodAlpha.a += 0.05f;
+            }
+            else if (playerHealth > 50.0f)
+            {
+                bloodAlpha = bloodOverlay.GetComponent<Image>().color;
+                bloodAlpha.a -= 0.05f;
+            }
+
+            if (regenHealth)
+            {
+                playerHealth += 1.0f;
+                if (playerHealth > 100)
+                {
+                    playerHealth = 100.0f;
+                    regenTimer = 0.0f;
+                    regenHealth = false;
+                }
+            }
+
+            //Focus
+            if (focus)
+            {
+                shadowAlpha = shadowOverlay.GetComponent<Image>().color;
+                shadowAlpha.a += 0.05f;
+            }
+            else
+            {
+                shadowAlpha.a -= 0.05f;
+            }
+
             //Check current movement state to adjust speed multiplier accordingly
             switch (currentState)
             {
@@ -416,6 +484,12 @@ public class PlayerLogic : MonoBehaviour {
         //Health Bar
         healthBar.GetComponent<Image>().fillAmount = (playerHealth / 100) * 0.61f;
         healthBar.GetComponent<Image>().fillAmount = Mathf.Clamp(healthBar.GetComponent<Image>().fillAmount, 0f, 0.66f) + 0.05f;
+
+        //Shadow and Blood Overlay
+        bloodAlpha.a = Mathf.Clamp(bloodAlpha.a, 0.0f, 0.8f);
+        bloodOverlay.GetComponent<Image>().color = bloodAlpha;
+        shadowAlpha.a = Mathf.Clamp(shadowAlpha.a, 0.0f, 0.8f);
+        shadowOverlay.GetComponent<Image>().color = shadowAlpha;
 
         //Debug.LogFormat("health:{0}        Fill:{1}", playerHealth, healthBar.GetComponent<Image>().fillAmount);
 
@@ -540,6 +614,7 @@ public class PlayerLogic : MonoBehaviour {
     public void TakeDamage(float value)
     {
         playerHealth -= value;
+        regenTimer = 0.0f;
     }
 
     //Die function
@@ -624,8 +699,6 @@ public class PlayerLogic : MonoBehaviour {
     
     public void ChangeSurface(string target)
     {
-
-        Debug.Log("change");
         if (target == "Concrete")
         {
             surfaceParam.setValue(1.0f);
