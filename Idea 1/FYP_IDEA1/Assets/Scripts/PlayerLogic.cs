@@ -33,6 +33,10 @@ public class PlayerLogic : MonoBehaviour {
     GameObject katanaPanel;
     GameObject sniperPanel;
 
+    public GameObject rifleObject;
+    public GameObject pistolObject;
+    public GameObject knifeObject;
+
     public enum Inventory
     {
         Rifle,
@@ -120,6 +124,21 @@ public class PlayerLogic : MonoBehaviour {
     FMOD.Studio.ParameterInstance walkingParam;
     public FMOD.Studio.ParameterInstance surfaceParam;
 
+    [FMODUnity.EventRef]
+    public string panting = "event:/PlayerPant";
+    FMOD.Studio.EventInstance pantingEv;
+    FMOD.Studio.ParameterInstance pantingParam;
+
+    [FMODUnity.EventRef]
+    public string rifleSound = "event:/Rifle";
+
+    [FMODUnity.EventRef]
+    public string pistolSound = "event:/Pistol";
+
+    [FMODUnity.EventRef]
+    public string knifeSound = "event:/Knife";
+
+
     float param;
 
     // Use this for initialization
@@ -161,7 +180,6 @@ public class PlayerLogic : MonoBehaviour {
         gravity = 10.0f;
 
         crouchHeight = 1.75f;
-        walkHeight = 4.5f;
         proneHeight = 1.0f;
 
         isWalking = false;
@@ -194,6 +212,11 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.getParameter("Speed", out walkingParam);
         walkingEv.getParameter("Surface", out surfaceParam);
         walkingEv.start();
+
+        pantingEv = FMODUnity.RuntimeManager.CreateInstance(panting);
+        pantingEv.getParameter("Panting", out pantingParam);
+        pantingEv.start();
+        pantingParam.setValue(0.0f);
     }
 
     // Update is called once per frame
@@ -207,7 +230,7 @@ public class PlayerLogic : MonoBehaviour {
         {
             weaponWheel.SetActive(true);
 
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Tab))
             {
                 weaponSelect = false;
             }
@@ -346,12 +369,26 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     ShootRay();
                     weapons[currentWeaponIndex].currentAmmo -= 1;
-                    gunParticle.Emit(1);
+
+                    if (currentWeaponIndex == 0)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
+                        gunParticle.Emit(1);
+                    }
+                    else if (currentWeaponIndex == 1)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
+                        gunParticle.Emit(1);
+                    }
+                    else if (currentWeaponIndex == 2)
+                    {
+                        FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
+                    }
                     timeStamp = Time.time;
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
                 weaponSelect = true;
             }
@@ -426,36 +463,42 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = 1.0f;
+                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Run:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = 2.0f;
+                    pantingParam.setValue(1.0f);
                     break;
                 case PlayerStates.Crouch:
                     controller.height = crouchHeight;
                     lookScript.minimumY = -40f;
                     lookScript.maximumY = 80f;
                     speedModifier = 0.5f;
+                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Prone:
                     controller.height = proneHeight;
                     lookScript.minimumY = 0f;
                     lookScript.maximumY = 40f;
                     speedModifier = 0.25f;
+                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = 1.0f;
+                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Jump:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = 1.0f;
+                    pantingParam.setValue(0.0f);
                     break;
             }
 
@@ -486,7 +529,7 @@ public class PlayerLogic : MonoBehaviour {
         healthBar.GetComponent<Image>().fillAmount = Mathf.Clamp(healthBar.GetComponent<Image>().fillAmount, 0f, 0.66f) + 0.05f;
 
         //Shadow and Blood Overlay
-        bloodAlpha.a = Mathf.Clamp(bloodAlpha.a, 0.0f, 0.8f);
+        bloodAlpha.a = Mathf.Clamp(bloodAlpha.a, 0.0f, 1.0f);
         bloodOverlay.GetComponent<Image>().color = bloodAlpha;
         shadowAlpha.a = Mathf.Clamp(shadowAlpha.a, 0.0f, 0.8f);
         shadowOverlay.GetComponent<Image>().color = shadowAlpha;
@@ -665,6 +708,11 @@ public class PlayerLogic : MonoBehaviour {
             currentSelected = Inventory.Rifle;
             currentWeaponIndex = 0;
             reloadState = false;
+
+            rifleObject.SetActive(true);
+            pistolObject.SetActive(false);
+            knifeObject.SetActive(false);
+
             timeStamp = Time.time;
         }
         else if (target == 1)
@@ -672,6 +720,11 @@ public class PlayerLogic : MonoBehaviour {
             currentSelected = Inventory.Pistol;
             currentWeaponIndex = 1;
             reloadState = false;
+
+            rifleObject.SetActive(false);
+            pistolObject.SetActive(true);
+            knifeObject.SetActive(false);
+
             timeStamp = Time.time;
         }
         else if (target == 2)
@@ -679,6 +732,11 @@ public class PlayerLogic : MonoBehaviour {
             currentSelected = Inventory.Knife;
             currentWeaponIndex = 2;
             reloadState = false;
+
+            rifleObject.SetActive(false);
+            pistolObject.SetActive(false);
+            knifeObject.SetActive(true);
+
             timeStamp = Time.time;
         }
         else if (target == 3 && !weapons[3].locked)
