@@ -11,6 +11,7 @@ public class PlayerLogic : MonoBehaviour {
     Vector3 startPosition;
 
     public ParticleSystem gunParticle;
+    public ParticleSystem pistolParticle;
 
     public bool pauseGame;
     public bool weaponSelect;
@@ -378,7 +379,7 @@ public class PlayerLogic : MonoBehaviour {
                     else if (currentWeaponIndex == 1)
                     {
                         FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
-                        gunParticle.Emit(1);
+                        pistolParticle.Emit(1);
                     }
                     else if (currentWeaponIndex == 2)
                     {
