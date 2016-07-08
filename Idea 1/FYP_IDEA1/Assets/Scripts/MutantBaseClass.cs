@@ -6,8 +6,9 @@ public class MutantBaseClass : MonoBehaviour {
 
     public float health;
 
-    enum MutantStates
+    public enum MutantStates
     {
+        Idle,
         Wander,
         Alerted,
         Chase,
@@ -25,7 +26,7 @@ public class MutantBaseClass : MonoBehaviour {
 
     Vector3 moveDirection;
 
-    MutantStates currentState;
+    public MutantStates currentState;
 
     CharacterController controller;
 
@@ -50,7 +51,7 @@ public class MutantBaseClass : MonoBehaviour {
 
         moveDirection = new Vector3(0, 0, 0);
 
-        currentState = MutantStates.Wander;
+        currentState = MutantStates.Idle;
 
         controller = GetComponent<CharacterController>();
 
@@ -77,11 +78,11 @@ public class MutantBaseClass : MonoBehaviour {
             //Movement Handler for when mutant is on and off the ground
             if (controller.isGrounded)
             {
-                if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted)
+                if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted || currentState == MutantStates.Wander)
                 {
                     moveDirection = new Vector3(0, 0, 1);
                 }
-                else if (currentState == MutantStates.Wander)
+                else if (currentState == MutantStates.Idle)
                 {
                     moveDirection = new Vector3(0, 0, 0);
                 }
@@ -95,7 +96,7 @@ public class MutantBaseClass : MonoBehaviour {
                 moveDirection.y -= gravity * Time.deltaTime;
             }
 
-            if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted)
+            if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted || currentState == MutantStates.Wander)
             {
                 mutantSpeed = 1.0f;
             }
@@ -177,7 +178,7 @@ public class MutantBaseClass : MonoBehaviour {
         }
     }
 
-    protected void CalmMutant()
+    public virtual void CalmMutant()
     {
         currentState = MutantStates.Wander;
         playerLastPosition.SendMessage("Reset");
