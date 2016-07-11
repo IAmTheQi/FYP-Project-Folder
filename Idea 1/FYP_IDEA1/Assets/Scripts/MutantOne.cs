@@ -24,5 +24,10 @@ public class MutantOne : MutantBaseClass {
         {
             CalmMutant();
         }
+        
+        if (collider.gameObject == startPosition)
+        {
+            currentState = MutantStates.Idle;
+        }
     }
 }

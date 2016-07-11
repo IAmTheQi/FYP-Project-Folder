@@ -5,7 +5,6 @@ using System.Collections;
 public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
-    MoveCamera cameraLerpScript;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -16,9 +15,13 @@ public class PlayerLogic : MonoBehaviour {
     public bool pauseGame;
     public bool weaponSelect;
 
+    bool aimDownSight;
+
     GameObject ammoText;
     GameObject reloadText;
     GameObject weaponIcon;
+
+    GameObject hitMarker;
 
     GameObject healthBar;
 
@@ -35,8 +38,15 @@ public class PlayerLogic : MonoBehaviour {
     GameObject sniperPanel;
 
     public GameObject rifleObject;
+    public GameObject rifleSight;
+    public GameObject rifleHip;
+
     public GameObject pistolObject;
     public GameObject knifeObject;
+
+
+    float lerpStart;
+    float lerpTime;
 
     public enum Inventory
     {
@@ -146,13 +156,17 @@ public class PlayerLogic : MonoBehaviour {
     void Start() {
         cam1 = GameObject.Find("Main Camera");
         camTransform = cam1.transform;
-        cameraLerpScript = cam1.GetComponent<MoveCamera>();
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
         pauseGame = false;
         weaponSelect = false;
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+        aimDownSight = false;
+
+        hitMarker = GameObject.Find("HitMarker");
+        hitMarker.SetActive(false);
 
         ammoText = GameObject.Find("AmmoText");
         reloadText = GameObject.Find("ReloadText");
@@ -172,6 +186,9 @@ public class PlayerLogic : MonoBehaviour {
         knifePanel = GameObject.Find("Knife Panel");
         katanaPanel = GameObject.Find("Katana Panel");
         sniperPanel = GameObject.Find("Sniper Panel");
+
+        lerpStart = 0f;
+        lerpTime = 0.2f;
 
         playerHealth = 100;
         playerSpeed = 2;
@@ -271,22 +288,20 @@ public class PlayerLogic : MonoBehaviour {
                 if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
                 {
                     currentState = PlayerStates.Crouch;
-                    //cameraLerpScript.LerpCamera("B");
                 }
                 else if (Input.GetKeyUp(KeyCode.LeftControl))
                 {
-                    //cameraLerpScript.LerpCamera("A");
+
                 }
 
                 //Prone key ("Z" key)
                 if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     currentState = PlayerStates.Prone;
-                    //cameraLerpScript.LerpCamera("C");
                 }
                 else if (Input.GetKeyUp(KeyCode.Z))
                 {
-                    //cameraLerpScript.LerpCamera("A");
+
                 }
 
                 //Jumping (Space)
@@ -387,6 +402,18 @@ public class PlayerLogic : MonoBehaviour {
                     }
                     timeStamp = Time.time;
                 }
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                lerpStart = 0f;
+                aimDownSight = true;
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                lerpStart = 0f;
+                aimDownSight = false;
             }
 
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -562,6 +589,26 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
                 }
+
+                if (aimDownSight)
+                {
+                    lerpStart += Time.deltaTime;
+                    if (lerpStart >= lerpTime)
+                    {
+                        lerpStart = lerpTime;
+                    }
+                    rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
+                }
+
+                if (!aimDownSight)
+                {
+                    lerpStart += Time.deltaTime;
+                    if (lerpStart >= lerpTime)
+                    {
+                        lerpStart = lerpTime;
+                    }
+                    rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
+                }
                 break;
 
             case Inventory.Pistol:
@@ -637,13 +684,27 @@ public class PlayerLogic : MonoBehaviour {
         Ray ray = new Ray(camTransform.position, camTransform.forward);
         if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
         {
-            print(hit.collider.name);
             Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
             if (hit.collider.tag == "Mutant")
             {
                 hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
+                StartCoroutine(Blink());
             }
+            else if (hit.collider.tag == "MutantHead")
+            {
+                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+                StartCoroutine(Blink());
+            }
+            Debug.Log(hit.collider.name);
         }
+    }
+
+    IEnumerator Blink()
+    {
+        Debug.Log("hold");
+        hitMarker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        hitMarker.SetActive(false);
     }
 
     //Enemy detection

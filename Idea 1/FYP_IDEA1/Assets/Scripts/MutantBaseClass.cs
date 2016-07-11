@@ -9,6 +9,7 @@ public class MutantBaseClass : MonoBehaviour {
     public enum MutantStates
     {
         Idle,
+        Return,
         Wander,
         Alerted,
         Chase,
@@ -35,8 +36,14 @@ public class MutantBaseClass : MonoBehaviour {
     public float attackDelay;
     public float timeStamp;
 
+    public GameObject playerLastPositionPrefab;
     protected GameObject playerLastPosition;
     protected GameObject noiseLastPosition;
+
+    public GameObject startPositionPrefab;
+    protected GameObject startPosition;
+
+    public GameObject detectionObject;
 
     protected LineRenderer lineRenderer;
 
@@ -60,8 +67,10 @@ public class MutantBaseClass : MonoBehaviour {
         attackDelay = 2.0f;
         timeStamp = Time.time;
 
-        playerLastPosition = GameObject.Find("PlayerLastSeen");
+        playerLastPosition = (GameObject)Instantiate(playerLastPositionPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         noiseLastPosition = GameObject.Find("NoiseLastSeen");
+
+        startPosition = (GameObject)Instantiate(startPositionPrefab, transform.position, Quaternion.identity);
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
@@ -78,7 +87,7 @@ public class MutantBaseClass : MonoBehaviour {
             //Movement Handler for when mutant is on and off the ground
             if (controller.isGrounded)
             {
-                if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted || currentState == MutantStates.Wander)
+                if (currentState == MutantStates.Lost || currentState == MutantStates.Chase || currentState == MutantStates.Distracted || currentState == MutantStates.Wander || currentState == MutantStates.Return)
                 {
                     moveDirection = new Vector3(0, 0, 1);
                 }
@@ -96,7 +105,7 @@ public class MutantBaseClass : MonoBehaviour {
                 moveDirection.y -= gravity * Time.deltaTime;
             }
 
-            if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted || currentState == MutantStates.Wander)
+            if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted || currentState == MutantStates.Wander || currentState == MutantStates.Idle)
             {
                 mutantSpeed = 1.0f;
             }
@@ -116,12 +125,15 @@ public class MutantBaseClass : MonoBehaviour {
             {
                 transform.LookAt(new Vector3(noiseLastPosition.transform.position.x, transform.position.y, noiseLastPosition.transform.position.z));
             }
+            else if (currentState == MutantStates.Return)
+            {
+                transform.LookAt(new Vector3(startPosition.transform.position.x, transform.position.y, startPosition.transform.position.z));
+            }
 
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {
-                Debug.Log(Vector3.Distance(transform.position, playerObject.transform.position));
-                if (Vector3.Distance(transform.position, playerObject.transform.position) < 10.0f)
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 3.0f)
                 {
                     if (Time.time > (timeStamp + attackDelay))
                     {
@@ -180,7 +192,7 @@ public class MutantBaseClass : MonoBehaviour {
 
     public virtual void CalmMutant()
     {
-        currentState = MutantStates.Wander;
+        currentState = MutantStates.Return;
         playerLastPosition.SendMessage("Reset");
         noiseLastPosition.SendMessage("Reset");
     }
@@ -198,5 +210,10 @@ public class MutantBaseClass : MonoBehaviour {
     protected void AttackPlayer()
     {
         playerObject.GetComponent<PlayerLogic>().TakeDamage(damage);
+    }
+
+    public void RecordLastSeen(Transform target)
+    {
+        playerLastPosition.transform.position = target.position;
     }
 }
