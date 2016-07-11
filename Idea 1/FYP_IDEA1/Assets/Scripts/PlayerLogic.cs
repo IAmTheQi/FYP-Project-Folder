@@ -21,6 +21,8 @@ public class PlayerLogic : MonoBehaviour {
     GameObject reloadText;
     GameObject weaponIcon;
 
+    GameObject hitMarker;
+
     GameObject healthBar;
 
     GameObject bloodOverlay;
@@ -162,6 +164,9 @@ public class PlayerLogic : MonoBehaviour {
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         aimDownSight = false;
+
+        hitMarker = GameObject.Find("HitMarker");
+        hitMarker.SetActive(false);
 
         ammoText = GameObject.Find("AmmoText");
         reloadText = GameObject.Find("ReloadText");
@@ -410,8 +415,6 @@ public class PlayerLogic : MonoBehaviour {
                 lerpStart = 0f;
                 aimDownSight = false;
             }
-
-            Debug.LogFormat("bool:{0}       lerp:{1}        ", aimDownSight, lerpStart);
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -681,13 +684,27 @@ public class PlayerLogic : MonoBehaviour {
         Ray ray = new Ray(camTransform.position, camTransform.forward);
         if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
         {
-            print(hit.collider.name);
             Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
             if (hit.collider.tag == "Mutant")
             {
                 hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
+                StartCoroutine(Blink());
             }
+            else if (hit.collider.tag == "MutantHead")
+            {
+                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+                StartCoroutine(Blink());
+            }
+            Debug.Log(hit.collider.name);
         }
+    }
+
+    IEnumerator Blink()
+    {
+        Debug.Log("hold");
+        hitMarker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        hitMarker.SetActive(false);
     }
 
     //Enemy detection

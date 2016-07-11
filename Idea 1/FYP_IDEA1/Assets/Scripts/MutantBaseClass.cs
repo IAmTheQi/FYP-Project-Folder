@@ -133,8 +133,7 @@ public class MutantBaseClass : MonoBehaviour {
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {
-                Debug.Log(Vector3.Distance(transform.position, playerObject.transform.position));
-                if (Vector3.Distance(transform.position, playerObject.transform.position) < 10.0f)
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 3.0f)
                 {
                     if (Time.time > (timeStamp + attackDelay))
                     {
