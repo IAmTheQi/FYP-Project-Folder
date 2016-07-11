@@ -124,5 +124,10 @@
     <Compile Include="Assets\Plugins\Editor\FMOD\StudioListenerEditor.cs" />
     <Compile Include="Assets\Plugins\Editor\FMOD\StudioParameterTriggerEditor.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
