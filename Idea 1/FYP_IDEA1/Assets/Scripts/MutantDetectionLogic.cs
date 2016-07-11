@@ -8,16 +8,12 @@ public class MutantDetectionLogic : MonoBehaviour {
     GameObject playerObject;
     PlayerLogic playerScript;
 
-    GameObject playerLastPosition;
-
 	// Use this for initialization
 	void Start () {
         playerObject = GameObject.Find("PlayerController");
         playerScript = playerObject.GetComponent<PlayerLogic>();
 
         parentMutant = transform.parent.gameObject;
-
-        playerLastPosition = GameObject.Find("PlayerLastSeen");
 	}
 	
 	// Update is called once per frame
@@ -60,8 +56,7 @@ public class MutantDetectionLogic : MonoBehaviour {
         {
             if (collider.gameObject == playerObject)
             {
-                playerLastPosition.transform.position = collider.transform.position;
-                
+                parentMutant.SendMessage("RecordLastSeen", collider.transform);
                 parentMutant.SendMessage("LosePlayer");
             }
         }

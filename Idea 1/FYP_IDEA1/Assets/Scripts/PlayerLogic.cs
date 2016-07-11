@@ -5,7 +5,6 @@ using System.Collections;
 public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
-    MoveCamera cameraLerpScript;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -15,6 +14,8 @@ public class PlayerLogic : MonoBehaviour {
 
     public bool pauseGame;
     public bool weaponSelect;
+
+    bool aimDownSight;
 
     GameObject ammoText;
     GameObject reloadText;
@@ -35,8 +36,15 @@ public class PlayerLogic : MonoBehaviour {
     GameObject sniperPanel;
 
     public GameObject rifleObject;
+    public GameObject rifleSight;
+    public GameObject rifleHip;
+
     public GameObject pistolObject;
     public GameObject knifeObject;
+
+
+    float lerpStart;
+    float lerpTime;
 
     public enum Inventory
     {
@@ -146,13 +154,14 @@ public class PlayerLogic : MonoBehaviour {
     void Start() {
         cam1 = GameObject.Find("Main Camera");
         camTransform = cam1.transform;
-        cameraLerpScript = cam1.GetComponent<MoveCamera>();
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
         pauseGame = false;
         weaponSelect = false;
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+        aimDownSight = false;
 
         ammoText = GameObject.Find("AmmoText");
         reloadText = GameObject.Find("ReloadText");
@@ -172,6 +181,9 @@ public class PlayerLogic : MonoBehaviour {
         knifePanel = GameObject.Find("Knife Panel");
         katanaPanel = GameObject.Find("Katana Panel");
         sniperPanel = GameObject.Find("Sniper Panel");
+
+        lerpStart = 0f;
+        lerpTime = 0.2f;
 
         playerHealth = 100;
         playerSpeed = 2;
@@ -271,22 +283,20 @@ public class PlayerLogic : MonoBehaviour {
                 if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
                 {
                     currentState = PlayerStates.Crouch;
-                    //cameraLerpScript.LerpCamera("B");
                 }
                 else if (Input.GetKeyUp(KeyCode.LeftControl))
                 {
-                    //cameraLerpScript.LerpCamera("A");
+
                 }
 
                 //Prone key ("Z" key)
                 if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     currentState = PlayerStates.Prone;
-                    //cameraLerpScript.LerpCamera("C");
                 }
                 else if (Input.GetKeyUp(KeyCode.Z))
                 {
-                    //cameraLerpScript.LerpCamera("A");
+
                 }
 
                 //Jumping (Space)
@@ -388,6 +398,20 @@ public class PlayerLogic : MonoBehaviour {
                     timeStamp = Time.time;
                 }
             }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                lerpStart = 0f;
+                aimDownSight = true;
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                lerpStart = 0f;
+                aimDownSight = false;
+            }
+
+            Debug.LogFormat("bool:{0}       lerp:{1}        ", aimDownSight, lerpStart);
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -561,6 +585,26 @@ public class PlayerLogic : MonoBehaviour {
                 else
                 {
                     sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
+                }
+
+                if (aimDownSight)
+                {
+                    lerpStart += Time.deltaTime;
+                    if (lerpStart >= lerpTime)
+                    {
+                        lerpStart = lerpTime;
+                    }
+                    rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
+                }
+
+                if (!aimDownSight)
+                {
+                    lerpStart += Time.deltaTime;
+                    if (lerpStart >= lerpTime)
+                    {
+                        lerpStart = lerpTime;
+                    }
+                    rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
                 }
                 break;
 

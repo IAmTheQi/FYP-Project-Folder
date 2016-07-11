@@ -50,4 +50,12 @@ public class MutantRoam : MutantBaseClass {
             }
         }
     }
+
+    void OnControllerColliderHit(ControllerColliderHit collider)
+    {
+        if (collider.gameObject == playerLastPosition)
+        {
+            CalmMutant();
+        }
+    }
 }

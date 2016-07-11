@@ -17,11 +17,6 @@ public class LastSeenObject : MonoBehaviour {
 	
 	}
 
-    public void Move(Vector3 targetPosition)
-    {
-        transform.position = targetPosition;
-    }
-
     public void Reset()
     {
         transform.position = startPosition;
