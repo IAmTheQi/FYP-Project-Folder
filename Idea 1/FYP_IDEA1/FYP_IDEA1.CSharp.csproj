@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -78,6 +72,7 @@
     <Compile Include="Assets\Scripts\BearLogic.cs" />
     <Compile Include="Assets\Scripts\BossBaseClass.cs" />
     <Compile Include="Assets\Scripts\BossOne.cs" />
+    <Compile Include="Assets\Scripts\CollectableLogic.cs" />
     <Compile Include="Assets\Scripts\Interfaces.cs" />
     <Compile Include="Assets\Scripts\LastSeenObject.cs" />
     <Compile Include="Assets\Scripts\MoveCamera.cs" />
@@ -86,6 +81,7 @@
     <Compile Include="Assets\Scripts\MutantOne.cs" />
     <Compile Include="Assets\Scripts\MutantRoam.cs" />
     <Compile Include="Assets\Scripts\NoiseObject.cs" />
+    <Compile Include="Assets\Scripts\PauseButtonScript.cs" />
     <Compile Include="Assets\Scripts\PlayerLogic.cs" />
     <Compile Include="Assets\Scripts\PortalLogic.cs" />
     <Compile Include="Assets\Scripts\RaycastMask.cs" />
@@ -98,6 +94,7 @@
     <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
     <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
+    <None Include="Assets\UI Sprites\Artifacts Menu\Item namese.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

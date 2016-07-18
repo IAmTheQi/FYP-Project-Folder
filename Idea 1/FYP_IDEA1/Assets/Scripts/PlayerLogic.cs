@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[RequireComponent (typeof(CollectableLogic))]
 public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
@@ -9,11 +10,15 @@ public class PlayerLogic : MonoBehaviour {
     Transform camTransform;
     Vector3 startPosition;
 
+    CollectableLogic collectScript;
+
     public ParticleSystem gunParticle;
     public ParticleSystem pistolParticle;
 
     public bool pauseGame;
     public bool weaponSelect;
+    public bool itemView;
+    public bool optionsView;
 
     bool aimDownSight;
 
@@ -36,6 +41,10 @@ public class PlayerLogic : MonoBehaviour {
     GameObject knifePanel;
     GameObject katanaPanel;
     GameObject sniperPanel;
+
+    GameObject itemMenu;
+    GameObject pauseMenu;
+    GameObject optionsMenu;
 
     public GameObject rifleObject;
     public GameObject rifleSight;
@@ -158,6 +167,8 @@ public class PlayerLogic : MonoBehaviour {
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
+        collectScript = GetComponent<CollectableLogic>();
+
         pauseGame = false;
         weaponSelect = false;
 
@@ -186,6 +197,13 @@ public class PlayerLogic : MonoBehaviour {
         knifePanel = GameObject.Find("Knife Panel");
         katanaPanel = GameObject.Find("Katana Panel");
         sniperPanel = GameObject.Find("Sniper Panel");
+
+        itemMenu = GameObject.Find("ItemSelect");
+        itemMenu.SetActive(false);
+        pauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu.SetActive(false);
+        optionsMenu = GameObject.Find("OptionsMenu");
+        optionsMenu.SetActive(false);
 
         lerpStart = 0f;
         lerpTime = 0.2f;
@@ -242,7 +260,23 @@ public class PlayerLogic : MonoBehaviour {
     {
         if (pauseGame)
         {
+            pauseMenu.SetActive(true);
 
+            //Pause Key
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseGame = false;
+            }
+
+
+            if (itemView)
+            {
+                itemMenu.SetActive(true);
+            }
+            else if (!itemView)
+            {
+                itemMenu.SetActive(false);
+            }
         }
         else if (weaponSelect)
         {
@@ -256,6 +290,7 @@ public class PlayerLogic : MonoBehaviour {
         else
         {
             weaponWheel.SetActive(false);
+            pauseMenu.SetActive(false);
 
             //Movement Handler for when player is on and off the ground
             if (controller.isGrounded)
@@ -416,9 +451,22 @@ public class PlayerLogic : MonoBehaviour {
                 aimDownSight = false;
             }
 
+            //Weapon select key
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 weaponSelect = true;
+            }
+
+            //Collectable item menu
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                itemView = true;
+            }
+
+            //Pause Key
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseGame = true;
             }
 
             //Check for Reload need
@@ -530,14 +578,23 @@ public class PlayerLogic : MonoBehaviour {
                     break;
             }
 
+            //Item Interaction & Collection
             Ray ray = new Ray(camTransform.position, camTransform.forward);
-            if (Physics.Raycast(ray, out interactHit, 10))
+            if (Physics.Raycast(ray, out interactHit, 5))
             {
                 if (interactHit.collider.tag == "Interactable")
                 {
                     if (Input.GetKey(KeyCode.E))
                     {
                         interactHit.collider.gameObject.SendMessage("Activate");
+                    }
+                }
+               
+                if (interactHit.collider.tag == "Collectable")
+                {
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        collectScript.CollectItem(interactHit.collider.gameObject);
                     }
                 }
             }
@@ -830,6 +887,20 @@ public class PlayerLogic : MonoBehaviour {
         else if (target == "Wood")
         {
             surfaceParam.setValue(3.0f);
+        }
+    }
+
+    public void ButtonTrigger(string target)
+    {
+        switch (target)
+        {
+            case "artifacts":
+                itemView = !itemView;
+                break;
+
+            case "pause":
+                pauseGame = !pauseGame;
+                break;
         }
     }
     /*
