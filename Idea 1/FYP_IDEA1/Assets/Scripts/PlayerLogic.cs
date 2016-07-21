@@ -263,7 +263,7 @@ public class PlayerLogic : MonoBehaviour {
             pauseMenu.SetActive(true);
 
             //Pause Key
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && !itemView)
             {
                 pauseGame = false;
             }
@@ -272,10 +272,11 @@ public class PlayerLogic : MonoBehaviour {
             if (itemView)
             {
                 itemMenu.SetActive(true);
-            }
-            else if (!itemView)
-            {
-                itemMenu.SetActive(false);
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    itemView = false;
+                    itemMenu.SetActive(false);
+                }
             }
         }
         else if (weaponSelect)
@@ -579,20 +580,20 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Item Interaction & Collection
-            Ray ray = new Ray(camTransform.position, camTransform.forward);
-            if (Physics.Raycast(ray, out interactHit, 5))
+            
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (interactHit.collider.tag == "Interactable")
+                Ray ray = new Ray(camTransform.position, camTransform.forward);
+                if (Physics.Raycast(ray, out interactHit, 5))
                 {
-                    if (Input.GetKey(KeyCode.E))
+                    Debug.Log(interactHit.collider.name);
+                    if (interactHit.collider.tag == "Interactable")
                     {
                         interactHit.collider.gameObject.SendMessage("Activate");
                     }
-                }
                
-                if (interactHit.collider.tag == "Collectable")
-                {
-                    if (Input.GetKey(KeyCode.E))
+                    if (interactHit.collider.tag == "Collectable")
                     {
                         collectScript.CollectItem(interactHit.collider.gameObject);
                     }
