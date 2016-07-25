@@ -18,6 +18,7 @@ public class PlayerLogic : MonoBehaviour {
     public bool pauseGame;
     public bool weaponSelect;
     public bool itemView;
+    public bool inspectView;
     public bool optionsView;
 
     bool aimDownSight;
@@ -171,6 +172,8 @@ public class PlayerLogic : MonoBehaviour {
 
         pauseGame = false;
         weaponSelect = false;
+        itemView = false;
+        inspectView = false;
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
@@ -235,7 +238,7 @@ public class PlayerLogic : MonoBehaviour {
         maxVelocity = 5.0f;
         forwardAccelerationRate = 2.5f;
         reverseAccelerationRate = 0.5f;
-        deccelerationRate = 4.5f;
+        deccelerationRate = 5.0f;
 
         timeStamp = Time.time;
         reloadState = false;
@@ -268,15 +271,27 @@ public class PlayerLogic : MonoBehaviour {
                 pauseGame = false;
             }
 
-
             if (itemView)
             {
                 itemMenu.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (inspectView)
                 {
-                    itemView = false;
-                    itemMenu.SetActive(false);
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        collectScript.InspectItem();
+                    }
                 }
+                else if (!inspectView)
+                {
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        itemView = false;
+                    }
+                }
+            }
+            else if (!itemView)
+            {
+                itemMenu.SetActive(false);
             }
         }
         else if (weaponSelect)
@@ -292,6 +307,7 @@ public class PlayerLogic : MonoBehaviour {
         {
             weaponWheel.SetActive(false);
             pauseMenu.SetActive(false);
+            itemMenu.SetActive(false);
 
             //Movement Handler for when player is on and off the ground
             if (controller.isGrounded)
@@ -901,6 +917,11 @@ public class PlayerLogic : MonoBehaviour {
 
             case "pause":
                 pauseGame = !pauseGame;
+                break;
+
+            case "inspect":
+                inspectView = !inspectView;
+                collectScript.InspectItem();
                 break;
         }
     }

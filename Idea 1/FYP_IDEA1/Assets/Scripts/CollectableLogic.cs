@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,9 +15,15 @@ public class CollectableLogic : MonoBehaviour {
         public GameObject inspectUI;
     }
 
+    public GameObject listObject;
+
     public CollectableItems[] itemsArray;
 
+    public List<int> indexList;
+
     public int currentSelected;
+
+    bool inspect;
 
     Color selected;
     Color unselected;
@@ -25,7 +32,6 @@ public class CollectableLogic : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
         currentSelected = 0;
 
         selected = itemsArray[0].selectUI.GetComponent<Text>().color;
@@ -35,10 +41,19 @@ public class CollectableLogic : MonoBehaviour {
         uncollected = itemsArray[0].selectUI.GetComponent<Text>().color;
         uncollected.a = 0.15f;
 
+        indexList = new List<int>();
+
+        inspect = false;
+
         for (var i = 0; i < itemsArray.Length; i++)
         {
             if (!itemsArray[i].collected)
             {
+                itemsArray[i].selectUI.GetComponent<Text>().color = uncollected;
+            }
+            else
+            {
+                indexList.Add(i);
                 itemsArray[i].selectUI.GetComponent<Text>().color = unselected;
             }
         }
@@ -47,14 +62,27 @@ public class CollectableLogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            ScrollItem("down");
-        }
+        Debug.Log(indexList.Count);
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (!inspect)
         {
-            ScrollItem("up");
+            if (indexList.Count > 1)
+            {
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    ScrollItem("down");
+                }
+
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    ScrollItem("up");
+                }
+            }
+            else if (indexList.Count == 1)
+            {
+                currentSelected = indexList[0];
+                itemsArray[currentSelected].selectUI.GetComponent<Text>().color = selected;
+            }
         }
 	
 	}
@@ -65,64 +93,40 @@ public class CollectableLogic : MonoBehaviour {
 
         if (target == "down")
         {
-            if (!itemsArray[currentSelected + 1].collected)
+            if (!itemsArray[indexList[ClampInRange(currentSelected, "down")]].collected)
             {
-                currentSelected += 1;
+                ClampInRange(currentSelected, "down");
                 ScrollItem("down");
                 return;
+
             }
             else
             {
-                itemsArray[currentSelected].selectUI.GetComponent<Text>().color = unselected;
+                itemsArray[indexList[currentSelected]].selectUI.GetComponent<Text>().color = unselected;
                 currentSelected += 1;
-                itemsArray[currentSelected].selectUI.GetComponent<Text>().color = selected;
+                itemsArray[indexList[currentSelected]].selectUI.GetComponent<Text>().color = selected;
                 return;
             }
+
         }
         else if (target == "up")
         {
-            if (!itemsArray[currentSelected - 1].collected)
+            if (!itemsArray[indexList[ClampInRange(currentSelected, "up")]].collected)
             {
-                currentSelected -= 1;
+                ClampInRange(currentSelected, "up");
                 ScrollItem("up");
                 return;
+
             }
             else
             {
-                itemsArray[currentSelected].selectUI.GetComponent<Text>().color = unselected;
+                itemsArray[indexList[currentSelected]].selectUI.GetComponent<Text>().color = unselected;
                 currentSelected -= 1;
-                itemsArray[currentSelected].selectUI.GetComponent<Text>().color = selected;
+                itemsArray[indexList[currentSelected]].selectUI.GetComponent<Text>().color = selected;
                 return;
             }
+
         }
-        /*
-        for (var i = 0; i < itemsArray.Length; i++)
-        {
-            if (itemsArray[i].collected)
-            {
-                if (i == currentSelected)
-                {
-                    itemsArray[i].selectUI.GetComponent<Text>().color = selected;
-                }
-                else
-                {
-                    itemsArray[i].selectUI.GetComponent<Text>().color = unselected;
-                }
-            }
-            else if (!itemsArray[i].collected)
-            {
-                if (target == "up")
-                {
-                    i -= 1;
-                    currentSelected = i;
-                }
-                else if (target == "down")
-                {
-                    i += 1;
-                    currentSelected = i;
-                }
-            }
-        }*/
     }
 
     public void CollectItem(GameObject target)
@@ -132,9 +136,58 @@ public class CollectableLogic : MonoBehaviour {
             if (target == itemsArray[i].itemObject)
             {
                 itemsArray[i].collected = true;
+                itemsArray[i].selectUI.GetComponent<Text>().color = unselected;
+                indexList.Add(i);
+                indexList.Sort();
                 Destroy(target);
                 break;
             }
+        }
+    }
+
+    int ClampInRange(int target, string target2)
+    {
+        if (target2 == "down")
+        {
+            if (target + 1 > indexList.Count - 1)
+            {
+                target = 0;
+            }
+            else
+            {
+                target += 1;
+            }
+        }
+        else if (target2 == "up")
+        {
+            if (target - 1 < 0)
+            {
+                target = indexList.Count - 1;
+            }
+            else
+            {
+                target -= 1;
+            }
+        }
+
+        return target;
+    }
+
+    public void InspectItem()
+    {
+        inspect = !inspect;
+
+        switch (inspect)
+        {
+            case true:
+                itemsArray[currentSelected].inspectUI.SetActive(true);
+                listObject.SetActive(false);
+                break;
+
+            case false:
+                itemsArray[currentSelected].inspectUI.SetActive(false);
+                listObject.SetActive(true);
+                break;
         }
     }
 }
