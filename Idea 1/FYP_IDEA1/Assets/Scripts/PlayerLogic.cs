@@ -112,11 +112,16 @@ public class PlayerLogic : MonoBehaviour {
     public Texture2D crossHair;
 
     public float playerHealth;
-    public byte playerSpeed;
+    public float playerSpeed;
     public float strafeSlow;
-    public float speedModifier;
     public float jumpForce;
     public float gravity;
+
+    public float speedModifier;
+    public float runModifier;
+    public float walkModifier;
+    public float crouchModifier;
+    public float proneModifier;
 
     float initialVelocity;
     float currentVelocity;
@@ -220,9 +225,14 @@ public class PlayerLogic : MonoBehaviour {
         playerHealth = settingsScript.playerHealth;
         playerSpeed = settingsScript.playerSpeed;
         strafeSlow = settingsScript.strafeSlow;
-        speedModifier = settingsScript.speedModifier;
         jumpForce = settingsScript.jumpForce;
         gravity = settingsScript.gravity;
+
+        speedModifier = settingsScript.walkModifier;
+        runModifier = settingsScript.runModifier;
+        walkModifier = settingsScript.walkModifier;
+        crouchModifier = settingsScript.crouchModifier;
+        proneModifier = settingsScript.proneModifier;
 
         initialVelocity = settingsScript.initialVelocity;
         currentVelocity = settingsScript.currentVelocity;
@@ -563,42 +573,42 @@ public class PlayerLogic : MonoBehaviour {
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    speedModifier = 1.0f;
+                    speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Run:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    speedModifier = 2.0f;
+                    speedModifier = settingsScript.runModifier;
                     pantingParam.setValue(1.0f);
                     break;
                 case PlayerStates.Crouch:
                     controller.height = crouchHeight;
                     lookScript.minimumY = -40f;
                     lookScript.maximumY = 80f;
-                    speedModifier = 0.5f;
+                    speedModifier = settingsScript.crouchModifier;
                     pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Prone:
                     controller.height = proneHeight;
                     lookScript.minimumY = 0f;
                     lookScript.maximumY = 40f;
-                    speedModifier = 0.25f;
+                    speedModifier = settingsScript.proneModifier;
                     pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    speedModifier = 1.0f;
+                    speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Jump:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    speedModifier = 1.0f;
+                    speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
                     break;
             }
