@@ -295,6 +295,7 @@ public class PlayerLogic : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         collectScript.InspectItem();
+                        inspectView = false;
                     }
                 }
                 else if (!inspectView)
