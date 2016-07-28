@@ -7,8 +7,22 @@ public class SettingsConfig : MonoBehaviour {
     public byte mouseSense;
     public byte mouseDrag;
 
-	// Use this for initialization
-	void Awake () {
+    public float initialVelocity;
+    public float currentVelocity;
+    public float maxVelocity;
+    public float forwardAccelerationRate;
+    public float reverseAccelerationRate;
+    public float deccelerationRate;
+
+    public float playerHealth;
+    public byte playerSpeed;
+    public float strafeSlow;
+    public float speedModifier;
+    public float jumpForce;
+    public float gravity;
+
+    // Use this for initialization
+    void Awake () {
 
 	}
 	

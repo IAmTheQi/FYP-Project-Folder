@@ -62,8 +62,6 @@ public class CollectableLogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Debug.Log(indexList.Count);
-
         if (!inspect)
         {
             if (indexList.Count > 1)

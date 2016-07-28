@@ -5,6 +5,9 @@ using System.Collections;
 [RequireComponent (typeof(CollectableLogic))]
 public class PlayerLogic : MonoBehaviour {
 
+    GameObject gameController;
+    SettingsConfig settingsScript;
+
     GameObject cam1;
     SmoothMouseLook lookScript;
     Transform camTransform;
@@ -164,6 +167,9 @@ public class PlayerLogic : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        gameController = GameObject.Find("GameController");
+        settingsScript = gameController.GetComponent<SettingsConfig>();
+
         cam1 = GameObject.Find("Main Camera");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
@@ -211,12 +217,19 @@ public class PlayerLogic : MonoBehaviour {
         lerpStart = 0f;
         lerpTime = 0.2f;
 
-        playerHealth = 100;
-        playerSpeed = 2;
-        strafeSlow = 0.5f;
-        speedModifier = 1.0f;
-        jumpForce = 2.0f;
-        gravity = 10.0f;
+        playerHealth = settingsScript.playerHealth;
+        playerSpeed = settingsScript.playerSpeed;
+        strafeSlow = settingsScript.strafeSlow;
+        speedModifier = settingsScript.speedModifier;
+        jumpForce = settingsScript.jumpForce;
+        gravity = settingsScript.gravity;
+
+        initialVelocity = settingsScript.initialVelocity;
+        currentVelocity = settingsScript.currentVelocity;
+        maxVelocity = settingsScript.maxVelocity;
+        forwardAccelerationRate = settingsScript.forwardAccelerationRate;
+        reverseAccelerationRate = settingsScript.reverseAccelerationRate;
+        deccelerationRate = settingsScript.deccelerationRate;
 
         crouchHeight = 1.75f;
         proneHeight = 1.0f;
@@ -232,13 +245,6 @@ public class PlayerLogic : MonoBehaviour {
         currentSelected = Inventory.Rifle;
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
-
-        initialVelocity = 1.0f;
-        currentVelocity = 0.0f;
-        maxVelocity = 5.0f;
-        forwardAccelerationRate = 2.5f;
-        reverseAccelerationRate = 0.5f;
-        deccelerationRate = 5.0f;
 
         timeStamp = Time.time;
         reloadState = false;
@@ -375,7 +381,9 @@ public class PlayerLogic : MonoBehaviour {
             controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
             walkingParam.setValue(speedModifier * currentVelocity);
 
-            //Debug.LogFormat("State:{0}      velo:{1}", currentState, (speedModifier * currentVelocity));
+
+
+            Debug.LogFormat("horizontal:{0}     vertical:{1}        state:{2}       velocity:{3}", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), currentState, currentVelocity);
 
             //Weapon change key handler
             if (Input.GetKeyDown(KeyCode.Alpha1))
