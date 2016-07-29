@@ -241,8 +241,9 @@ public class PlayerLogic : MonoBehaviour {
         reverseAccelerationRate = settingsScript.reverseAccelerationRate;
         deccelerationRate = settingsScript.deccelerationRate;
 
-        crouchHeight = 1.75f;
-        proneHeight = 1.0f;
+        walkHeight = settingsScript.walkHeight;
+        crouchHeight = settingsScript.crouchHeight;
+        proneHeight = settingsScript.proneHeight;
 
         isWalking = false;
 
@@ -290,6 +291,12 @@ public class PlayerLogic : MonoBehaviour {
             if (itemView)
             {
                 itemMenu.SetActive(true);
+
+                if (Input.GetKeyDown(KeyCode.F) && !inspectView)
+                {
+                    ButtonTrigger("inspect");
+                }
+
                 if (inspectView)
                 {
                     if (Input.GetKeyDown(KeyCode.Escape))
@@ -349,6 +356,9 @@ public class PlayerLogic : MonoBehaviour {
                 }
                 else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
                 {
+                    moveDirection = new Vector3(0, 0, 0);
+                    moveDirection = transform.TransformDirection(moveDirection);
+
                     currentState = PlayerStates.Idle;
                     currentVelocity -= deccelerationRate * Time.deltaTime;
                 }
@@ -394,7 +404,7 @@ public class PlayerLogic : MonoBehaviour {
 
 
 
-            Debug.LogFormat("horizontal:{0}     vertical:{1}        state:{2}       velocity:{3}", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), currentState, currentVelocity);
+            Debug.LogFormat("horizontal:{0}     vertical:{1}        state:{2}       velocity:{3}        moveDir:{4}", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), currentState, currentVelocity, moveDirection);
 
             //Weapon change key handler
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -939,8 +949,11 @@ public class PlayerLogic : MonoBehaviour {
                 break;
 
             case "inspect":
-                inspectView = !inspectView;
-                collectScript.InspectItem();
+                if (!collectScript.Empty())
+                {
+                    inspectView = !inspectView;
+                    collectScript.InspectItem();
+                }
                 break;
         }
     }

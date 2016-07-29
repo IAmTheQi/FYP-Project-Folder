@@ -7,6 +7,10 @@ public class SettingsConfig : MonoBehaviour {
     public byte mouseSense;
     public byte mouseDrag;
 
+    public float walkHeight;
+    public float crouchHeight;
+    public float proneHeight;
+
     public float playerHealth;
     public float playerSpeed;
     public float strafeSlow;
@@ -29,7 +33,7 @@ public class SettingsConfig : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -188,4 +188,16 @@ public class CollectableLogic : MonoBehaviour {
                 break;
         }
     }
+
+    public bool Empty()
+    {
+        if (indexList.Count > 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
