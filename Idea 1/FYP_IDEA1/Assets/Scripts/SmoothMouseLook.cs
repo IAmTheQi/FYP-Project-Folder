@@ -20,6 +20,8 @@ public class SmoothMouseLook : MonoBehaviour
     public float minimumY;
     public float maximumY;
 
+    float multiplier;
+
     float rotationX = 0F;
     float rotationY = 0F;
 
@@ -43,6 +45,8 @@ public class SmoothMouseLook : MonoBehaviour
         sensitivityY = settingsConfig.mouseSense;
 
         frameCounter = settingsConfig.mouseDrag;
+
+        multiplier = 1.0f;
     }
 
     void Update()
@@ -54,6 +58,14 @@ public class SmoothMouseLook : MonoBehaviour
         }
         else
         {
+            if (parentObject.GetComponent<PlayerLogic>().aimDownSight)
+            {
+                multiplier = 0.25f;
+            }
+            else if (!parentObject.GetComponent<PlayerLogic>().aimDownSight)
+            {
+                multiplier = 1.0f;
+            }
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -62,8 +74,8 @@ public class SmoothMouseLook : MonoBehaviour
                 rotAverageY = 0f;
                 rotAverageX = 0f;
 
-                rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+                rotationY += Input.GetAxis("Mouse Y") * sensitivityY * multiplier;
+                rotationX += Input.GetAxis("Mouse X") * sensitivityX * multiplier;
 
                 rotArrayY.Add(rotationY);
                 rotArrayX.Add(rotationX);

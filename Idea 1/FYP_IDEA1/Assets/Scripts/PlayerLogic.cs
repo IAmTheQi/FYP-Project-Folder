@@ -24,7 +24,7 @@ public class PlayerLogic : MonoBehaviour {
     public bool inspectView;
     public bool optionsView;
 
-    bool aimDownSight;
+    public bool aimDownSight;
 
     GameObject ammoText;
     GameObject reloadText;
@@ -799,6 +799,22 @@ public class PlayerLogic : MonoBehaviour {
                 StartCoroutine(Blink());
             }
             Debug.Log(hit.collider.name);
+        }
+        GunNoise();
+    }
+
+    void GunNoise()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 20);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null)
+            {
+                hitColliders[i].SendMessage("RecordLastSeen", transform);
+                hitColliders[i].SendMessage("LosePlayer");
+            }
+            i++;
         }
     }
 
