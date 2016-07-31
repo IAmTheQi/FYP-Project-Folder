@@ -95,7 +95,7 @@ public class SettingsConfig : MonoBehaviour {
         XmlNode maxVeloNode = xmlDoc.SelectSingleNode(maxVeloPath);
         maxVelocity = float.Parse(maxVeloNode.InnerXml);
 
-        string forwAccelPath = "//player/movement/foward_acceleration";
+        string forwAccelPath = "//player/movement/forward_acceleration";
         XmlNode forwAccelNode = xmlDoc.SelectSingleNode(forwAccelPath);
         forwardAccelerationRate = float.Parse(forwAccelNode.InnerXml);
 
