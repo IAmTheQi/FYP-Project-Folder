@@ -401,10 +401,9 @@ public class PlayerLogic : MonoBehaviour {
             //Player movement modifier
             controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
             walkingParam.setValue(speedModifier * currentVelocity);
+            //Debug.Log(speedModifier * currentVelocity);
 
-
-
-            Debug.LogFormat("horizontal:{0}     vertical:{1}        state:{2}       velocity:{3}        moveDir:{4}", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), currentState, currentVelocity, moveDirection);
+            //Debug.LogFormat("horizontal:{0}     vertical:{1}        state:{2}       velocity:{3}        moveDir:{4}", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), currentState, currentVelocity, moveDirection);
 
             //Weapon change key handler
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -619,7 +618,6 @@ public class PlayerLogic : MonoBehaviour {
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
                     break;
             }

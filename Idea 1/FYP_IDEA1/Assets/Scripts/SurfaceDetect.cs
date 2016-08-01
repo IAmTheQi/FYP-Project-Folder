@@ -21,6 +21,7 @@ public class SurfaceDetect : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
+        Debug.Log(collider.gameObject.name);
         playerScript.ChangeSurface(collider.tag);
     }
 }
