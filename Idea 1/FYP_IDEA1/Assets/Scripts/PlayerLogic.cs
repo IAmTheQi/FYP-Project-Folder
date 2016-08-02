@@ -109,8 +109,6 @@ public class PlayerLogic : MonoBehaviour {
 
     public byte currentWeaponIndex;
 
-    public Texture2D crossHair;
-
     public float playerHealth;
     public float playerSpeed;
     public float strafeSlow;
@@ -401,9 +399,6 @@ public class PlayerLogic : MonoBehaviour {
             //Player movement modifier
             controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
             walkingParam.setValue(speedModifier * currentVelocity);
-            //Debug.Log(speedModifier * currentVelocity);
-
-            //Debug.LogFormat("horizontal:{0}     vertical:{1}        state:{2}       velocity:{3}        moveDir:{4}", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), currentState, currentVelocity, moveDirection);
 
             //Weapon change key handler
             if (Input.GetKeyDown(KeyCode.Alpha1))
