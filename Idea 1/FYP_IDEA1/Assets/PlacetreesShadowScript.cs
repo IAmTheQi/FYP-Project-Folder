@@ -25,7 +25,7 @@ public class PlaceTreeShadowCasters
 			GameObject prefab = treeProt.prefab;
 
 			GameObject obj = GameObject.Instantiate(prefab, pos, Quaternion.AngleAxis(tree.rotation, Vector3.up)) as GameObject;
-			MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+			MeshRenderer renderer = obj.GetComponentInChildren<MeshRenderer>();
 			renderer.receiveShadows = false;
 			renderer.shadowCastingMode = ShadowCastingMode.On;
 			GameObjectUtility.SetStaticEditorFlags(obj, StaticEditorFlags.LightmapStatic);
