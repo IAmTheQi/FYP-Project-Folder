@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(LineRenderer))]
 public class MutantBaseClass : MonoBehaviour {
 
     public float health;
@@ -36,6 +35,8 @@ public class MutantBaseClass : MonoBehaviour {
     public float attackDelay;
     public float timeStamp;
 
+    GameObject focusRing;
+
     public GameObject playerLastPositionPrefab;
     protected GameObject playerLastPosition;
     protected GameObject noiseLastPosition;
@@ -67,6 +68,9 @@ public class MutantBaseClass : MonoBehaviour {
         attackDelay = 2.0f;
         timeStamp = Time.time;
 
+        focusRing = transform.Find("FocusRing").gameObject;
+        focusRing.SetActive(false);
+
         playerLastPosition = (GameObject)Instantiate(playerLastPositionPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         noiseLastPosition = GameObject.Find("NoiseLastSeen");
 
@@ -78,6 +82,7 @@ public class MutantBaseClass : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected void Update () {
+
         if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().weaponSelect || playerObject.GetComponent<PlayerLogic>().itemView)
         {
 
@@ -144,22 +149,25 @@ public class MutantBaseClass : MonoBehaviour {
             }
 
             //Heartbeat sensing
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 playerObject.GetComponent<PlayerLogic>().focus = true;
-                if (Vector3.Distance(transform.position, playerObject.transform.position) < 20)
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 200)
                 {
-                    lineRenderer.enabled = true;
+                    //lineRenderer.enabled = true;
+                    focusRing.SetActive(true);
                 }
                 else
                 {
-                    lineRenderer.enabled = false;
+                    //lineRenderer.enabled = false;
+                    focusRing.SetActive(false);
                 }
             }
             else if (Input.GetKeyUp(KeyCode.F))
             {
                 playerObject.GetComponent<PlayerLogic>().focus = false;
-                lineRenderer.enabled = false;
+                //lineRenderer.enabled = false;
+                focusRing.SetActive(false);
             }
 
             lineRenderer.SetPosition(0, transform.position);

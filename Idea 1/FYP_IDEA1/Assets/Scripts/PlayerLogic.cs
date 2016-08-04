@@ -9,6 +9,9 @@ public class PlayerLogic : MonoBehaviour {
     SettingsConfig settingsScript;
 
     GameObject cam1;
+    GameObject focusCam;
+    GameObject scopeCam;
+    GameObject scopeFocusCam;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -174,6 +177,9 @@ public class PlayerLogic : MonoBehaviour {
         settingsScript = gameController.GetComponent<SettingsConfig>();
 
         cam1 = GameObject.Find("Main Camera");
+        focusCam = GameObject.Find("FocusCamera");
+        scopeCam = GameObject.Find("ScopeCamera");
+        scopeFocusCam = GameObject.Find("ScopeFocusCamera");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
@@ -565,10 +571,12 @@ public class PlayerLogic : MonoBehaviour {
             {
                 shadowAlpha = shadowOverlay.GetComponent<Image>().color;
                 shadowAlpha.a += 0.05f;
+                focusCam.SetActive(true);
             }
             else
             {
                 shadowAlpha.a -= 0.05f;
+                focusCam.SetActive(false);
             }
 
             //Check current movement state to adjust speed multiplier accordingly
@@ -694,6 +702,11 @@ public class PlayerLogic : MonoBehaviour {
                         lerpStart = lerpTime;
                     }
                     rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
+
+                    if (focus)
+                    {
+                        focusCam.SetActive(false);
+                    }
                 }
 
                 if (!aimDownSight)
@@ -704,6 +717,11 @@ public class PlayerLogic : MonoBehaviour {
                         lerpStart = lerpTime;
                     }
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
+
+                    if (!focus)
+                    {
+                        focusCam.SetActive(true);
+                    }
                 }
                 break;
 
