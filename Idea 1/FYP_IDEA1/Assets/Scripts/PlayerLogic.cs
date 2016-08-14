@@ -809,6 +809,10 @@ public class PlayerLogic : MonoBehaviour {
                 hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
                 StartCoroutine(Blink());
             }
+            else if (hit.collider.tag == "MutantBack" && currentWeaponIndex == 3)
+            {
+                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+            }
             Debug.Log(hit.collider.name);
         }
         GunNoise();
