@@ -60,7 +60,7 @@ public class SmoothMouseLook : MonoBehaviour
         {
             if (parentObject.GetComponent<PlayerLogic>().aimDownSight)
             {
-                multiplier = 0.25f;
+                multiplier = 0.1f;
             }
             else if (!parentObject.GetComponent<PlayerLogic>().aimDownSight)
             {
