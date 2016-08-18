@@ -6,6 +6,11 @@ using System.Xml;
 
 public class SettingsConfig : MonoBehaviour {
 
+    public GameObject savePrompt;
+    bool saveCheck;
+    public GameObject loadPrompt;
+    bool loadCheck;
+
     public TextAsset playerValues;
 
     public byte mouseSense;
@@ -36,6 +41,8 @@ public class SettingsConfig : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        saveCheck = false;
+        loadCheck = false;
         string textData = playerValues.text;
         ParseValuesXML(textData);
     }
@@ -46,6 +53,15 @@ public class SettingsConfig : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P))
         {
             ResetScene();
+        }
+
+        if (saveCheck)
+        {
+            savePrompt.SetActive(true);
+        }
+        else if (!saveCheck)
+        {
+            savePrompt.SetActive(false);
         }
 	}
 
@@ -118,5 +134,56 @@ public class SettingsConfig : MonoBehaviour {
         string strafePath = "//player/movement/strafe_slow";
         XmlNode strafeNode = xmlDoc.SelectSingleNode(strafePath);
         strafeSlow = float.Parse(strafeNode.InnerXml);
+    }
+
+    public void CheckSave(string target)
+    {
+        switch (target)
+        {
+            case "Check":
+                if (File.Exists(Application.persistentDataPath + "/savedGames.og"))
+                {
+                    saveCheck = true;
+                }
+                else
+                {
+                    SaveLoad.Save();
+                }
+                break;
+
+            case "Confirm":
+                SaveLoad.Save();
+                saveCheck = false;
+                break;
+
+            case "Cancel":
+                saveCheck = false;
+                break;
+        }
+    }
+
+    public void CheckLoad(string target)
+    {
+        switch (target)
+        {
+            case "Check":
+                if (File.Exists(Application.persistentDataPath + "/savedGames.og"))
+                {
+                    loadCheck = true;
+                }
+                else
+                {
+
+                }
+                break;
+
+            case "Confirm":
+                SaveLoad.Load();
+                break;
+
+            case "Canel":
+                loadCheck = false;
+                break;
+        }
     }
 }

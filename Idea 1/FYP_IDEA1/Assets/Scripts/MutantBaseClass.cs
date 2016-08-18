@@ -224,4 +224,9 @@ public class MutantBaseClass : MonoBehaviour {
     {
         playerLastPosition.transform.position = target.position;
     }
+
+    public string ReturnState()
+    {
+        return currentState.ToString();
+    }
 }

@@ -60,6 +60,7 @@ public class PlayerLogic : MonoBehaviour {
     public GameObject pistolObject;
     public GameObject knifeObject;
 
+    Animator rifleAnimator;
 
     float lerpStart;
     float lerpTime;
@@ -92,10 +93,10 @@ public class PlayerLogic : MonoBehaviour {
         public Sprite unselectedPanel;
         public Sprite lockedPanel;
         public bool locked;
-        public byte currentAmmo;
-        public byte magazineSize;
-        public byte remainingAmmo;
-        public byte totalAmmo;
+        public int currentAmmo;
+        public int magazineSize;
+        public int remainingAmmo;
+        public int totalAmmo;
         public float shootDelay;
         public float reloadDelay;
         public float range;
@@ -190,6 +191,8 @@ public class PlayerLogic : MonoBehaviour {
         itemView = false;
         inspectView = false;
 
+        rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
+
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         aimDownSight = false;
@@ -282,6 +285,11 @@ public class PlayerLogic : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            SaveLoad.Save();
+        }
+
         if (pauseGame)
         {
             pauseMenu.SetActive(true);
@@ -469,6 +477,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (currentWeaponIndex == 0)
                     {
+                        rifleAnimator.SetBool("Firing", true);
                         FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
                         gunParticle.Emit(1);
                     }
@@ -483,6 +492,10 @@ public class PlayerLogic : MonoBehaviour {
                     }
                     timeStamp = Time.time;
                 }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                rifleAnimator.SetBool("Firing", false);
             }
 
             if (Input.GetMouseButtonDown(1))
