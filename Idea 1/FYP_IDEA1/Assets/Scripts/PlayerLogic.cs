@@ -420,7 +420,7 @@ public class PlayerLogic : MonoBehaviour {
                 //If current weapon is not alredy the target weapon
                 if (currentSelected != Inventory.Rifle)
                 {
-                    SwitchWeapon(0);
+                    StartCoroutine(SwitchWeapon(0));
                 }
             }
 
@@ -429,7 +429,8 @@ public class PlayerLogic : MonoBehaviour {
                 //If current weapon is not alredy the target weapon
                 if (currentSelected != Inventory.Pistol)
                 {
-                    SwitchWeapon(1);
+                    rifleAnimator.SetBool("Swapping", true);
+                    StartCoroutine(SwitchWeapon(1));
                 }
             }
 
@@ -601,6 +602,8 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
+                    rifleAnimator.SetBool("Sprinting", false);
+                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Run:
                     controller.height = walkHeight;
@@ -608,6 +611,8 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.runModifier;
                     pantingParam.setValue(1.0f);
+                    rifleAnimator.SetBool("Sprinting", true);
+                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Crouch:
                     controller.height = crouchHeight;
@@ -615,6 +620,8 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.crouchModifier;
                     pantingParam.setValue(0.0f);
+                    rifleAnimator.SetBool("Sprinting", false);
+                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Prone:
                     controller.height = proneHeight;
@@ -622,6 +629,8 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 40f;
                     speedModifier = settingsScript.proneModifier;
                     pantingParam.setValue(0.0f);
+                    rifleAnimator.SetBool("Sprinting", false);
+                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
@@ -629,12 +638,16 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
+                    rifleAnimator.SetBool("Sprinting", false);
+                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Jump:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     pantingParam.setValue(0.0f);
+                    rifleAnimator.SetBool("Sprinting", false);
+                    StartCoroutine(PlayerJump());
                     break;
             }
 
@@ -909,8 +922,9 @@ public class PlayerLogic : MonoBehaviour {
         reloadText.SetActive(false);
     }
 
-    public void SwitchWeapon(int target)
+    public IEnumerator SwitchWeapon(int target)
     {
+        yield return new WaitForSeconds(0.3f);
         Debug.Log(target);
         if (target == 0)
         {
@@ -962,6 +976,12 @@ public class PlayerLogic : MonoBehaviour {
             reloadState = false;
             timeStamp = Time.time;
         }
+    }
+
+    public IEnumerator PlayerJump()
+    {
+        yield return new WaitForSeconds(0.25f);
+        rifleAnimator.SetBool("Jump", true);
     }
     
     public void ChangeSurface(string target)
