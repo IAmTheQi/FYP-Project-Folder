@@ -12,6 +12,8 @@ public class MutantDetectionLogic : MonoBehaviour {
     float fieldOfViewAngle;
     SphereCollider col;
 
+    float angle;
+
 	// Use this for initialization
 	void Start () {
         playerObject = GameObject.Find("PlayerController");
@@ -27,6 +29,8 @@ public class MutantDetectionLogic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        Debug.Log(playerInSight);
 	
 	}
 
@@ -52,23 +56,29 @@ public class MutantDetectionLogic : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            playerInSight = false;
             
             Vector3 direction = other.transform.position - transform.position;
-            float angle = Vector3.Angle(direction, transform.forward);
+            angle = Vector3.Angle(direction, transform.forward);
             
-            if (angle < fieldOfViewAngle * 0.5f)
+            if (angle < fieldOfViewAngle * 0.5f && !playerInSight)
             {
                 RaycastHit hit;
-                
-                if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit, col.radius))
+
+                if (Physics.Raycast(other.transform.position, -direction.normalized, out hit, col.radius))
                 {
-                    if (hit.collider.gameObject == playerObject)
+                    if (hit.collider.tag == "Mutant")
                     {
-                        playerInSight = true;
+                        parentMutant.SendMessage("AlertMutant");
                     }
+                    //Debug.LogFormat("bool:{0}       angle:{1}       hit:{2}", playerInSight, angle, hit.collider.tag);
                 }
             }
+            else if (angle > fieldOfViewAngle * 0.5f && playerInSight)
+            {
+                parentMutant.SendMessage("RecordLastSeen", other.transform);
+                parentMutant.SendMessage("LosePlayer");
+            }
+
         }
     }
 

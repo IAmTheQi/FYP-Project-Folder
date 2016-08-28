@@ -27,7 +27,7 @@ public class LookAtCameraPrompt : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Vector3.Distance(transform.position, player.transform.position) < 5)
+        if (Vector3.Distance(transform.position, player.transform.position) < 10)
         {
             transform.LookAt(mainCamera.transform);
             child1.SetActive(true);
@@ -37,7 +37,7 @@ public class LookAtCameraPrompt : MonoBehaviour {
             child1.SetActive(false);
         }
 
-        if (Vector3.Distance(transform.position, player.transform.position) < 1)
+        if (Vector3.Distance(transform.position, player.transform.position) < 5)
         {
             child2.SetActive(true);
         }

@@ -60,7 +60,10 @@ public class PlayerLogic : MonoBehaviour {
     public GameObject pistolObject;
     public GameObject knifeObject;
 
+    public GameObject bottlePrefab;
+
     Animator rifleAnimator;
+    Animator knifeAnimator;
 
     float lerpStart;
     float lerpTime;
@@ -144,6 +147,7 @@ public class PlayerLogic : MonoBehaviour {
     public Weapons[] weapons;
     public float timeStamp;
     public bool reloadState;
+    public bool holdingBottle;
 
     float regenTimer;
     float regenDelay;
@@ -192,6 +196,7 @@ public class PlayerLogic : MonoBehaviour {
         inspectView = false;
 
         rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
+        knifeAnimator = knifeObject.GetComponent<Animator>();
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
@@ -420,7 +425,15 @@ public class PlayerLogic : MonoBehaviour {
                 //If current weapon is not alredy the target weapon
                 if (currentSelected != Inventory.Rifle)
                 {
-                    StartCoroutine(SwitchWeapon(0));
+                    if (currentSelected == Inventory.Knife)
+                    {
+                        knifeAnimator.SetBool("Swapping", true);
+                        StartCoroutine(SwitchWeapon(0));
+                    }
+                    else
+                    {
+                        StartCoroutine(SwitchWeapon(0));
+                    }
                 }
             }
 
@@ -429,8 +442,20 @@ public class PlayerLogic : MonoBehaviour {
                 //If current weapon is not alredy the target weapon
                 if (currentSelected != Inventory.Pistol)
                 {
-                    rifleAnimator.SetBool("Swapping", true);
-                    StartCoroutine(SwitchWeapon(1));
+                    if (currentSelected == Inventory.Rifle)
+                    {
+                        rifleAnimator.SetBool("Swapping", true);
+                        StartCoroutine(SwitchWeapon(1));
+                    }
+                    else if (currentSelected == Inventory.Knife)
+                    {
+                        knifeAnimator.SetBool("Swapping", true);
+                        StartCoroutine(SwitchWeapon(1));
+                    }
+                    else
+                    {
+                        StartCoroutine(SwitchWeapon(1));
+                    }
                 }
             }
 
@@ -439,7 +464,15 @@ public class PlayerLogic : MonoBehaviour {
                 //If current weapon is not alredy the target weapon
                 if (currentSelected != Inventory.Knife)
                 {
-                    SwitchWeapon(2);
+                    if (currentSelected == Inventory.Rifle)
+                    {
+                        rifleAnimator.SetBool("Swapping", true);
+                        StartCoroutine(SwitchWeapon(2));
+                    }
+                    else
+                    {
+                        StartCoroutine(SwitchWeapon(2));
+                    }
                 }
             }
 
@@ -471,32 +504,50 @@ public class PlayerLogic : MonoBehaviour {
             //Left Mouse Button Shoot
             if (Input.GetMouseButton(0))
             {
-                if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                if (!holdingBottle)
                 {
-                    ShootRay();
-                    weapons[currentWeaponIndex].currentAmmo -= 1;
+                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                    {
+                        ShootRay();
+                        if (currentSelected != Inventory.Knife)
+                        {
+                            weapons[currentWeaponIndex].currentAmmo -= 1;
+                        }
 
-                    if (currentWeaponIndex == 0)
-                    {
-                        rifleAnimator.SetBool("Firing", true);
-                        FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
-                        gunParticle.Emit(1);
+                        if (currentWeaponIndex == 0)
+                        {
+                            rifleAnimator.SetBool("Firing", true);
+                            FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
+                            gunParticle.Emit(1);
+                        }
+                        else if (currentWeaponIndex == 1)
+                        {
+                            FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
+                            pistolParticle.Emit(1);
+                        }
+                        else if (currentWeaponIndex == 2)
+                        {
+                            knifeAnimator.SetBool("Attacking", true);
+                            FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
+                        }
+                        timeStamp = Time.time;
                     }
-                    else if (currentWeaponIndex == 1)
-                    {
-                        FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
-                        pistolParticle.Emit(1);
-                    }
-                    else if (currentWeaponIndex == 2)
-                    {
-                        FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
-                    }
-                    timeStamp = Time.time;
+                }
+                else if (holdingBottle)
+                {
+                    ThrowBottle();
                 }
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                rifleAnimator.SetBool("Firing", false);
+                if (currentSelected == Inventory.Rifle)
+                {
+                    rifleAnimator.SetBool("Firing", false);
+                }
+                else if (currentSelected == Inventory.Knife)
+                {
+                    knifeAnimator.SetBool("Attacking", false);
+                }
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -530,10 +581,13 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Check for Reload need
-            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState)
+            if (currentSelected != Inventory.Knife)
             {
-                reloadState = true;
-                timeStamp = Time.time;
+                if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState)
+                {
+                    reloadState = true;
+                    timeStamp = Time.time;
+                }
             }
 
             if (reloadState)
@@ -652,9 +706,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Item Interaction & Collection
-            
-
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 Ray ray = new Ray(camTransform.position, camTransform.forward);
                 if (Physics.Raycast(ray, out interactHit, 5))
@@ -668,6 +720,11 @@ public class PlayerLogic : MonoBehaviour {
                     if (interactHit.collider.tag == "Collectable")
                     {
                         collectScript.CollectItem(interactHit.collider.gameObject);
+                    }
+
+                    if (interactHit.collider.tag == "Bottle")
+                    {
+                        holdingBottle = true;
                     }
                 }
             }
@@ -835,13 +892,21 @@ public class PlayerLogic : MonoBehaviour {
                 hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
                 StartCoroutine(Blink());
             }
-            else if (hit.collider.tag == "MutantBack" && currentWeaponIndex == 3)
+            else if (hit.collider.tag == "MutantBack" && currentWeaponIndex == 2)
             {
-                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 1000);
             }
             Debug.Log(hit.collider.name);
         }
         GunNoise();
+    }
+
+    void ThrowBottle()
+    {
+        GameObject clone;
+
+        clone = (GameObject)Instantiate(bottlePrefab, gunParticle.transform.position, cam1.transform.rotation);
+        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 1000);
     }
 
     void GunNoise()
@@ -1018,6 +1083,10 @@ public class PlayerLogic : MonoBehaviour {
                     inspectView = !inspectView;
                     collectScript.InspectItem();
                 }
+                break;
+
+            case "options":
+                optionsView = !optionsView;
                 break;
         }
     }

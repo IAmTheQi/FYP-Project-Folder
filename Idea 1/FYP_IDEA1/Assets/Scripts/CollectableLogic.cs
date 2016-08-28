@@ -137,7 +137,7 @@ public class CollectableLogic : MonoBehaviour {
                 itemsArray[i].selectUI.GetComponent<Text>().color = unselected;
                 indexList.Add(i);
                 indexList.Sort();
-                Destroy(target);
+                target.SetActive(false);
                 break;
             }
         }

@@ -149,7 +149,7 @@ public class MutantBaseClass : MonoBehaviour {
             }
 
             //Heartbeat sensing
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 playerObject.GetComponent<PlayerLogic>().focus = true;
                 if (Vector3.Distance(transform.position, playerObject.transform.position) < 200)
@@ -163,7 +163,7 @@ public class MutantBaseClass : MonoBehaviour {
                     focusRing.SetActive(false);
                 }
             }
-            else if (Input.GetKeyUp(KeyCode.F))
+            else if (Input.GetKeyUp(KeyCode.C))
             {
                 playerObject.GetComponent<PlayerLogic>().focus = false;
                 //lineRenderer.enabled = false;
@@ -187,6 +187,7 @@ public class MutantBaseClass : MonoBehaviour {
 
     public void TakeDamage(float value)
     {
+        Debug.Log("Ouch");
         if ((health - value) > 0)
         {
             health -= value;

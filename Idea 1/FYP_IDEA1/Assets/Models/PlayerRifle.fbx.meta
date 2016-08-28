@@ -569,6 +569,7 @@ ModelImporter:
     7400008: Rifle_Sprint_End
     7400010: Rifle_Swap
     7400012: Rifle_Land
+    7400014: Rifle_Sight
     9500000: //RootNode
     13700000: Arm_Mesh
   materials:
@@ -2885,6 +2886,382 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 167
       lastFrame: 177
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Armature
+        weight: 1
+      - path: Arm_Armature/Master
+        weight: 1
+      - path: Arm_Armature/Master/Camera
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CIndex_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CIndex_L/IndexIK_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CLong_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CLong_L/LongIK_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CPink_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CPink_L/PinkIK_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CRing_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/CRing_L/RingIK_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/Hold_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/CThumb_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/CLong_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/CLong_R/LongIK_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/CPink_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/CPink_R/PinkIK_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/CRing_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/CRing_R/RingIK_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/Hold_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/CThumb_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Arm_Armature/Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: PlayerRifle
+        weight: 1
+      - path: polySurface10
+        weight: 1
+      - path: polySurface10/polySurface11 1
+        weight: 1
+      - path: polySurface10/polySurface11 1/transform46
+        weight: 1
+      - path: polySurface10/polySurface12
+        weight: 1
+      - path: polySurface10/polySurface12/transform45
+        weight: 1
+      - path: polySurface10/polySurface13
+        weight: 1
+      - path: polySurface10/polySurface13/transform44
+        weight: 1
+      - path: polySurface10/polySurface15
+        weight: 1
+      - path: polySurface10/polySurface15/transform43
+        weight: 1
+      - path: polySurface10/polySurface16
+        weight: 1
+      - path: polySurface10/polySurface16/transform42
+        weight: 1
+      - path: polySurface10/polySurface17
+        weight: 1
+      - path: polySurface10/polySurface17/transform41
+        weight: 1
+      - path: polySurface10/polySurface18
+        weight: 1
+      - path: polySurface10/polySurface18/transform40
+        weight: 1
+      - path: polySurface10/polySurface19
+        weight: 1
+      - path: polySurface10/polySurface19/transform39
+        weight: 1
+      - path: polySurface10/polySurface20
+        weight: 1
+      - path: polySurface10/polySurface20/transform38
+        weight: 1
+      - path: polySurface10/polySurface21
+        weight: 1
+      - path: polySurface10/polySurface21/transform37
+        weight: 1
+      - path: polySurface10/polySurface22
+        weight: 1
+      - path: polySurface10/polySurface22/transform36
+        weight: 1
+      - path: polySurface10/polySurface23
+        weight: 1
+      - path: polySurface10/polySurface23/transform35
+        weight: 1
+      - path: polySurface10/polySurface24
+        weight: 1
+      - path: polySurface10/polySurface24/transform34
+        weight: 1
+      - path: polySurface10/polySurface25
+        weight: 1
+      - path: polySurface10/polySurface25/transform33
+        weight: 1
+      - path: polySurface10/polySurface26
+        weight: 1
+      - path: polySurface10/polySurface26/transform32
+        weight: 1
+      - path: polySurface10/polySurface27
+        weight: 1
+      - path: polySurface10/polySurface27/transform31
+        weight: 1
+      - path: polySurface10/polySurface28
+        weight: 1
+      - path: polySurface10/polySurface28/transform30
+        weight: 1
+      - path: polySurface10/polySurface29
+        weight: 1
+      - path: polySurface10/polySurface29/transform29
+        weight: 1
+      - path: polySurface10/polySurface30
+        weight: 1
+      - path: polySurface10/polySurface30/transform28
+        weight: 1
+      - path: polySurface10/polySurface31
+        weight: 1
+      - path: polySurface10/polySurface31/transform27
+        weight: 1
+      - path: polySurface10/polySurface32
+        weight: 1
+      - path: polySurface10/polySurface32/transform26
+        weight: 1
+      - path: polySurface10/polySurface33
+        weight: 1
+      - path: polySurface10/polySurface33/transform25
+        weight: 1
+      - path: polySurface10/polySurface34
+        weight: 1
+      - path: polySurface10/polySurface34/transform24
+        weight: 1
+      - path: polySurface10/polySurface35
+        weight: 1
+      - path: polySurface10/polySurface35/transform23
+        weight: 1
+      - path: polySurface10/polySurface36
+        weight: 1
+      - path: polySurface10/polySurface36/transform22
+        weight: 1
+      - path: polySurface10/polySurface37
+        weight: 1
+      - path: polySurface10/polySurface37/transform21
+        weight: 1
+      - path: polySurface10/polySurface38
+        weight: 1
+      - path: polySurface10/polySurface38/transform20
+        weight: 1
+      - path: polySurface10/polySurface39
+        weight: 1
+      - path: polySurface10/polySurface39/transform19
+        weight: 1
+      - path: polySurface10/polySurface40
+        weight: 1
+      - path: polySurface10/polySurface40/transform18
+        weight: 1
+      - path: polySurface10/polySurface41
+        weight: 1
+      - path: polySurface10/polySurface41/transform17
+        weight: 1
+      - path: polySurface10/polySurface42
+        weight: 1
+      - path: polySurface10/polySurface42/transform16
+        weight: 1
+      - path: polySurface10/polySurface43
+        weight: 1
+      - path: polySurface10/polySurface43/transform15
+        weight: 1
+      - path: polySurface10/polySurface44
+        weight: 1
+      - path: polySurface10/polySurface44/transform14
+        weight: 1
+      - path: polySurface10/polySurface45
+        weight: 1
+      - path: polySurface10/polySurface45/transform13
+        weight: 1
+      - path: polySurface10/polySurface46
+        weight: 1
+      - path: polySurface10/polySurface46/transform12
+        weight: 1
+      - path: polySurface10/polySurface47
+        weight: 1
+      - path: polySurface10/polySurface47/transform11
+        weight: 1
+      - path: polySurface10/polySurface48
+        weight: 1
+      - path: polySurface10/polySurface48/transform10
+        weight: 1
+      - path: polySurface10/polySurface49
+        weight: 1
+      - path: polySurface10/polySurface49/transform9
+        weight: 1
+      - path: polySurface10/polySurface50
+        weight: 1
+      - path: polySurface10/polySurface50/transform8
+        weight: 1
+      - path: polySurface10/polySurface51
+        weight: 1
+      - path: polySurface10/polySurface51/transform7
+        weight: 1
+      - path: polySurface10/polySurface52
+        weight: 1
+      - path: polySurface10/polySurface52/transform6
+        weight: 1
+      - path: polySurface10/polySurface53
+        weight: 1
+      - path: polySurface10/polySurface53/transform5
+        weight: 1
+      - path: polySurface10/polySurface54
+        weight: 1
+      - path: polySurface10/polySurface54/transform4
+        weight: 1
+      - path: polySurface10/polySurface55
+        weight: 1
+      - path: polySurface10/polySurface55/transform3
+        weight: 1
+      - path: polySurface10/polySurface56
+        weight: 1
+      - path: polySurface10/polySurface56/transform2
+        weight: 1
+      - path: polySurface10/transform1
+        weight: 1
+      - path: polySurface11
+        weight: 1
+      - path: SH_Arm
+        weight: 1
+      - path: SH_ConThumb
+        weight: 1
+      - path: SH_ConThumbs
+        weight: 1
+      - path: SH_Finger
+        weight: 1
+      - path: SH_Fingers
+        weight: 1
+      - path: SH_Hand
+        weight: 1
+      - path: SH_Hold
+        weight: 1
+      - path: SH_RotArm
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Rifle_Sight
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 61
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
