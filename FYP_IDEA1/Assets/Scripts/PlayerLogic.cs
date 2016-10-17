@@ -13,6 +13,7 @@ public class PlayerLogic : MonoBehaviour {
     GameObject focusCam;
     GameObject scopeCam;
     GameObject scopeFocusCam;
+    GameObject leanPivot;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -29,6 +30,13 @@ public class PlayerLogic : MonoBehaviour {
     public bool optionsView;
 
     public bool aimDownSight;
+    public bool frontfree;
+    public bool rightfree;
+    public bool leftfree;
+
+    public Transform originalRotation;
+    public Transform leftRotation;
+    public Transform rightRotation;
 
     GameObject ammoText;
     GameObject reloadText;
@@ -142,6 +150,7 @@ public class PlayerLogic : MonoBehaviour {
 
     RaycastHit hit;
     RaycastHit interactHit;
+    RaycastHit aimHit;
 
     public Inventory currentSelected;
     PlayerStates currentState;
@@ -186,6 +195,7 @@ public class PlayerLogic : MonoBehaviour {
         focusCam = GameObject.Find("FocusCamera");
         scopeCam = GameObject.Find("ScopeCamera");
         scopeFocusCam = GameObject.Find("ScopeFocusCamera");
+        leanPivot = GameObject.Find("LeanPivot");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
@@ -202,6 +212,9 @@ public class PlayerLogic : MonoBehaviour {
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         aimDownSight = false;
+        frontfree = false;
+        rightfree = false;
+        leftfree = false;
 
         hitMarker = GameObject.Find("HitMarker");
         hitMarker.SetActive(false);
@@ -555,8 +568,36 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && !aimDownSight)
             {
+                Ray aimRay = new Ray(transform.position, transform.forward);
+                Ray aimRayLeft = new Ray(transform.position, (transform.forward-transform.right));
+                Ray aimRayRight = new Ray(transform.position, (transform.forward + transform.right));
+
+                if (Physics.Raycast(aimRay, out aimHit, 2))
+                {
+                    if (Physics.Raycast(aimRayLeft, out aimHit, 2))
+                    {
+                        if (Physics.Raycast(aimRayRight, out aimHit, 2))
+                        {
+                            frontfree = false;
+                            leftfree = false;
+                            rightfree = false;
+                        }
+                        else
+                        {
+                            rightfree = true;
+                        }
+                    }
+                    else 
+                    {
+                        leftfree = true;
+                    }
+                }
+                else
+                {
+                    frontfree = true;
+                }
                 lerpStart = 0f;
                 aimDownSight = true;
             }
@@ -566,6 +607,8 @@ public class PlayerLogic : MonoBehaviour {
                 lerpStart = 0f;
                 aimDownSight = false;
             }
+
+            Debug.LogFormat("left:{0}       centre:{1}      right:{2}", leftfree, frontfree, rightfree);
 
             //Weapon select key
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -764,7 +807,7 @@ public class PlayerLogic : MonoBehaviour {
         shadowOverlay.GetComponent<Image>().color = shadowAlpha;
 
         //Debug.LogFormat("health:{0}        Fill:{1}", playerHealth, healthBar.GetComponent<Image>().fillAmount);
-
+        Debug.Log(originalRotation.rotation);
         //Weapon Wheel
         switch (currentSelected)
         {
@@ -800,6 +843,15 @@ public class PlayerLogic : MonoBehaviour {
                     }
                     rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
 
+                    if (leftfree)
+                    {
+                        leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, leftRotation.rotation, lerpStart / lerpTime);
+                    }
+                    else if (rightfree)
+                    {
+                        leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, rightRotation.rotation, lerpStart / lerpTime);
+                    }
+
                     if (focus)
                     {
                         focusCam.SetActive(false);
@@ -812,8 +864,21 @@ public class PlayerLogic : MonoBehaviour {
                     if (lerpStart >= lerpTime)
                     {
                         lerpStart = lerpTime;
+
+                        frontfree = false;
+                        leftfree = false;
+                        rightfree = false;
                     }
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
+
+                    if (leftfree)
+                    {
+                        leanPivot.transform.rotation = Quaternion.Lerp(leftRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
+                    }
+                    else if (rightfree)
+                    {
+                        leanPivot.transform.rotation = Quaternion.Lerp(rightRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
+                    }
 
                     if (!focus)
                     {
