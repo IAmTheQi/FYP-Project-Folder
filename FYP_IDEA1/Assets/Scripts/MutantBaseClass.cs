@@ -90,7 +90,7 @@ public class MutantBaseClass : MonoBehaviour {
 	// Update is called once per frame
 	protected void Update () {
 
-        if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().weaponSelect || playerObject.GetComponent<PlayerLogic>().itemView)
+        if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().itemView)
         {
 
         }

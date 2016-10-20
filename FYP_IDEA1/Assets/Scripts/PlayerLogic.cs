@@ -24,7 +24,6 @@ public class PlayerLogic : MonoBehaviour {
     public ParticleSystem pistolParticle;
 
     public bool pauseGame;
-    public bool weaponSelect;
     public bool itemView;
     public bool inspectView;
     public bool optionsView;
@@ -50,13 +49,6 @@ public class PlayerLogic : MonoBehaviour {
     Color bloodAlpha;
     GameObject shadowOverlay;
     Color shadowAlpha;
-
-    GameObject weaponWheel;
-    GameObject riflePanel;
-    GameObject pistolPanel;
-    GameObject knifePanel;
-    GameObject katanaPanel;
-    GameObject sniperPanel;
 
     GameObject itemMenu;
     GameObject pauseMenu;
@@ -101,9 +93,6 @@ public class PlayerLogic : MonoBehaviour {
     {
         public string weaponName;
         public Sprite weaponSprite;
-        public Sprite selectedPanel;
-        public Sprite unselectedPanel;
-        public Sprite lockedPanel;
         public bool locked;
         public int currentAmmo;
         public int magazineSize;
@@ -204,7 +193,6 @@ public class PlayerLogic : MonoBehaviour {
         collectScript = GetComponent<CollectableLogic>();
 
         pauseGame = false;
-        weaponSelect = false;
         itemView = false;
         inspectView = false;
 
@@ -232,13 +220,6 @@ public class PlayerLogic : MonoBehaviour {
         bloodAlpha = bloodOverlay.GetComponent<Image>().color;
         shadowOverlay = GameObject.Find("ShadowOverlay");
         shadowAlpha = shadowOverlay.GetComponent<Image>().color;
-
-        weaponWheel = GameObject.Find("Weapon Wheel");
-        riflePanel = GameObject.Find("Rifle Panel");
-        pistolPanel = GameObject.Find("Pistol Panel");
-        knifePanel = GameObject.Find("Knife Panel");
-        katanaPanel = GameObject.Find("Katana Panel");
-        sniperPanel = GameObject.Find("Sniper Panel");
 
         itemMenu = GameObject.Find("ItemSelect");
         itemMenu.SetActive(false);
@@ -353,18 +334,8 @@ public class PlayerLogic : MonoBehaviour {
                 itemMenu.SetActive(false);
             }
         }
-        else if (weaponSelect)
-        {
-            weaponWheel.SetActive(true);
-
-            if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                weaponSelect = false;
-            }
-        }
         else
         {
-            weaponWheel.SetActive(false);
             pauseMenu.SetActive(false);
             itemMenu.SetActive(false);
 
@@ -393,6 +364,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height + 1))
                     {
+                        Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
                         {
                             ChangeSurface("Concrete");
@@ -642,12 +614,6 @@ public class PlayerLogic : MonoBehaviour {
                 aimDownSight = false;
             }
 
-            //Weapon select key
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                weaponSelect = true;
-            }
-
             //Collectable item menu
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -845,27 +811,6 @@ public class PlayerLogic : MonoBehaviour {
         switch (currentSelected)
         {
             case Inventory.Rifle:
-                riflePanel.GetComponent<Image>().sprite = weapons[0].selectedPanel;
-                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
-                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
-
-                if (weapons[3].locked)
-                {
-                    katanaPanel.GetComponent<Image>().sprite = weapons[3].lockedPanel;
-                }
-                else
-                {
-                    katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
-                }
-
-                if (weapons[4].locked)
-                {
-                    sniperPanel.GetComponent<Image>().sprite = weapons[4].lockedPanel;
-                }
-                else
-                {
-                    sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
-                }
 
                 if (aimDownSight)
                 {
@@ -921,67 +866,9 @@ public class PlayerLogic : MonoBehaviour {
                 break;
 
             case Inventory.Pistol:
-                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
-                pistolPanel.GetComponent<Image>().sprite = weapons[1].selectedPanel;
-                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
-
-                if (weapons[3].locked)
-                {
-                    katanaPanel.GetComponent<Image>().sprite = weapons[3].lockedPanel;
-                }
-                else
-                {
-                    katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
-                }
-
-                if (weapons[4].locked)
-                {
-                    sniperPanel.GetComponent<Image>().sprite = weapons[4].lockedPanel;
-                }
-                else
-                {
-                    sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
-                }
                 break;
 
             case Inventory.Knife:
-                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
-                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
-                knifePanel.GetComponent<Image>().sprite = weapons[2].selectedPanel;
-
-                if (weapons[3].locked)
-                {
-                    katanaPanel.GetComponent<Image>().sprite = weapons[3].lockedPanel;
-                }
-                else
-                {
-                    katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
-                }
-
-                if (weapons[4].locked)
-                {
-                    sniperPanel.GetComponent<Image>().sprite = weapons[4].lockedPanel;
-                }
-                else
-                {
-                    sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
-                }
-                break;
-
-            case Inventory.Katana:
-                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
-                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
-                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
-                katanaPanel.GetComponent<Image>().sprite = weapons[3].selectedPanel;
-                sniperPanel.GetComponent<Image>().sprite = weapons[4].unselectedPanel;
-                break;
-
-            case Inventory.Sniper:
-                riflePanel.GetComponent<Image>().sprite = weapons[0].unselectedPanel;
-                pistolPanel.GetComponent<Image>().sprite = weapons[1].unselectedPanel;
-                knifePanel.GetComponent<Image>().sprite = weapons[2].unselectedPanel;
-                katanaPanel.GetComponent<Image>().sprite = weapons[3].unselectedPanel;
-                sniperPanel.GetComponent<Image>().sprite = weapons[4].selectedPanel;
                 break;
         }
     }
@@ -1164,7 +1051,6 @@ public class PlayerLogic : MonoBehaviour {
     
     public void ChangeSurface(string target)
     {
-        Debug.Log(target);
         if (target == "Concrete")
         {
             surfaceParam.setValue(1.0f);
