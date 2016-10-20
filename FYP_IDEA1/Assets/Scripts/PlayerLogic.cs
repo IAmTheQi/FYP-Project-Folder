@@ -640,6 +640,7 @@ public class PlayerLogic : MonoBehaviour {
 
             if (reloadState)
             {
+                rifleAnimator.SetBool("Reload", true);
                 reloadText.SetActive(true);
                 if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
                 {
@@ -1062,6 +1063,7 @@ public class PlayerLogic : MonoBehaviour {
             weapons[currentWeaponIndex].remainingAmmo -= weapons[currentWeaponIndex].magazineSize;
         }
 
+        rifleAnimator.SetBool("Reload", false);
         reloadState = false;
         reloadText.SetActive(false);
     }
