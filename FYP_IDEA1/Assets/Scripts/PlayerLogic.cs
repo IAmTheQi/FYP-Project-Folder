@@ -152,6 +152,8 @@ public class PlayerLogic : MonoBehaviour {
     RaycastHit interactHit;
     RaycastHit aimHit;
 
+    RaycastHit surfaceHit;
+
     public Inventory currentSelected;
     PlayerStates currentState;
     public Weapons[] weapons;
@@ -294,6 +296,8 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.getParameter("Speed", out walkingParam);
         walkingEv.getParameter("Surface", out surfaceParam);
         walkingEv.start();
+        walkingParam.setValue(0.0f);
+        surfaceParam.setValue(0.0f);
 
         pantingEv = FMODUnity.RuntimeManager.CreateInstance(panting);
         pantingEv.getParameter("Panting", out pantingParam);
@@ -384,6 +388,28 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         currentState = PlayerStates.Run;
                     }
+
+                    Ray surfaceRay = new Ray(transform.position, -transform.up);
+
+                    if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height + 1))
+                    {
+                        if (surfaceHit.collider.tag == "Concrete")
+                        {
+                            ChangeSurface("Concrete");
+                        }
+                        else if (surfaceHit.collider.tag == "Wood")
+                        {
+                            ChangeSurface("Wood");
+                        }
+                        else if (surfaceHit.collider.tag == "Dirt")
+                        {
+                            ChangeSurface("Dirt");
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
                 else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
                 {
@@ -431,7 +457,15 @@ public class PlayerLogic : MonoBehaviour {
 
             //Player movement modifier
             controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
-            walkingParam.setValue(speedModifier * currentVelocity);
+
+            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
+            {
+                walkingParam.setValue(speedModifier * currentVelocity);
+            }
+            else
+            {
+                walkingParam.setValue(0);
+            }
 
             //Weapon change key handler
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -607,8 +641,6 @@ public class PlayerLogic : MonoBehaviour {
                 lerpStart = 0f;
                 aimDownSight = false;
             }
-
-            Debug.LogFormat("left:{0}       centre:{1}      right:{2}", leftfree, frontfree, rightfree);
 
             //Weapon select key
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -808,7 +840,7 @@ public class PlayerLogic : MonoBehaviour {
         shadowOverlay.GetComponent<Image>().color = shadowAlpha;
 
         //Debug.LogFormat("health:{0}        Fill:{1}", playerHealth, healthBar.GetComponent<Image>().fillAmount);
-        Debug.Log(originalRotation.rotation);
+        //Debug.Log(originalRotation.rotation);
         //Weapon Wheel
         switch (currentSelected)
         {
@@ -1132,6 +1164,7 @@ public class PlayerLogic : MonoBehaviour {
     
     public void ChangeSurface(string target)
     {
+        Debug.Log(target);
         if (target == "Concrete")
         {
             surfaceParam.setValue(1.0f);

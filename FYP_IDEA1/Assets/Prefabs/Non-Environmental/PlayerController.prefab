@@ -4919,24 +4919,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000014025649692
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000012091984408}
-  - 33: {fileID: 33000011220487080}
-  - 135: {fileID: 135000012113273304}
-  - 114: {fileID: 114000010155557064}
-  m_Layer: 2
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000014044426000
 GameObject:
   m_ObjectHideFlags: 1
@@ -5748,7 +5730,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25}
   m_Children: []
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!4 &4000010403640498
 Transform:
   m_ObjectHideFlags: 1
@@ -6438,7 +6420,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25}
   m_Children: []
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &4000011056333978
 Transform:
   m_ObjectHideFlags: 1
@@ -7723,19 +7705,6 @@ Transform:
   - {fileID: 4000014129280870}
   m_Father: {fileID: 4000013003876978}
   m_RootOrder: 37
---- !u!4 &4000012091984408
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014025649692}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.81, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 1
 --- !u!4 &4000012092623250
 Transform:
   m_ObjectHideFlags: 1
@@ -9756,7 +9725,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &4000013966324948
 Transform:
   m_ObjectHideFlags: 1
@@ -9953,12 +9922,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012744788402}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -29.34, y: 6.72, z: -1.5}
+  m_LocalPosition: {x: -29.34, y: 5.19, z: -1.5}
   m_LocalScale: {x: 0.34338537, y: 0.3433856, z: 0.34338537}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
   - {fileID: 4000010287979022}
-  - {fileID: 4000012091984408}
   - {fileID: 4000011054362056}
   - {fileID: 4000010396808642}
   - {fileID: 4000013952105902}
@@ -10352,13 +10320,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000011220487080
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014025649692}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33000011301649228
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -10467,17 +10428,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010155557064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014025649692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74c285181640e5f4792db93c8af8c4dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000010768328024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10684,7 +10634,7 @@ MonoBehaviour:
     damageValue: 0
   timeStamp: 0
   reloadState: 0
-  holdingBottle: 0
+  holdingBottle: 1
   footsteps: event:/PlayerFootstep
   panting: event:/PlayerPant
   rifleSound: event:/Rifle
@@ -10715,18 +10665,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010443142978}
   m_Enabled: 1
---- !u!135 &135000012113273304
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014025649692}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137000010782067546
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
