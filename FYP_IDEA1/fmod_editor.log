@@ -7,9 +7,7 @@
 
 [LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEX): wFormatTag=0xFFFE, nChannels=2, nSamplesPerSec=48000, nAvgBytesPerSec=384000, nBlockAlign=8, wBitsPerSample=32, cbSize=22.
 [LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x00000003, SubFormat=00000003-0000-0010-8000-00AA00389B71.
-[LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
-[LOG] DownMix::init                            : dspbuffersize: 1024  rate: 48000. output speaker mode: 3, input speaker mode 7
-[LOG] DownMix::init                            : done.
+[LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 10.67ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Initializing FMOD mixer thread.  priority 3
 [LOG] Thread::initThread                       : - Stacksize 49152.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 0
 [LOG] Thread::callback                         : * FMOD mixer thread started
@@ -24,90 +22,13 @@
 [LOG] Thread::initThread                       : Initializing FMOD Studio bank load thread.  priority 0
 [LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 1
 [LOG] Thread::callback                         : * FMOD Studio bank load thread started
-[LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
-[LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
-[LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
-[LOG] Manager::readBank                        : fileversion = 72, compatVersion = 70 (oldest = 44, newest = 74)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 74)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 74)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 74)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 74)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 453184
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 19616
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000FA92FB48
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FF85DEF2E20
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FF85DEF2DF0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FF85DEF2F00
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FF85DEF2FB0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000E566E4B8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
-[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
-[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
-[LOG] SystemI::createSoundInternal             : creating subsound 0/1
-[LOG] SystemI::createSample                    : mode 0a000202 length 67709 samples, lengthbytes 17088
-[LOG] SystemI::createSample                    : channels = 2
-[LOG] SystemI::createSample                    : output = 00000000E56D7818
-[LOG] OutputSoftware::createSample             : lengthpcm 67709, lengthbytes 17088, channels 2, format 2, freq 48000, mode 0a00020a
-[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
-
-[WRN] EventInstance::update                    : Event {6168182d-e867-4296-bb5d-836abac85052} waited 100 milliseconds for sample data to load.  Preload sample data to avoid this delay.
-[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 453184
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 19616
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000FA92FB48
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FF85DEF2E20
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FF85DEF2DF0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FF85DEF2F00
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FF85DEF2FB0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000E566E6D8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
-[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
-[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
-[LOG] SystemI::createSoundInternal             : creating subsound 0/1
-[LOG] SystemI::createSample                    : mode 0a000202 length 50688 samples, lengthbytes 11648
-[LOG] SystemI::createSample                    : channels = 2
-[LOG] SystemI::createSample                    : output = 00000000E56D7818
-[LOG] OutputSoftware::createSample             : lengthpcm 50688, lengthbytes 11648, channels 2, format 2, freq 48000, mode 0a00020a
-[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
-
-[WRN] EventInstance::update                    : Event {11d62328-3c9e-4a30-be79-bccf3eeecc69} waited 90 milliseconds for sample data to load.  Preload sample data to avoid this delay.
-[LOG] SoundI::release                          : (null) (00000000E530B628)
-[LOG] SoundI::release                          : release subsounds. (00000000E530B628)
-[LOG] SoundI::release                          :     (null) (00000000E5BE79D8)
-[LOG] SoundI::release                          : release codec. (00000000E530B628)
-[LOG] SoundI::release                          : (null) (00000000E530AD88)
-[LOG] SoundI::release                          : release subsounds. (00000000E530AD88)
-[LOG] SoundI::release                          :     (null) (00000000E5BE60D8)
-[LOG] SoundI::release                          : release codec. (00000000E530AD88)
-[LOG] SoundI::release                          : (null) (00000000E56C0618)
-[LOG] SoundI::release                          : release subsounds. (00000000E56C0618)
-[LOG] SoundI::release                          :     (null) (00000000E5BE3518)
-[LOG] SoundI::release                          : release codec. (00000000E56C0618)
-[LOG] SoundI::release                          : (null) (00000000E56C0338)
-[LOG] SoundI::release                          : release subsounds. (00000000E56C0338)
-[LOG] SoundI::release                          :     (null) (00000000E5BEA0E8)
-[LOG] SoundI::release                          : release codec. (00000000E56C0338)
-[LOG] SoundI::release                          : (null) (00000000E56C0D48)
-[LOG] SoundI::release                          : release subsounds. (00000000E56C0D48)
-[LOG] SoundI::release                          :     (null) (00000000E5BEA728)
-[LOG] SoundI::release                          : release codec. (00000000E56C0D48)
-[LOG] SoundI::release                          : (null) (00000000E56BF1F8)
-[LOG] SoundI::release                          : release subsounds. (00000000E56BF1F8)
-[LOG] SoundI::release                          :     (null) (00000000E5BE84C8)
-[LOG] SoundI::release                          : release codec. (00000000E56BF1F8)
-[LOG] Thread::callback                         : * FMOD Studio update thread finished
-[LOG] Thread::close                            : FMOD Studio update thread thread destroyed
 [LOG] Thread::callback                         : * FMOD Studio bank load thread finished
 [LOG] Thread::close                            : FMOD Studio bank load thread thread destroyed
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] Thread::callback                         : * FMOD Studio sample load thread finished
 [LOG] Thread::close                            : FMOD Studio sample load thread thread destroyed
 [LOG] LiveUpdate::release                      : 
@@ -125,3 +46,4 @@
 [LOG] SystemI::close                           : Free channel pool.
 [LOG] SystemI::close                           : done.
 
+[LOG] System::create                           : Header version = 1.08.02. Current version = 1.08.02.

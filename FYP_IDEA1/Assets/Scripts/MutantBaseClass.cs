@@ -48,6 +48,10 @@ public class MutantBaseClass : MonoBehaviour {
 
     protected LineRenderer lineRenderer;
 
+    GameObject modelObject;
+    Animator mutantAnimator;
+    
+
     // Use this for initialization
     protected void Start () {
         dead = false;
@@ -78,12 +82,15 @@ public class MutantBaseClass : MonoBehaviour {
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
+
+        modelObject = transform.Find("MutantModel").gameObject;
+        mutantAnimator = modelObject.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	protected void Update () {
 
-        if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().weaponSelect || playerObject.GetComponent<PlayerLogic>().itemView)
+        if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().itemView)
         {
 
         }

@@ -51,7 +51,7 @@ public class SmoothMouseLook : MonoBehaviour
 
     void Update()
     {
-        if (parentObject.GetComponent<PlayerLogic>().pauseGame || parentObject.GetComponent<PlayerLogic>().weaponSelect)
+        if (parentObject.GetComponent<PlayerLogic>().pauseGame)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

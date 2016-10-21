@@ -61,6 +61,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="FYP_IDEA1.CSharp.Plugins.csproj">
@@ -69,7 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Models\PlacetreesShadowScript.cs" />
+    <Compile Include="Assets\PlacetreesShadowScript.cs" />
     <Compile Include="Assets\Scripts\BearLogic.cs" />
     <Compile Include="Assets\Scripts\BottleLogic.cs" />
     <Compile Include="Assets\Scripts\CollectDetect.cs" />
@@ -99,6 +105,7 @@
     <Compile Include="Assets\Scripts\WeaponWheelPanel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Models\Player Rifle\Rifle Animations.txt" />
     <None Include="Assets\Resources\PlayerValues.xml" />
     <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
