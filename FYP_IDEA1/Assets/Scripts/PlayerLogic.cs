@@ -574,7 +574,7 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
-            if (Input.GetMouseButtonDown(1) && !aimDownSight)
+            if (Input.GetMouseButton(1) && !aimDownSight)
             {
                 Ray aimRay = new Ray(transform.position, transform.forward);
                 Ray aimRayLeft = new Ray(transform.position, (transform.forward-transform.right));
@@ -604,6 +604,8 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     frontfree = true;
                 }
+
+
                 lerpStart = 0f;
                 aimDownSight = true;
             }
@@ -612,6 +614,51 @@ public class PlayerLogic : MonoBehaviour {
             {
                 lerpStart = 0f;
                 aimDownSight = false;
+            }
+
+            if (aimDownSight)
+            {
+                lerpStart += Time.deltaTime;
+                if (lerpStart >= lerpTime)
+                {
+                    lerpStart = lerpTime;
+                }
+
+                if (leftfree)
+                {
+                    leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, leftRotation.rotation, lerpStart / lerpTime);
+                }
+                else if (rightfree)
+                {
+                    leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, rightRotation.rotation, lerpStart / lerpTime);
+                }
+            }
+
+            if (!aimDownSight)
+            {
+                    lerpStart += Time.deltaTime;
+                    if (lerpStart >= lerpTime)
+                    {
+                        lerpStart = lerpTime;
+
+                        frontfree = false;
+                        leftfree = false;
+                        rightfree = false;
+                    }
+
+                    if (leftfree)
+                    {
+                        leanPivot.transform.rotation = Quaternion.Lerp(leftRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
+                    }
+                    else if (rightfree)
+                    {
+                        leanPivot.transform.rotation = Quaternion.Lerp(rightRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
+                    }
+
+                    if (!focus)
+                    {
+                        focusCam.SetActive(true);
+                    }
             }
 
             //Collectable item menu
@@ -814,21 +861,7 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (aimDownSight)
                 {
-                    lerpStart += Time.deltaTime;
-                    if (lerpStart >= lerpTime)
-                    {
-                        lerpStart = lerpTime;
-                    }
                     rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
-
-                    if (leftfree)
-                    {
-                        leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, leftRotation.rotation, lerpStart / lerpTime);
-                    }
-                    else if (rightfree)
-                    {
-                        leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, rightRotation.rotation, lerpStart / lerpTime);
-                    }
 
                     if (focus)
                     {
@@ -838,30 +871,7 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (!aimDownSight)
                 {
-                    lerpStart += Time.deltaTime;
-                    if (lerpStart >= lerpTime)
-                    {
-                        lerpStart = lerpTime;
-
-                        frontfree = false;
-                        leftfree = false;
-                        rightfree = false;
-                    }
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
-
-                    if (leftfree)
-                    {
-                        leanPivot.transform.rotation = Quaternion.Lerp(leftRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
-                    }
-                    else if (rightfree)
-                    {
-                        leanPivot.transform.rotation = Quaternion.Lerp(rightRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
-                    }
-
-                    if (!focus)
-                    {
-                        focusCam.SetActive(true);
-                    }
                 }
                 break;
 
@@ -1041,6 +1051,11 @@ public class PlayerLogic : MonoBehaviour {
             reloadState = false;
             timeStamp = Time.time;
         }
+    }
+
+    public void TiltPlayer()
+    {
+
     }
 
     public IEnumerator PlayerJump()
