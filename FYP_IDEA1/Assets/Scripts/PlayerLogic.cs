@@ -519,6 +519,8 @@ public class PlayerLogic : MonoBehaviour {
             {
                 reloadState = true;
                 timeStamp = Time.time;
+
+                rifleAnimator.SetTrigger("Reload");
             }
 
             //Left Mouse Button Shoot
@@ -605,7 +607,6 @@ public class PlayerLogic : MonoBehaviour {
                     frontfree = true;
                 }
 
-
                 lerpStart = 0f;
                 aimDownSight = true;
             }
@@ -685,7 +686,6 @@ public class PlayerLogic : MonoBehaviour {
 
             if (reloadState)
             {
-                rifleAnimator.SetBool("Reload", true);
                 reloadText.SetActive(true);
                 if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
                 {
@@ -991,8 +991,7 @@ public class PlayerLogic : MonoBehaviour {
             weapons[currentWeaponIndex].currentAmmo = weapons[currentWeaponIndex].magazineSize;
             weapons[currentWeaponIndex].remainingAmmo -= weapons[currentWeaponIndex].magazineSize;
         }
-
-        rifleAnimator.SetBool("Reload", false);
+        
         reloadState = false;
         reloadText.SetActive(false);
     }
