@@ -464,7 +464,7 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     if (currentSelected == Inventory.Rifle)
                     {
-                        rifleAnimator.SetBool("Swapping", true);
+                        rifleAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(1));
                     }
                     else if (currentSelected == Inventory.Knife)
@@ -486,7 +486,7 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     if (currentSelected == Inventory.Rifle)
                     {
-                        rifleAnimator.SetBool("Swapping", true);
+                        rifleAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(2));
                     }
                     else
@@ -520,6 +520,7 @@ public class PlayerLogic : MonoBehaviour {
                 reloadState = true;
                 timeStamp = Time.time;
 
+                rifleAnimator.SetBool("Firing", false);
                 rifleAnimator.SetTrigger("Reload");
             }
 
@@ -576,7 +577,7 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
-            if (Input.GetMouseButton(1) && !aimDownSight)
+            if (Input.GetMouseButton(1) && !aimDownSight && !reloadState)
             {
                 Ray aimRay = new Ray(transform.position, transform.forward);
                 Ray aimRayLeft = new Ray(transform.position, (transform.forward-transform.right));
@@ -613,8 +614,11 @@ public class PlayerLogic : MonoBehaviour {
 
             if (Input.GetMouseButtonUp(1))
             {
-                lerpStart = 0f;
-                aimDownSight = false;
+                if (aimDownSight)
+                {
+                    lerpStart = 0f;
+                    aimDownSight = false;
+                }
             }
 
             if (aimDownSight)
@@ -681,6 +685,9 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     reloadState = true;
                     timeStamp = Time.time;
+
+                    rifleAnimator.SetBool("Firing", false);
+                    rifleAnimator.SetTrigger("Reload");
                 }
             }
 
@@ -915,7 +922,7 @@ public class PlayerLogic : MonoBehaviour {
         GameObject clone;
 
         clone = (GameObject)Instantiate(bottlePrefab, gunParticle.transform.position, cam1.transform.rotation);
-        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 1000);
+        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 10000);
     }
 
     void GunNoise()
@@ -998,7 +1005,7 @@ public class PlayerLogic : MonoBehaviour {
 
     public IEnumerator SwitchWeapon(int target)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         Debug.Log(target);
         if (target == 0)
         {

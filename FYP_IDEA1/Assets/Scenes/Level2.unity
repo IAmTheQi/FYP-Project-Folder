@@ -417,6 +417,17 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 664ea1a068a4b8842ba985701a429c94, type: 3}
+--- !u!114 &10293307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 10293298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88577c68d9b0f3a4882a3237f450f433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &13059752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2196,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 236452301}
   m_LocalRotation: {x: 0.8317705, y: -0.25656617, z: 0.42273805, w: 0.2522385}
-  m_LocalPosition: {x: -4.06, y: 36.4, z: 0.5999708}
+  m_LocalPosition: {x: -347, y: 372, z: 167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 39.5335, y: 131.9269, z: -163.92569}
   m_Children: []
@@ -12246,7 +12257,8 @@ Prefab:
       propertyPath: initialVelocity
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000012565313008, guid: 7fcda3658e7a900438db77e9c6cfa677, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7fcda3658e7a900438db77e9c6cfa677, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1847060504
