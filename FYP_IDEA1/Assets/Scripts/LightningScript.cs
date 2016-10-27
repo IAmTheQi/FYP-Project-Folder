@@ -4,6 +4,7 @@ using System.Collections;
 public class LightningScript : MonoBehaviour {
 
     public GameObject lighting;
+    public GameObject lighting2;
     public float onValue;
     public float offValue;
     public float minTime;
@@ -30,10 +31,12 @@ public class LightningScript : MonoBehaviour {
             if (lighting.activeSelf == false && Random.value > onValue)
             {
                 lighting.SetActive(true);
+                lighting2.SetActive(true);
             }
             else if (lighting.activeSelf == true && Random.value > offValue)
             {
                 lighting.SetActive(false);
+                lighting2.SetActive(false);
                 lastTime = Time.time;
             }
         }
