@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LightningScript : MonoBehaviour {
 
@@ -11,6 +12,13 @@ public class LightningScript : MonoBehaviour {
 
     float lastTime;
 
+    [FMODUnity.EventRef]
+    public string lightningSound = "event:/Lightning";
+
+    [FMODUnity.EventRef]
+    public string rainSound = "event:/Rain";
+    public FMOD.Studio.EventInstance rainInstance;
+
 	// Use this for initialization
 	void Start () {
         
@@ -19,7 +27,9 @@ public class LightningScript : MonoBehaviour {
         offValue = 0.7f;
 
         lastTime = 0f;
-	
+
+        rainInstance = FMODUnity.RuntimeManager.CreateInstance(rainSound);
+        rainInstance.start();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +42,7 @@ public class LightningScript : MonoBehaviour {
             {
                 lighting.SetActive(true);
                 lighting2.SetActive(true);
+                FMODUnity.RuntimeManager.PlayOneShot(lightningSound);
             }
             else if (lighting.activeSelf == true && Random.value > offValue)
             {
@@ -42,4 +53,20 @@ public class LightningScript : MonoBehaviour {
         }
 	
 	}
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene("LevelPreloader");
+        rainInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    IEnumerator LoadScene()
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync("LevelPreloader");
+
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+    }
 }
