@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\PlacetreesShadowScript.cs" />
+     <Compile Include="Assets\RainMaker\Demo\DemoScript.cs" />
+     <Compile Include="Assets\RainMaker\Demo\DemoScript2D.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\BaseRainScript.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainCollision.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainScript.cs" />
+     <Compile Include="Assets\RainMaker\Prefab\RainScript2D.cs" />
      <Compile Include="Assets\Scripts\BearLogic.cs" />
      <Compile Include="Assets\Scripts\BottleLogic.cs" />
      <Compile Include="Assets\Scripts\CollectDetect.cs" />
@@ -67,6 +73,7 @@
      <Compile Include="Assets\Scripts\PlayerDetect.cs" />
      <Compile Include="Assets\Scripts\PlayerLogic.cs" />
      <Compile Include="Assets\Scripts\PortalLogic.cs" />
+     <Compile Include="Assets\Scripts\PreloaderScript.cs" />
      <Compile Include="Assets\Scripts\RaycastMask.cs" />
      <Compile Include="Assets\Scripts\SaveLoad.cs" />
      <Compile Include="Assets\Scripts\SettingsConfig.cs" />
@@ -75,9 +82,11 @@
      <Compile Include="Assets\Scripts\TutorialHandler.cs" />
      <Compile Include="Assets\Scripts\WeaponWheelPanel.cs" />
      <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
+     <None Include="Assets\RainMaker\Prefab\RainShader.shader" />
      <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
      <None Include="Assets\Resources\PlayerValues.xml" />
      <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
+     <None Include="Assets\RainMaker\Readme.txt" />
      <None Include="Assets\UI Sprites\Artifacts Menu\Item namese.txt" />
      <None Include="Assets\Models\Player Rifle\Rifle Animations.txt" />
  <Reference Include="UnityEngine.UI">
