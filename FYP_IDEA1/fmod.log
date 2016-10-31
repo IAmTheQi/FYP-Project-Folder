@@ -34,113 +34,716 @@
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000002921FB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB3A562E20
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB3A562DF0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB3A562F00
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB3A562FB0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003CCF8978
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003A851278
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
 [LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
 [LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
 [LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 0a000202 length 17280 samples, lengthbytes 7264
+[LOG] SystemI::createSample                    : channels = 2
+[LOG] SystemI::createSample                    : output = 00000000456A7768
+[LOG] OutputSoftware::createSample             : lengthpcm 17280, lengthbytes 7264, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003A851278
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] Thread::initThread                       : Initializing FMOD nonblocking thread (0).  priority 1
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] Thread::initThread                       : - Stacksize 81920.  Stack pointer 0000000000000000 : usesemaphore = 1 : sleeptime = 0
 [LOG] SystemI::createSample                    : mode 0a000202 length 374909 samples, lengthbytes 103584
 [LOG] SystemI::createSample                    : channels = 2
-[LOG] SystemI::createSample                    : output = 00000000003FC9D8
+[LOG] Thread::callback                         : * FMOD nonblocking thread (0) started
+[LOG] SystemI::createSample                    : output = 00000000456A7768
 [LOG] OutputSoftware::createSample             : lengthpcm 374909, lengthbytes 103584, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSound                     : setdata soundi = 0000000044C37DD8 : node = 0000000044FD9610
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
 [LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
 
 [LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000002921FB48
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB3A562E20
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB3A562DF0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB3A562F00
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB3A562FB0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003CCF8978
+on on sound 0000000044C37DD8
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+ng into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSound                     :     setdata soundi = 0000000044C375B8 : node = 0000000044FD9370
+ernal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSound                     :     add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000044FD9728
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000003A851278
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 253056
+[LOG] SystemI::createSample                    :     channels = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESAMPLE
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 253056, channels 1, format 2, freq 48000, mode 0a01008a
+[LOG] SystemI::createSoundInternal             :     Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             :     creating subsound 0/1
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] SystemI::createSample                    :     mode 0a000202 length 237312 samples, lengthbytes 62624
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] OutputSoftware::createSample             :     lengthpcm 237312, lengthbytes 62624, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             :         filename =  : mode 0a000202
+.  priority 1
+[LOG] Thread::initThread                       :         - Stacksize 16384.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 10
+[LOG] SystemI::createSoundInternal             :         exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :         exinfo->length             = 1823968
+[LOG] Thread::callback                         :         * FMOD file thread started
+[LOG] SystemI::createSoundInternal             :         exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000044C37DD8
+[LOG] SoundI::getSubSound                      : sound 0000000044C37DD8.  Subsound index 0 / 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000044C375B8
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+23A2E20
+[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000044FD9488
+[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000003A851278
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     mode 0a000202 length 231552 samples, lengthbytes 50848
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] SystemI::createSoundInternal             :     filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000594DFB48
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000044C375B8
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003A851278
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
 [LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
 [LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SoundI::getSubSound                      : sound 0000000044C375B8.  Subsound index 0 / 1
 [LOG] SystemI::createSoundInternal             : creating subsound 0/1
-[LOG] SystemI::createSample                    : mode 0a000202 length 237312 samples, lengthbytes 62624
-[LOG] SystemI::createSample                    : channels = 2
-[LOG] SystemI::createSample                    : output = 00000000003FC9D8
-[LOG] OutputSoftware::createSample             : lengthpcm 237312, lengthbytes 62624, channels 2, format 2, freq 48000, mode 0a00020a
-[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
-
-[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000002921FB48
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB3A562E20
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB3A562DF0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB3A562F00
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB3A562FB0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003CCF8978
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
-[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
-[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
-[LOG] SystemI::createSoundInternal             : creating subsound 0/1
-[LOG] SystemI::createSample                    : mode 0a000202 length 231552 samples, lengthbytes 50848
-[LOG] SystemI::createSample                    : channels = 2
-[LOG] SystemI::createSample                    : output = 00000000003FC9D8
-[LOG] OutputSoftware::createSample             : lengthpcm 231552, lengthbytes 50848, channels 2, format 2, freq 48000, mode 0a00020a
-[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
-
-[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000002921FB48
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFB3A562E20
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFB3A562DF0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFB3A562F00
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFB3A562FB0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000003CCF8978
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
-[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
-[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
-[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[WRN] EventInstance::update                    : Event {c0483de1-1094-4481-be46-e7392bbbdf63} waited 60 milliseconds for sample data to load.  Preload sample data to avoid this delay.
 [LOG] SystemI::createSample                    : mode 0a000202 length 258372 samples, lengthbytes 41408
 [LOG] SystemI::createSample                    : channels = 1
-[LOG] SystemI::createSample                    : output = 00000000003FC9D8
+[LOG] SystemI::createSample                    : output = 00000000456A7768
 [LOG] OutputSoftware::createSample             : lengthpcm 258372, lengthbytes 41408, channels 1, format 2, freq 48000, mode 0a00020a
 [LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
 
-[LOG] SoundI::release                          : (null) (0000000014A972C8)
-[LOG] SoundI::release                          : release subsounds. (0000000014A972C8)
-[LOG] SoundI::release                          :     (null) (000000003D17B288)
-[LOG] SoundI::release                          : release codec. (0000000014A972C8)
-[LOG] SoundI::release                          : (null) (0000000014A97CD8)
-[LOG] SoundI::release                          : release subsounds. (0000000014A97CD8)
-[LOG] SoundI::release                          :     (null) (000000003D17A478)
-[LOG] SoundI::release                          : release codec. (0000000014A97CD8)
-[LOG] SoundI::release                          : (null) (0000000014A97718)
-[LOG] SoundI::release                          : release subsounds. (0000000014A97718)
-[LOG] SoundI::release                          :     (null) (000000003D17B0F8)
-[LOG] SoundI::release                          : release codec. (0000000014A97718)
-[LOG] SoundI::release                          : (null) (0000000014A97E48)
-[LOG] SoundI::release                          : release subsounds. (0000000014A97E48)
-[LOG] SoundI::release                          :     (null) (000000003D175E28)
-[LOG] SoundI::release                          : release codec. (0000000014A97E48)
+[WRN] EventInstance::update                    : Event {7141fea4-2f6d-4651-83bc-cccd6fc58300} waited 80 milliseconds for sample data to load.  Preload sample data to avoid this delay.
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000118C48CA8 : node = 0000000044FD9760
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000118C48CA8
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000044FD9878
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000118C48CA8
+[LOG] SoundI::getSubSound                      : sound 0000000118C48CA8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000118C48FE8 : node = 0000000044FD9A00
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000118C48FE8
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000044FD9B18
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000118C48FE8
+[LOG] SoundI::getSubSound                      : sound 0000000118C48FE8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000118C49328 : node = 0000000044FD9220
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000118C49328
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000044FD9338
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 253056
+[LOG] SystemI::createSample                    :     channels = 1
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 253056, channels 1, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000118C49328
+[LOG] SoundI::getSubSound                      : sound 0000000118C49328.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000118C49668 : node = 0000000044FD90D0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000118C49668
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000044FD91E8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000118C49668
+[LOG] SoundI::getSubSound                      : sound 0000000118C49668.  Subsound index 0 / 1
+[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000293D9F68
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 0a000202 length 96548 samples, lengthbytes 21280
+[LOG] SystemI::createSample                    : channels = 2
+[LOG] SystemI::createSample                    : output = 00000000456A7768
+[LOG] OutputSoftware::createSample             : lengthpcm 96548, lengthbytes 21280, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000293D9F68
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 0a000202 length 94040 samples, lengthbytes 20800
+[LOG] SystemI::createSample                    : channels = 2
+[LOG] SystemI::createSample                    : output = 00000000456A7768
+[LOG] OutputSoftware::createSample             : lengthpcm 94040, lengthbytes 20800, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000293D9F68
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 0a000202 length 92786 samples, lengthbytes 20416
+[LOG] SystemI::createSample                    : channels = 2
+[LOG] SystemI::createSample                    : output = 00000000456A7768
+[LOG] OutputSoftware::createSample             : lengthpcm 92786, lengthbytes 20416, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000293D9F68
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 0a000202 length 96548 samples, lengthbytes 21472
+[LOG] SystemI::createSample                    : channels = 2
+[LOG] SystemI::createSample                    : output = 00000000456A7768
+[LOG] OutputSoftware::createSample             : lengthpcm 96548, lengthbytes 21472, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 0a000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000594DFB48
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FEE23A2E20
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FEE23A2DF0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FEE23A2F00
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FEE23A2FB0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 00000000293D9F68
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 0a000202 length 85263 samples, lengthbytes 18848
+[LOG] SystemI::createSample                    : channels = 2
+[LOG] SystemI::createSample                    : output = 00000000456A7768
+[LOG] OutputSoftware::createSample             : lengthpcm 85263, lengthbytes 18848, channels 2, format 2, freq 48000, mode 0a00020a
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[WRN] EventInstance::update                    : Event {6168182d-e867-4296-bb5d-836abac85052} waited 70 milliseconds for sample data to load.  Preload sample data to avoid this delay.
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000118C499A8 : node = 00000000450A8340
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000118C499A8
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000450A8458
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 253056
+[LOG] SystemI::createSample                    :     channels = 1
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 253056, channels 1, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000118C499A8
+[LOG] SoundI::getSubSound                      : sound 0000000118C499A8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000003B27AE28 : node = 00000000450A8490
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B27AE28
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000450A85A8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B27AE28
+[LOG] SoundI::getSubSound                      : sound 000000003B27AE28.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000003B27B168 : node = 00000000450A85E0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B27B168
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000450A86F8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 253056
+[LOG] SystemI::createSample                    :     channels = 1
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 253056, channels 1, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B27B168
+[LOG] SoundI::getSubSound                      : sound 000000003B27B168.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000003B27B4A8 : node = 00000000450A7E00
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B27B4A8
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000450A7F18
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B27B4A8
+[LOG] SoundI::getSubSound                      : sound 000000003B27B4A8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000003B27B7E8 : node = 00000000450A80A0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B27B7E8
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000450A81B8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 253056
+[LOG] SystemI::createSample                    :     channels = 1
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 253056, channels 1, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B27B7E8
+[LOG] SoundI::getSubSound                      : sound 000000003B27B7E8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000003B53D768 : node = 00000000450A89D0
+[LOG] SystemI::createSound                     : add node to async list : head = 00000000FECE1B80.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B53D768
+[LOG] SystemI::createSoundInternal             :     filename = F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop/Master Bank.bank : mode 0a010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1823968
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31616
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000450A8AE8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 0a010082 length 19200 samples, lengthbytes 371744
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 00000000456A7768
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 371744, channels 2, format 2, freq 48000, mode 0a01008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B53D768
+[LOG] SoundI::getSubSound                      : sound 000000003B53D768.  Subsound index 0 / 1
+[LOG] SoundI::release                          : (null) (0000000118C4B4F8)
+[LOG] SoundI::release                          : release subsounds. (0000000118C4B4F8)
+[LOG] SoundI::release                          :     (null) (00000001188A8BD8)
+[LOG] SoundI::release                          : release codec. (0000000118C4B4F8)
+[LOG] SoundI::release                          : (null) (0000000118C4B0A8)
+[LOG] SoundI::release                          : release subsounds. (0000000118C4B0A8)
+[LOG] SoundI::release                          :     (null) (0000000112EEF438)
+[LOG] SoundI::release                          : release codec. (0000000118C4B0A8)
+[LOG] SoundI::release                          : (null) (0000000118C4B388)
+[LOG] SoundI::release                          : release subsounds. (0000000118C4B388)
+[LOG] SoundI::release                          :     (null) (0000000112EEF5C8)
+[LOG] SoundI::release                          : release codec. (0000000118C4B388)
+[LOG] SoundI::release                          : (null) (0000000118C4B218)
+[LOG] SoundI::release                          : release subsounds. (0000000118C4B218)
+[LOG] SoundI::release                          :     (null) (0000000112EEF118)
+[LOG] SoundI::release                          : release codec. (0000000118C4B218)
+[LOG] SoundI::release                          : (null) (0000000118C4B668)
+[LOG] SoundI::release                          : release subsounds. (0000000118C4B668)
+[LOG] SoundI::release                          :     (null) (0000000112EEF918)
+[LOG] SoundI::release                          : release codec. (0000000118C4B668)
+[LOG] SoundI::release                          : (null) (000000003B53D768)
+[LOG] SoundI::release                          : remove stream samples. (000000003B53D768)
+[LOG] SoundI::release                          :     (null) (0000000112EF02A8)
+[LOG] SoundI::release                          : release subsounds. (000000003B53D768)
+[LOG] SoundI::release                          :     (null) (000000003B53D908)
+[LOG] SoundI::release                          : release codec. (000000003B53D768)
+[LOG] SoundI::release                          : (null) (000000003B27B4A8)
+[LOG] SoundI::release                          : remove stream samples. (000000003B27B4A8)
+[LOG] SoundI::release                          :     (null) (0000000112EF0DC8)
+[LOG] SoundI::release                          : release subsounds. (000000003B27B4A8)
+[LOG] SoundI::release                          :     (null) (000000003B27B648)
+[LOG] SoundI::release                          : release codec. (000000003B27B4A8)
+[LOG] SoundI::release                          : (null) (000000003B27AE28)
+[LOG] SoundI::release                          : remove stream samples. (000000003B27AE28)
+[LOG] SoundI::release                          :     (null) (0000000112EF0AA8)
+[LOG] SoundI::release                          : release subsounds. (000000003B27AE28)
+[LOG] SoundI::release                          :     (null) (000000003B27AFC8)
+[LOG] SoundI::release                          : release codec. (000000003B27AE28)
+[LOG] SoundI::release                          : (null) (0000000118C49668)
+[LOG] SoundI::release                          : remove stream samples. (0000000118C49668)
+[LOG] SoundI::release                          :     (null) (0000000112EB9988)
+[LOG] SoundI::release                          : release subsounds. (0000000118C49668)
+[LOG] SoundI::release                          :     (null) (0000000118C49808)
+[LOG] SoundI::release                          : release codec. (0000000118C49668)
+[LOG] SoundI::release                          : (null) (0000000118C48FE8)
+[LOG] SoundI::release                          : remove stream samples. (0000000118C48FE8)
+[LOG] SoundI::release                          :     (null) (0000000112EB9668)
+[LOG] SoundI::release                          : release subsounds. (0000000118C48FE8)
+[LOG] SoundI::release                          :     (null) (0000000118C49188)
+[LOG] SoundI::release                          : release codec. (0000000118C48FE8)
+[LOG] SoundI::release                          : (null) (0000000118C48CA8)
+[LOG] SoundI::release                          : remove stream samples. (0000000118C48CA8)
+[LOG] SoundI::release                          :     (null) (0000000112EB94D8)
+[LOG] SoundI::release                          : release subsounds. (0000000118C48CA8)
+[LOG] SoundI::release                          :     (null) (0000000118C48E48)
+[LOG] SoundI::release                          : release codec. (0000000118C48CA8)
+[LOG] SoundI::release                          : (null) (0000000044C375B8)
+[LOG] SoundI::release                          : remove stream samples. (0000000044C375B8)
+[LOG] SoundI::release                          :     (null) (0000000112FBD458)
+[LOG] SoundI::release                          : release subsounds. (0000000044C375B8)
+[LOG] SoundI::release                          :     (null) (0000000044C37F78)
+[LOG] SoundI::release                          : release codec. (0000000044C375B8)
+[LOG] SoundI::release                          : (null) (000000003B27B7E8)
+[LOG] SoundI::release                          : remove stream samples. (000000003B27B7E8)
+[LOG] SoundI::release                          :     (null) (0000000112EF0118)
+[LOG] SoundI::release                          : release subsounds. (000000003B27B7E8)
+[LOG] SoundI::release                          :     (null) (000000003B27B988)
+[LOG] SoundI::release                          : release codec. (000000003B27B7E8)
+[LOG] SoundI::release                          : (null) (000000003B27B168)
+[LOG] SoundI::release                          : remove stream samples. (000000003B27B168)
+[LOG] SoundI::release                          :     (null) (0000000112EF0C38)
+[LOG] SoundI::release                          : release subsounds. (000000003B27B168)
+[LOG] SoundI::release                          :     (null) (000000003B27B308)
+[LOG] SoundI::release                          : release codec. (000000003B27B168)
+[LOG] SoundI::release                          : (null) (0000000118C499A8)
+[LOG] SoundI::release                          : remove stream samples. (0000000118C499A8)
+[LOG] SoundI::release                          :     (null) (0000000112EF0918)
+[LOG] SoundI::release                          : release subsounds. (0000000118C499A8)
+[LOG] SoundI::release                          :     (null) (000000003B27AC88)
+[LOG] SoundI::release                          : release codec. (0000000118C499A8)
+[LOG] SoundI::release                          : (null) (0000000118C49328)
+[LOG] SoundI::release                          : remove stream samples. (0000000118C49328)
+[LOG] SoundI::release                          :     (null) (0000000112EB97F8)
+[LOG] SoundI::release                          : release subsounds. (0000000118C49328)
+[LOG] SoundI::release                          :     (null) (0000000118C494C8)
+[LOG] SoundI::release                          : release codec. (0000000118C49328)
+[LOG] SoundI::release                          : (null) (0000000044C37DD8)
+[LOG] SoundI::release                          : remove stream samples. (0000000044C37DD8)
+[LOG] SoundI::release                          :     (null) (00000000450C5A28)
+[LOG] SoundI::release                          : release subsounds. (0000000044C37DD8)
+[LOG] SoundI::release                          :     (null) (0000000044C378F8)
+[LOG] SoundI::release                          : release codec. (0000000044C37DD8)
+[LOG] SoundI::release                          : (null) (000000003B535128)
+[LOG] SoundI::release                          : release subsounds. (000000003B535128)
+[LOG] SoundI::release                          :     (null) (0000000112FB1AC8)
+[LOG] SoundI::release                          : release codec. (000000003B535128)
+[LOG] SoundI::release                          : (null) (000000003B534FB8)
+[LOG] SoundI::release                          : release subsounds. (000000003B534FB8)
+[LOG] SoundI::release                          :     (null) (0000000112FB1938)
+[LOG] SoundI::release                          : release codec. (000000003B534FB8)
+[LOG] SoundI::release                          : (null) (000000003B535298)
+[LOG] SoundI::release                          : release subsounds. (000000003B535298)
+[LOG] SoundI::release                          :     (null) (0000000112FB1C58)
+[LOG] SoundI::release                          : release codec. (000000003B535298)
+[LOG] SoundI::release                          : (null) (0000000118C4AF38)
+[LOG] SoundI::release                          : release subsounds. (0000000118C4AF38)
+[LOG] SoundI::release                          :     (null) (0000000112FB1DE8)
+[LOG] SoundI::release                          : release codec. (0000000118C4AF38)
+[LOG] SoundI::release                          : (null) (000000003B534E48)
+[LOG] SoundI::release                          : release subsounds. (000000003B534E48)
+[LOG] SoundI::release                          :     (null) (000000003A756C08)
+[LOG] SoundI::release                          : release codec. (000000003B534E48)
 [LOG] Thread::callback                         : * FMOD Studio update thread finished
 [LOG] Thread::close                            : FMOD Studio update thread thread destroyed
 [LOG] Thread::callback                         : * FMOD Studio bank load thread finished
@@ -161,5 +764,9 @@
 [LOG] SystemI::close                           : Free software output.
 [LOG] SystemI::close                           : Free emulated output.
 [LOG] SystemI::close                           : Free channel pool.
+[LOG] Thread::callback                         : * FMOD nonblocking thread (0) finished
+[LOG] Thread::close                            : FMOD nonblocking thread (0) thread destroyed
+[LOG] Thread::callback                         : * FMOD file thread finished
+[LOG] Thread::close                            : FMOD file thread thread destroyed
 [LOG] SystemI::close                           : done.
 

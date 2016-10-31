@@ -159,7 +159,7 @@ public class MutantBaseClass : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.C))
             {
                 playerObject.GetComponent<PlayerLogic>().focus = true;
-                if (Vector3.Distance(transform.position, playerObject.transform.position) < 200)
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 500)
                 {
                     //lineRenderer.enabled = true;
                     focusRing.SetActive(true);

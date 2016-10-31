@@ -14,6 +14,8 @@ public class PlayerLogic : MonoBehaviour {
     GameObject scopeCam;
     GameObject scopeFocusCam;
     GameObject leanPivot;
+    public Texture scopeTexture;
+    public Texture scopeFocusTexture;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -529,7 +531,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 if (!holdingBottle)
                 {
-                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState && weapons[currentWeaponIndex].currentAmmo > 0)
                     {
                         ShootRay();
                         if (currentSelected != Inventory.Knife)
@@ -681,7 +683,7 @@ public class PlayerLogic : MonoBehaviour {
             //Check for Reload need
             if (currentSelected != Inventory.Knife)
             {
-                if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState)
+                if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
                 {
                     reloadState = true;
                     timeStamp = Time.time;
@@ -873,6 +875,11 @@ public class PlayerLogic : MonoBehaviour {
                     if (focus)
                     {
                         focusCam.SetActive(false);
+                        scopeFocusCam.SetActive(true);
+                    }
+                    else if (!focus)
+                    {
+                        scopeFocusCam.SetActive(false);
                     }
                 }
 
