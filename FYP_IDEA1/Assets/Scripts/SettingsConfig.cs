@@ -144,6 +144,7 @@ public class SettingsConfig : MonoBehaviour {
                 if (File.Exists(Application.persistentDataPath + "/savedGames.og"))
                 {
                     saveCheck = true;
+                    Debug.Log(Application.persistentDataPath);
                 }
                 else
                 {
