@@ -171,6 +171,9 @@ public class PlayerLogic : MonoBehaviour {
     public string rifleSound = "event:/Rifle";
 
     [FMODUnity.EventRef]
+    public string rifleReloadSound = "event:/RifleReload";
+
+    [FMODUnity.EventRef]
     public string pistolSound = "event:/Pistol";
 
     [FMODUnity.EventRef]
@@ -364,7 +367,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     Ray surfaceRay = new Ray(transform.position, -transform.up);
 
-                    if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height + 1))
+                    if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
                         Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
@@ -524,6 +527,7 @@ public class PlayerLogic : MonoBehaviour {
 
                 rifleAnimator.SetBool("Firing", false);
                 rifleAnimator.SetTrigger("Reload");
+                FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
             }
 
             //Left Mouse Button Shoot
@@ -690,6 +694,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     rifleAnimator.SetBool("Firing", false);
                     rifleAnimator.SetTrigger("Reload");
+                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
                 }
             }
 
@@ -929,7 +934,7 @@ public class PlayerLogic : MonoBehaviour {
         GameObject clone;
 
         clone = (GameObject)Instantiate(bottlePrefab, gunParticle.transform.position, cam1.transform.rotation);
-        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 10000);
+        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 1500);
     }
 
     void GunNoise()

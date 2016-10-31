@@ -17,8 +17,9 @@ public class BottleLogic : MonoBehaviour {
     {
         if (collision.gameObject.name != "PlayerController")
         {
-            //StartCoroutine(Break());
+            StartCoroutine(Break());
             Debug.Log(collision.gameObject.name);
+            FMODUnity.RuntimeManager.PlayOneShot(bottleSound);
         }
         else
         {

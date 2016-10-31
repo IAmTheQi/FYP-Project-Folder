@@ -6839,6 +6839,22 @@ Transform:
   - {fileID: 963054309}
   m_Father: {fileID: 1329437703}
   m_RootOrder: 6
+--- !u!1 &205001975 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 828a89368d607e241b4b193b3d6da6ea, type: 3}
+  m_PrefabInternal: {fileID: 233838738}
+--- !u!64 &205001978
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 205001975}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 828a89368d607e241b4b193b3d6da6ea, type: 3}
 --- !u!1 &205485589
 GameObject:
   m_ObjectHideFlags: 0
@@ -7801,6 +7817,10 @@ Prefab:
     - target: {fileID: 100000, guid: 828a89368d607e241b4b193b3d6da6ea, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 828a89368d607e241b4b193b3d6da6ea, type: 3}
+      propertyPath: m_TagString
+      value: Concrete
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 828a89368d607e241b4b193b3d6da6ea, type: 3}
@@ -13946,6 +13966,11 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.startLifetime.scalar
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013116222050, guid: 842528a658a2da540b7126f9a730874d,
+        type: 2}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 842528a658a2da540b7126f9a730874d, type: 2}
@@ -39300,21 +39325,6 @@ Prefab:
     - target: {fileID: 4000010359442870, guid: 842528a658a2da540b7126f9a730874d, type: 2}
       propertyPath: m_RootOrder
       value: 23
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000013116222050, guid: 842528a658a2da540b7126f9a730874d,
-        type: 2}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.34509805
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000013116222050, guid: 842528a658a2da540b7126f9a730874d,
-        type: 2}
-      propertyPath: randomSeed
-      value: 393163853
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000013116222050, guid: 842528a658a2da540b7126f9a730874d,
-        type: 2}
-      propertyPath: InitialModule.startColor.minColor.a
-      value: 0.41568628
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 842528a658a2da540b7126f9a730874d, type: 2}
@@ -70772,7 +70782,13 @@ Prefab:
       propertyPath: itemsArray.Array.data[9].inspectUI
       value: 
       objectReference: {fileID: 1685294882}
-    m_RemovedComponents: []
+    - target: {fileID: 114000011855515076, guid: 6cf60a7c54966aa439429c8d4b452197,
+        type: 2}
+      propertyPath: weapons.Array.data[1].shootDelay
+      value: 0.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 64000010997396734, guid: 6cf60a7c54966aa439429c8d4b452197, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6cf60a7c54966aa439429c8d4b452197, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2137015980 stripped
