@@ -14,6 +14,8 @@ public class PlayerLogic : MonoBehaviour {
     GameObject scopeCam;
     GameObject scopeFocusCam;
     GameObject leanPivot;
+    public Texture scopeTexture;
+    public Texture scopeFocusTexture;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -167,6 +169,9 @@ public class PlayerLogic : MonoBehaviour {
 
     [FMODUnity.EventRef]
     public string rifleSound = "event:/Rifle";
+
+    [FMODUnity.EventRef]
+    public string rifleReloadSound = "event:/RifleReload";
 
     [FMODUnity.EventRef]
     public string pistolSound = "event:/Pistol";
@@ -362,7 +367,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     Ray surfaceRay = new Ray(transform.position, -transform.up);
 
-                    if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height + 1))
+                    if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
                         Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
@@ -522,6 +527,7 @@ public class PlayerLogic : MonoBehaviour {
 
                 rifleAnimator.SetBool("Firing", false);
                 rifleAnimator.SetTrigger("Reload");
+                FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
             }
 
             //Left Mouse Button Shoot
@@ -529,7 +535,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 if (!holdingBottle)
                 {
-                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState && weapons[currentWeaponIndex].currentAmmo > 0)
                     {
                         ShootRay();
                         if (currentSelected != Inventory.Knife)
@@ -681,13 +687,14 @@ public class PlayerLogic : MonoBehaviour {
             //Check for Reload need
             if (currentSelected != Inventory.Knife)
             {
-                if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState)
+                if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
                 {
                     reloadState = true;
                     timeStamp = Time.time;
 
                     rifleAnimator.SetBool("Firing", false);
                     rifleAnimator.SetTrigger("Reload");
+                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
                 }
             }
 
@@ -873,6 +880,11 @@ public class PlayerLogic : MonoBehaviour {
                     if (focus)
                     {
                         focusCam.SetActive(false);
+                        scopeFocusCam.SetActive(true);
+                    }
+                    else if (!focus)
+                    {
+                        scopeFocusCam.SetActive(false);
                     }
                 }
 
@@ -922,7 +934,7 @@ public class PlayerLogic : MonoBehaviour {
         GameObject clone;
 
         clone = (GameObject)Instantiate(bottlePrefab, gunParticle.transform.position, cam1.transform.rotation);
-        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 10000);
+        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 1500);
     }
 
     void GunNoise()

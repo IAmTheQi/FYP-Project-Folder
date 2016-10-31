@@ -14,20 +14,21 @@ public class LookAtCameraPrompt : MonoBehaviour {
 	void Start () {
 
         mainCamera = GameObject.Find("Main Camera");
-
+        
         player = GameObject.Find("PlayerController");
 
         child1 = transform.GetChild(0).gameObject;
         //child1.SetActive(false);
 
         child2 = transform.GetChild(1).gameObject;
-        //child2.SetActive(false);
+        //child2.SetActive(false
+        
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 
-        /*if (Vector3.Distance(transform.position, player.transform.position) < 20)
+        if (Vector3.Distance(transform.position, player.transform.position) < 20)
         {
             transform.LookAt(mainCamera.transform);
             child1.SetActive(true);
@@ -44,8 +45,6 @@ public class LookAtCameraPrompt : MonoBehaviour {
         else
         {
             child2.SetActive(false);
-        }*/
-
-        transform.LookAt(mainCamera.transform);
+        }
     }
 }
