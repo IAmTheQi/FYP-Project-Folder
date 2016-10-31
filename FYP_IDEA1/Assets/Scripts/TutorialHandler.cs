@@ -168,38 +168,47 @@ public class TutorialHandler : MonoBehaviour {
         transition = true;
         yield return new WaitForSeconds(2.0f);
 
-        switch (currentState)
+        if (transition)
         {
-            case TutorialState.step1:
-                currentState = TutorialState.step2;
-                break;
+            switch (currentState)
+            {
+                case TutorialState.step1:
+                    currentState = TutorialState.step2;
+                    transition = false;
+                    break;
 
-            case TutorialState.step2:
-                currentState = TutorialState.step3;
-                break;
+                case TutorialState.step2:
+                    currentState = TutorialState.step3;
+                    transition = false;
+                    break;
 
-            case TutorialState.step3:
-                currentState = TutorialState.step4;
-                break;
+                case TutorialState.step3:
+                    currentState = TutorialState.step4;
+                    transition = false;
+                    break;
 
-            case TutorialState.step4:
-                currentState = TutorialState.step5;
-                break;
+                case TutorialState.step4:
+                    currentState = TutorialState.step5;
+                    transition = false;
+                    break;
 
-            case TutorialState.step5:
-                currentState = TutorialState.step6;
-                break;
+                case TutorialState.step5:
+                    currentState = TutorialState.step6;
+                    transition = false;
+                    break;
 
-            case TutorialState.step6:
-                currentState = TutorialState.step7;
-                break;
+                case TutorialState.step6:
+                    currentState = TutorialState.step7;
+                    transition = false;
+                    break;
 
-            case TutorialState.step7:
-                currentState = TutorialState.step8;
-                break;
+                case TutorialState.step7:
+                    currentState = TutorialState.step8;
+                    transition = false;
+                    break;
+            }
         }
 
-        transition = false;
         triggered = false;
         activated = false;
         StopCoroutine(StateTransition());
