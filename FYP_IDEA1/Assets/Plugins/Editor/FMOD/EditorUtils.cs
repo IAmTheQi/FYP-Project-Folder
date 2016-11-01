@@ -135,61 +135,7 @@ namespace FMODUnity
             }
             return new string[0];
         }
-
-        public static FMODPlatform GetFMODPlatform()
-        {
-            switch (EditorUserBuildSettings.activeBuildTarget)
-            {
-                case BuildTarget.Android:
-                    return FMODPlatform.Android;
-				#if UNITY_4_6 || UNITY_4_7
-                case BuildTarget.iPhone:
-				#else
-				case BuildTarget.iOS:
-				#endif
-                    return FMODPlatform.iOS;
-                case BuildTarget.PS4:
-                    return FMODPlatform.PS4;
-                case BuildTarget.PSP2:
-                    return FMODPlatform.PSVita;
-                case BuildTarget.StandaloneLinux:
-                case BuildTarget.StandaloneLinux64:
-                case BuildTarget.StandaloneLinuxUniversal:
-                    return FMODPlatform.Linux;
-                case BuildTarget.StandaloneOSXIntel:
-                case BuildTarget.StandaloneOSXIntel64:
-                case BuildTarget.StandaloneOSXUniversal:
-                    return FMODPlatform.Mac;
-                case BuildTarget.StandaloneWindows:
-                case BuildTarget.StandaloneWindows64:
-                    return FMODPlatform.Windows;
-                case BuildTarget.XboxOne:
-                    return FMODPlatform.XboxOne;
-				#if UNITY_4_6 || UNITY_4_7
-                case BuildTarget.MetroPlayer:
-                #else
-                case BuildTarget.WSAPlayer:
-                #endif
-                #if !UNITY_4_6 && !UNITY_4_7 && !UNITY_5_0 && !UNITY_5_1
-                    if (EditorUserBuildSettings.wsaSDK == WSASDK.UWP)
-                    {
-                        return FMODPlatform.UWP;
-                    }
-                #endif
-                    if (EditorUserBuildSettings.wsaSDK == WSASDK.PhoneSDK81)
-                    { 
-                        return FMODPlatform.WindowsPhone;
-                    }
-                    return FMODPlatform.None;
-                #if !UNITY_4_6 && !UNITY_4_7 && !UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2
-			    case BuildTarget.tvOS:
-					return FMODPlatform.AppleTV;
-                #endif
-                default:
-                    return FMODPlatform.None;
-            }
-        }
-
+        
         static string VerionNumberToString(uint version)
         {
             uint major = (version & 0x00FF0000) >> 16;
@@ -214,6 +160,22 @@ namespace FMODUnity
 		    {
         	    DestroySystem();
 		    }
+            
+            if (RuntimeManager.IsInitialized)
+            {
+                if (EditorApplication.isPlayingOrWillChangePlaymode)
+                {
+                    if (EditorApplication.isPaused)
+                    {
+                        RuntimeManager.GetBus("bus:/").setPaused(true);
+                        RuntimeManager.StudioSystem.update();
+                    }
+                    else
+                    {
+                        RuntimeManager.GetBus("bus:/").setPaused(false);
+                    }
+                }
+            }
 	    }
 
         static void Update()
@@ -258,7 +220,11 @@ namespace FMODUnity
             UnityEngine.Debug.Log("FMOD Studio: Creating editor system instance");
             RuntimeUtils.EnforceLibraryOrder();
 
-            CheckResult(FMOD.Debug.Initialize(FMOD.DEBUG_FLAGS.LOG, FMOD.DEBUG_MODE.FILE, null, "fmod_editor.log"));
+            FMOD.RESULT result = FMOD.Debug.Initialize(FMOD.DEBUG_FLAGS.LOG, FMOD.DEBUG_MODE.FILE, null, "fmod_editor.log");
+            if (result != FMOD.RESULT.OK)
+            {
+                UnityEngine.Debug.LogWarning("FMOD Studio: Cannot open fmod_editor.log. Logging will be disabled for importing and previewing");
+            }
 
             CheckResult(FMOD.Studio.System.create(out system));
 
@@ -400,7 +366,14 @@ namespace FMODUnity
             if (load)
             {
                 CheckResult(System.loadBankFile(EventManager.MasterBank.Path, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out masterBank));
-                CheckResult(System.loadBankFile(eventRef.Banks[0].Path, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out previewBank));
+                if (eventRef.Banks[0] != EventManager.MasterBank)
+                {
+                    CheckResult(System.loadBankFile(eventRef.Banks[0].Path, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out previewBank));
+                }
+                else
+                {
+                    previewBank = null;
+                }
 
                 CheckResult(System.getEventByID(eventRef.Guid, out previewEventDesc));
                 CheckResult(previewEventDesc.createInstance(out previewEventInstance));
@@ -451,8 +424,13 @@ namespace FMODUnity
                 previewEventInstance.release();
                 previewEventInstance = null;
                 previewEventDesc = null;
-                previewBank.unload();
+                if (previewBank != null)
+                {
+                    previewBank.unload();
+                }
                 masterBank.unload();
+                masterBank = null;
+                previewBank = null;
                 previewState = PreviewState.Stopped;
             }
         }

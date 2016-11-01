@@ -9,22 +9,20 @@ namespace FMODUnity
     [CustomEditor(typeof(Settings))]
     public class SettingsEditor : Editor
     {
-        string[] ToggleParent = new string[] { "Disabled", "Enabled" };
+        string[] ToggleParent = new string[] { "Disabled", "Enabled", "Development Build Only",  };
+
+        string[] ToggleEditor = new string[] { "Enabled", "Disabled", };
 
         string[] FrequencyDisplay = new string[] { "Platform Default", "22050", "24000", "32000", "44100", "48000"};
         int[] FrequencyValues = new int[] { 0, 22050, 24000, 32000, 44100, 48000 };
 
         string[] SpeakerModeDisplay = new string[] {
-            //"Auto Detect", 
             "Stereo",
-            //"Quad", 
             "5.1",
             "7.1" };
 
         int[] SpeakerModeValues = new int[] {
-            //(int)FMOD.SPEAKERMODE.DEFAULT, 
             (int)FMOD.SPEAKERMODE.STEREO,
-            //(int)FMOD.SPEAKERMODE.QUAD,
             (int)FMOD.SPEAKERMODE._5POINT1,
             (int)FMOD.SPEAKERMODE._7POINT1};
 
@@ -74,23 +72,32 @@ namespace FMODUnity
             return "Unknown";
         }
 
+
+        void DisplayEditorBool(string label, List<PlatformBoolSetting> settings, FMODPlatform platform)
+        {
+            int current = Settings.GetSetting(settings, platform, TriStateBool.Disabled) != TriStateBool.Disabled ? 0 : 1;            
+            int next = EditorGUILayout.Popup(label, (int)current, ToggleEditor);
+            Settings.SetSetting(settings, platform, next == 0 ? TriStateBool.Enabled : TriStateBool.Disabled);
+        }
+
         void DisplayParentBool(string label, List<PlatformBoolSetting> settings, FMODPlatform platform)
         {
-            bool current = Settings.GetSetting(settings, platform, false);
-            int next = EditorGUILayout.Popup(label, current ? 1 : 0, ToggleParent);
-            Settings.SetSetting(settings, platform, next == 1);
+            TriStateBool current = Settings.GetSetting(settings, platform, TriStateBool.Disabled);
+            int next = EditorGUILayout.Popup(label, (int)current, ToggleParent);
+            Settings.SetSetting(settings, platform, (TriStateBool)next);
         }
 
         void DisplayChildBool(string label, List<PlatformBoolSetting> settings, FMODPlatform platform)
         {
             bool overriden = Settings.HasSetting(settings, platform);
-            bool current = Settings.GetSetting(settings, platform, false);
+            TriStateBool parent = Settings.GetSetting(settings, Settings.GetParent(platform), TriStateBool.Disabled);
+            TriStateBool current = Settings.GetSetting(settings, platform, TriStateBool.Disabled);
 
             string[] toggleChild = new string[ToggleParent.Length + 1];
             Array.Copy(ToggleParent, 0, toggleChild, 1, ToggleParent.Length);
-            toggleChild[0] = String.Format("Inherit ({0})", ToggleParent[current ? 1 : 0]);
+            toggleChild[0] = String.Format("Inherit ({0})", ToggleParent[(int)parent]);
 
-            int next = EditorGUILayout.Popup(label, overriden ? (current ? 2 : 1) : 0, toggleChild);
+            int next = EditorGUILayout.Popup(label, overriden ? (int)current  + 1: 0, toggleChild);
             if (next == 0)
             {
                 if (overriden)
@@ -100,7 +107,7 @@ namespace FMODUnity
             }
             else
             {
-                Settings.SetSetting(settings, platform, next == 2);
+                Settings.SetSetting(settings, platform, (TriStateBool)(next-1));
             }
         }
 
@@ -146,13 +153,15 @@ namespace FMODUnity
         {
             bool overriden = Settings.HasSetting(settings, platform);
             int current = Settings.GetSetting(settings, platform, 0);
-            int index = Array.IndexOf(FrequencyValues, current);
-            
+            int inherit = Settings.GetSetting(settings, Settings.GetParent(platform), 0);
+            int currentIndex = Array.IndexOf(FrequencyValues, current);
+            int inheritIndex = Array.IndexOf(FrequencyValues, inherit);
+
             string[] valuesChild = new string[FrequencyDisplay.Length + 1];
             Array.Copy(FrequencyDisplay, 0, valuesChild, 1, FrequencyDisplay.Length);
-            valuesChild[0] = String.Format("Inherit ({0})", FrequencyDisplay[index]);
+            valuesChild[0] = String.Format("Inherit ({0})", FrequencyDisplay[inheritIndex]);
 
-            int next = EditorGUILayout.Popup(label, overriden ? index + 1 : 0, valuesChild);
+            int next = EditorGUILayout.Popup(label, overriden ? currentIndex + 1 : 0, valuesChild);
             if (next == 0)
             {
                 Settings.RemoveSetting(settings, platform);
@@ -171,17 +180,43 @@ namespace FMODUnity
             Settings.SetSetting(settings, platform, SpeakerModeValues[next]);
         }
 
+        void DisplayPIESpeakerMode(string label, List<PlatformIntSetting> settings, FMODPlatform platform)
+        {
+            int buildTargetSetting = Settings.GetSetting(settings, RuntimeUtils.GetEditorFMODPlatform(), (int)FMOD.SPEAKERMODE.STEREO);
+            int buildTargetIndex = Array.IndexOf(SpeakerModeValues, buildTargetSetting);
+            string[] speakerModes = new string[SpeakerModeDisplay.Length + 1];
+            Array.Copy(SpeakerModeDisplay, 0, speakerModes, 1, SpeakerModeDisplay.Length);
+            speakerModes[0] = String.Format("Current Unity Platform ({0})", SpeakerModeDisplay[buildTargetIndex]);
+
+            bool useCurrentUnity = !Settings.HasSetting(settings, platform);
+            
+            int current = Settings.GetSetting(settings, platform, (int)FMOD.SPEAKERMODE.STEREO);
+            int index = Array.IndexOf(SpeakerModeValues, current) + 1;
+            if (useCurrentUnity || index < 0) index = 0;
+            int next = EditorGUILayout.Popup(label, index, speakerModes);
+            if (next != 0)
+            {
+                Settings.SetSetting(settings, platform, SpeakerModeValues[next - 1]);
+            }
+            else
+            {
+                Settings.RemoveSetting(settings, platform);
+            }
+        }
+
         void DisplayChildSpeakerMode(string label, List<PlatformIntSetting> settings, FMODPlatform platform)
         {
             bool overriden = Settings.HasSetting(settings, platform);
             int current = Settings.GetSetting(settings, platform, 0);
-            int index = Array.IndexOf(SpeakerModeValues, current);
+            int inherit = Settings.GetSetting(settings, Settings.GetParent(platform), 0);
+            int currentIndex = Array.IndexOf(SpeakerModeValues, current);
+            int inheritIndex = Array.IndexOf(SpeakerModeValues, inherit);
 
             string[] valuesChild = new string[SpeakerModeDisplay.Length + 1];
             Array.Copy(SpeakerModeDisplay, 0, valuesChild, 1, SpeakerModeDisplay.Length);
-            valuesChild[0] = String.Format("Inherit ({0})", SpeakerModeDisplay[index]);
+            valuesChild[0] = String.Format("Inherit ({0})", SpeakerModeDisplay[inheritIndex]);
 
-            int next = EditorGUILayout.Popup(label, overriden ? index + 1 : 0, valuesChild);
+            int next = EditorGUILayout.Popup(label, overriden ? currentIndex + 1 : 0, valuesChild);
             if (next == 0)
             {
                 Settings.RemoveSetting(settings, platform);
@@ -195,13 +230,37 @@ namespace FMODUnity
         void DisplayParentBuildDirectory(string label, List<PlatformStringSetting> settings, FMODPlatform platform)
         {
             string[] buildDirectories = EditorUtils.GetBankPlatforms();
-
+            
             String current = Settings.GetSetting(settings, platform, "Desktop");
             int index = Array.IndexOf(buildDirectories, current);
             if (index < 0) index = 0;
 
-            int next = EditorGUILayout.Popup(label, index, buildDirectories);
+            int next = EditorGUILayout.Popup(label, index, buildDirectories);            
             Settings.SetSetting(settings, platform, buildDirectories[next]);
+        }
+
+
+        void DisplayPIEBuildDirectory(string label, List<PlatformStringSetting> settings, FMODPlatform platform)
+        {
+            String buildTargetSetting = Settings.GetSetting(settings, RuntimeUtils.GetEditorFMODPlatform(), "Desktop");
+            string[] buildDirectories = new string[EditorUtils.GetBankPlatforms().Length + 1];
+            Array.Copy(EditorUtils.GetBankPlatforms(), 0, buildDirectories, 1, EditorUtils.GetBankPlatforms().Length);
+            buildDirectories[0] = String.Format("Current Unity Platform ({0})", buildTargetSetting);
+
+            bool useCurrentUnity = !Settings.HasSetting(settings, platform);
+            String current = Settings.GetSetting(settings, platform, "Desktop");
+            int index = Array.IndexOf(buildDirectories, current);
+            if (useCurrentUnity || index < 0) index = 0;
+
+            int next = EditorGUILayout.Popup(label, index, buildDirectories);
+            if (next != 0)
+            {
+                Settings.SetSetting(settings, platform, buildDirectories[next]);
+            }
+            else
+            {
+                Settings.RemoveSetting(settings, platform);
+            }
         }
 
         void DisplayChildBuildDirectories(string label, List<PlatformStringSetting> settings, FMODPlatform platform)
@@ -210,12 +269,13 @@ namespace FMODUnity
 
             bool overriden = Settings.HasSetting(settings, platform);
             string current = Settings.GetSetting(settings, platform, "Desktop");
+            string inherit = Settings.GetSetting(settings, Settings.GetParent(platform), "Desktop");
             int index = Array.IndexOf(buildDirectories, current);
             if (index < 0) index = 0;
 
             string[] valuesChild = new string[buildDirectories.Length + 1];
             Array.Copy(buildDirectories, 0, valuesChild, 1, buildDirectories.Length);
-            valuesChild[0] = String.Format("Inherit ({0})", buildDirectories[index]);
+            valuesChild[0] = String.Format("Inherit ({0})", inherit);
 
             int next = EditorGUILayout.Popup(label, overriden ? index + 1 : 0, valuesChild);
             if (next == 0)
@@ -268,7 +328,7 @@ namespace FMODUnity
                     #endif
                     EditorGUILayout.EndHorizontal();
                 }
-                DisplayChildBool("Debug Overlay", settings.LiveUpdateSettings, platform);
+                DisplayChildBool("Debug Overlay", settings.OverlaySettings, platform);
                 DisplayChildFreq("Sample Rate", settings.SampleRateSettings, platform);
                 if (settings.HasPlatforms && AllowBankChange(platform))
                 {
@@ -289,8 +349,8 @@ namespace FMODUnity
                     }
                 }
 
-                DisplayChildInt("Virtual Channel Count", settings.VirtualChannelSettings, platform, 0, 2048);
-                DisplayChildInt("Real Channel Count", settings.RealChannelSettings, platform, 0, 2048);
+                DisplayChildInt("Virtual Channel Count", settings.VirtualChannelSettings, platform, 1, 2048);
+                DisplayChildInt("Real Channel Count", settings.RealChannelSettings, platform, 1, 256);
 
                 if (children != null)
                 {
@@ -322,6 +382,7 @@ namespace FMODUnity
             EditorGUI.BeginChangeCheck();
 
             hasBankSourceChanged = false;
+            bool hasBankTargetChanged = false;
 
             GUIStyle style = new GUIStyle(GUI.skin.label);
             style.richText = true;
@@ -451,6 +512,24 @@ namespace FMODUnity
                 return;
             }
 
+
+            ImportType importType = (ImportType)EditorGUILayout.EnumPopup("Import Type", settings.ImportType);
+            if (importType != settings.ImportType)
+            {
+                hasBankTargetChanged = true;
+                settings.ImportType = importType;
+            }
+
+            EditorGUI.BeginDisabledGroup(settings.ImportType == ImportType.StreamingAssets);
+            string targetAssetPath = EditorGUILayout.TextField("FMOD Asset Folder", settings.TargetAssetPath);
+            if (targetAssetPath != settings.TargetAssetPath)
+            {
+                settings.TargetAssetPath = targetAssetPath;
+                hasBankTargetChanged = true;
+            }
+            EditorGUI.EndDisabledGroup();
+            EditorGUI.BeginDisabledGroup(settings.ImportType == ImportType.AssetBundle);
+
             // ----- Loading -----------------
             EditorGUILayout.Separator();
             EditorGUILayout.LabelField("<b>Loading</b>", style);
@@ -460,13 +539,14 @@ namespace FMODUnity
             settings.AutomaticSampleLoading = EditorGUILayout.Toggle("Load All Sample Data at Initialization", settings.AutomaticSampleLoading);
             EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;
+            EditorGUI.EndDisabledGroup();
 
 
             // ----- PIE ----------------------------------------------
             EditorGUILayout.Separator();
             EditorGUILayout.LabelField("<b>Play In Editor Settings</b>", style);
             EditorGUI.indentLevel++;
-            DisplayParentBool("Live Update", settings.LiveUpdateSettings, FMODPlatform.PlayInEditor);
+            DisplayEditorBool("Live Update", settings.LiveUpdateSettings, FMODPlatform.PlayInEditor);
             if (settings.IsLiveUpdateEnabled(FMODPlatform.PlayInEditor))
             {
                 #if UNITY_5_0 || UNITY_5_1
@@ -475,13 +555,13 @@ namespace FMODUnity
                 EditorGUILayout.HelpBox("Live update will listen on port <b>9264</b>", MessageType.Info, false);
                 #endif
             }
-            DisplayParentBool("Debug Overlay", settings.OverlaySettings, FMODPlatform.PlayInEditor);
+            DisplayEditorBool("Debug Overlay", settings.OverlaySettings, FMODPlatform.PlayInEditor);
             if (settings.HasPlatforms)
             {
-                DisplayParentBuildDirectory("Bank Platform", settings.BankDirectorySettings, FMODPlatform.PlayInEditor);
+                DisplayPIEBuildDirectory("Bank Platform", settings.BankDirectorySettings, FMODPlatform.PlayInEditor);
             }
 
-            DisplayParentSpeakerMode("Speaker Mode", settings.SpeakerModeSettings, FMODPlatform.PlayInEditor);
+            DisplayPIESpeakerMode("Speaker Mode", settings.SpeakerModeSettings, FMODPlatform.PlayInEditor);
             if (settings.HasPlatforms)
             {
                 EditorGUILayout.HelpBox(String.Format("Match the speaker mode to the setting of the platform <b>{0}</b> inside FMOD Studio", settings.GetBankPlatform(FMODPlatform.PlayInEditor)), MessageType.Info, false);
@@ -524,8 +604,8 @@ namespace FMODUnity
             {
                 EditorGUILayout.HelpBox("Match the speaker mode to the setting inside FMOD Studio", MessageType.Info, false);
             }
-            DisplayParentInt("Virtual Channel Count", settings.VirtualChannelSettings, FMODPlatform.Default, 0, 2048);
-            DisplayParentInt("Real Channel Count", settings.RealChannelSettings, FMODPlatform.Default, 0, 2048);
+            DisplayParentInt("Virtual Channel Count", settings.VirtualChannelSettings, FMODPlatform.Default, 1, 2048);
+            DisplayParentInt("Real Channel Count", settings.RealChannelSettings, FMODPlatform.Default, 1, 256);
             EditorGUI.indentLevel--;
 
 
@@ -567,6 +647,10 @@ namespace FMODUnity
             if (hasBankSourceChanged)
             {
                 EventManager.UpdateCache();
+            }
+            if (hasBankTargetChanged)
+            {
+                EventManager.CopyToStreamingAssets();
             }
         }
 
