@@ -143,6 +143,8 @@ public class PlayerLogic : MonoBehaviour {
     RaycastHit interactHit;
     RaycastHit aimHit;
 
+    Transform rayShoot;
+
     RaycastHit surfaceHit;
 
     public Inventory currentSelected;
@@ -266,6 +268,8 @@ public class PlayerLogic : MonoBehaviour {
         controller = GetComponent<CharacterController>();
 
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        rayShoot = GameObject.Find("RayShoot").transform;
 
         currentSelected = Inventory.Rifle;
         currentState = PlayerStates.Idle;
@@ -587,9 +591,9 @@ public class PlayerLogic : MonoBehaviour {
             {
                 if (currentWeaponIndex == 0 && !aimDownSight && !reloadState)
                 {
-                    Ray aimRay = new Ray(transform.position, transform.forward);
-                    Ray aimRayLeft = new Ray(transform.position, (transform.forward - transform.right));
-                    Ray aimRayRight = new Ray(transform.position, (transform.forward + transform.right));
+                    Ray aimRay = new Ray(rayShoot.position, transform.forward);
+                    Ray aimRayLeft = new Ray(rayShoot.position, (transform.forward - transform.right));
+                    Ray aimRayRight = new Ray(rayShoot.position, (transform.forward + transform.right));
 
                     if (Physics.Raycast(aimRay, out aimHit, 2))
                     {

@@ -173,9 +173,6 @@
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{5516f527-5683-4242-bc06-ca222238375c}">
-        <property name="volume">
-            <value>-8</value>
-        </property>
         <property name="name">
             <value>Cicada</value>
         </property>
@@ -214,10 +211,10 @@
     </object>
     <object class="EventMixerGroup" id="{8c8cbe8d-a6ab-4361-ab5c-a577a7d3b3b7}">
         <property name="volume">
-            <value>-19</value>
+            <value>-20.5</value>
         </property>
         <property name="name">
-            <value>Cricket</value>
+            <value>Cricket1</value>
         </property>
         <relationship name="effectChain">
             <destination>{c95b20ea-04ec-4bb4-a6b6-604033e936a6}</destination>
@@ -257,10 +254,10 @@
     </object>
     <object class="EventMixerGroup" id="{83ce8445-0e76-4605-8211-d4264c7dbf33}">
         <property name="volume">
-            <value>-17</value>
+            <value>-19.5</value>
         </property>
         <property name="name">
-            <value>Audio 1</value>
+            <value>Cricket2</value>
         </property>
         <relationship name="effectChain">
             <destination>{224ab084-492b-48c7-ace7-0f746fb40923}</destination>
@@ -294,6 +291,9 @@
     <object class="MixerBusPanner" id="{d4c0133f-4e49-49aa-8ffd-343d3e61157f}">
         <property name="surroundPanDirection">
             <value>90</value>
+        </property>
+        <property name="overridingOutputFormat">
+            <value>2</value>
         </property>
     </object>
     <object class="MixerBusFader" id="{2b905bf3-47ab-46cc-b482-9a62ed71b1b7}"/>
