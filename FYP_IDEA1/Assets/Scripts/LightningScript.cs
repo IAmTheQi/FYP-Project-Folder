@@ -10,6 +10,16 @@ public class LightningScript : MonoBehaviour {
     public float offValue;
     public float minTime;
 
+    public GameObject buttons;
+    public GameObject options;
+    public GameObject credits;
+
+    public GameObject creditsText;
+    Vector3 originalPos;
+
+    bool optionsMenu;
+    bool creditsMenu;
+
     float lastTime;
 
     [FMODUnity.EventRef]
@@ -30,6 +40,16 @@ public class LightningScript : MonoBehaviour {
 
         rainInstance = FMODUnity.RuntimeManager.CreateInstance(rainSound);
         rainInstance.start();
+
+        buttons = GameObject.Find("Buttons");
+        options = GameObject.Find("Options");
+        credits = GameObject.Find("Credits");
+
+        creditsText = GameObject.Find("CreditsText");
+        originalPos = creditsText.transform.position;
+
+        optionsMenu = false;
+        creditsMenu = false;
 	}
 	
 	// Update is called once per frame
@@ -37,7 +57,7 @@ public class LightningScript : MonoBehaviour {
 
         if ((Time.time - lastTime) > minTime)
         {
-            Debug.LogFormat("time:{0}       past:{1}", lastTime, (Time.time - lastTime));
+            //Debug.LogFormat("time:{0}       past:{1}", lastTime, (Time.time - lastTime));
             if (lighting.activeSelf == false && Random.value > onValue)
             {
                 lighting.SetActive(true);
@@ -51,6 +71,29 @@ public class LightningScript : MonoBehaviour {
                 lastTime = Time.time;
             }
         }
+
+        if (!optionsMenu && !creditsMenu)
+        {
+            buttons.SetActive(true);
+            options.SetActive(false);
+            credits.SetActive(false);
+        }
+        else if (optionsMenu)
+        {
+            buttons.SetActive(false);
+            options.SetActive(true);
+            credits.SetActive(false);
+        }
+        else if (creditsMenu)
+        {
+            buttons.SetActive(false);
+            options.SetActive(false);
+            credits.SetActive(true);
+
+            creditsText.transform.Translate(Vector3.up * Time.deltaTime * 20);
+        }
+
+        Debug.LogFormat("credits:{0}      options:{1}", creditsMenu, optionsMenu);
 	
 	}
 
@@ -69,4 +112,33 @@ public class LightningScript : MonoBehaviour {
             yield return null;
         }
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void OpenOptions()
+    {
+        optionsMenu = true;
+    }
+
+    public void OpenCredits()
+    {
+        creditsMenu = true;
+    }
+
+    public void ReturnFrom(string target)
+    {
+        if (target == "credits")
+        {
+            creditsText.transform.position = originalPos;
+            creditsMenu = false;
+        }
+        else if (target == "options")
+        {
+            optionsMenu = false;
+        }
+    }
+
 }
