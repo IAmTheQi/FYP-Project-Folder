@@ -11,6 +11,27 @@ namespace FMODUnity
     [CanEditMultipleObjects]
     class StudioEventEmitterEditor : Editor
     {
+        public void OnSceneGUI()
+        {
+            var emitter = target as StudioEventEmitter;
+
+            EditorEventRef editorEvent = EventManager.EventFromPath(emitter.Event);
+            if (editorEvent != null && editorEvent.Is3D)
+            {
+                EditorGUI.BeginChangeCheck();
+                float minDistance = emitter.OverrideAttenuation ? emitter.OverrideMinDistance : editorEvent.MinDistance;
+                float maxDistance = emitter.OverrideAttenuation ? emitter.OverrideMaxDistance : editorEvent.MaxDistance;
+                minDistance = Handles.RadiusHandle(Quaternion.identity, emitter.transform.position, minDistance);
+                maxDistance = Handles.RadiusHandle(Quaternion.identity, emitter.transform.position, maxDistance);
+                if (EditorGUI.EndChangeCheck() && emitter.OverrideAttenuation)
+                {
+                    Undo.RecordObject(emitter, "Change Emitter Bounds");
+                    emitter.OverrideMinDistance = Mathf.Clamp(minDistance, 0, emitter.OverrideMaxDistance);
+                    emitter.OverrideMaxDistance = Mathf.Max(emitter.OverrideMinDistance, maxDistance);
+                }
+            }
+        }
+
         public override void OnInspectorGUI()
         {
             var begin = serializedObject.FindProperty("PlayEvent");
@@ -20,7 +41,11 @@ namespace FMODUnity
             var param = serializedObject.FindProperty("Params");
             var fadeout = serializedObject.FindProperty("AllowFadeout");
             var once = serializedObject.FindProperty("TriggerOnce");
-            
+            var preload = serializedObject.FindProperty("Preload");
+            var overrideAtt = serializedObject.FindProperty("OverrideAttenuation");
+            var minDistance = serializedObject.FindProperty("OverrideMinDistance");
+            var maxDistance = serializedObject.FindProperty("OverrideMaxDistance");
+
             EditorGUILayout.PropertyField(begin, new GUIContent("Play Event"));
             EditorGUILayout.PropertyField(end, new GUIContent("Stop Event"));
 
@@ -33,10 +58,44 @@ namespace FMODUnity
             EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.PropertyField(ev, new GUIContent("Event"));
-                        
+
+            EditorEventRef editorEvent = EventManager.EventFromPath(ev.stringValue);
+
             if (EditorGUI.EndChangeCheck())
             {
                 EditorUtils.UpdateParamsOnEmitter(serializedObject, ev.stringValue);
+                if (editorEvent != null)
+                {
+                    overrideAtt.boolValue = false;
+                    minDistance.floatValue = editorEvent.MinDistance;
+                    maxDistance.floatValue = editorEvent.MaxDistance;
+                }
+            }
+
+            // Attenuation
+            {
+                EditorGUI.BeginDisabledGroup(editorEvent == null || !editorEvent.Is3D);
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.PrefixLabel("Override Attenuation");
+                EditorGUI.BeginChangeCheck();
+                overrideAtt.boolValue = EditorGUILayout.Toggle(overrideAtt.boolValue, GUILayout.Width(20));
+                if (EditorGUI.EndChangeCheck() || 
+                    (minDistance.floatValue == -1 && maxDistance.floatValue == -1) // never been initialiased
+                    )
+                {
+                    minDistance.floatValue = editorEvent.MinDistance;
+                    maxDistance.floatValue = editorEvent.MaxDistance;
+                }
+                EditorGUI.BeginDisabledGroup(!overrideAtt.boolValue);
+                EditorGUIUtility.labelWidth = 30;
+                minDistance.floatValue = EditorGUILayout.FloatField("Min", minDistance.floatValue);
+                minDistance.floatValue = Mathf.Clamp(minDistance.floatValue, 0, maxDistance.floatValue);
+                maxDistance.floatValue = EditorGUILayout.FloatField("Max", maxDistance.floatValue);
+                maxDistance.floatValue = Mathf.Max(minDistance.floatValue, maxDistance.floatValue);
+                EditorGUIUtility.labelWidth = 0;
+                EditorGUI.EndDisabledGroup();
+                EditorGUILayout.EndHorizontal();
+                EditorGUI.EndDisabledGroup();
             }
 
             param.isExpanded = EditorGUILayout.Foldout(param.isExpanded, "Initial Parameter Values");
@@ -109,6 +168,7 @@ namespace FMODUnity
             fadeout.isExpanded = EditorGUILayout.Foldout(fadeout.isExpanded, "Advanced Controls");
             if (fadeout.isExpanded)
             {
+                EditorGUILayout.PropertyField(preload, new GUIContent("Preload Sample Data"));
                 EditorGUILayout.PropertyField(fadeout, new GUIContent("Allow Fadeout When Stopping"));
                 EditorGUILayout.PropertyField(once, new GUIContent("Trigger Once"));
             }
@@ -128,7 +188,7 @@ namespace FMODUnity
                 foreach (var obj in serializedObject.targetObjects)
                 {
                     var emitter = obj as StudioEventEmitter;
-                    var param = emitter.Params != null && emitter.Params.Length > 0 ? emitter.Params.First((x) => x.Name == name) : null;
+                    var param = emitter.Params != null ? emitter.Params.FirstOrDefault((x) => x.Name == name) : null;
                     if (first)
                     {
                         set = param != null;

@@ -1,5 +1,8 @@
 using System;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace FMODUnity
 {
@@ -80,8 +83,8 @@ namespace FMODUnity
     public enum EmitterGameEvent
     {
         None,
-        LevelStart,
-        LevelEnd,
+        ObjectStart,
+        ObjectDestroy,
         TriggerEnter,
         TriggerExit,
         CollisionEnter,
@@ -91,8 +94,8 @@ namespace FMODUnity
     public enum LoaderGameEvent
     {
         None,
-        LevelStart,
-        LevelEnd,
+        ObjectStart,
+        ObjectDestroy,
         TriggerEnter,
         TriggerExit,
     }
@@ -254,7 +257,7 @@ namespace FMODUnity
             #elif UNITY_WSA_10_0
             return FMODPlatform.UWP;
             #endif
-        }
+        }        
 
         const string BankExtension = ".bank";
         internal static string GetBankPath(string bankName)
@@ -311,7 +314,9 @@ namespace FMODUnity
 	                string pluginFolder = Application.dataPath + "/Plugins/X86_64/";
 	            #elif UNITY_EDITOR_WIN
 	                string pluginFolder = Application.dataPath + "/Plugins/X86/";
-	            #elif UNITY_STANDALONE_WIN || UNITY_PS4 || UNITY_XBOXONE || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_STANDALONE_LINUX || UNITY_WSA_10_0
+                #elif UNITY_STANDALONE_LINUX
+                    string pluginFolder = Application.dataPath + ((IntPtr.Size == 8) ? "/Plugins/x86_64/" : "/Plugins/x86/");
+	            #elif UNITY_STANDALONE_WIN || UNITY_PS4 || UNITY_XBOXONE || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_WSA_10_0
 	                string pluginFolder = Application.dataPath + "/Plugins/";
 	            #elif UNITY_WINRT_8_1
 	                string pluginFolder = "";
@@ -348,5 +353,61 @@ namespace FMODUnity
 
             #endif
         }
+
+        #if UNITY_EDITOR
+        public static FMODPlatform GetEditorFMODPlatform()
+        {
+            switch (EditorUserBuildSettings.activeBuildTarget)
+            {
+                case BuildTarget.Android:
+                    return FMODPlatform.Android;
+				#if UNITY_4_6 || UNITY_4_7
+                case BuildTarget.iPhone:
+				#else
+				case BuildTarget.iOS:
+				#endif
+                    return FMODPlatform.iOS;
+                case BuildTarget.PS4:
+                    return FMODPlatform.PS4;
+                case BuildTarget.PSP2:
+                    return FMODPlatform.PSVita;
+                case BuildTarget.StandaloneLinux:
+                case BuildTarget.StandaloneLinux64:
+                case BuildTarget.StandaloneLinuxUniversal:
+                    return FMODPlatform.Linux;
+                case BuildTarget.StandaloneOSXIntel:
+                case BuildTarget.StandaloneOSXIntel64:
+                case BuildTarget.StandaloneOSXUniversal:
+                    return FMODPlatform.Mac;
+                case BuildTarget.StandaloneWindows:
+                case BuildTarget.StandaloneWindows64:
+                    return FMODPlatform.Windows;
+                case BuildTarget.XboxOne:
+                    return FMODPlatform.XboxOne;
+				#if UNITY_4_6 || UNITY_4_7
+                case BuildTarget.MetroPlayer:
+                #else
+                case BuildTarget.WSAPlayer:
+                #endif
+                #if !UNITY_4_6 && !UNITY_4_7 && !UNITY_5_0 && !UNITY_5_1
+                    if (EditorUserBuildSettings.wsaSDK == WSASDK.UWP)
+                    {
+                        return FMODPlatform.UWP;
+                    }
+                #endif
+                    if (EditorUserBuildSettings.wsaSDK == WSASDK.PhoneSDK81)
+                    { 
+                        return FMODPlatform.WindowsPhone;
+                    }
+                    return FMODPlatform.None;
+                #if !UNITY_4_6 && !UNITY_4_7 && !UNITY_5_0 && !UNITY_5_1 && !UNITY_5_2
+			    case BuildTarget.tvOS:
+					return FMODPlatform.AppleTV;
+                #endif
+                default:
+                    return FMODPlatform.None;
+            }
+        }
+        #endif
     }
 }

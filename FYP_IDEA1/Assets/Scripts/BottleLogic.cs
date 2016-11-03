@@ -3,9 +3,6 @@ using System.Collections;
 
 public class BottleLogic : MonoBehaviour {
 
-    [FMODUnity.EventRef]
-    public string bottleSound = "event:/Bottle";
-
     GameObject lastSeen;
 
     // Use this for initialization
@@ -19,7 +16,6 @@ public class BottleLogic : MonoBehaviour {
         {
             StartCoroutine(Break());
             Debug.Log(collision.gameObject.name);
-            FMODUnity.RuntimeManager.PlayOneShot(bottleSound);
         }
         else
         {
@@ -29,8 +25,7 @@ public class BottleLogic : MonoBehaviour {
 
     IEnumerator Break()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(bottleSound);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         Destroy(this.gameObject);
         Activate();
         StopCoroutine(Break());
