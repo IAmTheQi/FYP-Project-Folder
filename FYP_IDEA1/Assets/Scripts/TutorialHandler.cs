@@ -28,7 +28,6 @@ public class TutorialHandler : MonoBehaviour {
     public GameObject step5Prompt;
     public GameObject step6Prompt;
     public GameObject step7Prompt;
-    Color alphaColor;
     bool transition;
     bool triggered;
 
@@ -36,10 +35,7 @@ public class TutorialHandler : MonoBehaviour {
 
     bool ckey;
     bool ctrlkey;
-    bool exitWindow;
-    public GameObject aritfactTarget;
     bool collected;
-    public GameObject mutantTarget;
 
 	// Use this for initialization
 	void Start () {
@@ -48,8 +44,7 @@ public class TutorialHandler : MonoBehaviour {
 
         playerObject = GameObject.Find("PlayerController");
         playerScript = playerObject.GetComponent<PlayerLogic>();
-
-        alphaColor = step1Prompt.GetComponent<Image>().color;
+        
         transition = false;
         triggered = true;
 
@@ -57,7 +52,6 @@ public class TutorialHandler : MonoBehaviour {
 
         ckey = false;
         ctrlkey = false;
-        exitWindow = false;
         collected = false;
 
         step1Prompt.SetActive(true);
@@ -152,7 +146,6 @@ public class TutorialHandler : MonoBehaviour {
                         step5Prompt.SetActive(false);
                         StateTransition();
                     }
-                    exitWindow = false;
                     break;
 
                 case TutorialState.step6:
