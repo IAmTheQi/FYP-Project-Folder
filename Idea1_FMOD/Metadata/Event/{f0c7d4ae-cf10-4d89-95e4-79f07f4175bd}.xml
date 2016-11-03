@@ -5,7 +5,7 @@
             <value>Rain</value>
         </property>
         <property name="outputFormat">
-            <value>2</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{c827abd4-89d3-4a02-8606-122e3e4b0bfd}</destination>
@@ -139,7 +139,6 @@
     <object class="MixerBusEffectChain" id="{2a373bc3-40b0-4f1b-a733-c043383b9c5c}">
         <relationship name="effects">
             <destination>{d83ad88c-227f-4cef-8b28-d4c4aef700af}</destination>
-            <destination>{73037737-771a-4cd1-a9a7-704063acab6b}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{a31d1b4d-31a4-489e-9951-dac920bb465f}"/>
@@ -174,6 +173,5 @@
     </object>
     <object class="MixerBusPanner" id="{9bac39f1-35e7-4781-a9aa-54173d8f75c9}"/>
     <object class="MixerBusFader" id="{d83ad88c-227f-4cef-8b28-d4c4aef700af}"/>
-    <object class="SpatialiserEffect" id="{73037737-771a-4cd1-a9a7-704063acab6b}"/>
     <object class="MixerBusFader" id="{77278a1a-bc11-4ca4-bbe7-d931b874cbe8}"/>
 </objects>
