@@ -452,7 +452,7 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     if (currentSelected == Inventory.Knife)
                     {
-                        knifeAnimator.SetBool("Swapping", true);
+                        knifeAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(0));
                     }
                     else
@@ -474,7 +474,7 @@ public class PlayerLogic : MonoBehaviour {
                     }
                     else if (currentSelected == Inventory.Knife)
                     {
-                        knifeAnimator.SetBool("Swapping", true);
+                        knifeAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(1));
                     }
                     else
@@ -535,12 +535,12 @@ public class PlayerLogic : MonoBehaviour {
             {
                 if (!holdingBottle)
                 {
-                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState && weapons[currentWeaponIndex].currentAmmo > 0)
+                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
                     {
-                        ShootRay();
-                        if (currentSelected != Inventory.Knife)
+                        if (currentSelected != Inventory.Knife && weapons[currentWeaponIndex].currentAmmo > 0)
                         {
                             weapons[currentWeaponIndex].currentAmmo -= 1;
+                            ShootRay();
                         }
 
                         if (currentWeaponIndex == 0)
@@ -583,39 +583,50 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
-            if (Input.GetMouseButton(1) && !aimDownSight && !reloadState)
+            if (Input.GetMouseButton(1))
             {
-                Ray aimRay = new Ray(transform.position, transform.forward);
-                Ray aimRayLeft = new Ray(transform.position, (transform.forward-transform.right));
-                Ray aimRayRight = new Ray(transform.position, (transform.forward + transform.right));
-
-                if (Physics.Raycast(aimRay, out aimHit, 2))
+                if (currentWeaponIndex == 0 && !aimDownSight && !reloadState)
                 {
-                    if (Physics.Raycast(aimRayLeft, out aimHit, 2))
+                    Ray aimRay = new Ray(transform.position, transform.forward);
+                    Ray aimRayLeft = new Ray(transform.position, (transform.forward - transform.right));
+                    Ray aimRayRight = new Ray(transform.position, (transform.forward + transform.right));
+
+                    if (Physics.Raycast(aimRay, out aimHit, 2))
                     {
-                        if (Physics.Raycast(aimRayRight, out aimHit, 2))
+                        if (Physics.Raycast(aimRayLeft, out aimHit, 2))
                         {
-                            frontfree = false;
-                            leftfree = false;
-                            rightfree = false;
+                            if (Physics.Raycast(aimRayRight, out aimHit, 2))
+                            {
+                                frontfree = false;
+                                leftfree = false;
+                                rightfree = false;
+                            }
+                            else
+                            {
+                                rightfree = true;
+                            }
                         }
                         else
                         {
-                            rightfree = true;
+                            leftfree = true;
                         }
                     }
-                    else 
+                    else
                     {
-                        leftfree = true;
+                        frontfree = true;
                     }
-                }
-                else
-                {
-                    frontfree = true;
-                }
 
-                lerpStart = 0f;
-                aimDownSight = true;
+                    lerpStart = 0f;
+                    aimDownSight = true;
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (currentWeaponIndex == 2)
+                {
+                    knifeAnimator.SetTrigger("Backstab");
+                }
             }
 
             if (Input.GetMouseButtonUp(1))
