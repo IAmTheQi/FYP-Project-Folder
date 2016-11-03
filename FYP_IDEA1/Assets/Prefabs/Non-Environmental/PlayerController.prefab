@@ -2603,6 +2603,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000012331089394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010915096928}
+  m_Layer: 0
+  m_Name: RayShoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012379872800
 GameObject:
   m_ObjectHideFlags: 1
@@ -5448,7 +5463,7 @@ Transform:
   m_Children:
   - {fileID: 4000011953119148}
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &4000010293735218
 Transform:
   m_ObjectHideFlags: 1
@@ -5665,7 +5680,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25}
   m_Children: []
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &4000010397448226
 Transform:
   m_ObjectHideFlags: 1
@@ -6133,6 +6148,19 @@ Transform:
   - {fileID: 4000012077304068}
   m_Father: {fileID: 4000010554631042}
   m_RootOrder: 2
+--- !u!4 &4000010915096928
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012331089394}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 1.853, z: -0.921}
+  m_LocalScale: {x: 2.91218, y: 2.912178, z: 2.91218}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000014110679294}
+  m_RootOrder: 0
 --- !u!4 &4000010925228908
 Transform:
   m_ObjectHideFlags: 1
@@ -6241,7 +6269,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25}
   m_Children: []
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &4000011054847732
 Transform:
   m_ObjectHideFlags: 1
@@ -9361,7 +9389,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014110679294}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &4000013958844070
 Transform:
   m_ObjectHideFlags: 1
@@ -9515,6 +9543,7 @@ Transform:
   m_LocalScale: {x: 0.34338537, y: 0.3433856, z: 0.34338537}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
+  - {fileID: 4000010915096928}
   - {fileID: 4000010287979022}
   - {fileID: 4000011054362056}
   - {fileID: 4000010396808642}
