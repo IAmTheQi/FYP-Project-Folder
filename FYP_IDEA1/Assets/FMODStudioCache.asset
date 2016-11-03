@@ -29,7 +29,7 @@ MonoBehaviour:
   - {fileID: 114000012330362434}
   MasterBankRef: {fileID: 114000013320245414}
   StringsBankRef: {fileID: 114000012658311970}
-  stringsBankWriteTime: 636137824949273602
+  stringsBankWriteTime: 636137843588149685
   cacheVersion: 2
 --- !u!114 &114000010038229916
 MonoBehaviour:
@@ -101,7 +101,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114000013988516594}
+  - {fileID: 114000013833618446}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000010421009136
@@ -213,7 +213,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114000010921986134}
+  - {fileID: 114000012144980520}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000010857651136
@@ -489,6 +489,21 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
+--- !u!114 &114000012144980520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Indicator
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114000012214314226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +518,21 @@ MonoBehaviour:
   Name: Surface
   Min: 0
   Max: 3
+  Default: 0
+--- !u!114 &114000012281019732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Speed
+  Min: 0
+  Max: 14
   Default: 0
 --- !u!114 &114000012330362434
 MonoBehaviour:
@@ -523,8 +553,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114000010584813544}
-  - {fileID: 114000012915992482}
+  - {fileID: 114000012281019732}
+  - {fileID: 114000014200104984}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000012336858492
@@ -620,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: G:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636137824949273602
+  lastModified: 636137843588149685
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -779,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: G:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop\Master Bank.bank
-  lastModified: 636137824949153595
+  lastModified: 636137843588039679
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -932,6 +962,21 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
+--- !u!114 &114000013833618446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Panting
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000013854473656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1051,21 @@ MonoBehaviour:
   Name: Panting
   Min: 0
   Max: 1
+  Default: 0
+--- !u!114 &114000014200104984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Surface
+  Min: 0
+  Max: 3
   Default: 0
 --- !u!114 &114000014205618922
 MonoBehaviour:

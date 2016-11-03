@@ -59,8 +59,16 @@ public class TutorialHandler : MonoBehaviour {
         ctrlkey = false;
         exitWindow = false;
         collected = false;
-	
-	}
+
+        step1Prompt.SetActive(true);
+        step2Prompt.SetActive(false);
+        step3Prompt.SetActive(false);
+        step4Prompt.SetActive(false);
+        step5Prompt.SetActive(false);
+        step6Prompt.SetActive(false);
+        step7Prompt.SetActive(false);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -68,29 +76,23 @@ public class TutorialHandler : MonoBehaviour {
         if (!playerScript.pauseGame)
         {
 
-            if (!transition && triggered)
-            {
-                alphaColor.a += 0.01f;
-            }
-            else if (transition)
-            {
-                alphaColor.a -= 0.05f;
-            }
-            alphaColor.a = Mathf.Clamp(alphaColor.a, 0.0f, 0.7f);
-
             switch (currentState)
             {
                 case TutorialState.step1:
-                    step1Prompt.GetComponent<Image>().color = alphaColor;
+
                     if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && !activated)
                     {
-                        StartCoroutine(StateTransition());
                         activated = true;
+                        step1Prompt.SetActive(false);
+                        StateTransition();
                     }
                     break;
 
                 case TutorialState.step2:
-                    step2Prompt.GetComponent<Image>().color = alphaColor;
+                    if (triggered)
+                    {
+                        step2Prompt.SetActive(true);
+                    }
 
                     if (Input.GetKeyDown(KeyCode.C))
                     {
@@ -104,72 +106,88 @@ public class TutorialHandler : MonoBehaviour {
 
                     if ((ckey || ctrlkey) && !activated)
                     {
-                        StartCoroutine(StateTransition());
                         activated = true;
+                        step2Prompt.SetActive(false);
+                        StateTransition();
                     }
                     break;
 
                 case TutorialState.step3:
-                    step3Prompt.GetComponent<Image>().color = alphaColor;
-
-                    if (exitWindow && !activated)
+                    if (triggered)
                     {
-                        StartCoroutine(StateTransition());
+                        step3Prompt.SetActive(true);
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Space) && !activated)
+                    {
                         activated = true;
+                        step3Prompt.SetActive(false);
+                        StateTransition();
                     }
                     break;
 
                 case TutorialState.step4:
-                    step4Prompt.GetComponent<Image>().color = alphaColor;
-
-                    if (collected && !activated)
+                    if (triggered)
                     {
-                        StartCoroutine(StateTransition());
+                        step4Prompt.SetActive(true);
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.F) && !activated)
+                    {
                         activated = true;
+                        step4Prompt.SetActive(false);
+                        StateTransition();
                     }
                     break;
 
                 case TutorialState.step5:
-                    step5Prompt.GetComponent<Image>().color = alphaColor;
-
-                    if (!mutantTarget.activeInHierarchy && !activated)
+                    if (triggered)
                     {
-                        StartCoroutine(StateTransition());
+                        step5Prompt.SetActive(true);
+                    }
+
+                    if (Input.GetMouseButtonDown(0) && !activated)
+                    {
                         activated = true;
+                        step5Prompt.SetActive(false);
+                        StateTransition();
                     }
                     exitWindow = false;
                     break;
 
                 case TutorialState.step6:
-                    step6Prompt.GetComponent<Image>().color = alphaColor;
+                    if (triggered)
+                    {
+                        step6Prompt.SetActive(true);
+                    }
 
                     if (Input.GetKeyDown(KeyCode.F) && !activated)
                     {
-                        StartCoroutine(StateTransition());
                         activated = true;
+                        step6Prompt.SetActive(false);
+                        StateTransition();
                     }
                     break;
 
                 case TutorialState.step7:
-                    step7Prompt.GetComponent<Image>().color = alphaColor;
-
-                    if (exitWindow && !activated)
+                    if (triggered)
                     {
-                        StartCoroutine(StateTransition());
+                        step7Prompt.SetActive(true);
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Space) && !activated)
+                    {
                         activated = true;
+                        step7Prompt.SetActive(false);
+                        StateTransition();
                     }
                     break;
             }
         }
     }
 
-    IEnumerator StateTransition()
+    void StateTransition()
     {
-        transition = true;
-        yield return new WaitForSeconds(2.0f);
-
-        if (transition)
-        {
             switch (currentState)
             {
                 case TutorialState.step1:
@@ -207,16 +225,9 @@ public class TutorialHandler : MonoBehaviour {
                     transition = false;
                     break;
             }
-        }
 
         triggered = false;
         activated = false;
-        StopCoroutine(StateTransition());
-    }
-
-    public void ExitWindow()
-    {
-        exitWindow = true;
     }
 
     public void Collect()
