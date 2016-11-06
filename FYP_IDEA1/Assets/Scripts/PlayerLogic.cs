@@ -67,6 +67,7 @@ public class PlayerLogic : MonoBehaviour {
 
     Animator rifleAnimator;
     Animator knifeAnimator;
+    Animator pistolAnimator;
 
     float lerpStart;
     float lerpTime;
@@ -205,6 +206,7 @@ public class PlayerLogic : MonoBehaviour {
 
         rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         knifeAnimator = knifeObject.GetComponent<Animator>();
+        pistolAnimator = pistolObject.GetComponent<Animator>();
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
@@ -459,8 +461,9 @@ public class PlayerLogic : MonoBehaviour {
                         knifeAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(0));
                     }
-                    else
+                    else if (currentSelected == Inventory.Pistol)
                     {
+                        pistolAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(0));
                     }
                 }
@@ -498,8 +501,9 @@ public class PlayerLogic : MonoBehaviour {
                         rifleAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(2));
                     }
-                    else
+                    else if (currentSelected == Inventory.Pistol)
                     {
+                        pistolAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(2));
                     }
                 }
@@ -524,14 +528,22 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Reload key ("R" key)
-            if (Input.GetKeyDown(KeyCode.R) && !reloadState)
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
             {
                 reloadState = true;
                 timeStamp = Time.time;
 
-                rifleAnimator.SetBool("Firing", false);
-                rifleAnimator.SetTrigger("Reload");
-                FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                if (currentSelected == Inventory.Rifle)
+                {
+                    rifleAnimator.SetBool("Firing", false);
+                    rifleAnimator.SetTrigger("Reload");
+                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                }
+                else if (currentSelected == Inventory.Pistol)
+                {
+                    pistolAnimator.SetBool("Firing", false);
+                    pistolAnimator.SetTrigger("Reload");
+                }
             }
 
             //Left Mouse Button Shoot
@@ -555,6 +567,7 @@ public class PlayerLogic : MonoBehaviour {
                         }
                         else if (currentWeaponIndex == 1)
                         {
+                            pistolAnimator.SetBool("Firing", true);
                             FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
                             pistolParticle.Emit(1);
                         }
@@ -572,6 +585,10 @@ public class PlayerLogic : MonoBehaviour {
                 if (currentSelected == Inventory.Rifle)
                 {
                     rifleAnimator.SetBool("Firing", false);
+                }
+                else if (currentSelected == Inventory.Pistol)
+                {
+                    pistolAnimator.SetBool("Firing", false);
                 }
                 else if (currentSelected == Inventory.Knife)
                 {
@@ -707,9 +724,17 @@ public class PlayerLogic : MonoBehaviour {
                     reloadState = true;
                     timeStamp = Time.time;
 
-                    rifleAnimator.SetBool("Firing", false);
-                    rifleAnimator.SetTrigger("Reload");
-                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                    if (currentSelected == Inventory.Rifle)
+                    {
+                        rifleAnimator.SetBool("Firing", false);
+                        rifleAnimator.SetTrigger("Reload");
+                        FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                    }
+                    else if (currentSelected == Inventory.Pistol)
+                    {
+                        pistolAnimator.SetBool("Firing", false);
+                        pistolAnimator.SetTrigger("Reload");
+                    }
                 }
             }
 
@@ -1094,7 +1119,19 @@ public class PlayerLogic : MonoBehaviour {
     public IEnumerator PlayerJump()
     {
         yield return new WaitForSeconds(0.25f);
-        rifleAnimator.SetBool("Jump", true);
+
+        if (currentSelected == Inventory.Rifle)
+        {
+            rifleAnimator.SetBool("Jump", true);
+        }
+        else if (currentSelected == Inventory.Pistol)
+        {
+            pistolAnimator.SetBool("Jump", true);
+        }
+        else if (currentSelected == Inventory.Knife)
+        {
+            knifeAnimator.SetBool("Jump", true);
+        }
     }
     
     public void ChangeSurface(string target)
