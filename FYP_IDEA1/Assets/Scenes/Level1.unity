@@ -71,7 +71,7 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 112000494, guid: 92bac659034447b4a88e38d3b00bab95,
+  m_LightingDataAsset: {fileID: 112000502, guid: 2a864ec3cbf3d1943882e360f50676e0,
     type: 2}
   m_RuntimeCPUUsage: 50
 --- !u!196 &4
@@ -36203,6 +36203,22 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 9bf31819073127b46b1a24397a4482b3, type: 3}
   m_PrefabInternal: {fileID: 1294208052}
+--- !u!1 &1294208054 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 9bf31819073127b46b1a24397a4482b3, type: 3}
+  m_PrefabInternal: {fileID: 1294208052}
+--- !u!64 &1294208055
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1294208054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 9bf31819073127b46b1a24397a4482b3, type: 3}
 --- !u!1 &1294322335
 GameObject:
   m_ObjectHideFlags: 0
