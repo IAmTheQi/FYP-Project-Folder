@@ -870,9 +870,10 @@ public class PlayerLogic : MonoBehaviour {
                         collectScript.CollectItem(interactHit.collider.gameObject);
                     }
 
-                    if (interactHit.collider.tag == "Bottle")
+                    if (interactHit.collider.tag == "Bottle" && !holdingBottle)
                     {
                         holdingBottle = true;
+                        Destroy(interactHit.collider.gameObject);
                     }
                 }
             }
