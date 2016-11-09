@@ -4,6 +4,8 @@ using System.Collections;
 
 public class PortalLogic : MonoBehaviour {
 
+    public string targetScene;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,7 +20,7 @@ public class PortalLogic : MonoBehaviour {
     {
         if (collider.tag == "Player")
         {
-            SceneManager.LoadScene("Level2");
+            SceneManager.LoadScene(targetScene);
         }
     }
 }

@@ -18,7 +18,7 @@ public class NoiseObject : MonoBehaviour{
     void Activate()
     {
         lastSeen.SendMessage("Move", transform.position, SendMessageOptions.DontRequireReceiver);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 20);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100);
         int i = 0;
         while (i < hitColliders.Length)
         {

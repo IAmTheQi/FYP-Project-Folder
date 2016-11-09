@@ -22,6 +22,8 @@ public class MutantBaseClass : MonoBehaviour {
     float mutantSpeed;
     float gravity;
 
+    public bool attacking;
+
     bool dead;
 
     Vector3 moveDirection;
@@ -69,8 +71,10 @@ public class MutantBaseClass : MonoBehaviour {
 
         damage = 10.0f;
         attackCounter = 0.0f;
-        attackDelay = 2.0f;
+        attackDelay = 3.0f;
         timeStamp = Time.time;
+
+        attacking = false;
 
         focusRing = transform.Find("FocusRing").gameObject;
         focusRing.SetActive(false);
@@ -119,11 +123,14 @@ public class MutantBaseClass : MonoBehaviour {
 
             if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted || currentState == MutantStates.Wander || currentState == MutantStates.Idle)
             {
-                mutantSpeed = 1.0f;
+                mutantSpeed = 2.0f;
             }
 
             //Mutant movement modifier
-            controller.Move(moveDirection * Time.deltaTime);
+            if (!attacking)
+            {
+                controller.Move(moveDirection * Time.deltaTime);
+            }
 
             if ((currentState == MutantStates.Alerted || currentState == MutantStates.Chase) && currentState != MutantStates.Lost)
             {
@@ -145,15 +152,31 @@ public class MutantBaseClass : MonoBehaviour {
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {
-                if (Vector3.Distance(transform.position, playerObject.transform.position) < 3.0f)
+                if (attacking)
                 {
-                    if (Time.time > (timeStamp + attackDelay))
+                    //attacking = true;
+                    mutantAnimator.SetBool("Attack", true);
+
+                    if (!playerObject.GetComponent<PlayerLogic>().IsDead())
                     {
-                        AttackPlayer();
-                        timeStamp = Time.time;
+                        if (Time.time > (timeStamp + attackDelay))
+                        {
+                            AttackPlayer();
+                            timeStamp = Time.time;
+                        }
+                    }
+                    else
+                    {
+                        mutantAnimator.SetTrigger("Kill");
                     }
                 }
+                else
+                {
+                    mutantAnimator.SetBool("Attack", false);
+                }
             }
+
+            Debug.Log(currentState);
 
             //Heartbeat sensing
             if (Input.GetKeyDown(KeyCode.C))
@@ -184,7 +207,45 @@ public class MutantBaseClass : MonoBehaviour {
 
     public void AlertMutant()
     {
-        currentState = MutantStates.Chase;
+        StartCoroutine(StateChange("Chase"));
+    }
+
+    public void PlayerTouch()
+    {
+        if (currentState != MutantStates.Chase)
+        {
+            StartCoroutine(StateChange("Chase"));
+        }
+        else if (currentState == MutantStates.Chase)
+        {
+            attacking = true;
+        }
+    }
+
+    public void PlayerLeave()
+    {
+        if (attacking)
+        {
+            attacking = false;
+        }
+    }
+
+    public IEnumerator StateChange(string target)
+    {
+        mutantAnimator.SetTrigger("Alert");
+        yield return new WaitForSeconds(2.0f);
+
+        switch (target)
+        {
+            case "Distract":
+                currentState = MutantStates.Distracted;
+                break;
+            case "Chase":
+                currentState = MutantStates.Chase;
+                break;
+        }
+        mutantAnimator.SetBool("Chase", true);
+        StopCoroutine(StateChange(""));
     }
 
     public void LosePlayer()
@@ -202,7 +263,7 @@ public class MutantBaseClass : MonoBehaviour {
         else if ((health - value) <= 0)
         {
             health = 0;
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -213,14 +274,17 @@ public class MutantBaseClass : MonoBehaviour {
         noiseLastPosition.SendMessage("Reset");
     }
 
-    protected void Die()
+    protected IEnumerator Die()
     {
+        mutantAnimator.SetTrigger("Death");
+        yield return new WaitForSeconds(2.5f);
         gameObject.SetActive(false);
+        StopCoroutine(Die());
     }
 
     protected void Distract()
     {
-        currentState = MutantStates.Distracted;
+        StartCoroutine(StateChange("Distract"));
     }
 
     protected void AttackPlayer()
@@ -230,7 +294,7 @@ public class MutantBaseClass : MonoBehaviour {
 
     public void RecordLastSeen(Transform target)
     {
-        playerLastPosition.transform.position = target.position;
+        playerLastPosition.SendMessage("Move", target.position);
     }
 
     public string ReturnState()

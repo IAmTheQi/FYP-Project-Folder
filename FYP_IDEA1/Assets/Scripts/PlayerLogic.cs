@@ -158,6 +158,7 @@ public class PlayerLogic : MonoBehaviour {
     float regenTimer;
     float regenDelay;
     bool regenHealth;
+    bool dead;
 
     [FMODUnity.EventRef]
     public string footsteps = "event:/PlayerFootstep";
@@ -283,6 +284,7 @@ public class PlayerLogic : MonoBehaviour {
         regenTimer = 0.0f;
         regenDelay = 5.0f;
         regenHealth = false;
+        dead = false;
 
         walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
         walkingEv.getParameter("Speed", out walkingParam);
@@ -375,7 +377,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
-                        Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
+                        //Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
                         {
                             ChangeSurface("Concrete");
@@ -556,26 +558,27 @@ public class PlayerLogic : MonoBehaviour {
                         if (currentSelected != Inventory.Knife && weapons[currentWeaponIndex].currentAmmo > 0)
                         {
                             weapons[currentWeaponIndex].currentAmmo -= 1;
-                            ShootRay();
-                        }
 
-                        if (currentWeaponIndex == 0)
-                        {
-                            rifleAnimator.SetBool("Firing", true);
-                            FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
-                            gunParticle.Emit(1);
+                            if (currentWeaponIndex == 0)
+                            {
+                                rifleAnimator.SetBool("Firing", true);
+                                FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
+                                gunParticle.Emit(1);
+                            }
+                            else if (currentWeaponIndex == 1)
+                            {
+                                pistolAnimator.SetBool("Firing", true);
+                                FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
+                                pistolParticle.Emit(1);
+                            }
                         }
-                        else if (currentWeaponIndex == 1)
-                        {
-                            pistolAnimator.SetBool("Firing", true);
-                            FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
-                            pistolParticle.Emit(1);
-                        }
-                        else if (currentWeaponIndex == 2)
+                        else if (currentSelected == Inventory.Knife)
                         {
                             knifeAnimator.SetBool("Attacking", true);
                             FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
+                            ShootRay();
                         }
+
                         timeStamp = Time.time;
                     }
                 }
@@ -764,6 +767,11 @@ public class PlayerLogic : MonoBehaviour {
             {
                 bloodAlpha = bloodOverlay.GetComponent<Image>().color;
                 bloodAlpha.a += 0.05f;
+                if (playerHealth <= 0)
+                {
+                    playerHealth = 0;
+                    StartCoroutine(KillPlayer());
+                }
             }
             else if (playerHealth > 50.0f)
             {
@@ -1006,7 +1014,7 @@ public class PlayerLogic : MonoBehaviour {
     {
         /*if (collider.gameObject.tag == "Mutant")
         {
-            KillPlayer();
+            `();
         }*/
     }
 
@@ -1017,10 +1025,16 @@ public class PlayerLogic : MonoBehaviour {
     }
 
     //Die function
-    void KillPlayer()
+    IEnumerator KillPlayer()
     {
-        print("die");
+        dead = true;
+        yield return new WaitForSeconds(3.0f);
         transform.position = startPosition;
+    }
+
+    public bool IsDead()
+    {
+        return dead;
     }
 
     public bool IsWalking()

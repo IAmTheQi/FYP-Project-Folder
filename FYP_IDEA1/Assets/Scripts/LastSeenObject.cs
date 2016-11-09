@@ -6,19 +6,18 @@ public class LastSeenObject : MonoBehaviour {
     Vector3 startPosition;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+    {
         startPosition = transform.position;
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
     public void Reset()
     {
         transform.position = startPosition;
+    }
+
+    public void Move(Vector3 target)
+    {
+        transform.position = target;
     }
 }

@@ -36,11 +36,11 @@ public class MutantDetectionLogic : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        /*if (gameObject.CompareTag("Boundary"))
+        if (gameObject.CompareTag("Boundary"))
         {
             if (collider.gameObject == playerObject)
             {
-                parentMutant.SendMessage("AlertMutant");
+                parentMutant.SendMessage("PlayerTouch");
             }
         }
         else
@@ -49,7 +49,7 @@ public class MutantDetectionLogic : MonoBehaviour {
             {
                 parentMutant.SendMessage("AlertMutant");
             }
-        }*/
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -90,6 +90,14 @@ public class MutantDetectionLogic : MonoBehaviour {
             {
                 parentMutant.SendMessage("RecordLastSeen", collider.transform);
                 parentMutant.SendMessage("LosePlayer");
+            }
+        }
+
+        if (gameObject.CompareTag("Boundary"))
+        {
+            if (collider.gameObject == playerObject)
+            {
+                parentMutant.SendMessage("PlayerLeave");
             }
         }
     }

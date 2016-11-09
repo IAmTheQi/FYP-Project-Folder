@@ -11072,7 +11072,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 844033732}
         m_MethodName: ButtonTrigger
         m_Mode: 5
         m_Arguments:
@@ -28094,6 +28094,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cf60a7c54966aa439429c8d4b452197, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &844033732 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011855515076, guid: 6cf60a7c54966aa439429c8d4b452197,
+    type: 2}
+  m_PrefabInternal: {fileID: 844033731}
+  m_Script: {fileID: 11500000, guid: eeeda26380c4882499a9b9e847a3722e, type: 3}
 --- !u!1001 &844752880
 Prefab:
   m_ObjectHideFlags: 0
@@ -36836,7 +36842,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 844033732}
         m_MethodName: ButtonTrigger
         m_Mode: 5
         m_Arguments:
@@ -40143,6 +40149,10 @@ Prefab:
     - target: {fileID: 6584786, guid: 8c0d4a03488b04c4fa3188c43ae0242f, type: 2}
       propertyPath: m_Size.z
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11495742, guid: 8c0d4a03488b04c4fa3188c43ae0242f, type: 2}
+      propertyPath: targetScene
+      value: Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c0d4a03488b04c4fa3188c43ae0242f, type: 2}
@@ -43915,7 +43925,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 844033732}
         m_MethodName: ButtonTrigger
         m_Mode: 5
         m_Arguments:

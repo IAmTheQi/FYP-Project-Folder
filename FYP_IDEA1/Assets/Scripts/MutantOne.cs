@@ -29,5 +29,10 @@ public class MutantOne : MutantBaseClass {
         {
             currentState = MutantStates.Idle;
         }
+
+        if (collider.gameObject.tag == "Noise")
+        {
+            CalmMutant();
+        }
     }
 }
