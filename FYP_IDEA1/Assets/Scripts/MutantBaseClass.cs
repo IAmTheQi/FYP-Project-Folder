@@ -176,8 +176,6 @@ public class MutantBaseClass : MonoBehaviour {
                 }
             }
 
-            Debug.Log(currentState);
-
             //Heartbeat sensing
             if (Input.GetKeyDown(KeyCode.C))
             {

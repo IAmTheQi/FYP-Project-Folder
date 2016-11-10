@@ -558,7 +558,7 @@ public class PlayerLogic : MonoBehaviour {
                         if (currentSelected != Inventory.Knife && weapons[currentWeaponIndex].currentAmmo > 0)
                         {
                             weapons[currentWeaponIndex].currentAmmo -= 1;
-
+                            ShootRay();
                             if (currentWeaponIndex == 0)
                             {
                                 rifleAnimator.SetBool("Firing", true);
@@ -604,6 +604,7 @@ public class PlayerLogic : MonoBehaviour {
                 if (holdingBottle)
                 {
                     ThrowBottle();
+                    holdingBottle = false;
                 }
             }
 
