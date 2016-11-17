@@ -123,7 +123,7 @@ public class MutantBaseClass : MonoBehaviour {
 
             if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted || currentState == MutantStates.Wander || currentState == MutantStates.Idle)
             {
-                mutantSpeed = 2.0f;
+                mutantSpeed = 4.0f;
             }
 
             //Mutant movement modifier

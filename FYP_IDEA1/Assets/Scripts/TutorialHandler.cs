@@ -6,6 +6,7 @@ public class TutorialHandler : MonoBehaviour {
 
     public enum TutorialState
     {
+        step0,
         step1,
         step2,
         step3,
@@ -21,6 +22,7 @@ public class TutorialHandler : MonoBehaviour {
     GameObject playerObject;
     PlayerLogic playerScript;
 
+    public GameObject step0Prompt;
     public GameObject step1Prompt;
     public GameObject step2Prompt;
     public GameObject step3Prompt;
@@ -28,10 +30,10 @@ public class TutorialHandler : MonoBehaviour {
     public GameObject step5Prompt;
     public GameObject step6Prompt;
     public GameObject step7Prompt;
+    public GameObject step8Prompt;
+
     bool transition;
     bool triggered;
-
-    bool activated;
 
     bool ckey;
     bool ctrlkey;
@@ -40,7 +42,7 @@ public class TutorialHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        currentState = TutorialState.step1;
+        currentState = TutorialState.step0;
 
         playerObject = GameObject.Find("PlayerController");
         playerScript = playerObject.GetComponent<PlayerLogic>();
@@ -48,35 +50,48 @@ public class TutorialHandler : MonoBehaviour {
         transition = false;
         triggered = true;
 
-        activated = false;
-
         ckey = false;
         ctrlkey = false;
         collected = false;
 
-        step1Prompt.SetActive(true);
+        step0Prompt.SetActive(true);
+        step1Prompt.SetActive(false);
         step2Prompt.SetActive(false);
         step3Prompt.SetActive(false);
         step4Prompt.SetActive(false);
         step5Prompt.SetActive(false);
         step6Prompt.SetActive(false);
         step7Prompt.SetActive(false);
+        step8Prompt.SetActive(false);
 
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+        Debug.LogFormat("triggered:{0}      transition:{1}", triggered, transition);
+
         if (!playerScript.pauseGame)
         {
 
             switch (currentState)
             {
+                case TutorialState.step0:
+                    if (transition)
+                    {
+                        step0Prompt.SetActive(false);
+                        StateTransition();
+                    }
+                    break;
                 case TutorialState.step1:
 
-                    if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && !activated)
+                    if (triggered)
                     {
-                        activated = true;
+                        step1Prompt.SetActive(true);
+                    }
+
+                    if (transition)
+                    {
                         step1Prompt.SetActive(false);
                         StateTransition();
                     }
@@ -88,19 +103,8 @@ public class TutorialHandler : MonoBehaviour {
                         step2Prompt.SetActive(true);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.C))
+                    if (transition)
                     {
-                        ckey = true;
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.LeftControl))
-                    {
-                        ctrlkey = true;
-                    }
-
-                    if ((ckey || ctrlkey) && !activated)
-                    {
-                        activated = true;
                         step2Prompt.SetActive(false);
                         StateTransition();
                     }
@@ -112,9 +116,8 @@ public class TutorialHandler : MonoBehaviour {
                         step3Prompt.SetActive(true);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.Space) && !activated)
+                    if (transition)
                     {
-                        activated = true;
                         step3Prompt.SetActive(false);
                         StateTransition();
                     }
@@ -126,9 +129,8 @@ public class TutorialHandler : MonoBehaviour {
                         step4Prompt.SetActive(true);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.F) && !activated)
+                    if (transition)
                     {
-                        activated = true;
                         step4Prompt.SetActive(false);
                         StateTransition();
                     }
@@ -140,9 +142,8 @@ public class TutorialHandler : MonoBehaviour {
                         step5Prompt.SetActive(true);
                     }
 
-                    if (Input.GetMouseButtonDown(0) && !activated)
+                    if (transition)
                     {
-                        activated = true;
                         step5Prompt.SetActive(false);
                         StateTransition();
                     }
@@ -154,9 +155,8 @@ public class TutorialHandler : MonoBehaviour {
                         step6Prompt.SetActive(true);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.F) && !activated)
+                    if (transition)
                     {
-                        activated = true;
                         step6Prompt.SetActive(false);
                         StateTransition();
                     }
@@ -168,13 +168,20 @@ public class TutorialHandler : MonoBehaviour {
                         step7Prompt.SetActive(true);
                     }
 
-                    if (Input.GetKeyDown(KeyCode.Space) && !activated)
+                    if (transition)
                     {
-                        activated = true;
                         step7Prompt.SetActive(false);
                         StateTransition();
                     }
                     break;
+            }
+        }
+
+        if (triggered)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Transition();
             }
         }
     }
@@ -183,44 +190,40 @@ public class TutorialHandler : MonoBehaviour {
     {
             switch (currentState)
             {
+                case TutorialState.step0:
+                    currentState = TutorialState.step1;
+                    break;
                 case TutorialState.step1:
                     currentState = TutorialState.step2;
-                    transition = false;
                     break;
 
                 case TutorialState.step2:
                     currentState = TutorialState.step3;
-                    transition = false;
                     break;
 
                 case TutorialState.step3:
                     currentState = TutorialState.step4;
-                    transition = false;
                     break;
 
                 case TutorialState.step4:
                     currentState = TutorialState.step5;
-                    transition = false;
                     break;
 
                 case TutorialState.step5:
                     currentState = TutorialState.step6;
-                    transition = false;
                     break;
 
                 case TutorialState.step6:
                     currentState = TutorialState.step7;
-                    transition = false;
                     break;
 
                 case TutorialState.step7:
                     currentState = TutorialState.step8;
-                    transition = false;
                     break;
             }
 
+        transition = false;
         triggered = false;
-        activated = false;
     }
 
     public void Collect()
@@ -231,5 +234,17 @@ public class TutorialHandler : MonoBehaviour {
     public void Trigger()
     {
         triggered = true;
+        playerScript.TutorialPause();
+    }
+
+    public bool TutorialTriggered()
+    {
+        return triggered;
+    }
+
+    public void Transition()
+    {
+        transition = true;
+        playerScript.TutorialPause();
     }
 }
