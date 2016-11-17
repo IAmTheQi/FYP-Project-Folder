@@ -15,7 +15,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject scopeFocusCam;
     GameObject leanPivot;
     public Texture scopeTexture;
-    public Texture scopeFocusTexture;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -159,11 +158,6 @@ public class PlayerLogic : MonoBehaviour {
     public FMOD.Studio.ParameterInstance surfaceParam;
 
     [FMODUnity.EventRef]
-    public string panting = "event:/PlayerPant";
-    FMOD.Studio.EventInstance pantingEv;
-    FMOD.Studio.ParameterInstance pantingParam;
-
-    [FMODUnity.EventRef]
     public string rifleSound = "event:/Rifle";
 
     [FMODUnity.EventRef]
@@ -283,11 +277,6 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.start();
         walkingParam.setValue(0.0f);
         surfaceParam.setValue(0.0f);
-
-        pantingEv = FMODUnity.RuntimeManager.CreateInstance(panting);
-        pantingEv.getParameter("Panting", out pantingParam);
-        pantingEv.start();
-        pantingParam.setValue(0.0f);
     }
 
     // Update is called once per frame
@@ -407,7 +396,7 @@ public class PlayerLogic : MonoBehaviour {
                 }
 
                 //Jumping (Space)
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     moveDirection.y = jumpForce;
                     currentState = PlayerStates.Jump;
@@ -771,34 +760,29 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
-                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Run:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.runModifier;
-                    pantingParam.setValue(1.0f);
                     break;
                 case PlayerStates.Crouch:
                     controller.height = crouchHeight;
                     lookScript.minimumY = -40f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.crouchModifier;
-                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
-                    pantingParam.setValue(0.0f);
                     break;
                 case PlayerStates.Jump:
                     controller.height = crouchHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    pantingParam.setValue(0.0f);
 
                     if (currentWeaponIndex == 0)
                     {
@@ -1145,6 +1129,11 @@ public class PlayerLogic : MonoBehaviour {
                 optionsView = !optionsView;
                 break;
         }
+    }
+
+    public void StopSoundInstances()
+    {
+        walkingEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
     /*
     var bulletSpeed: float = 1000; // bullet speed in meters/second var shotSound: AudioClip;
