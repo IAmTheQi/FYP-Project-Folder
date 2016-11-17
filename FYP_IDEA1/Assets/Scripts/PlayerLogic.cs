@@ -61,6 +61,9 @@ public class PlayerLogic : MonoBehaviour {
     public GameObject rifleHip;
 
     public GameObject pistolObject;
+    public GameObject pistolSight;
+    public GameObject pistolHip;
+
     public GameObject knifeObject;
 
     public GameObject bottlePrefab;
@@ -72,21 +75,11 @@ public class PlayerLogic : MonoBehaviour {
     float lerpStart;
     float lerpTime;
 
-    public enum Inventory
-    {
-        Rifle,
-        Pistol,
-        Knife,
-        Katana,
-        Sniper
-    }
-
     enum PlayerStates
     {
         Run,
         Walk,
         Crouch,
-        Prone,
         Idle,
         Jump
     }
@@ -147,8 +140,7 @@ public class PlayerLogic : MonoBehaviour {
     Transform rayShoot;
 
     RaycastHit surfaceHit;
-
-    public Inventory currentSelected;
+    
     PlayerStates currentState;
     public Weapons[] weapons;
     public float timeStamp;
@@ -273,8 +265,7 @@ public class PlayerLogic : MonoBehaviour {
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         rayShoot = GameObject.Find("RayShoot").transform;
-
-        currentSelected = Inventory.Rifle;
+        
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
 
@@ -415,16 +406,6 @@ public class PlayerLogic : MonoBehaviour {
 
                 }
 
-                //Prone key ("Z" key)
-                if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    currentState = PlayerStates.Prone;
-                }
-                else if (Input.GetKeyUp(KeyCode.Z))
-                {
-
-                }
-
                 //Jumping (Space)
                 if (Input.GetKey(KeyCode.Space))
                 {
@@ -456,16 +437,16 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Rifle)
+                if (currentWeaponIndex != 0)
                 {
-                    if (currentSelected == Inventory.Knife)
-                    {
-                        knifeAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(0));
-                    }
-                    else if (currentSelected == Inventory.Pistol)
+                    if (currentWeaponIndex == 1)
                     {
                         pistolAnimator.SetTrigger("Swapping");
+                        StartCoroutine(SwitchWeapon(0));
+                    }
+                    else if (currentWeaponIndex == 2)
+                    {
+                        knifeAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(0));
                     }
                 }
@@ -474,20 +455,16 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Pistol)
+                if (currentWeaponIndex != 1)
                 {
-                    if (currentSelected == Inventory.Rifle)
+                    if (currentWeaponIndex == 0)
                     {
                         rifleAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(1));
                     }
-                    else if (currentSelected == Inventory.Knife)
+                    else if (currentWeaponIndex == 2)
                     {
                         knifeAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(1));
-                    }
-                    else
-                    {
                         StartCoroutine(SwitchWeapon(1));
                     }
                 }
@@ -496,36 +473,18 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Knife)
+                if (currentWeaponIndex != 2)
                 {
-                    if (currentSelected == Inventory.Rifle)
+                    if (currentWeaponIndex == 0)
                     {
                         rifleAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(2));
                     }
-                    else if (currentSelected == Inventory.Pistol)
+                    else if (currentWeaponIndex == 1)
                     {
                         pistolAnimator.SetTrigger("Swapping");
                         StartCoroutine(SwitchWeapon(2));
                     }
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha4) && !weapons[3].locked)
-            {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Katana)
-                {
-                    SwitchWeapon(3);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha5) && !weapons[4].locked)
-            {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Sniper)
-                {
-                    SwitchWeapon(4);
                 }
             }
 
@@ -535,13 +494,13 @@ public class PlayerLogic : MonoBehaviour {
                 reloadState = true;
                 timeStamp = Time.time;
 
-                if (currentSelected == Inventory.Rifle)
+                if (currentWeaponIndex == 0)
                 {
                     rifleAnimator.SetBool("Firing", false);
                     rifleAnimator.SetTrigger("Reload");
                     FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
                 }
-                else if (currentSelected == Inventory.Pistol)
+                else if (currentWeaponIndex == 1)
                 {
                     pistolAnimator.SetBool("Firing", false);
                     pistolAnimator.SetTrigger("Reload");
@@ -555,7 +514,7 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
                     {
-                        if (currentSelected != Inventory.Knife && weapons[currentWeaponIndex].currentAmmo > 0)
+                        if (currentWeaponIndex != 2 && weapons[currentWeaponIndex].currentAmmo > 0)
                         {
                             weapons[currentWeaponIndex].currentAmmo -= 1;
                             ShootRay();
@@ -572,7 +531,7 @@ public class PlayerLogic : MonoBehaviour {
                                 pistolParticle.Emit(1);
                             }
                         }
-                        else if (currentSelected == Inventory.Knife)
+                        else if (currentWeaponIndex == 2)
                         {
                             knifeAnimator.SetBool("Attacking", true);
                             FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
@@ -585,15 +544,15 @@ public class PlayerLogic : MonoBehaviour {
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                if (currentSelected == Inventory.Rifle)
+                if (currentWeaponIndex == 0)
                 {
                     rifleAnimator.SetBool("Firing", false);
                 }
-                else if (currentSelected == Inventory.Pistol)
+                else if (currentWeaponIndex == 1)
                 {
                     pistolAnimator.SetBool("Firing", false);
                 }
-                else if (currentSelected == Inventory.Knife)
+                else if (currentWeaponIndex == 2)
                 {
                     knifeAnimator.SetBool("Attacking", false);
                 }
@@ -610,7 +569,7 @@ public class PlayerLogic : MonoBehaviour {
 
             if (Input.GetMouseButton(1))
             {
-                if (currentWeaponIndex == 0 && !aimDownSight && !reloadState)
+                if (currentWeaponIndex != 2 && !aimDownSight && !reloadState)
                 {
                     Ray aimRay = new Ray(rayShoot.position, transform.forward);
                     Ray aimRayLeft = new Ray(rayShoot.position, (transform.forward - transform.right));
@@ -721,20 +680,20 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Check for Reload need
-            if (currentSelected != Inventory.Knife)
+            if (currentWeaponIndex != 2)
             {
                 if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
                 {
                     reloadState = true;
                     timeStamp = Time.time;
 
-                    if (currentSelected == Inventory.Rifle)
+                    if (currentWeaponIndex == 0)
                     {
                         rifleAnimator.SetBool("Firing", false);
                         rifleAnimator.SetTrigger("Reload");
                         FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
                     }
-                    else if (currentSelected == Inventory.Pistol)
+                    else if (currentWeaponIndex == 1)
                     {
                         pistolAnimator.SetBool("Firing", false);
                         pistolAnimator.SetTrigger("Reload");
@@ -813,8 +772,6 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Run:
                     controller.height = walkHeight;
@@ -822,8 +779,6 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.runModifier;
                     pantingParam.setValue(1.0f);
-                    rifleAnimator.SetBool("Sprinting", true);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Crouch:
                     controller.height = crouchHeight;
@@ -831,17 +786,6 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.crouchModifier;
                     pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
-                    break;
-                case PlayerStates.Prone:
-                    controller.height = proneHeight;
-                    lookScript.minimumY = 0f;
-                    lookScript.maximumY = 40f;
-                    speedModifier = settingsScript.proneModifier;
-                    pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
@@ -849,16 +793,25 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
                     pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Jump:
-                    controller.height = walkHeight;
+                    controller.height = crouchHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    StartCoroutine(PlayerJump());
+
+                    if (currentWeaponIndex == 0)
+                    {
+                        rifleAnimator.SetTrigger("Jump");
+                    }
+                    else if (currentWeaponIndex == 1)
+                    {
+                        pistolAnimator.SetTrigger("Jump");
+                    }
+                    else if (currentWeaponIndex == 2)
+                    {
+                        knifeAnimator.SetTrigger("Jump");
+                    }
                     break;
             }
 
@@ -916,12 +869,17 @@ public class PlayerLogic : MonoBehaviour {
         shadowAlpha.a = Mathf.Clamp(shadowAlpha.a, 0.0f, 0.8f);
         shadowOverlay.GetComponent<Image>().color = shadowAlpha;
 
-        //Debug.LogFormat("health:{0}        Fill:{1}", playerHealth, healthBar.GetComponent<Image>().fillAmount);
-        //Debug.Log(originalRotation.rotation);
-        //Weapon Wheel
-        switch (currentSelected)
+        switch (currentWeaponIndex)
         {
-            case Inventory.Rifle:
+            case 0:
+                if (currentState == PlayerStates.Run)
+                {
+                    rifleAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    rifleAnimator.SetBool("Sprinting", false);
+                }
 
                 if (aimDownSight)
                 {
@@ -944,10 +902,36 @@ public class PlayerLogic : MonoBehaviour {
                 }
                 break;
 
-            case Inventory.Pistol:
+            case 1:
+                if (currentState == PlayerStates.Run)
+                {
+                    pistolAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    pistolAnimator.SetBool("Sprinting", false);
+                }
+
+                if (aimDownSight)
+                {
+                    pistolObject.transform.position = Vector3.Lerp(pistolHip.transform.position, pistolSight.transform.position, lerpStart / lerpTime);
+                }
+
+                if (!aimDownSight)
+                {
+                    pistolObject.transform.position = Vector3.Lerp(pistolSight.transform.position, pistolHip.transform.position, lerpStart / lerpTime);
+                }
                 break;
 
-            case Inventory.Knife:
+            case 2:
+                /*if (currentState == PlayerStates.Run)
+                {
+                    knifeAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    knifeAnimator.SetBool("Sprinting", false);
+                }*/
                 break;
         }
     }
@@ -967,12 +951,12 @@ public class PlayerLogic : MonoBehaviour {
             }
             else if (hit.collider.tag == "MutantHead")
             {
-                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
                 StartCoroutine(Blink());
             }
             else if (hit.collider.tag == "MutantBack" && currentWeaponIndex == 2)
             {
-                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 1000);
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 1000);
             }
             Debug.Log(hit.collider.name);
         }
@@ -989,7 +973,7 @@ public class PlayerLogic : MonoBehaviour {
 
     void GunNoise()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 20);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);
         int i = 0;
         while (i < hitColliders.Length)
         {
@@ -1004,7 +988,6 @@ public class PlayerLogic : MonoBehaviour {
 
     IEnumerator Blink()
     {
-        Debug.Log("hold");
         hitMarker.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         hitMarker.SetActive(false);
@@ -1077,7 +1060,6 @@ public class PlayerLogic : MonoBehaviour {
         Debug.Log(target);
         if (target == 0)
         {
-            currentSelected = Inventory.Rifle;
             currentWeaponIndex = 0;
             reloadState = false;
 
@@ -1089,7 +1071,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         else if (target == 1)
         {
-            currentSelected = Inventory.Pistol;
             currentWeaponIndex = 1;
             reloadState = false;
 
@@ -1101,7 +1082,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         else if (target == 2)
         {
-            currentSelected = Inventory.Knife;
             currentWeaponIndex = 2;
             reloadState = false;
 
@@ -1109,20 +1089,6 @@ public class PlayerLogic : MonoBehaviour {
             pistolObject.SetActive(false);
             knifeObject.SetActive(true);
 
-            timeStamp = Time.time;
-        }
-        else if (target == 3 && !weapons[3].locked)
-        {
-            currentSelected = Inventory.Katana;
-            currentWeaponIndex = 3;
-            reloadState = false;
-            timeStamp = Time.time;
-        }
-        else if (target == 4 && !weapons[4].locked)
-        {
-            currentSelected = Inventory.Sniper;
-            currentWeaponIndex = 4;
-            reloadState = false;
             timeStamp = Time.time;
         }
     }
@@ -1136,18 +1102,7 @@ public class PlayerLogic : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.25f);
 
-        if (currentSelected == Inventory.Rifle)
-        {
-            rifleAnimator.SetBool("Jump", true);
-        }
-        else if (currentSelected == Inventory.Pistol)
-        {
-            pistolAnimator.SetBool("Jump", true);
-        }
-        else if (currentSelected == Inventory.Knife)
-        {
-            knifeAnimator.SetBool("Jump", true);
-        }
+        
     }
     
     public void ChangeSurface(string target)
