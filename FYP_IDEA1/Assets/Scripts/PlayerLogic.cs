@@ -15,7 +15,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject scopeFocusCam;
     GameObject leanPivot;
     public Texture scopeTexture;
-    public Texture scopeFocusTexture;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
@@ -24,6 +23,8 @@ public class PlayerLogic : MonoBehaviour {
 
     public ParticleSystem gunParticle;
     public ParticleSystem pistolParticle;
+
+    bool tutorialPause;
 
     public bool pauseGame;
     public bool itemView;
@@ -61,6 +62,9 @@ public class PlayerLogic : MonoBehaviour {
     public GameObject rifleHip;
 
     public GameObject pistolObject;
+    public GameObject pistolSight;
+    public GameObject pistolHip;
+
     public GameObject knifeObject;
 
     public GameObject bottlePrefab;
@@ -72,21 +76,11 @@ public class PlayerLogic : MonoBehaviour {
     float lerpStart;
     float lerpTime;
 
-    public enum Inventory
-    {
-        Rifle,
-        Pistol,
-        Knife,
-        Katana,
-        Sniper
-    }
-
     enum PlayerStates
     {
         Run,
         Walk,
         Crouch,
-        Prone,
         Idle,
         Jump
     }
@@ -147,8 +141,7 @@ public class PlayerLogic : MonoBehaviour {
     Transform rayShoot;
 
     RaycastHit surfaceHit;
-
-    public Inventory currentSelected;
+    
     PlayerStates currentState;
     public Weapons[] weapons;
     public float timeStamp;
@@ -165,11 +158,6 @@ public class PlayerLogic : MonoBehaviour {
     FMOD.Studio.EventInstance walkingEv;
     FMOD.Studio.ParameterInstance walkingParam;
     public FMOD.Studio.ParameterInstance surfaceParam;
-
-    [FMODUnity.EventRef]
-    public string panting = "event:/PlayerPant";
-    FMOD.Studio.EventInstance pantingEv;
-    FMOD.Studio.ParameterInstance pantingParam;
 
     [FMODUnity.EventRef]
     public string rifleSound = "event:/Rifle";
@@ -200,6 +188,8 @@ public class PlayerLogic : MonoBehaviour {
         lookScript = cam1.GetComponent<SmoothMouseLook>();
 
         collectScript = GetComponent<CollectableLogic>();
+
+        tutorialPause = true;
 
         pauseGame = false;
         itemView = false;
@@ -273,8 +263,7 @@ public class PlayerLogic : MonoBehaviour {
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         rayShoot = GameObject.Find("RayShoot").transform;
-
-        currentSelected = Inventory.Rifle;
+        
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
 
@@ -292,11 +281,6 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.start();
         walkingParam.setValue(0.0f);
         surfaceParam.setValue(0.0f);
-
-        pantingEv = FMODUnity.RuntimeManager.CreateInstance(panting);
-        pantingEv.getParameter("Panting", out pantingParam);
-        pantingEv.start();
-        pantingParam.setValue(0.0f);
     }
 
     // Update is called once per frame
@@ -351,21 +335,23 @@ public class PlayerLogic : MonoBehaviour {
         {
             pauseMenu.SetActive(false);
             itemMenu.SetActive(false);
-
             //Movement Handler for when player is on and off the ground
             if (controller.isGrounded)
             {
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
-                    moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-                    currentVelocity += forwardAccelerationRate * Time.deltaTime;
+                    if (!tutorialPause)
+                    {
+                        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                        currentVelocity += forwardAccelerationRate * Time.deltaTime;
+                        moveDirection = transform.TransformDirection(moveDirection);
+                    }
 
                     if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
                     {
                         currentState = PlayerStates.Walk;
                     }
 
-                    moveDirection = transform.TransformDirection(moveDirection);
 
                     //Sprinting key (Left Shift)
                     if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Z))
@@ -406,7 +392,7 @@ public class PlayerLogic : MonoBehaviour {
                 }
 
                 //Crouch key (Left Control)
-                if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z))
+                if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z) && !tutorialPause)
                 {
                     currentState = PlayerStates.Crouch;
                 }
@@ -415,18 +401,8 @@ public class PlayerLogic : MonoBehaviour {
 
                 }
 
-                //Prone key ("Z" key)
-                if (Input.GetKey(KeyCode.Z) && !Input.GetKeyDown(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    currentState = PlayerStates.Prone;
-                }
-                else if (Input.GetKeyUp(KeyCode.Z))
-                {
-
-                }
-
                 //Jumping (Space)
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) && !tutorialPause)
                 {
                     moveDirection.y = jumpForce;
                     currentState = PlayerStates.Jump;
@@ -439,11 +415,11 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
-
+            
             //Player movement modifier
             controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
 
-            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
+            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
             {
                 walkingParam.setValue(speedModifier * currentVelocity);
             }
@@ -452,214 +428,195 @@ public class PlayerLogic : MonoBehaviour {
                 walkingParam.setValue(0);
             }
 
-            //Weapon change key handler
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (!tutorialPause)
             {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Rifle)
+                //Weapon change key handler
+                if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    if (currentSelected == Inventory.Knife)
+                    //If current weapon is not alredy the target weapon
+                    if (currentWeaponIndex != 0)
                     {
-                        knifeAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(0));
-                    }
-                    else if (currentSelected == Inventory.Pistol)
-                    {
-                        pistolAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(0));
-                    }
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Pistol)
-                {
-                    if (currentSelected == Inventory.Rifle)
-                    {
-                        rifleAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(1));
-                    }
-                    else if (currentSelected == Inventory.Knife)
-                    {
-                        knifeAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(1));
-                    }
-                    else
-                    {
-                        StartCoroutine(SwitchWeapon(1));
-                    }
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Knife)
-                {
-                    if (currentSelected == Inventory.Rifle)
-                    {
-                        rifleAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(2));
-                    }
-                    else if (currentSelected == Inventory.Pistol)
-                    {
-                        pistolAnimator.SetTrigger("Swapping");
-                        StartCoroutine(SwitchWeapon(2));
-                    }
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha4) && !weapons[3].locked)
-            {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Katana)
-                {
-                    SwitchWeapon(3);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha5) && !weapons[4].locked)
-            {
-                //If current weapon is not alredy the target weapon
-                if (currentSelected != Inventory.Sniper)
-                {
-                    SwitchWeapon(4);
-                }
-            }
-
-            //Reload key ("R" key)
-            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
-            {
-                reloadState = true;
-                timeStamp = Time.time;
-
-                if (currentSelected == Inventory.Rifle)
-                {
-                    rifleAnimator.SetBool("Firing", false);
-                    rifleAnimator.SetTrigger("Reload");
-                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
-                }
-                else if (currentSelected == Inventory.Pistol)
-                {
-                    pistolAnimator.SetBool("Firing", false);
-                    pistolAnimator.SetTrigger("Reload");
-                }
-            }
-
-            //Left Mouse Button Shoot
-            if (Input.GetMouseButton(0))
-            {
-                if (!holdingBottle)
-                {
-                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
-                    {
-                        if (currentSelected != Inventory.Knife && weapons[currentWeaponIndex].currentAmmo > 0)
+                        if (currentWeaponIndex == 1)
                         {
-                            weapons[currentWeaponIndex].currentAmmo -= 1;
-                            ShootRay();
-                            if (currentWeaponIndex == 0)
-                            {
-                                rifleAnimator.SetBool("Firing", true);
-                                FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
-                                gunParticle.Emit(1);
-                            }
-                            else if (currentWeaponIndex == 1)
-                            {
-                                pistolAnimator.SetBool("Firing", true);
-                                FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
-                                pistolParticle.Emit(1);
-                            }
+                            pistolAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(0));
                         }
-                        else if (currentSelected == Inventory.Knife)
+                        else if (currentWeaponIndex == 2)
                         {
-                            knifeAnimator.SetBool("Attacking", true);
-                            FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
-                            ShootRay();
+                            knifeAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(0));
                         }
-
-                        timeStamp = Time.time;
                     }
                 }
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                if (currentSelected == Inventory.Rifle)
-                {
-                    rifleAnimator.SetBool("Firing", false);
-                }
-                else if (currentSelected == Inventory.Pistol)
-                {
-                    pistolAnimator.SetBool("Firing", false);
-                }
-                else if (currentSelected == Inventory.Knife)
-                {
-                    knifeAnimator.SetBool("Attacking", false);
-                }
-            }
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (holdingBottle)
+                if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    ThrowBottle();
-                    holdingBottle = false;
-                }
-            }
-
-            if (Input.GetMouseButton(1))
-            {
-                if (currentWeaponIndex == 0 && !aimDownSight && !reloadState)
-                {
-                    Ray aimRay = new Ray(rayShoot.position, transform.forward);
-                    Ray aimRayLeft = new Ray(rayShoot.position, (transform.forward - transform.right));
-                    Ray aimRayRight = new Ray(rayShoot.position, (transform.forward + transform.right));
-
-                    if (Physics.Raycast(aimRay, out aimHit, 2))
+                    //If current weapon is not alredy the target weapon
+                    if (currentWeaponIndex != 1)
                     {
-                        if (Physics.Raycast(aimRayLeft, out aimHit, 2))
+                        if (currentWeaponIndex == 0)
                         {
-                            if (Physics.Raycast(aimRayRight, out aimHit, 2))
+                            rifleAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(1));
+                        }
+                        else if (currentWeaponIndex == 2)
+                        {
+                            knifeAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(1));
+                        }
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    //If current weapon is not alredy the target weapon
+                    if (currentWeaponIndex != 2)
+                    {
+                        if (currentWeaponIndex == 0)
+                        {
+                            rifleAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(2));
+                        }
+                        else if (currentWeaponIndex == 1)
+                        {
+                            pistolAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(2));
+                        }
+                    }
+                }
+
+                //Reload key ("R" key)
+                if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
+                {
+                    reloadState = true;
+                    timeStamp = Time.time;
+
+                    if (currentWeaponIndex == 0)
+                    {
+                        rifleAnimator.SetBool("Firing", false);
+                        rifleAnimator.SetTrigger("Reload");
+                        FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                    }
+                    else if (currentWeaponIndex == 1)
+                    {
+                        pistolAnimator.SetBool("Firing", false);
+                        pistolAnimator.SetTrigger("Reload");
+                    }
+                }
+
+                //Left Mouse Button Shoot
+                if (Input.GetMouseButton(0))
+                {
+                    if (!holdingBottle)
+                    {
+                        if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                        {
+                            if (currentWeaponIndex != 2 && weapons[currentWeaponIndex].currentAmmo > 0)
                             {
-                                frontfree = false;
-                                leftfree = false;
-                                rightfree = false;
+                                weapons[currentWeaponIndex].currentAmmo -= 1;
+                                ShootRay();
+                                if (currentWeaponIndex == 0)
+                                {
+                                    rifleAnimator.SetBool("Firing", true);
+                                    FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
+                                    gunParticle.Emit(1);
+                                }
+                                else if (currentWeaponIndex == 1)
+                                {
+                                    pistolAnimator.SetBool("Firing", true);
+                                    FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
+                                    pistolParticle.Emit(1);
+                                }
+                            }
+                            else if (currentWeaponIndex == 2)
+                            {
+                                knifeAnimator.SetBool("Attacking", true);
+                                FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
+                                ShootRay();
+                            }
+
+                            timeStamp = Time.time;
+                        }
+                    }
+                }
+                else if (Input.GetMouseButtonUp(0))
+                {
+                    if (currentWeaponIndex == 0)
+                    {
+                        rifleAnimator.SetBool("Firing", false);
+                    }
+                    else if (currentWeaponIndex == 1)
+                    {
+                        pistolAnimator.SetBool("Firing", false);
+                    }
+                    else if (currentWeaponIndex == 2)
+                    {
+                        knifeAnimator.SetBool("Attacking", false);
+                    }
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (holdingBottle)
+                    {
+                        ThrowBottle();
+                        holdingBottle = false;
+                    }
+                }
+
+                if (Input.GetMouseButton(1))
+                {
+                    if (currentWeaponIndex != 2 && !aimDownSight && !reloadState)
+                    {
+                        Ray aimRay = new Ray(rayShoot.position, transform.forward);
+                        Ray aimRayLeft = new Ray(rayShoot.position, (transform.forward - transform.right));
+                        Ray aimRayRight = new Ray(rayShoot.position, (transform.forward + transform.right));
+
+                        if (Physics.Raycast(aimRay, out aimHit, 2))
+                        {
+                            if (Physics.Raycast(aimRayLeft, out aimHit, 2))
+                            {
+                                if (Physics.Raycast(aimRayRight, out aimHit, 2))
+                                {
+                                    frontfree = false;
+                                    leftfree = false;
+                                    rightfree = false;
+                                }
+                                else
+                                {
+                                    rightfree = true;
+                                }
                             }
                             else
                             {
-                                rightfree = true;
+                                leftfree = true;
                             }
                         }
                         else
                         {
-                            leftfree = true;
+                            frontfree = true;
                         }
+
+                        lerpStart = 0f;
+                        aimDownSight = true;
                     }
-                    else
+                }
+
+                if (Input.GetMouseButtonDown(1))
+                {
+                    if (currentWeaponIndex == 2)
                     {
-                        frontfree = true;
+                        knifeAnimator.SetTrigger("Backstab");
                     }
-
-                    lerpStart = 0f;
-                    aimDownSight = true;
                 }
-            }
 
-            if (Input.GetMouseButtonDown(1))
-            {
-                if (currentWeaponIndex == 2)
+                if (Input.GetMouseButtonUp(1))
                 {
-                    knifeAnimator.SetTrigger("Backstab");
-                }
-            }
-
-            if (Input.GetMouseButtonUp(1))
-            {
-                if (aimDownSight)
-                {
-                    lerpStart = 0f;
-                    aimDownSight = false;
+                    if (aimDownSight)
+                    {
+                        lerpStart = 0f;
+                        aimDownSight = false;
+                    }
                 }
             }
 
@@ -721,20 +678,20 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Check for Reload need
-            if (currentSelected != Inventory.Knife)
+            if (currentWeaponIndex != 2)
             {
                 if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
                 {
                     reloadState = true;
                     timeStamp = Time.time;
 
-                    if (currentSelected == Inventory.Rifle)
+                    if (currentWeaponIndex == 0)
                     {
                         rifleAnimator.SetBool("Firing", false);
                         rifleAnimator.SetTrigger("Reload");
                         FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
                     }
-                    else if (currentSelected == Inventory.Pistol)
+                    else if (currentWeaponIndex == 1)
                     {
                         pistolAnimator.SetBool("Firing", false);
                         pistolAnimator.SetTrigger("Reload");
@@ -812,86 +769,51 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
-                    pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Run:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.runModifier;
-                    pantingParam.setValue(1.0f);
-                    rifleAnimator.SetBool("Sprinting", true);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Crouch:
                     controller.height = crouchHeight;
                     lookScript.minimumY = -40f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.crouchModifier;
-                    pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
-                    break;
-                case PlayerStates.Prone:
-                    controller.height = proneHeight;
-                    lookScript.minimumY = 0f;
-                    lookScript.maximumY = 40f;
-                    speedModifier = settingsScript.proneModifier;
-                    pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.walkModifier;
-                    pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    rifleAnimator.SetBool("Jump", false);
                     break;
                 case PlayerStates.Jump:
-                    controller.height = walkHeight;
+                    controller.height = crouchHeight;
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
-                    pantingParam.setValue(0.0f);
-                    rifleAnimator.SetBool("Sprinting", false);
-                    StartCoroutine(PlayerJump());
+
+                    if (currentWeaponIndex == 0)
+                    {
+                        rifleAnimator.SetTrigger("Jump");
+                    }
+                    else if (currentWeaponIndex == 1)
+                    {
+                        pistolAnimator.SetTrigger("Jump");
+                    }
+                    else if (currentWeaponIndex == 2)
+                    {
+                        knifeAnimator.SetTrigger("Jump");
+                    }
                     break;
             }
 
-            //Item Interaction & Collection
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.B))
             {
-                Ray ray = new Ray(camTransform.position, camTransform.forward);
-                if (Physics.Raycast(ray, out interactHit, 5))
-                {
-                    Debug.Log(interactHit.collider.name);
-                    if (interactHit.collider.tag == "Interactable")
-                    {
-                        interactHit.collider.gameObject.SendMessage("Activate");
-                    }
-               
-                    if (interactHit.collider.tag == "Collectable")
-                    {
-                        collectScript.CollectItem(interactHit.collider.gameObject);
-                    }
-
-                    if (interactHit.collider.tag == "Bottle" && !holdingBottle)
-                    {
-                        holdingBottle = true;
-                        Destroy(interactHit.collider.gameObject);
-                    }
-                }
+                holdingBottle = !holdingBottle;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            holdingBottle = !holdingBottle;
-        }
         
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -916,12 +838,17 @@ public class PlayerLogic : MonoBehaviour {
         shadowAlpha.a = Mathf.Clamp(shadowAlpha.a, 0.0f, 0.8f);
         shadowOverlay.GetComponent<Image>().color = shadowAlpha;
 
-        //Debug.LogFormat("health:{0}        Fill:{1}", playerHealth, healthBar.GetComponent<Image>().fillAmount);
-        //Debug.Log(originalRotation.rotation);
-        //Weapon Wheel
-        switch (currentSelected)
+        switch (currentWeaponIndex)
         {
-            case Inventory.Rifle:
+            case 0:
+                if (currentState == PlayerStates.Run)
+                {
+                    rifleAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    rifleAnimator.SetBool("Sprinting", false);
+                }
 
                 if (aimDownSight)
                 {
@@ -944,10 +871,36 @@ public class PlayerLogic : MonoBehaviour {
                 }
                 break;
 
-            case Inventory.Pistol:
+            case 1:
+                if (currentState == PlayerStates.Run)
+                {
+                    pistolAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    pistolAnimator.SetBool("Sprinting", false);
+                }
+
+                if (aimDownSight)
+                {
+                    pistolObject.transform.position = Vector3.Lerp(pistolHip.transform.position, pistolSight.transform.position, lerpStart / lerpTime);
+                }
+
+                if (!aimDownSight)
+                {
+                    pistolObject.transform.position = Vector3.Lerp(pistolSight.transform.position, pistolHip.transform.position, lerpStart / lerpTime);
+                }
                 break;
 
-            case Inventory.Knife:
+            case 2:
+                /*if (currentState == PlayerStates.Run)
+                {
+                    knifeAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    knifeAnimator.SetBool("Sprinting", false);
+                }*/
                 break;
         }
     }
@@ -967,12 +920,12 @@ public class PlayerLogic : MonoBehaviour {
             }
             else if (hit.collider.tag == "MutantHead")
             {
-                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
                 StartCoroutine(Blink());
             }
             else if (hit.collider.tag == "MutantBack" && currentWeaponIndex == 2)
             {
-                hit.collider.transform.parent.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 1000);
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 1000);
             }
             Debug.Log(hit.collider.name);
         }
@@ -989,7 +942,7 @@ public class PlayerLogic : MonoBehaviour {
 
     void GunNoise()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 20);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);
         int i = 0;
         while (i < hitColliders.Length)
         {
@@ -1004,7 +957,6 @@ public class PlayerLogic : MonoBehaviour {
 
     IEnumerator Blink()
     {
-        Debug.Log("hold");
         hitMarker.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         hitMarker.SetActive(false);
@@ -1077,7 +1029,6 @@ public class PlayerLogic : MonoBehaviour {
         Debug.Log(target);
         if (target == 0)
         {
-            currentSelected = Inventory.Rifle;
             currentWeaponIndex = 0;
             reloadState = false;
 
@@ -1089,7 +1040,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         else if (target == 1)
         {
-            currentSelected = Inventory.Pistol;
             currentWeaponIndex = 1;
             reloadState = false;
 
@@ -1101,7 +1051,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         else if (target == 2)
         {
-            currentSelected = Inventory.Knife;
             currentWeaponIndex = 2;
             reloadState = false;
 
@@ -1109,20 +1058,6 @@ public class PlayerLogic : MonoBehaviour {
             pistolObject.SetActive(false);
             knifeObject.SetActive(true);
 
-            timeStamp = Time.time;
-        }
-        else if (target == 3 && !weapons[3].locked)
-        {
-            currentSelected = Inventory.Katana;
-            currentWeaponIndex = 3;
-            reloadState = false;
-            timeStamp = Time.time;
-        }
-        else if (target == 4 && !weapons[4].locked)
-        {
-            currentSelected = Inventory.Sniper;
-            currentWeaponIndex = 4;
-            reloadState = false;
             timeStamp = Time.time;
         }
     }
@@ -1136,18 +1071,7 @@ public class PlayerLogic : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.25f);
 
-        if (currentSelected == Inventory.Rifle)
-        {
-            rifleAnimator.SetBool("Jump", true);
-        }
-        else if (currentSelected == Inventory.Pistol)
-        {
-            pistolAnimator.SetBool("Jump", true);
-        }
-        else if (currentSelected == Inventory.Knife)
-        {
-            knifeAnimator.SetBool("Jump", true);
-        }
+        
     }
     
     public void ChangeSurface(string target)
@@ -1190,6 +1114,21 @@ public class PlayerLogic : MonoBehaviour {
                 optionsView = !optionsView;
                 break;
         }
+    }
+
+    public void StopSoundInstances()
+    {
+        walkingEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void TutorialPause()
+    {
+        tutorialPause = !tutorialPause;
+    }
+
+    public bool InTutorial()
+    {
+        return tutorialPause;
     }
     /*
     var bulletSpeed: float = 1000; // bullet speed in meters/second var shotSound: AudioClip;

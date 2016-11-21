@@ -32,6 +32,10 @@ public class MutantDetectionLogic : MonoBehaviour {
 
         //Debug.Log(playerInSight);
 	
+        if (parentMutant.GetComponent<MutantOne>().IsDead())
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
     void OnTriggerEnter(Collider collider)

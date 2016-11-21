@@ -123,11 +123,11 @@ public class MutantBaseClass : MonoBehaviour {
 
             if (currentState == MutantStates.Chase || currentState == MutantStates.Lost || currentState == MutantStates.Distracted || currentState == MutantStates.Wander || currentState == MutantStates.Idle)
             {
-                mutantSpeed = 2.0f;
+                mutantSpeed = 4.0f;
             }
 
             //Mutant movement modifier
-            if (!attacking)
+            if (!attacking && !dead)
             {
                 controller.Move(moveDirection * Time.deltaTime);
             }
@@ -241,6 +241,9 @@ public class MutantBaseClass : MonoBehaviour {
             case "Chase":
                 currentState = MutantStates.Chase;
                 break;
+            case "LosePlayer":
+                currentState = MutantStates.Lost;
+                break;
         }
         mutantAnimator.SetBool("Chase", true);
         StopCoroutine(StateChange(""));
@@ -248,7 +251,7 @@ public class MutantBaseClass : MonoBehaviour {
 
     public void LosePlayer()
     {
-        currentState = MutantStates.Lost;
+        StartCoroutine(StateChange("LosePlayer"));
     }
 
     public void TakeDamage(float value)
@@ -274,9 +277,10 @@ public class MutantBaseClass : MonoBehaviour {
 
     protected IEnumerator Die()
     {
+        dead = true;
         mutantAnimator.SetTrigger("Death");
         yield return new WaitForSeconds(2.5f);
-        gameObject.SetActive(false);
+        Destroy(this);
         StopCoroutine(Die());
     }
 
@@ -298,5 +302,10 @@ public class MutantBaseClass : MonoBehaviour {
     public string ReturnState()
     {
         return currentState.ToString();
+    }
+
+    public bool IsDead()
+    {
+        return dead;
     }
 }
