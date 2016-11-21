@@ -48,8 +48,6 @@ public class MutantBaseClass : MonoBehaviour {
 
     public GameObject detectionObject;
 
-    protected LineRenderer lineRenderer;
-
     GameObject modelObject;
     Animator mutantAnimator;
     
@@ -83,9 +81,6 @@ public class MutantBaseClass : MonoBehaviour {
         noiseLastPosition = GameObject.Find("NoiseLastSeen");
 
         startPosition = (GameObject)Instantiate(startPositionPrefab, transform.position, Quaternion.identity);
-
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
 
         modelObject = transform.Find("MutantModel").gameObject;
         mutantAnimator = modelObject.GetComponent<Animator>();
@@ -136,6 +131,10 @@ public class MutantBaseClass : MonoBehaviour {
             {
                 transform.LookAt(new Vector3(playerObject.transform.position.x, transform.position.y, playerObject.transform.position.z));
             }
+            else if (currentState == MutantStates.Wander)
+            {
+
+            }
             else if (currentState == MutantStates.Lost)
             {
                 transform.LookAt(new Vector3(playerLastPosition.transform.position.x, transform.position.y, playerLastPosition.transform.position.z));
@@ -154,6 +153,7 @@ public class MutantBaseClass : MonoBehaviour {
             {
                 if (attacking)
                 {
+                    Debug.Log("haha");
                     //attacking = true;
                     mutantAnimator.SetBool("Attack", true);
 
@@ -197,9 +197,6 @@ public class MutantBaseClass : MonoBehaviour {
                 //lineRenderer.enabled = false;
                 focusRing.SetActive(false);
             }
-
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, playerObject.transform.position);
         }
     }
 
@@ -280,7 +277,6 @@ public class MutantBaseClass : MonoBehaviour {
         dead = true;
         mutantAnimator.SetTrigger("Death");
         yield return new WaitForSeconds(2.5f);
-        Destroy(this);
         StopCoroutine(Die());
     }
 

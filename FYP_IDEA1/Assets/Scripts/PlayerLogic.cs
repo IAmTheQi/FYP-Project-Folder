@@ -380,6 +380,11 @@ public class PlayerLogic : MonoBehaviour {
                         {
 
                         }
+
+                        if (surfaceHit.collider.name != "Area1Foundation")
+                        {
+
+                        }
                     }
                 }
                 else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
@@ -417,7 +422,7 @@ public class PlayerLogic : MonoBehaviour {
             currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
             
             //Player movement modifier
-            controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
+            controller.Move(moveDirection.normalized * speedModifier * currentVelocity * Time.deltaTime);
 
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
             {
@@ -920,6 +925,7 @@ public class PlayerLogic : MonoBehaviour {
             }
             else if (hit.collider.tag == "MutantHead")
             {
+                Debug.Log(hit.collider.transform.root.gameObject.name);
                 hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
                 StartCoroutine(Blink());
             }
