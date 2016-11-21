@@ -20,6 +20,7 @@ public class PortalLogic : MonoBehaviour {
     {
         if (collider.tag == "Player")
         {
+            collider.gameObject.GetComponent<PlayerLogic>().StopSoundInstances();
             SceneManager.LoadScene(targetScene);
         }
     }
