@@ -22,6 +22,10 @@ public class TutorialHandler : MonoBehaviour {
     GameObject playerObject;
     PlayerLogic playerScript;
 
+    bool dead;
+    public GameObject mutantTarget;
+    public GameObject[] mutants;
+
     public GameObject step0Prompt;
     public GameObject step1Prompt;
     public GameObject step2Prompt;
@@ -54,6 +58,8 @@ public class TutorialHandler : MonoBehaviour {
         ctrlkey = false;
         collected = false;
 
+        dead = false;
+
         step0Prompt.SetActive(true);
         step1Prompt.SetActive(false);
         step2Prompt.SetActive(false);
@@ -64,15 +70,27 @@ public class TutorialHandler : MonoBehaviour {
         step7Prompt.SetActive(false);
         step8Prompt.SetActive(false);
 
+        for (int i = 0; i < mutants.Length; i++)
+        {
+            mutants[i].SetActive(false);
+        }
+
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        Debug.LogFormat("triggered:{0}      transition:{1}", triggered, transition);
-
         if (!playerScript.pauseGame)
         {
+
+            if (mutantTarget.GetComponent<MutantOne>().IsDead() && !dead)
+            {
+                for (int i = 0; i< mutants.Length; i++)
+                {
+                    mutants[i].SetActive(true);
+                }
+                dead = true;
+            }
 
             switch (currentState)
             {
