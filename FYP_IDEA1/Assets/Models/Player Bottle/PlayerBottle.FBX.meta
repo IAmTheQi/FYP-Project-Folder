@@ -1,0 +1,2091 @@
+fileFormatVersion: 2
+guid: 453dac89c7c67d24f889251e1cd108ce
+timeCreated: 1479973115
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Arm_L
+    100002: Arm_Mesh
+    100004: Arm_R
+    100006: ArmTwistIn_L
+    100008: ArmTwistIn_R
+    100010: ArmTwistMid_L
+    100012: ArmTwistMid_R
+    100014: ArmTwistOut_L
+    100016: ArmTwistOut_R
+    100018: Camera001
+    100020: ConnectArm_L
+    100022: ConnectArm_R
+    100024: Hand_L
+    100026: Hand_R
+    100028: IndexIn_L
+    100030: IndexIn_R
+    100032: IndexMid_L
+    100034: IndexMid_R
+    100036: IndexOut_L
+    100038: IndexOut_R
+    100040: InnerArm_L
+    100042: InnerArm_R
+    100044: LongIn_L
+    100046: LongIn_R
+    100048: LongMid_L
+    100050: LongMid_R
+    100052: LongOut_L
+    100054: LongOut_R
+    100056: Master
+    100058: pCylinder1
+    100060: PinkIn_L
+    100062: PinkIn_R
+    100064: PinkMid_L
+    100066: PinkMid_R
+    100068: PinkOut_L
+    100070: PinkOut_R
+    100072: //RootNode
+    100074: RingIn_L
+    100076: RingIn_R
+    100078: RingMid_L
+    100080: RingMid_R
+    100082: RingOut_L
+    100084: RingOut_R
+    100086: RotArm__L
+    100088: RotArm__R
+    100090: ThumbIn_L
+    100092: ThumbIn_R
+    100094: ThumbOut_L
+    100096: ThumbOut_R
+    100098: transform1
+    100100: transform10
+    100102: transform11
+    100104: transform12
+    100106: transform13
+    100108: transform14
+    100110: transform15
+    100112: transform16
+    100114: transform17
+    100116: transform18
+    100118: transform19
+    100120: transform2
+    100122: transform20
+    100124: transform21
+    100126: transform22
+    100128: transform23
+    100130: transform24
+    100132: transform25
+    100134: transform26
+    100136: transform27
+    100138: transform28
+    100140: transform29
+    100142: transform3
+    100144: transform30
+    100146: transform31
+    100148: transform32
+    100150: transform33
+    100152: transform34
+    100154: transform35
+    100156: transform36
+    100158: transform37
+    100160: transform38
+    100162: transform39
+    100164: transform4
+    100166: transform40
+    100168: transform41
+    100170: transform42
+    100172: transform43
+    100174: transform44
+    100176: transform45
+    100178: transform46
+    100180: transform5
+    100182: transform6
+    100184: transform7
+    100186: transform8
+    100188: transform9
+    100190: TwistTh_L
+    100192: TwistTh_R
+    100194: TwistThumb_L
+    100196: TwistThumb_R
+    400000: Arm_L
+    400002: Arm_Mesh
+    400004: Arm_R
+    400006: ArmTwistIn_L
+    400008: ArmTwistIn_R
+    400010: ArmTwistMid_L
+    400012: ArmTwistMid_R
+    400014: ArmTwistOut_L
+    400016: ArmTwistOut_R
+    400018: Camera001
+    400020: ConnectArm_L
+    400022: ConnectArm_R
+    400024: Hand_L
+    400026: Hand_R
+    400028: IndexIn_L
+    400030: IndexIn_R
+    400032: IndexMid_L
+    400034: IndexMid_R
+    400036: IndexOut_L
+    400038: IndexOut_R
+    400040: InnerArm_L
+    400042: InnerArm_R
+    400044: LongIn_L
+    400046: LongIn_R
+    400048: LongMid_L
+    400050: LongMid_R
+    400052: LongOut_L
+    400054: LongOut_R
+    400056: Master
+    400058: pCylinder1
+    400060: PinkIn_L
+    400062: PinkIn_R
+    400064: PinkMid_L
+    400066: PinkMid_R
+    400068: PinkOut_L
+    400070: PinkOut_R
+    400072: //RootNode
+    400074: RingIn_L
+    400076: RingIn_R
+    400078: RingMid_L
+    400080: RingMid_R
+    400082: RingOut_L
+    400084: RingOut_R
+    400086: RotArm__L
+    400088: RotArm__R
+    400090: ThumbIn_L
+    400092: ThumbIn_R
+    400094: ThumbOut_L
+    400096: ThumbOut_R
+    400098: transform1
+    400100: transform10
+    400102: transform11
+    400104: transform12
+    400106: transform13
+    400108: transform14
+    400110: transform15
+    400112: transform16
+    400114: transform17
+    400116: transform18
+    400118: transform19
+    400120: transform2
+    400122: transform20
+    400124: transform21
+    400126: transform22
+    400128: transform23
+    400130: transform24
+    400132: transform25
+    400134: transform26
+    400136: transform27
+    400138: transform28
+    400140: transform29
+    400142: transform3
+    400144: transform30
+    400146: transform31
+    400148: transform32
+    400150: transform33
+    400152: transform34
+    400154: transform35
+    400156: transform36
+    400158: transform37
+    400160: transform38
+    400162: transform39
+    400164: transform4
+    400166: transform40
+    400168: transform41
+    400170: transform42
+    400172: transform43
+    400174: transform44
+    400176: transform45
+    400178: transform46
+    400180: transform5
+    400182: transform6
+    400184: transform7
+    400186: transform8
+    400188: transform9
+    400190: TwistTh_L
+    400192: TwistTh_R
+    400194: TwistThumb_L
+    400196: TwistThumb_R
+    2300000: pCylinder1
+    3300000: pCylinder1
+    4300000: Arm_Mesh
+    4300002: pCylinder1
+    7400000: Bottle_Idle
+    7400002: Bottle_Throw
+    7400004: Bottle_Swap_In
+    7400006: Bottle_Swap_Out
+    7400008: Bottle_Sprint_Start
+    7400010: Bottle_Sprint_Loop
+    7400012: Bottle_Sprint_End
+    7400014: Bottle_Jump
+    9500000: //RootNode
+    13700000: Arm_Mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Bottle_Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Throw
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 75
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Swap_In
+      takeName: Take 001
+      firstFrame: 76
+      lastFrame: 85
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Swap_Out
+      takeName: Take 001
+      firstFrame: 86
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Sprint_Start
+      takeName: Take 001
+      firstFrame: 96
+      lastFrame: 102
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Sprint_Loop
+      takeName: Take 001
+      firstFrame: 103
+      lastFrame: 117
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Sprint_End
+      takeName: Take 001
+      firstFrame: 118
+      lastFrame: 126
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bottle_Jump
+      takeName: Take 001
+      firstFrame: 127
+      lastFrame: 137
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arm_Mesh
+        weight: 1
+      - path: Camera001
+        weight: 1
+      - path: Master
+        weight: 1
+      - path: Master/InnerArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/ConnectArm_L/ArmTwistIn_L/ArmTwistMid_L/ArmTwistOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/IndexIn_L/IndexMid_L/IndexOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/LongIn_L/LongMid_L/LongOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/PinkIn_L/PinkMid_L/PinkOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/RingIn_L/RingMid_L/RingOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/Hand_L/TwistThumb_L/TwistTh_L/ThumbIn_L/ThumbOut_L
+        weight: 1
+      - path: Master/InnerArm_L/Arm_L/RotArm__L
+        weight: 1
+      - path: Master/InnerArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/ConnectArm_R/ArmTwistIn_R/ArmTwistMid_R/ArmTwistOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/IndexIn_R/IndexMid_R/IndexOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/LongIn_R/LongMid_R/LongOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/pCylinder1
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/PinkIn_R/PinkMid_R/PinkOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/RingIn_R/RingMid_R/RingOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/Hand_R/TwistThumb_R/TwistTh_R/ThumbIn_R/ThumbOut_R
+        weight: 1
+      - path: Master/InnerArm_R/Arm_R/RotArm__R
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform2
+        weight: 1
+      - path: transform3
+        weight: 1
+      - path: transform4
+        weight: 1
+      - path: transform5
+        weight: 1
+      - path: transform6
+        weight: 1
+      - path: transform7
+        weight: 1
+      - path: transform8
+        weight: 1
+      - path: transform9
+        weight: 1
+      - path: transform10
+        weight: 1
+      - path: transform11
+        weight: 1
+      - path: transform12
+        weight: 1
+      - path: transform13
+        weight: 1
+      - path: transform14
+        weight: 1
+      - path: transform15
+        weight: 1
+      - path: transform16
+        weight: 1
+      - path: transform17
+        weight: 1
+      - path: transform18
+        weight: 1
+      - path: transform19
+        weight: 1
+      - path: transform20
+        weight: 1
+      - path: transform21
+        weight: 1
+      - path: transform22
+        weight: 1
+      - path: transform23
+        weight: 1
+      - path: transform24
+        weight: 1
+      - path: transform25
+        weight: 1
+      - path: transform26
+        weight: 1
+      - path: transform27
+        weight: 1
+      - path: transform28
+        weight: 1
+      - path: transform29
+        weight: 1
+      - path: transform30
+        weight: 1
+      - path: transform31
+        weight: 1
+      - path: transform32
+        weight: 1
+      - path: transform33
+        weight: 1
+      - path: transform34
+        weight: 1
+      - path: transform35
+        weight: 1
+      - path: transform36
+        weight: 1
+      - path: transform37
+        weight: 1
+      - path: transform38
+        weight: 1
+      - path: transform39
+        weight: 1
+      - path: transform40
+        weight: 1
+      - path: transform41
+        weight: 1
+      - path: transform42
+        weight: 1
+      - path: transform43
+        weight: 1
+      - path: transform44
+        weight: 1
+      - path: transform45
+        weight: 1
+      - path: transform46
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
