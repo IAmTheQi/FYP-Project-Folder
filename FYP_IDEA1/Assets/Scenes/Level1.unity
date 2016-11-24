@@ -14527,6 +14527,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4000013771076120, guid: 05730df2bb7b6054a88d82d2fc15a117,
     type: 2}
   m_PrefabInternal: {fileID: 545950174}
+--- !u!1 &547810844 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000011714912412, guid: 2007e2535d6c2864db21214422b154b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 361197596}
 --- !u!1001 &548548156
 Prefab:
   m_ObjectHideFlags: 0
@@ -30912,6 +30917,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  mutantTarget: {fileID: 547810844}
+  mutants: []
   step0Prompt: {fileID: 1137087779}
   step1Prompt: {fileID: 719473426}
   step2Prompt: {fileID: 330678570}
