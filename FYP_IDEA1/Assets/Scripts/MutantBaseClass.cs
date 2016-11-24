@@ -148,6 +148,8 @@ public class MutantBaseClass : MonoBehaviour {
                 transform.LookAt(new Vector3(startPosition.transform.position.x, transform.position.y, startPosition.transform.position.z));
             }
 
+            Debug.Log(attacking);
+
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {

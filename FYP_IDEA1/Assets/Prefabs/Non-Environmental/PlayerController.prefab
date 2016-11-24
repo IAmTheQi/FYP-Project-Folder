@@ -14763,7 +14763,7 @@ Camera:
   m_GameObject: {fileID: 1000010443142978}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -14776,7 +14776,7 @@ Camera:
   field of view: 42
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -15264,27 +15264,16 @@ MonoBehaviour:
     reloadDelay: 0
     range: 150
     damageValue: 30
-  - weaponName: Katana
+  - weaponName: Bottle
     weaponSprite: {fileID: 21300000, guid: c71d7cf7d5b97fb4bb457ae25adf91a1, type: 3}
     locked: 1
     currentAmmo: 0
     magazineSize: 0
     remainingAmmo: 0
     totalAmmo: 0
-    shootDelay: 3
+    shootDelay: 0
     reloadDelay: 0
-    range: 60
-    damageValue: 0
-  - weaponName: Sniper
-    weaponSprite: {fileID: 21300000, guid: 8abd4386b0603e349a17a0ad7ac26239, type: 3}
-    locked: 1
-    currentAmmo: 5
-    magazineSize: 5
-    remainingAmmo: 20
-    totalAmmo: 20
-    shootDelay: 1.5
-    reloadDelay: 3
-    range: 500
+    range: 0
     damageValue: 0
   timeStamp: 0
   reloadState: 0
