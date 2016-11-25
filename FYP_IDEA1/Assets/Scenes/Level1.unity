@@ -55026,6 +55026,22 @@ CapsuleCollider:
   m_Height: 0.8499988
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1740272483 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: eb9a605b81a0359438ea7c7347435cd0, type: 3}
+  m_PrefabInternal: {fileID: 1821105076}
+--- !u!65 &1740272484
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1740272483}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 21.870289, y: 0.15027294, z: 9.394559}
+  m_Center: {x: 0, y: -0.27020785, z: 0.0000009536743}
 --- !u!1001 &1740302827
 Prefab:
   m_ObjectHideFlags: 0
@@ -61074,6 +61090,22 @@ BillboardRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Billboard: {fileID: 22600000, guid: 898926537825fd647abe756cf66041c1, type: 3}
+--- !u!1 &1916210696 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100006, guid: 5203674dac73e7b48a11c896aa659632, type: 3}
+  m_PrefabInternal: {fileID: 1382468243}
+--- !u!64 &1916210697
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1916210696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300002, guid: 5203674dac73e7b48a11c896aa659632, type: 3}
 --- !u!1 &1919265401
 GameObject:
   m_ObjectHideFlags: 0
