@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 498992}
   - 33: {fileID: 3320716}
   - 23: {fileID: 2347430}
-  - 136: {fileID: 13617236}
+  - 65: {fileID: 65000010609598642}
   m_Layer: 0
   m_Name: RiceBucket02
   m_TagString: Untagged
@@ -67,19 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178600}
   m_Mesh: {fileID: 4300000, guid: 6e369b5666f013f4a98e7e34a31880f7, type: 3}
---- !u!136 &13617236
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 178600}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.11334693
-  m_Height: 0.1967572
-  m_Direction: 1
-  m_Center: {x: 0.000000014901161, y: 0.09812549, z: 0.011772849}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -91,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178600}
   m_IsPrefabParent: 1
+--- !u!65 &65000010609598642
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20314808, y: 0.1967572, z: 0.22669385}
+  m_Center: {x: 0.000000014901161, y: 0.09812549, z: 0.011772849}
