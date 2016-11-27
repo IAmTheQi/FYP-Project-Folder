@@ -5828,6 +5828,7 @@ Transform:
   m_Children:
   - {fileID: 1296588715}
   - {fileID: 2117188261}
+  - {fileID: 185605216}
   m_Father: {fileID: 419554184}
   m_RootOrder: 19
 --- !u!1 &183262600
@@ -5980,6 +5981,57 @@ LODGroup:
     renderers:
     - renderer: {fileID: 339806293}
   m_Enabled: 1
+--- !u!1001 &185605215
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 182825952}
+    m_Modifications:
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.0831375
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.721217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -29.240772
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010407554282, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5b4af5490a2753246ac54eb762a88550, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &185605216 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000011044135954, guid: 5b4af5490a2753246ac54eb762a88550,
+    type: 2}
+  m_PrefabInternal: {fileID: 185605215}
 --- !u!1001 &185961516
 Prefab:
   m_ObjectHideFlags: 0
@@ -7499,7 +7551,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &234076928
 Transform:
@@ -7532,7 +7584,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &235625451 stripped
 Transform:
@@ -11045,7 +11097,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1001 &345169901
 Prefab:
@@ -14182,6 +14234,10 @@ Prefab:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 8931095ffeb4c8547acdbb54e458e371, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -27439,6 +27495,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011626760636, guid: bdeec7f7fdc4a964ba43fad1c316ec95, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdeec7f7fdc4a964ba43fad1c316ec95, type: 2}
   m_IsPrefabParent: 0
@@ -29558,6 +29618,10 @@ Prefab:
     - target: {fileID: 4000012679300742, guid: 9e1e11265a54697429a65c012eac5501, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011591951980, guid: 9e1e11265a54697429a65c012eac5501, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e1e11265a54697429a65c012eac5501, type: 2}
@@ -51569,6 +51633,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8931095ffeb4c8547acdbb54e458e371, type: 3}
   m_IsPrefabParent: 0
@@ -65928,6 +65996,22 @@ Prefab:
       propertyPath: m_Name
       value: NewFence (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 0192b1e5160e2fd458e077222a681bd9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 0192b1e5160e2fd458e077222a681bd9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0192b1e5160e2fd458e077222a681bd9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 0192b1e5160e2fd458e077222a681bd9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0192b1e5160e2fd458e077222a681bd9, type: 3}
   m_IsPrefabParent: 0
@@ -67717,7 +67801,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2131351740
 Transform:
