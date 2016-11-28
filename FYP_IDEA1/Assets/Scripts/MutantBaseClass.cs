@@ -153,10 +153,21 @@ public class MutantBaseClass : MonoBehaviour {
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {
+                if (!attacking)
+                {
+                    if (Vector3.Distance(transform.position, playerObject.transform.position) < 1f)
+                    {
+                        attacking = true;
+                    }
+                    else
+                    {
+                        attacking = false;
+                        mutantAnimator.SetBool("Attack", false);
+                    }
+                }
                 if (attacking)
                 {
                     Debug.Log("haha");
-                    //attacking = true;
                     mutantAnimator.SetBool("Attack", true);
 
                     if (!playerObject.GetComponent<PlayerLogic>().IsDead())
@@ -177,6 +188,7 @@ public class MutantBaseClass : MonoBehaviour {
                     mutantAnimator.SetBool("Attack", false);
                 }
             }
+            Debug.Log(attacking);
 
             //Heartbeat sensing
             if (Input.GetKeyDown(KeyCode.C))
