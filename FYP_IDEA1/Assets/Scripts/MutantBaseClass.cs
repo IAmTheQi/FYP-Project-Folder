@@ -37,7 +37,7 @@ public class MutantBaseClass : MonoBehaviour {
     public float attackDelay;
     public float timeStamp;
 
-    GameObject focusRing;
+    public GameObject focusRing;
 
     public GameObject playerLastPositionPrefab;
     protected GameObject playerLastPosition;
@@ -63,7 +63,7 @@ public class MutantBaseClass : MonoBehaviour {
 
         moveDirection = new Vector3(0, 0, 0);
 
-        currentState = MutantStates.Idle;
+        //currentState = MutantStates.Idle;
 
         controller = GetComponent<CharacterController>();
 
@@ -73,8 +73,7 @@ public class MutantBaseClass : MonoBehaviour {
         timeStamp = Time.time;
 
         attacking = false;
-
-        focusRing = transform.Find("FocusRing").gameObject;
+        
         focusRing.SetActive(false);
 
         playerLastPosition = (GameObject)Instantiate(playerLastPositionPrefab, new Vector3(0, 0, 0), Quaternion.identity);

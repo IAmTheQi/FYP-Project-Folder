@@ -14,6 +14,8 @@ public class MutantDetectionLogic : MonoBehaviour {
 
     float angle;
 
+    public bool stationary;
+
 	// Use this for initialization
 	void Start () {
         playerObject = GameObject.Find("PlayerController");
@@ -49,9 +51,19 @@ public class MutantDetectionLogic : MonoBehaviour {
         }
         else
         {
-            if (playerScript.IsWalking() && collider.gameObject == playerObject)
+            if (!stationary)
             {
-                parentMutant.SendMessage("AlertMutant");
+                if (playerScript.IsWalking() && collider.gameObject == playerObject)
+                {
+                    parentMutant.SendMessage("AlertMutant");
+                }
+            }
+            else if (stationary)
+            {
+                if (collider.gameObject == playerObject)
+                {
+                    parentMutant.SendMessage("AlertMutant");
+                }
             }
         }
     }

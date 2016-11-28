@@ -1063,7 +1063,7 @@ public class PlayerLogic : MonoBehaviour {
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null)
+            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null || hitColliders[i].gameObject.GetComponent<MutantRoam>() != null)
             {
                 hitColliders[i].SendMessage("RecordLastSeen", transform);
                 hitColliders[i].SendMessage("LosePlayer");
