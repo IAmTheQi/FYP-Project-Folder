@@ -37,7 +37,7 @@ public class MutantBaseClass : MonoBehaviour {
     public float attackDelay;
     public float timeStamp;
 
-    GameObject focusRing;
+    public GameObject focusRing;
 
     public GameObject playerLastPositionPrefab;
     protected GameObject playerLastPosition;
@@ -47,8 +47,6 @@ public class MutantBaseClass : MonoBehaviour {
     protected GameObject startPosition;
 
     public GameObject detectionObject;
-
-    protected LineRenderer lineRenderer;
 
     GameObject modelObject;
     Animator mutantAnimator;
@@ -65,7 +63,7 @@ public class MutantBaseClass : MonoBehaviour {
 
         moveDirection = new Vector3(0, 0, 0);
 
-        currentState = MutantStates.Idle;
+        //currentState = MutantStates.Idle;
 
         controller = GetComponent<CharacterController>();
 
@@ -75,17 +73,13 @@ public class MutantBaseClass : MonoBehaviour {
         timeStamp = Time.time;
 
         attacking = false;
-
-        focusRing = transform.Find("FocusRing").gameObject;
+        
         focusRing.SetActive(false);
 
         playerLastPosition = (GameObject)Instantiate(playerLastPositionPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         noiseLastPosition = GameObject.Find("NoiseLastSeen");
 
         startPosition = (GameObject)Instantiate(startPositionPrefab, transform.position, Quaternion.identity);
-
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
 
         modelObject = transform.Find("MutantModel").gameObject;
         mutantAnimator = modelObject.GetComponent<Animator>();
@@ -136,6 +130,10 @@ public class MutantBaseClass : MonoBehaviour {
             {
                 transform.LookAt(new Vector3(playerObject.transform.position.x, transform.position.y, playerObject.transform.position.z));
             }
+            else if (currentState == MutantStates.Wander)
+            {
+
+            }
             else if (currentState == MutantStates.Lost)
             {
                 transform.LookAt(new Vector3(playerLastPosition.transform.position.x, transform.position.y, playerLastPosition.transform.position.z));
@@ -149,12 +147,26 @@ public class MutantBaseClass : MonoBehaviour {
                 transform.LookAt(new Vector3(startPosition.transform.position.x, transform.position.y, startPosition.transform.position.z));
             }
 
+            Debug.Log(attacking);
+
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {
+                if (!attacking)
+                {
+                    if (Vector3.Distance(transform.position, playerObject.transform.position) < 1f)
+                    {
+                        attacking = true;
+                    }
+                    else
+                    {
+                        attacking = false;
+                        mutantAnimator.SetBool("Attack", false);
+                    }
+                }
                 if (attacking)
                 {
-                    //attacking = true;
+                    Debug.Log("haha");
                     mutantAnimator.SetBool("Attack", true);
 
                     if (!playerObject.GetComponent<PlayerLogic>().IsDead())
@@ -175,6 +187,7 @@ public class MutantBaseClass : MonoBehaviour {
                     mutantAnimator.SetBool("Attack", false);
                 }
             }
+            Debug.Log(attacking);
 
             //Heartbeat sensing
             if (Input.GetKeyDown(KeyCode.C))
@@ -197,9 +210,6 @@ public class MutantBaseClass : MonoBehaviour {
                 //lineRenderer.enabled = false;
                 focusRing.SetActive(false);
             }
-
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, playerObject.transform.position);
         }
     }
 
@@ -280,7 +290,6 @@ public class MutantBaseClass : MonoBehaviour {
         dead = true;
         mutantAnimator.SetTrigger("Death");
         yield return new WaitForSeconds(2.5f);
-        Destroy(this);
         StopCoroutine(Die());
     }
 

@@ -67,11 +67,14 @@ public class PlayerLogic : MonoBehaviour {
 
     public GameObject knifeObject;
 
+    public GameObject bottleObject;
+
     public GameObject bottlePrefab;
 
     Animator rifleAnimator;
     Animator knifeAnimator;
     Animator pistolAnimator;
+    Animator bottleAnimator;
 
     float lerpStart;
     float lerpTime;
@@ -189,7 +192,10 @@ public class PlayerLogic : MonoBehaviour {
 
         collectScript = GetComponent<CollectableLogic>();
 
-        tutorialPause = true;
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            tutorialPause = true;
+        }
 
         pauseGame = false;
         itemView = false;
@@ -198,6 +204,7 @@ public class PlayerLogic : MonoBehaviour {
         rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         knifeAnimator = knifeObject.GetComponent<Animator>();
         pistolAnimator = pistolObject.GetComponent<Animator>();
+        bottleAnimator = bottleObject.GetComponent<Animator>();
 
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
@@ -380,6 +387,11 @@ public class PlayerLogic : MonoBehaviour {
                         {
 
                         }
+
+                        if (surfaceHit.collider.name != "Area1Foundation")
+                        {
+
+                        }
                     }
                 }
                 else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
@@ -417,7 +429,7 @@ public class PlayerLogic : MonoBehaviour {
             currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
             
             //Player movement modifier
-            controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
+            controller.Move(moveDirection.normalized * speedModifier * currentVelocity * Time.deltaTime);
 
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
             {
@@ -446,6 +458,11 @@ public class PlayerLogic : MonoBehaviour {
                             knifeAnimator.SetTrigger("Swapping");
                             StartCoroutine(SwitchWeapon(0));
                         }
+                        else if (currentWeaponIndex == 3)
+                        {
+                            bottleAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(0));
+                        }
                     }
                 }
 
@@ -462,6 +479,11 @@ public class PlayerLogic : MonoBehaviour {
                         else if (currentWeaponIndex == 2)
                         {
                             knifeAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(1));
+                        }
+                        else if (currentWeaponIndex == 3)
+                        {
+                            bottleAnimator.SetTrigger("Swapping");
                             StartCoroutine(SwitchWeapon(1));
                         }
                     }
@@ -481,6 +503,34 @@ public class PlayerLogic : MonoBehaviour {
                         {
                             pistolAnimator.SetTrigger("Swapping");
                             StartCoroutine(SwitchWeapon(2));
+                        }
+                        else if (currentWeaponIndex == 3)
+                        {
+                            bottleAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(2));
+                        }
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha4) && !weapons[3].locked)
+                {
+                    if (currentWeaponIndex != 3)
+                    {
+                        if (currentWeaponIndex == 0)
+                        {
+                            rifleAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(3));
+                        }
+                        else if (currentWeaponIndex == 1)
+                        {
+                            pistolAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(3));
+                        }
+                        else if (currentWeaponIndex == 2)
+                        {
+                            knifeAnimator.SetTrigger("Swapping");
+                            StartCoroutine(SwitchWeapon(3));
+
                         }
                     }
                 }
@@ -560,7 +610,10 @@ public class PlayerLogic : MonoBehaviour {
                     if (holdingBottle)
                     {
                         ThrowBottle();
+                        bottleAnimator.SetTrigger("Throw");
                         holdingBottle = false;
+                        weapons[3].locked = true;
+                        StartCoroutine(SwitchWeapon(0));
                     }
                 }
 
@@ -805,7 +858,57 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         knifeAnimator.SetTrigger("Jump");
                     }
+                    else if (currentWeaponIndex == 3)
+                    {
+                        bottleAnimator.SetTrigger("Jump");
+                    }
                     break;
+            }
+
+            //Item Interaction & Collection
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Ray ray = new Ray(camTransform.position, camTransform.forward);
+                if (Physics.Raycast(ray, out interactHit, 5))
+                {
+                    Debug.Log(interactHit.collider.name);
+                    if (interactHit.collider.tag == "Interactable")
+                    {
+                        interactHit.collider.gameObject.SendMessage("Activate");
+                    }
+
+                    if (interactHit.collider.tag == "Collectable")
+                    {
+                        collectScript.CollectItem(interactHit.collider.gameObject);
+                    }
+
+                    if (interactHit.collider.tag == "Bottle" && !holdingBottle)
+                    {
+                        holdingBottle = true;
+                        weapons[3].locked = false;
+                        Destroy(interactHit.collider.gameObject);
+
+                        if (currentWeaponIndex != 3)
+                        {
+                            if (currentWeaponIndex == 0)
+                            {
+                                rifleAnimator.SetTrigger("Swapping");
+                                StartCoroutine(SwitchWeapon(3));
+                            }
+                            else if (currentWeaponIndex == 1)
+                            {
+                                pistolAnimator.SetTrigger("Swapping");
+                                StartCoroutine(SwitchWeapon(3));
+                            }
+                            else if (currentWeaponIndex == 2)
+                            {
+                                knifeAnimator.SetTrigger("Swapping");
+                                StartCoroutine(SwitchWeapon(3));
+
+                            }
+                        }
+                    }
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.B))
@@ -863,11 +966,13 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         scopeFocusCam.SetActive(false);
                     }
+                    rifleAnimator.SetBool("Scoped", true);
                 }
 
                 if (!aimDownSight)
                 {
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
+                    rifleAnimator.SetBool("Scoped", false);
                 }
                 break;
 
@@ -902,6 +1007,17 @@ public class PlayerLogic : MonoBehaviour {
                     knifeAnimator.SetBool("Sprinting", false);
                 }*/
                 break;
+
+            case 3:
+                if (currentState == PlayerStates.Run)
+                {
+                    bottleAnimator.SetBool("Sprinting", true);
+                }
+                else
+                {
+                    bottleAnimator.SetBool("Sprinting", false);
+                }
+                break;
         }
     }
 
@@ -920,6 +1036,7 @@ public class PlayerLogic : MonoBehaviour {
             }
             else if (hit.collider.tag == "MutantHead")
             {
+                Debug.Log(hit.collider.transform.root.gameObject.name);
                 hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
                 StartCoroutine(Blink());
             }
@@ -946,7 +1063,7 @@ public class PlayerLogic : MonoBehaviour {
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null)
+            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null || hitColliders[i].gameObject.GetComponent<MutantRoam>() != null)
             {
                 hitColliders[i].SendMessage("RecordLastSeen", transform);
                 hitColliders[i].SendMessage("LosePlayer");
@@ -1035,6 +1152,7 @@ public class PlayerLogic : MonoBehaviour {
             rifleObject.SetActive(true);
             pistolObject.SetActive(false);
             knifeObject.SetActive(false);
+            bottleObject.SetActive(false);
 
             timeStamp = Time.time;
         }
@@ -1046,6 +1164,7 @@ public class PlayerLogic : MonoBehaviour {
             rifleObject.SetActive(false);
             pistolObject.SetActive(true);
             knifeObject.SetActive(false);
+            bottleObject.SetActive(false);
 
             timeStamp = Time.time;
         }
@@ -1057,8 +1176,20 @@ public class PlayerLogic : MonoBehaviour {
             rifleObject.SetActive(false);
             pistolObject.SetActive(false);
             knifeObject.SetActive(true);
+            bottleObject.SetActive(false);
 
             timeStamp = Time.time;
+        }
+        else if (target == 3)
+        {
+            currentWeaponIndex = 3;
+            reloadState = false;
+            holdingBottle = true;
+
+            rifleObject.SetActive(false);
+            pistolObject.SetActive(false);
+            knifeObject.SetActive(false);
+            bottleObject.SetActive(true);
         }
     }
 
@@ -1112,6 +1243,10 @@ public class PlayerLogic : MonoBehaviour {
 
             case "options":
                 optionsView = !optionsView;
+                break;
+
+            case "quit":
+                SceneManager.LoadScene("MainMenu");
                 break;
         }
     }
