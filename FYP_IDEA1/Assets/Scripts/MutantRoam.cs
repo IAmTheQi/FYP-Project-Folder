@@ -65,7 +65,7 @@ public class MutantRoam : MutantBaseClass {
                 }
                 else
                 {
-                    currentIndex += 1;
+                    currentIndex -= 1;
                 }
             }
         }

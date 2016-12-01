@@ -47,6 +47,8 @@ public class SmoothMouseLook : MonoBehaviour
         frameCounter = settingsConfig.mouseDrag;
 
         multiplier = 1.0f;
+
+
     }
 
     void Update()

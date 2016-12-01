@@ -19,10 +19,15 @@ public class PlayerLogic : MonoBehaviour {
     Transform camTransform;
     Vector3 startPosition;
 
+    GameObject flashlightObject;
+
     CollectableLogic collectScript;
 
     public ParticleSystem gunParticle;
     public ParticleSystem pistolParticle;
+
+    public GameObject rifleMuzzle;
+    public GameObject pistolMuzzle;
 
     bool tutorialPause;
 
@@ -189,6 +194,8 @@ public class PlayerLogic : MonoBehaviour {
         leanPivot = GameObject.Find("LeanPivot");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
+
+        flashlightObject = GameObject.Find("Flashlight");
 
         collectScript = GetComponent<CollectableLogic>();
 
@@ -420,7 +427,7 @@ public class PlayerLogic : MonoBehaviour {
                     currentState = PlayerStates.Jump;
                 }
             }
-            else if (!controller.isGrounded)
+            else if (!controller.isGrounded && !tutorialPause)
             {
                 //Gravity drop
                 moveDirection.y -= gravity * Time.deltaTime;
@@ -429,7 +436,14 @@ public class PlayerLogic : MonoBehaviour {
             currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
             
             //Player movement modifier
-            controller.Move(moveDirection.normalized * speedModifier * currentVelocity * Time.deltaTime);
+            if (!tutorialPause)
+            {
+                controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
+            }
+            else if (tutorialPause)
+            {
+                controller.Move(new Vector3(0, 0, 0));
+            }
 
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
             {
@@ -535,6 +549,12 @@ public class PlayerLogic : MonoBehaviour {
                     }
                 }
 
+                //Flashlight Toggle
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    flashlightObject.SetActive(!flashlightObject.activeInHierarchy);
+                }
+
                 //Reload key ("R" key)
                 if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
                 {
@@ -570,12 +590,14 @@ public class PlayerLogic : MonoBehaviour {
                                     rifleAnimator.SetBool("Firing", true);
                                     FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
                                     gunParticle.Emit(1);
+                                    StartCoroutine(MuzzleFlash(rifleMuzzle));
                                 }
                                 else if (currentWeaponIndex == 1)
                                 {
                                     pistolAnimator.SetBool("Firing", true);
                                     FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
                                     pistolParticle.Emit(1);
+                                    StartCoroutine(MuzzleFlash(pistolMuzzle));
                                 }
                             }
                             else if (currentWeaponIndex == 2)
@@ -1059,7 +1081,7 @@ public class PlayerLogic : MonoBehaviour {
         GameObject clone;
 
         clone = (GameObject)Instantiate(bottlePrefab, gunParticle.transform.position, cam1.transform.rotation);
-        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 1500);
+        clone.GetComponent<Rigidbody>().AddForce(cam1.transform.forward * 3000);
     }
 
     void GunNoise()
@@ -1082,6 +1104,15 @@ public class PlayerLogic : MonoBehaviour {
         hitMarker.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         hitMarker.SetActive(false);
+        StopCoroutine(Blink());
+    }
+
+    IEnumerator MuzzleFlash(GameObject targetFlash)
+    {
+        targetFlash.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        targetFlash.SetActive(false);
+        StopCoroutine(MuzzleFlash(null));
     }
 
     //Enemy detection

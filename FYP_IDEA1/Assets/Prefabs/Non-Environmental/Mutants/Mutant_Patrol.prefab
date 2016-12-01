@@ -326,6 +326,7 @@ GameObject:
   - 4: {fileID: 4000010507355540}
   - 143: {fileID: 143000012821708812}
   - 114: {fileID: 114000012800617004}
+  - 114: {fileID: 114000013877534676}
   m_Layer: 0
   m_Name: Mutant_Patrol
   m_TagString: Mutant
@@ -2344,6 +2345,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stationary: 0
+--- !u!114 &114000013877534676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011222506706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Mutant
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!135 &135000011760890064
 SphereCollider:
   m_ObjectHideFlags: 1

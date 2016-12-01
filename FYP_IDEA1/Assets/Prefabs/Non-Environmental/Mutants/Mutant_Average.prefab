@@ -491,6 +491,7 @@ GameObject:
   - 4: {fileID: 4000010516065350}
   - 143: {fileID: 143000012977563350}
   - 114: {fileID: 114000014098759626}
+  - 114: {fileID: 114000012166676512}
   m_Layer: 0
   m_Name: Mutant_Average
   m_TagString: Mutant
@@ -2272,6 +2273,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c818c4083bf2d3f4393c30bb07d25403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000012166676512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011714912412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Mutant
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &114000013243628496
 MonoBehaviour:
   m_ObjectHideFlags: 1
