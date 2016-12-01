@@ -15,7 +15,6 @@ public class MutantOne : MutantBaseClass {
 	// Update is called once per frame
 	void Update () {
         base.Update();
-	
 	}
 
     void OnControllerColliderHit(ControllerColliderHit collider)

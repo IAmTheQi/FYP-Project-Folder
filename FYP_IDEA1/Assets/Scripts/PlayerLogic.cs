@@ -955,6 +955,7 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (aimDownSight)
                 {
+                    scopeCam.SetActive(true);
                     rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
 
                     if (focus)
@@ -971,12 +972,14 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (!aimDownSight)
                 {
+                    scopeCam.SetActive(false);
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
                     rifleAnimator.SetBool("Scoped", false);
                 }
                 break;
 
             case 1:
+                scopeCam.SetActive(false);
                 if (currentState == PlayerStates.Run)
                 {
                     pistolAnimator.SetBool("Sprinting", true);
@@ -998,6 +1001,7 @@ public class PlayerLogic : MonoBehaviour {
                 break;
 
             case 2:
+                scopeCam.SetActive(false);
                 /*if (currentState == PlayerStates.Run)
                 {
                     knifeAnimator.SetBool("Sprinting", true);
@@ -1009,6 +1013,7 @@ public class PlayerLogic : MonoBehaviour {
                 break;
 
             case 3:
+                scopeCam.SetActive(false);
                 if (currentState == PlayerStates.Run)
                 {
                     bottleAnimator.SetBool("Sprinting", true);

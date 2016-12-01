@@ -7,6 +7,8 @@ public class MutantRoam : MutantBaseClass {
 
     byte currentIndex;
 
+    bool forward;
+
 	// Use this for initialization
 	void Start () {
 
@@ -15,6 +17,8 @@ public class MutantRoam : MutantBaseClass {
         currentIndex = 0;
 
         currentState = MutantStates.Wander;
+
+        forward = true;
 	
 	}
 	
@@ -40,13 +44,29 @@ public class MutantRoam : MutantBaseClass {
     {
         if (collider.gameObject == targetsArray[currentIndex])
         {
-            if (currentIndex == targetsArray.Length - 1)
+            if (forward)
             {
-                currentIndex = 0;
+                if (currentIndex == targetsArray.Length - 1)
+                {
+                    forward = false;
+                    currentIndex -= 1;
+                }
+                else
+                {
+                    currentIndex += 1;
+                }
             }
-            else
+            else if (!forward)
             {
-                currentIndex += 1;
+                if (currentIndex == 0)
+                {
+                    forward = true;
+                    currentIndex = 1;
+                }
+                else
+                {
+                    currentIndex += 1;
+                }
             }
         }
     }
@@ -54,6 +74,16 @@ public class MutantRoam : MutantBaseClass {
     void OnControllerColliderHit(ControllerColliderHit collider)
     {
         if (collider.gameObject == playerLastPosition)
+        {
+            CalmMutant();
+        }
+
+        if (collider.gameObject == startPosition)
+        {
+            currentState = MutantStates.Wander;
+        }
+
+        if (collider.gameObject.tag == "Noise")
         {
             CalmMutant();
         }

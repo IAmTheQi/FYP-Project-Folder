@@ -130,6 +130,10 @@ public class MutantBaseClass : MonoBehaviour {
             {
                 transform.LookAt(new Vector3(playerObject.transform.position.x, transform.position.y, playerObject.transform.position.z));
             }
+            else if (currentState == MutantStates.Idle)
+            {
+                mutantAnimator.SetBool("Chase", false);
+            }
             else if (currentState == MutantStates.Wander)
             {
 
@@ -147,26 +151,25 @@ public class MutantBaseClass : MonoBehaviour {
                 transform.LookAt(new Vector3(startPosition.transform.position.x, transform.position.y, startPosition.transform.position.z));
             }
 
-            Debug.Log(attacking);
-
             //Attack Player Counter
             if (currentState == MutantStates.Chase)
             {
+                if (Vector3.Distance(transform.position, playerObject.transform.position) < 4f)
+                {
+                    attacking = true;
+                }
+                else if (Vector3.Distance(transform.position, playerObject.transform.position) > 5f)
+                {
+                    attacking = false;
+                }
+
+
                 if (!attacking)
                 {
-                    if (Vector3.Distance(transform.position, playerObject.transform.position) < 1f)
-                    {
-                        attacking = true;
-                    }
-                    else
-                    {
-                        attacking = false;
-                        mutantAnimator.SetBool("Attack", false);
-                    }
+                    mutantAnimator.SetBool("Attack", false);
                 }
-                if (attacking)
+                else if (attacking)
                 {
-                    Debug.Log("haha");
                     mutantAnimator.SetBool("Attack", true);
 
                     if (!playerObject.GetComponent<PlayerLogic>().IsDead())
@@ -182,12 +185,9 @@ public class MutantBaseClass : MonoBehaviour {
                         mutantAnimator.SetTrigger("Kill");
                     }
                 }
-                else
-                {
-                    mutantAnimator.SetBool("Attack", false);
-                }
+
+                Debug.LogFormat("attacking:{0}      distance:{1}", attacking, Vector3.Distance(transform.position, playerObject.transform.position));
             }
-            Debug.Log(attacking);
 
             //Heartbeat sensing
             if (Input.GetKeyDown(KeyCode.C))
@@ -266,7 +266,6 @@ public class MutantBaseClass : MonoBehaviour {
 
     public void TakeDamage(float value)
     {
-        Debug.Log("Ouch");
         if ((health - value) > 0)
         {
             health -= value;

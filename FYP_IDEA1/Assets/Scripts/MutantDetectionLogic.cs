@@ -31,8 +31,6 @@ public class MutantDetectionLogic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        //Debug.Log(playerInSight);
 	
         if (parentMutant.GetComponent<MutantOne>().IsDead())
         {
@@ -72,21 +70,18 @@ public class MutantDetectionLogic : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            
             Vector3 direction = other.transform.position - transform.position;
             angle = Vector3.Angle(direction, transform.forward);
             
             if (angle < fieldOfViewAngle * 0.5f && !playerInSight)
             {
                 RaycastHit hit;
-
                 if (Physics.Raycast(other.transform.position, -direction.normalized, out hit, col.radius))
                 {
                     if (hit.collider.tag == "Mutant")
                     {
                         parentMutant.SendMessage("AlertMutant");
                     }
-                    //Debug.LogFormat("bool:{0}       angle:{1}       hit:{2}", playerInSight, angle, hit.collider.tag);
                 }
             }
             else if (angle > fieldOfViewAngle * 0.5f && playerInSight)
@@ -94,7 +89,6 @@ public class MutantDetectionLogic : MonoBehaviour {
                 parentMutant.SendMessage("RecordLastSeen", other.transform);
                 parentMutant.SendMessage("LosePlayer");
             }
-
         }
     }
 
@@ -111,10 +105,7 @@ public class MutantDetectionLogic : MonoBehaviour {
 
         if (gameObject.CompareTag("Boundary"))
         {
-            if (collider.gameObject == playerObject)
-            {
-                parentMutant.SendMessage("PlayerLeave");
-            }
+
         }
     }
 }
