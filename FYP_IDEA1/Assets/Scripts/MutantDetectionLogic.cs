@@ -32,7 +32,7 @@ public class MutantDetectionLogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-        if (parentMutant.GetComponent<MutantOne>().IsDead())
+        if (parentMutant.GetComponent<MutantBaseClass>().IsDead())
         {
             Destroy(this.gameObject);
         }
