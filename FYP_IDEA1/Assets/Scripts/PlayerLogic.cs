@@ -124,6 +124,7 @@ public class PlayerLogic : MonoBehaviour {
     public float strafeSlow;
     public float jumpForce;
     public float gravity;
+    bool playerCrouch;
 
     public float speedModifier;
     public float runModifier;
@@ -250,6 +251,7 @@ public class PlayerLogic : MonoBehaviour {
         strafeSlow = settingsScript.strafeSlow;
         jumpForce = settingsScript.jumpForce;
         gravity = settingsScript.gravity;
+        playerCrouch = false;
 
         speedModifier = settingsScript.walkModifier;
         runModifier = settingsScript.runModifier;
@@ -377,7 +379,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
-                        //Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
+                        Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
                         {
                             ChangeSurface("Concrete");
@@ -411,13 +413,19 @@ public class PlayerLogic : MonoBehaviour {
                 }
 
                 //Crouch key (Left Control)
-                if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.Z) && !tutorialPause)
+                if (Input.GetKeyDown(KeyCode.LeftControl) && !tutorialPause)
+                {
+                    playerCrouch = !playerCrouch;
+
+                    if (!playerCrouch)
+                    {
+                        currentState = PlayerStates.Idle;
+                    }
+                }
+
+                if (playerCrouch)
                 {
                     currentState = PlayerStates.Crouch;
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftControl))
-                {
-
                 }
 
                 //Jumping (Space)
@@ -448,6 +456,7 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
             {
                 walkingParam.setValue(speedModifier * currentVelocity);
+                Debug.Log(speedModifier * currentVelocity);
             }
             else
             {
@@ -575,7 +584,7 @@ public class PlayerLogic : MonoBehaviour {
                 }
 
                 //Left Mouse Button Shoot
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0) && currentState != PlayerStates.Run)
                 {
                     if (!holdingBottle)
                     {
@@ -627,7 +636,7 @@ public class PlayerLogic : MonoBehaviour {
                     }
                 }
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && currentState != PlayerStates.Run)
                 {
                     if (holdingBottle)
                     {
@@ -639,7 +648,7 @@ public class PlayerLogic : MonoBehaviour {
                     }
                 }
 
-                if (Input.GetMouseButton(1))
+                if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
                 {
                     if (currentWeaponIndex != 2 && !aimDownSight && !reloadState)
                     {
@@ -675,13 +684,10 @@ public class PlayerLogic : MonoBehaviour {
                         lerpStart = 0f;
                         aimDownSight = true;
                     }
-                }
-
-                if (Input.GetMouseButtonDown(1))
-                {
-                    if (currentWeaponIndex == 2)
+                    else if (currentWeaponIndex == 2)
                     {
                         knifeAnimator.SetTrigger("Backstab");
+                        ShootRay();
                     }
                 }
 
@@ -703,14 +709,14 @@ public class PlayerLogic : MonoBehaviour {
                     lerpStart = lerpTime;
                 }
 
-                if (leftfree)
+                /*if (leftfree)
                 {
                     leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, leftRotation.rotation, lerpStart / lerpTime);
                 }
                 else if (rightfree)
                 {
                     leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, rightRotation.rotation, lerpStart / lerpTime);
-                }
+                }*/
             }
 
             if (!aimDownSight)
@@ -725,7 +731,7 @@ public class PlayerLogic : MonoBehaviour {
                         rightfree = false;
                     }
 
-                    if (leftfree)
+                    /*if (leftfree)
                     {
                         leanPivot.transform.rotation = Quaternion.Lerp(leftRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
                     }
@@ -737,7 +743,7 @@ public class PlayerLogic : MonoBehaviour {
                     if (!focus)
                     {
                         focusCam.SetActive(true);
-                    }
+                    }*/
             }
 
             //Collectable item menu
@@ -1055,7 +1061,6 @@ public class PlayerLogic : MonoBehaviour {
         Ray ray = new Ray(camTransform.position, camTransform.forward);
         if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
         {
-            Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
             if (hit.collider.tag == "Mutant")
             {
                 hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
@@ -1063,8 +1068,7 @@ public class PlayerLogic : MonoBehaviour {
             }
             else if (hit.collider.tag == "MutantHead")
             {
-                Debug.Log(hit.collider.transform.root.gameObject.name);
-                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 100);
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", 6969);
                 StartCoroutine(Blink());
             }
             else if (hit.collider.tag == "MutantBack" && currentWeaponIndex == 2)
@@ -1073,7 +1077,11 @@ public class PlayerLogic : MonoBehaviour {
             }
             Debug.Log(hit.collider.name);
         }
-        GunNoise();
+
+        if (currentWeaponIndex == 0 || currentWeaponIndex == 1)
+        {
+            GunNoise();
+        }
     }
 
     void ThrowBottle()
@@ -1179,7 +1187,6 @@ public class PlayerLogic : MonoBehaviour {
     public IEnumerator SwitchWeapon(int target)
     {
         yield return new WaitForSeconds(0.5f);
-        Debug.Log(target);
         if (target == 0)
         {
             currentWeaponIndex = 0;
