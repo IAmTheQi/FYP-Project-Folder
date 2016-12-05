@@ -157,10 +157,12 @@ public class MutantBaseClass : MonoBehaviour {
                 if (Vector3.Distance(transform.position, playerObject.transform.position) < 4f)
                 {
                     attacking = true;
+                    Debug.LogFormat("Inrange    dist:{0}", Vector3.Distance(transform.position, playerObject.transform.position));
                 }
-                else if (Vector3.Distance(transform.position, playerObject.transform.position) > 5f)
+                else if (Vector3.Distance(transform.position, playerObject.transform.position) > 6f)
                 {
                     attacking = false;
+                    Debug.LogFormat("notinrange    dist:{0}", Vector3.Distance(transform.position, playerObject.transform.position));
                 }
 
 
@@ -185,8 +187,6 @@ public class MutantBaseClass : MonoBehaviour {
                         mutantAnimator.SetTrigger("Kill");
                     }
                 }
-
-                Debug.LogFormat("attacking:{0}      distance:{1}", attacking, Vector3.Distance(transform.position, playerObject.transform.position));
             }
 
             //Heartbeat sensing
@@ -241,7 +241,7 @@ public class MutantBaseClass : MonoBehaviour {
     public IEnumerator StateChange(string target)
     {
         mutantAnimator.SetTrigger("Alert");
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.5f);
 
         switch (target)
         {
@@ -266,6 +266,11 @@ public class MutantBaseClass : MonoBehaviour {
 
     public void TakeDamage(float value)
     {
+        if (value == 6969)
+        {
+            StartCoroutine(Death());
+        }
+
         if ((health - value) > 0)
         {
             health -= value;
@@ -284,10 +289,18 @@ public class MutantBaseClass : MonoBehaviour {
         noiseLastPosition.SendMessage("Reset");
     }
 
-    protected IEnumerator Die()
+    protected IEnumerator Death()
     {
         dead = true;
         mutantAnimator.SetTrigger("Death");
+        yield return new WaitForSeconds(2.5f);
+        StopCoroutine(Death());
+    }
+
+    protected IEnumerator Die()
+    {
+        dead = true;
+        mutantAnimator.SetTrigger("Die");
         yield return new WaitForSeconds(2.5f);
         StopCoroutine(Die());
     }
