@@ -1075,6 +1075,11 @@ public class PlayerLogic : MonoBehaviour {
             {
                 hit.collider.transform.root.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue * 1000);
             }
+            else if (hit.collider.tag == "MutantBack" && currentWeaponIndex != 2)
+            {
+                hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
+                StartCoroutine(Blink());
+            }
             Debug.Log(hit.collider.name);
         }
 

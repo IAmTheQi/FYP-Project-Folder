@@ -157,12 +157,12 @@ public class MutantBaseClass : MonoBehaviour {
                 if (Vector3.Distance(transform.position, playerObject.transform.position) < 4f)
                 {
                     attacking = true;
-                    Debug.LogFormat("Inrange    dist:{0}", Vector3.Distance(transform.position, playerObject.transform.position));
+                    //Debug.LogFormat("Inrange    dist:{0}", Vector3.Distance(transform.position, playerObject.transform.position));
                 }
                 else if (Vector3.Distance(transform.position, playerObject.transform.position) > 6f)
                 {
                     attacking = false;
-                    Debug.LogFormat("notinrange    dist:{0}", Vector3.Distance(transform.position, playerObject.transform.position));
+                    //Debug.LogFormat("notinrange    dist:{0}", Vector3.Distance(transform.position, playerObject.transform.position));
                 }
 
 
@@ -241,7 +241,7 @@ public class MutantBaseClass : MonoBehaviour {
     public IEnumerator StateChange(string target)
     {
         mutantAnimator.SetTrigger("Alert");
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
 
         switch (target)
         {
