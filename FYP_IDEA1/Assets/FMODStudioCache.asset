@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 114000011806356738}
-  - {fileID: 114000013498230374}
+  - {fileID: 114000012847583392}
+  - {fileID: 114000010915740346}
   EditorEvents:
-  - {fileID: 114000013801985640}
-  - {fileID: 114000010275195956}
-  - {fileID: 114000012970631722}
-  - {fileID: 114000013739573394}
-  - {fileID: 114000010532333672}
-  - {fileID: 114000010290071976}
-  - {fileID: 114000013436992966}
-  - {fileID: 114000010894707768}
-  - {fileID: 114000012909599054}
-  - {fileID: 114000013496731110}
-  - {fileID: 114000013639336378}
-  MasterBankRef: {fileID: 114000013498230374}
-  StringsBankRef: {fileID: 114000011806356738}
-  stringsBankWriteTime: 636166241711597431
+  - {fileID: 114000011813425760}
+  - {fileID: 114000011862548936}
+  - {fileID: 114000012318501212}
+  - {fileID: 114000012065171246}
+  - {fileID: 114000013848074868}
+  - {fileID: 114000011698550546}
+  - {fileID: 114000010389522874}
+  - {fileID: 114000011405771910}
+  - {fileID: 114000010554710454}
+  - {fileID: 114000011308129874}
+  - {fileID: 114000012783242170}
+  MasterBankRef: {fileID: 114000010915740346}
+  StringsBankRef: {fileID: 114000012847583392}
+  stringsBankWriteTime: 636165725777947113
   cacheVersion: 2
 --- !u!114 &114000010021015122
 MonoBehaviour:
@@ -69,6 +69,21 @@ MonoBehaviour:
   - Name: Desktop
     Value: 1864224
   Exists: 1
+--- !u!114 &114000010038601468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Indicator
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114000010048231268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,6 +639,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000010389522874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience
+  guid: 9522b785f943df42b034e35c713d9a68
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000010409329202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,6 +915,27 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: 114000012619749896}
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000010554710454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/RifleReload
+  guid: d35e37ff5a9844458a3e06b3110ca32d
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000010558617248
@@ -1367,6 +1424,24 @@ MonoBehaviour:
   Min: 0
   Max: 14
   Default: 0
+--- !u!114 &114000010915740346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: E:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop\Master Bank.bank
+  lastModified: 636165725777927103
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 1823296
+  Exists: 1
 --- !u!114 &114000010919908042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,6 +1801,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114000011252664786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Surface
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114000011272844000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1804,6 +1894,28 @@ MonoBehaviour:
   Min: 0
   Max: 14
   Default: 0
+--- !u!114 &114000011308129874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerHeartbeat
+  guid: dbc81b4676f1f14eb8802e3f3e4e0ae5
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 114000010038601468}
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011327566712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,6 +2048,27 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
+--- !u!114 &114000011405771910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Rain
+  guid: aed4c7f010cf894d95e479f07f4175bd
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011415259940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2258,6 +2391,27 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114000011698550546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Mutant
+  guid: 90d7ead99364ed4fa76792be9abff458
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114000011717050388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2330,6 +2484,27 @@ MonoBehaviour:
   - Name: Desktop
     Value: 1793760
   Exists: 1
+--- !u!114 &114000011813425760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Pistol
+  guid: 1f762f3a8df4c44ab9b3cbdd3d74da08
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011846268790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2367,6 +2542,27 @@ MonoBehaviour:
   Min: 0
   Max: 14
   Default: 0
+--- !u!114 &114000011862548936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Lightning
+  guid: 1fd36499c38d7d43a73ea20af78bc113
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011881459204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2542,6 +2738,27 @@ MonoBehaviour:
   Min: 0
   Max: 14
   Default: 0
+--- !u!114 &114000012065171246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Rifle
+  guid: 2d18686167e89642bb5d836abac85052
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000012083935072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2880,6 +3097,27 @@ MonoBehaviour:
   Parameters:
   - {fileID: 114000011858133144}
   - {fileID: 114000010267602166}
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000012318501212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Knife
+  guid: 2823d6119e3c304abe79bccf3eeecc69
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000012320728392
@@ -3635,6 +3873,29 @@ MonoBehaviour:
   - {fileID: 114000012620756802}
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114000012783242170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PlayerFootstep
+  guid: e13d48c094108144be46e7392bbbdf63
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 114000013159325178}
+  - {fileID: 114000011252664786}
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000012813374414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3700,6 +3961,24 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114000012847583392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: E:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636165725777947113
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 1282
+  Exists: 1
 --- !u!114 &114000012883716864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4065,6 +4344,21 @@ MonoBehaviour:
   Max: 14
   Default: 0
 --- !u!114 &114000013149563624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Speed
+  Min: 0
+  Max: 14
+  Default: 0
+--- !u!114 &114000013159325178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -5096,6 +5390,27 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114000013848074868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Bottle
+  guid: 5d60c4751414474fb914ab22b5735139
+  Banks:
+  - {fileID: 114000010915740346}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114000013866070972
 MonoBehaviour:
   m_ObjectHideFlags: 0
