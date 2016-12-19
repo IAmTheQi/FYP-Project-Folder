@@ -379,7 +379,7 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
-                        Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
+                        //Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
                         {
                             ChangeSurface("Concrete");
@@ -456,7 +456,7 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
             {
                 walkingParam.setValue(speedModifier * currentVelocity);
-                Debug.Log(speedModifier * currentVelocity);
+                //Debug.Log(speedModifier * currentVelocity);
             }
             else
             {
@@ -899,7 +899,7 @@ public class PlayerLogic : MonoBehaviour {
                 Ray ray = new Ray(camTransform.position, camTransform.forward);
                 if (Physics.Raycast(ray, out interactHit, 5))
                 {
-                    Debug.Log(interactHit.collider.name);
+                    //Debug.Log(interactHit.collider.name);
                     if (interactHit.collider.tag == "Interactable")
                     {
                         interactHit.collider.gameObject.SendMessage("Activate");
@@ -1080,7 +1080,7 @@ public class PlayerLogic : MonoBehaviour {
                 hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
                 StartCoroutine(Blink());
             }
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
         }
 
         if (currentWeaponIndex == 0 || currentWeaponIndex == 1)

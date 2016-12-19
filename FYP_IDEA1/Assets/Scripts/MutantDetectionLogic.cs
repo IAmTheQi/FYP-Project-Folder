@@ -8,31 +8,18 @@ public class MutantDetectionLogic : MonoBehaviour {
     GameObject playerObject;
     PlayerLogic playerScript;
 
-    bool playerInSight;
-    float fieldOfViewAngle;
-    SphereCollider col;
-
-    float angle;
-
-    public bool stationary;
-
 	// Use this for initialization
 	void Start () {
         playerObject = GameObject.Find("PlayerController");
         playerScript = playerObject.GetComponent<PlayerLogic>();
 
         parentMutant = transform.parent.gameObject;
-
-        playerInSight = false;
-        fieldOfViewAngle = 70.0f;
-
-        col = GetComponent<SphereCollider>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
-        if (parentMutant.GetComponent<MutantBaseClass>().IsDead())
+        if (parentMutant.GetComponent<MutantSimple>().IsDead())
         {
             Destroy(this.gameObject);
         }
@@ -40,72 +27,9 @@ public class MutantDetectionLogic : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        if (gameObject.CompareTag("Boundary"))
+        if (collider.gameObject == playerObject)
         {
-            if (collider.gameObject == playerObject)
-            {
-                parentMutant.SendMessage("PlayerTouch");
-            }
-        }
-        else
-        {
-            if (!stationary)
-            {
-                if (playerScript.IsWalking() && collider.gameObject == playerObject)
-                {
-                    parentMutant.SendMessage("AlertMutant");
-                }
-            }
-            else if (stationary)
-            {
-                if (collider.gameObject == playerObject)
-                {
-                    parentMutant.SendMessage("AlertMutant");
-                }
-            }
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Vector3 direction = other.transform.position - transform.position;
-            angle = Vector3.Angle(direction, transform.forward);
-            
-            if (angle < fieldOfViewAngle * 0.5f && !playerInSight)
-            {
-                RaycastHit hit;
-                if (Physics.Raycast(other.transform.position, -direction.normalized, out hit, col.radius))
-                {
-                    if (hit.collider.tag == "Mutant")
-                    {
-                        parentMutant.SendMessage("AlertMutant");
-                    }
-                }
-            }
-            else if (angle > fieldOfViewAngle * 0.5f && playerInSight)
-            {
-                parentMutant.SendMessage("RecordLastSeen", other.transform);
-                parentMutant.SendMessage("LosePlayer");
-            }
-        }
-    }
-
-    void OnTriggerExit(Collider collider)
-    {
-        if (!gameObject.CompareTag("Boundary"))
-        {
-            if (collider.gameObject == playerObject)
-            {
-                parentMutant.SendMessage("RecordLastSeen", collider.transform);
-                parentMutant.SendMessage("LosePlayer");
-            }
-        }
-
-        if (gameObject.CompareTag("Boundary"))
-        {
-
+            parentMutant.GetComponent<MutantSimple>().PlayerEnter();
         }
     }
 }

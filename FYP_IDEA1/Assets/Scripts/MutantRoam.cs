@@ -19,7 +19,6 @@ public class MutantRoam : MutantBaseClass {
         currentState = MutantStates.Wander;
 
         forward = true;
-	
 	}
 	
 	// Update is called once per frame
