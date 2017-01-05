@@ -29,7 +29,7 @@ public class PlayerLogic : MonoBehaviour {
     public GameObject rifleMuzzle;
     public GameObject pistolMuzzle;
 
-    bool tutorialPause;
+    bool tutorialPrompt;
 
     public bool pauseGame;
     public bool itemView;
@@ -76,6 +76,8 @@ public class PlayerLogic : MonoBehaviour {
 
     float lerpStart;
     float lerpTime;
+
+    public float alertRange;
 
     enum PlayerStates
     {
@@ -193,7 +195,7 @@ public class PlayerLogic : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Level1")
         {
-            tutorialPause = true;
+            tutorialPrompt = true;
         }
 
         pauseGame = false;
@@ -359,12 +361,9 @@ public class PlayerLogic : MonoBehaviour {
             {
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
-                    if (!tutorialPause)
-                    {
-                        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-                        currentVelocity += forwardAccelerationRate * Time.deltaTime;
-                        moveDirection = transform.TransformDirection(moveDirection);
-                    }
+                    moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                    currentVelocity += forwardAccelerationRate * Time.deltaTime;
+                    moveDirection = transform.TransformDirection(moveDirection);
 
                     if (!Input.GetKey(KeyCode.LeftShift))
                     {
@@ -416,13 +415,13 @@ public class PlayerLogic : MonoBehaviour {
                 }
 
                 //Jumping (Space)
-                if (Input.GetKeyDown(KeyCode.Space) && !tutorialPause)
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     moveDirection.y = jumpForce;
                     currentState = PlayerStates.Jump;
                 }
             }
-            else if (!controller.isGrounded && !tutorialPause)
+            else if (!controller.isGrounded)
             {
                 //Gravity drop
                 moveDirection.y -= gravity * Time.deltaTime;
@@ -431,16 +430,9 @@ public class PlayerLogic : MonoBehaviour {
             currentVelocity = Mathf.Clamp(currentVelocity, initialVelocity, maxVelocity);
             
             //Player movement modifier
-            if (!tutorialPause)
-            {
-                controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
-            }
-            else if (tutorialPause)
-            {
-                controller.Move(new Vector3(0, 0, 0));
-            }
+            controller.Move(moveDirection * speedModifier * currentVelocity * Time.deltaTime);
 
-            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0 && !tutorialPause)
+            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
             {
                 walkingParam.setValue(speedModifier * currentVelocity);
                 //Debug.Log(speedModifier * currentVelocity);
@@ -449,119 +441,115 @@ public class PlayerLogic : MonoBehaviour {
             {
                 walkingParam.setValue(0);
             }
-
-            if (!tutorialPause)
+            //Weapon change key handler
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                //Weapon change key handler
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                //If current weapon is not alredy the target weapon
+                if (currentWeaponIndex != 0)
                 {
-                    //If current weapon is not alredy the target weapon
-                    if (currentWeaponIndex != 0)
+                    if (currentWeaponIndex == 1)
                     {
-                        if (currentWeaponIndex == 1)
-                        {
-                            pistolAnimator.SetTrigger("Swapping");
-                            StartCoroutine(SwitchWeapon(0));
-                        }
+                        pistolAnimator.SetTrigger("Swapping");
+                        StartCoroutine(SwitchWeapon(0));
                     }
                 }
+            }
 
-                if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                //If current weapon is not alredy the target weapon
+                if (currentWeaponIndex != 1)
                 {
-                    //If current weapon is not alredy the target weapon
-                    if (currentWeaponIndex != 1)
+                    if (currentWeaponIndex == 0)
                     {
+                        rifleAnimator.SetTrigger("Swapping");
+                        StartCoroutine(SwitchWeapon(1));
+                    }
+                }
+            }
+
+            //Flashlight Toggle
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                flashlightObject.SetActive(!flashlightObject.activeInHierarchy);
+            }
+
+            //Reload key ("R" key)
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
+            {
+                reloadState = true;
+                timeStamp = Time.time;
+
+                if (currentWeaponIndex == 0)
+                {
+                    rifleAnimator.SetBool("Firing", false);
+                    rifleAnimator.SetTrigger("Reload");
+                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                }
+                else if (currentWeaponIndex == 1)
+                {
+                    pistolAnimator.SetBool("Firing", false);
+                    pistolAnimator.SetTrigger("Reload");
+                }
+            }
+
+            //Left Mouse Button Shoot
+            if (Input.GetMouseButton(0) && currentState != PlayerStates.Run)
+            {
+                if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
+                {
+                    if (currentWeaponIndex != 2 && weapons[currentWeaponIndex].currentAmmo > 0)
+                    {
+                        ShootRay();
                         if (currentWeaponIndex == 0)
                         {
-                            rifleAnimator.SetTrigger("Swapping");
-                            StartCoroutine(SwitchWeapon(1));
+                            rifleAnimator.SetBool("Firing", true);
+                            FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
+                            gunParticle.Emit(1);
+                            StartCoroutine(MuzzleFlash(rifleMuzzle));
+                            rifleBullets[weapons[0].currentAmmo - 1].GetComponent<Image>().sprite = weapons[0].emptyBullet;
                         }
-                    }
-                }
-
-                //Flashlight Toggle
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                    flashlightObject.SetActive(!flashlightObject.activeInHierarchy);
-                }
-
-                //Reload key ("R" key)
-                if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
-                {
-                    reloadState = true;
-                    timeStamp = Time.time;
-
-                    if (currentWeaponIndex == 0)
-                    {
-                        rifleAnimator.SetBool("Firing", false);
-                        rifleAnimator.SetTrigger("Reload");
-                        FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
-                    }
-                    else if (currentWeaponIndex == 1)
-                    {
-                        pistolAnimator.SetBool("Firing", false);
-                        pistolAnimator.SetTrigger("Reload");
-                    }
-                }
-
-                //Left Mouse Button Shoot
-                if (Input.GetMouseButton(0) && currentState != PlayerStates.Run)
-                {
-                    if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
-                    {
-                        if (currentWeaponIndex != 2 && weapons[currentWeaponIndex].currentAmmo > 0)
+                        else if (currentWeaponIndex == 1)
                         {
-                            ShootRay();
-                            if (currentWeaponIndex == 0)
-                            {
-                                rifleAnimator.SetBool("Firing", true);
-                                FMODUnity.RuntimeManager.PlayOneShot(rifleSound);
-                                gunParticle.Emit(1);
-                                StartCoroutine(MuzzleFlash(rifleMuzzle));
-                                rifleBullets[weapons[0].currentAmmo - 1].GetComponent<Image>().sprite = weapons[0].emptyBullet;
-                            }
-                            else if (currentWeaponIndex == 1)
-                            {
-                                pistolAnimator.SetBool("Firing", true);
-                                FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
-                                pistolParticle.Emit(1);
-                                StartCoroutine(MuzzleFlash(pistolMuzzle));
-                                pistolBullets[weapons[1].currentAmmo - 1].GetComponent<Image>().sprite = weapons[1].emptyBullet;
-                            }
-                            weapons[currentWeaponIndex].currentAmmo -= 1;
+                            pistolAnimator.SetBool("Firing", true);
+                            FMODUnity.RuntimeManager.PlayOneShot(pistolSound);
+                            pistolParticle.Emit(1);
+                            StartCoroutine(MuzzleFlash(pistolMuzzle));
+                            pistolBullets[weapons[1].currentAmmo - 1].GetComponent<Image>().sprite = weapons[1].emptyBullet;
                         }
+                        weapons[currentWeaponIndex].currentAmmo -= 1;
+                    }
 
-                        timeStamp = Time.time;
-                    }
+                    timeStamp = Time.time;
                 }
-                else if (Input.GetMouseButtonUp(0))
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                if (currentWeaponIndex == 0)
                 {
-                    if (currentWeaponIndex == 0)
-                    {
-                        rifleAnimator.SetBool("Firing", false);
-                    }
-                    else if (currentWeaponIndex == 1)
-                    {
-                        pistolAnimator.SetBool("Firing", false);
-                    }
+                    rifleAnimator.SetBool("Firing", false);
                 }
+                else if (currentWeaponIndex == 1)
+                {
+                    pistolAnimator.SetBool("Firing", false);
+                }
+            }
 
-                if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
+            if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
+            {
+                if (!aimDownSight && !reloadState)
                 {
-                    if (!aimDownSight && !reloadState)
-                    {
-                        lerpStart = 0f;
-                        aimDownSight = true;
-                    }
+                    lerpStart = 0f;
+                    aimDownSight = true;
                 }
+            }
 
-                if (Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(1))
+            {
+                if (aimDownSight)
                 {
-                    if (aimDownSight)
-                    {
-                        lerpStart = 0f;
-                        aimDownSight = false;
-                    }
+                    lerpStart = 0f;
+                    aimDownSight = false;
                 }
             }
 
@@ -600,7 +588,7 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     collectScript.SetSelected();
                 }
-                else if (!collectScript.IsPrompting())
+                else if (!collectScript.IsPrompting() && !tutorialPrompt)
                 {
                     pauseGame = true;
                 }
@@ -869,14 +857,13 @@ public class PlayerLogic : MonoBehaviour {
 
     void GunNoise()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRange);
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null || hitColliders[i].gameObject.GetComponent<MutantRoam>() != null)
+            if (hitColliders[i].gameObject.GetComponent<MutantSimple>() != null)
             {
-                hitColliders[i].SendMessage("RecordLastSeen", transform);
-                hitColliders[i].SendMessage("LosePlayer");
+                hitColliders[i].SendMessage("PlayerEnter");
             }
             i++;
         }
@@ -1091,14 +1078,9 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
-    public void TutorialPause()
+    public void PromptTutorial()
     {
-        tutorialPause = !tutorialPause;
-    }
-
-    public bool InTutorial()
-    {
-        return tutorialPause;
+        tutorialPrompt = !tutorialPrompt;
     }
     /*
     var bulletSpeed: float = 1000; // bullet speed in meters/second var shotSound: AudioClip;

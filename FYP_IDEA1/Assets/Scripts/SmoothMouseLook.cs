@@ -58,10 +58,6 @@ public class SmoothMouseLook : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else if (parentObject.GetComponent<PlayerLogic>().InTutorial())
-        {
-
-        }
         else
         {
             if (parentObject.GetComponent<PlayerLogic>().aimDownSight)

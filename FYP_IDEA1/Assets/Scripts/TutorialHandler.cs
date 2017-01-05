@@ -10,11 +10,6 @@ public class TutorialHandler : MonoBehaviour {
         step1,
         step2,
         step3,
-        step4,
-        step5,
-        step6,
-        step7,
-        step8
     }
 
     public TutorialState currentState;
@@ -22,26 +17,20 @@ public class TutorialHandler : MonoBehaviour {
     GameObject playerObject;
     PlayerLogic playerScript;
 
-    bool dead;
-    public GameObject mutantTarget;
-    public GameObject[] mutants;
-
     public GameObject step0Prompt;
     public GameObject step1Prompt;
     public GameObject step2Prompt;
     public GameObject step3Prompt;
-    public GameObject step4Prompt;
-    public GameObject step5Prompt;
-    public GameObject step6Prompt;
-    public GameObject step7Prompt;
-    public GameObject step8Prompt;
 
     bool transition;
     bool triggered;
+    bool prompting;
 
     bool ckey;
     bool ctrlkey;
     bool collected;
+
+    Color promptColor;
 
 	// Use this for initialization
 	void Start () {
@@ -53,27 +42,16 @@ public class TutorialHandler : MonoBehaviour {
         
         transition = false;
         triggered = true;
+        prompting = true;
 
         ckey = false;
         ctrlkey = false;
         collected = false;
 
-        dead = false;
-
         step0Prompt.SetActive(true);
         step1Prompt.SetActive(false);
         step2Prompt.SetActive(false);
         step3Prompt.SetActive(false);
-        step4Prompt.SetActive(false);
-        step5Prompt.SetActive(false);
-        step6Prompt.SetActive(false);
-        step7Prompt.SetActive(false);
-        step8Prompt.SetActive(false);
-
-        for (int i = 0; i < mutants.Length; i++)
-        {
-            mutants[i].SetActive(false);
-        }
 
     }
 	
@@ -83,165 +61,149 @@ public class TutorialHandler : MonoBehaviour {
         if (!playerScript.pauseGame)
         {
 
-            if (mutantTarget.GetComponent<MutantOne>().IsDead() && !dead)
-            {
-                for (int i = 0; i< mutants.Length; i++)
-                {
-                    mutants[i].SetActive(true);
-                }
-                dead = true;
-            }
-
             switch (currentState)
             {
                 case TutorialState.step0:
-                    if (transition)
-                    {
-                        step0Prompt.SetActive(false);
-                        StateTransition();
-                    }
-                    break;
-                case TutorialState.step1:
-
                     if (triggered)
                     {
-                        step1Prompt.SetActive(true);
+                        promptColor = step0Prompt.GetComponent<Image>().color;
+                        promptColor.a += 0.02f;
+                        StartCoroutine(FadeDelay());
                     }
 
                     if (transition)
                     {
-                        step1Prompt.SetActive(false);
-                        StateTransition();
+                        promptColor = step0Prompt.GetComponent<Image>().color;
+                        promptColor.a -= 0.02f;
+
+                        if (promptColor.a == 0)
+                        {
+                            step0Prompt.SetActive(false);
+                            StateTransition();
+                        }
                     }
+
+                    promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
+                    step0Prompt.GetComponent<Image>().color = promptColor;
+
+                    break;
+
+                case TutorialState.step1:
+                    if (triggered)
+                    {
+                        promptColor = step1Prompt.GetComponent<Image>().color;
+                        promptColor.a += 0.02f;
+                        StartCoroutine(FadeDelay());
+                    }
+
+                    if (transition)
+                    {
+                        promptColor = step1Prompt.GetComponent<Image>().color;
+                        promptColor.a -= 0.02f;
+
+                        if (promptColor.a == 0)
+                        {
+                            step1Prompt.SetActive(false);
+                            StateTransition();
+                        }
+                    }
+
+                    promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
+                    step1Prompt.GetComponent<Image>().color = promptColor;
                     break;
 
                 case TutorialState.step2:
                     if (triggered)
                     {
-                        step2Prompt.SetActive(true);
+                        promptColor = step2Prompt.GetComponent<Image>().color;
+                        promptColor.a += 0.02f;
+                        StartCoroutine(FadeDelay());
                     }
 
                     if (transition)
                     {
-                        step2Prompt.SetActive(false);
-                        StateTransition();
+                        promptColor = step2Prompt.GetComponent<Image>().color;
+                        promptColor.a -= 0.02f;
+
+                        if (promptColor.a == 0)
+                        {
+                            step2Prompt.SetActive(false);
+                            StateTransition();
+                        }
                     }
+
+                    promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
+                    step2Prompt.GetComponent<Image>().color = promptColor;
                     break;
 
                 case TutorialState.step3:
                     if (triggered)
                     {
-                        step3Prompt.SetActive(true);
+                        promptColor = step3Prompt.GetComponent<Image>().color;
+                        promptColor.a += 0.02f;
+                        StartCoroutine(FadeDelay());
                     }
 
                     if (transition)
                     {
-                        step3Prompt.SetActive(false);
-                        StateTransition();
-                    }
-                    break;
+                        promptColor = step3Prompt.GetComponent<Image>().color;
+                        promptColor.a -= 0.02f;
 
-                case TutorialState.step4:
-                    if (triggered)
-                    {
-                        step4Prompt.SetActive(true);
-                    }
-
-                    if (transition)
-                    {
-                        step4Prompt.SetActive(false);
-                        StateTransition();
-                    }
-                    break;
-
-                case TutorialState.step5:
-                    if (triggered)
-                    {
-                        step5Prompt.SetActive(true);
+                        if (promptColor.a == 0)
+                        {
+                            step3Prompt.SetActive(false);
+                            StateTransition();
+                        }
                     }
 
-                    if (transition)
-                    {
-                        step5Prompt.SetActive(false);
-                        StateTransition();
-                    }
-                    break;
-
-                case TutorialState.step6:
-                    if (triggered)
-                    {
-                        step6Prompt.SetActive(true);
-                    }
-
-                    if (transition)
-                    {
-                        step6Prompt.SetActive(false);
-                        StateTransition();
-                    }
-                    break;
-
-                case TutorialState.step7:
-                    if (triggered)
-                    {
-                        step7Prompt.SetActive(true);
-                    }
-
-                    if (transition)
-                    {
-                        step7Prompt.SetActive(false);
-                        StateTransition();
-                    }
+                    promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
+                    step3Prompt.GetComponent<Image>().color = promptColor;
                     break;
             }
-        }
 
-        if (triggered)
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Transition();
+                DismissTutorial();
             }
         }
     }
 
     void StateTransition()
     {
-            switch (currentState)
-            {
-                case TutorialState.step0:
-                    currentState = TutorialState.step1;
-                    break;
-                case TutorialState.step1:
-                    currentState = TutorialState.step2;
-                    break;
+        switch (currentState)
+        {
+            case TutorialState.step0:
+                currentState = TutorialState.step1;
+                break;
 
-                case TutorialState.step2:
-                    currentState = TutorialState.step3;
-                    break;
+            case TutorialState.step1:
+                currentState = TutorialState.step2;
+                break;
 
-                case TutorialState.step3:
-                    currentState = TutorialState.step4;
-                    break;
-
-                case TutorialState.step4:
-                    currentState = TutorialState.step5;
-                    break;
-
-                case TutorialState.step5:
-                    currentState = TutorialState.step6;
-                    break;
-
-                case TutorialState.step6:
-                    currentState = TutorialState.step7;
-                    break;
-
-                case TutorialState.step7:
-                    currentState = TutorialState.step8;
-                    break;
-            }
+            case TutorialState.step2:
+                currentState = TutorialState.step3;
+                break;
+        }
 
         transition = false;
         triggered = false;
+    }
+
+    IEnumerator FadeDelay()
+    {
+        yield return new WaitForSeconds(10);
+        transition = true;
+        prompting = false;
+        IsPrompting();
+        StopCoroutine(FadeDelay());
+    }
+
+    public void DismissTutorial()
+    {
+        transition = true;
+        prompting = false;
+        IsPrompting();
+        StopCoroutine(FadeDelay());
     }
 
     public void Collect()
@@ -249,20 +211,13 @@ public class TutorialHandler : MonoBehaviour {
         collected = true;
     }
 
+    public void IsPrompting()
+    {
+        playerScript.PromptTutorial();
+    }
+
     public void Trigger()
     {
         triggered = true;
-        playerScript.TutorialPause();
-    }
-
-    public bool TutorialTriggered()
-    {
-        return triggered;
-    }
-
-    public void Transition()
-    {
-        transition = true;
-        playerScript.TutorialPause();
     }
 }
