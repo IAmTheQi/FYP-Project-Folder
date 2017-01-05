@@ -626,15 +626,6 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = lerpTime;
                 }
-
-                /*if (leftfree)
-                {
-                    leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, leftRotation.rotation, lerpStart / lerpTime);
-                }
-                else if (rightfree)
-                {
-                    leanPivot.transform.rotation = Quaternion.Lerp(originalRotation.rotation, rightRotation.rotation, lerpStart / lerpTime);
-                }*/
             }
 
             if (!aimDownSight)
@@ -648,20 +639,6 @@ public class PlayerLogic : MonoBehaviour {
                         leftfree = false;
                         rightfree = false;
                     }
-
-                    /*if (leftfree)
-                    {
-                        leanPivot.transform.rotation = Quaternion.Lerp(leftRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
-                    }
-                    else if (rightfree)
-                    {
-                        leanPivot.transform.rotation = Quaternion.Lerp(rightRotation.rotation, originalRotation.rotation, lerpStart / lerpTime);
-                    }
-
-                    if (!focus)
-                    {
-                        focusCam.SetActive(true);
-                    }*/
             }
 
             //Collectable item menu
@@ -673,28 +650,32 @@ public class PlayerLogic : MonoBehaviour {
             //Pause Key
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                pauseGame = true;
+                if (collectScript.IsPrompting())
+                {
+                    collectScript.SetSelected();
+                }
+                else if (!collectScript.IsPrompting())
+                {
+                    pauseGame = true;
+                }
             }
 
             //Check for Reload need
-            if (currentWeaponIndex != 2)
+            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
             {
-                if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
-                {
-                    reloadState = true;
-                    timeStamp = Time.time;
+                reloadState = true;
+                timeStamp = Time.time;
 
-                    if (currentWeaponIndex == 0)
-                    {
-                        rifleAnimator.SetBool("Firing", false);
-                        rifleAnimator.SetTrigger("Reload");
-                        FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
-                    }
-                    else if (currentWeaponIndex == 1)
-                    {
-                        pistolAnimator.SetBool("Firing", false);
-                        pistolAnimator.SetTrigger("Reload");
-                    }
+                if (currentWeaponIndex == 0)
+                {
+                    rifleAnimator.SetBool("Firing", false);
+                    rifleAnimator.SetTrigger("Reload");
+                    FMODUnity.RuntimeManager.PlayOneShot(rifleReloadSound);
+                }
+                else if (currentWeaponIndex == 1)
+                {
+                    pistolAnimator.SetBool("Firing", false);
+                    pistolAnimator.SetTrigger("Reload");
                 }
             }
 
@@ -806,18 +787,29 @@ public class PlayerLogic : MonoBehaviour {
             //Item Interaction & Collection
             if (Input.GetKeyDown(KeyCode.F))
             {
-                Ray ray = new Ray(camTransform.position, camTransform.forward);
-                if (Physics.Raycast(ray, out interactHit, 5))
+                if (collectScript.IsPrompting())
                 {
-                    //Debug.Log(interactHit.collider.name);
-                    if (interactHit.collider.tag == "Interactable")
+                    pauseGame = true;
+                    itemView = true;
+                    inspectView = true;
+                    collectScript.SetSelected();
+                    collectScript.InspectItem();
+                }
+                else
+                {
+                    Ray ray = new Ray(camTransform.position, camTransform.forward);
+                    if (Physics.Raycast(ray, out interactHit, 7))
                     {
-                        interactHit.collider.gameObject.SendMessage("Activate");
-                    }
+                        Debug.Log(interactHit.collider.gameObject.name);
+                        if (interactHit.collider.tag == "Interactable")
+                        {
+                            interactHit.collider.gameObject.SendMessage("Activate");
+                        }
 
-                    if (interactHit.collider.tag == "Collectable")
-                    {
-                        collectScript.CollectItem(interactHit.collider.gameObject);
+                        if (interactHit.collider.tag == "Collectable")
+                        {
+                            collectScript.CollectItem(interactHit.collider.gameObject);
+                        }
                     }
                 }
             }
@@ -928,6 +920,11 @@ public class PlayerLogic : MonoBehaviour {
         {
             GunNoise();
         }
+    }
+
+    IEnumerator Stab()
+    {
+        yield return new WaitForSeconds(2f);
     }
 
     void GunNoise()
@@ -1094,11 +1091,6 @@ public class PlayerLogic : MonoBehaviour {
 
             timeStamp = Time.time;
         }
-    }
-
-    public void TiltPlayer()
-    {
-
     }
 
     public IEnumerator PlayerJump()
