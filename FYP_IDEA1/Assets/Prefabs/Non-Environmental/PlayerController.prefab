@@ -17136,7 +17136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012744788402}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -29.751, y: 5.329, z: -3.823}
+  m_LocalPosition: {x: -21.67, y: 5.329, z: 20.92}
   m_LocalScale: {x: 0.34338537, y: 0.3433856, z: 0.34338537}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
@@ -18269,9 +18269,6 @@ MonoBehaviour:
   pistolSight: {fileID: 1000010431255862}
   pistolHip: {fileID: 1000012324220668}
   knifeObject: {fileID: 1000014240836444}
-  bottleObject: {fileID: 1000014207952376}
-  bottlePrefab: {fileID: 1000011434608450, guid: be7f66afebaa5774a8f8ec6df4d677d6,
-    type: 2}
   walkHeight: 4.5
   crouchHeight: 0
   proneHeight: 0
@@ -18289,7 +18286,9 @@ MonoBehaviour:
   proneModifier: 0
   weapons:
   - weaponName: Rifle
-    weaponSprite: {fileID: 21300000, guid: caeb5d149341d5a428c346ac7a430a6f, type: 3}
+    weaponUI: {fileID: 0}
+    fullBullet: {fileID: 21300000, guid: 44602dc8d7d248846b72dffd3c35c746, type: 3}
+    emptyBullet: {fileID: 21300000, guid: 4dc83a516cd61714ca9698b864044073, type: 3}
     locked: 0
     currentAmmo: 30
     magazineSize: 30
@@ -18300,7 +18299,9 @@ MonoBehaviour:
     range: 3000
     damageValue: 10
   - weaponName: Pistol
-    weaponSprite: {fileID: 21300000, guid: 87a13267c02ea754aa4fb77d1e1753e2, type: 3}
+    weaponUI: {fileID: 0}
+    fullBullet: {fileID: 21300000, guid: a9ccd97889226df4aad44e6e5140c9e1, type: 3}
+    emptyBullet: {fileID: 21300000, guid: 68aa69baebb3ebc458e1449b53a421c8, type: 3}
     locked: 0
     currentAmmo: 12
     magazineSize: 12
@@ -18310,31 +18311,8 @@ MonoBehaviour:
     reloadDelay: 2
     range: 1000
     damageValue: 7
-  - weaponName: Knife
-    weaponSprite: {fileID: 21300000, guid: d6b1573080168284aa4b15c93685ab7d, type: 3}
-    locked: 0
-    currentAmmo: 0
-    magazineSize: 0
-    remainingAmmo: 0
-    totalAmmo: 0
-    shootDelay: 1
-    reloadDelay: 0
-    range: 150
-    damageValue: 30
-  - weaponName: Bottle
-    weaponSprite: {fileID: 21300000, guid: 302db740bd71c5d41a6183398ff92027, type: 3}
-    locked: 1
-    currentAmmo: 0
-    magazineSize: 0
-    remainingAmmo: 0
-    totalAmmo: 0
-    shootDelay: 0
-    reloadDelay: 0
-    range: 0
-    damageValue: 0
   timeStamp: 0
   reloadState: 0
-  holdingBottle: 0
   footsteps: event:/PlayerFootstep
   rifleSound: event:/Rifle
   rifleReloadSound: event:/RifleReload
