@@ -41,10 +41,6 @@ public class PlayerLogic : MonoBehaviour {
     public bool rightfree;
     public bool leftfree;
 
-    public Transform originalRotation;
-    public Transform leftRotation;
-    public Transform rightRotation;
-
     GameObject ammoText;
     GameObject reloadText;
     GameObject weaponIcon;
@@ -85,7 +81,6 @@ public class PlayerLogic : MonoBehaviour {
     {
         Run,
         Walk,
-        Crouch,
         Idle,
         Jump
     }
@@ -145,8 +140,6 @@ public class PlayerLogic : MonoBehaviour {
     RaycastHit hit;
     RaycastHit interactHit;
     RaycastHit aimHit;
-
-    Transform rayShoot;
 
     RaycastHit surfaceHit;
     
@@ -289,8 +282,6 @@ public class PlayerLogic : MonoBehaviour {
         controller = GetComponent<CharacterController>();
 
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        rayShoot = GameObject.Find("RayShoot").transform;
         
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
@@ -375,14 +366,14 @@ public class PlayerLogic : MonoBehaviour {
                         moveDirection = transform.TransformDirection(moveDirection);
                     }
 
-                    if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
+                    if (!Input.GetKey(KeyCode.LeftShift))
                     {
                         currentState = PlayerStates.Walk;
                     }
 
 
                     //Sprinting key (Left Shift)
-                    if (Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.Z))
+                    if (Input.GetKey(KeyCode.LeftShift))
                     {
                         currentState = PlayerStates.Run;
                     }
@@ -415,29 +406,13 @@ public class PlayerLogic : MonoBehaviour {
                         }
                     }
                 }
-                else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Z) && !Input.GetKey(KeyCode.LeftControl))
+                else if ((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) && !Input.GetKey(KeyCode.LeftShift))
                 {
                     moveDirection = new Vector3(0, 0, 0);
                     moveDirection = transform.TransformDirection(moveDirection);
 
                     currentState = PlayerStates.Idle;
                     currentVelocity -= deccelerationRate * Time.deltaTime;
-                }
-
-                //Crouch key (Left Control)
-                if (Input.GetKeyDown(KeyCode.LeftControl) && !tutorialPause)
-                {
-                    playerCrouch = !playerCrouch;
-
-                    if (!playerCrouch)
-                    {
-                        currentState = PlayerStates.Idle;
-                    }
-                }
-
-                if (playerCrouch)
-                {
-                    currentState = PlayerStates.Crouch;
                 }
 
                 //Jumping (Space)
@@ -573,37 +548,8 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
                 {
-                    if (currentWeaponIndex != 2 && !aimDownSight && !reloadState)
+                    if (!aimDownSight && !reloadState)
                     {
-                        Ray aimRay = new Ray(rayShoot.position, transform.forward);
-                        Ray aimRayLeft = new Ray(rayShoot.position, (transform.forward - transform.right));
-                        Ray aimRayRight = new Ray(rayShoot.position, (transform.forward + transform.right));
-
-                        if (Physics.Raycast(aimRay, out aimHit, 2))
-                        {
-                            if (Physics.Raycast(aimRayLeft, out aimHit, 2))
-                            {
-                                if (Physics.Raycast(aimRayRight, out aimHit, 2))
-                                {
-                                    frontfree = false;
-                                    leftfree = false;
-                                    rightfree = false;
-                                }
-                                else
-                                {
-                                    rightfree = true;
-                                }
-                            }
-                            else
-                            {
-                                leftfree = true;
-                            }
-                        }
-                        else
-                        {
-                            frontfree = true;
-                        }
-
                         lerpStart = 0f;
                         aimDownSight = true;
                     }
@@ -755,12 +701,6 @@ public class PlayerLogic : MonoBehaviour {
                     lookScript.minimumY = -80f;
                     lookScript.maximumY = 80f;
                     speedModifier = settingsScript.runModifier;
-                    break;
-                case PlayerStates.Crouch:
-                    controller.height = crouchHeight;
-                    lookScript.minimumY = -40f;
-                    lookScript.maximumY = 80f;
-                    speedModifier = settingsScript.crouchModifier;
                     break;
                 case PlayerStates.Idle:
                     controller.height = walkHeight;
