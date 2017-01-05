@@ -31,6 +31,9 @@ public class MutantSimple : MonoBehaviour
     Animator mutantAnimator;
     protected NavMeshAgent mutantAgent;
 
+    public GameObject backColliderObject;
+    public GameObject headColliderObject;
+
 
     // Use this for initialization
     protected void Start()
@@ -59,7 +62,7 @@ public class MutantSimple : MonoBehaviour
         {
 
         }
-        else
+        else if (!dead)
         {
             if (currentState == MutantStates.Chase)
             {
@@ -165,6 +168,7 @@ public class MutantSimple : MonoBehaviour
         dead = true;
         mutantAnimator.SetTrigger("Death");
         yield return new WaitForSeconds(2.5f);
+        DeleteColliders();
         StopCoroutine(Death());
     }
 
@@ -173,7 +177,15 @@ public class MutantSimple : MonoBehaviour
         dead = true;
         mutantAnimator.SetTrigger("Die");
         yield return new WaitForSeconds(2.5f);
+        DeleteColliders();
         StopCoroutine(Die());
+    }
+
+    protected void DeleteColliders()
+    {
+        Destroy(this.GetComponent<CapsuleCollider>());
+        Destroy(headColliderObject);
+        Destroy(backColliderObject);
     }
 
     protected void AttackPlayer()
