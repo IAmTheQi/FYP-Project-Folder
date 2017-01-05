@@ -77,6 +77,8 @@ public class PlayerLogic : MonoBehaviour {
     float lerpStart;
     float lerpTime;
 
+    public float alertRange;
+
     enum PlayerStates
     {
         Run,
@@ -869,14 +871,13 @@ public class PlayerLogic : MonoBehaviour {
 
     void GunNoise()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRange);
         int i = 0;
         while (i < hitColliders.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<MutantOne>() != null || hitColliders[i].gameObject.GetComponent<MutantRoam>() != null)
+            if (hitColliders[i].gameObject.GetComponent<MutantSimple>() != null)
             {
-                hitColliders[i].SendMessage("RecordLastSeen", transform);
-                hitColliders[i].SendMessage("LosePlayer");
+                hitColliders[i].SendMessage("PlayerEnter");
             }
             i++;
         }
