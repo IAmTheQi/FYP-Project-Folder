@@ -66,7 +66,7 @@ public class MutantSimple : MonoBehaviour
                 mutantAgent.destination = playerObject.transform.position;
 
                 //Debug.LogFormat("name:{0}       distance:{1}", gameObject.name, Vector3.Distance(transform.position, playerObject.transform.position));
-                Debug.Log(mutantAgent.speed);
+                //Debug.Log(mutantAgent.speed);
                 if (Vector3.Distance(transform.position, playerObject.transform.position) <= 2.1f)
                 {
                     attacking = true;
@@ -179,6 +179,7 @@ public class MutantSimple : MonoBehaviour
     protected void AttackPlayer()
     {
         playerObject.GetComponent<PlayerLogic>().TakeDamage(damage);
+        Debug.Log("attack");
     }
 
     public string ReturnState()

@@ -13,9 +13,12 @@ public class CollectableLogic : MonoBehaviour {
         public bool collected;
         public GameObject selectUI;
         public GameObject inspectUI;
+        public GameObject inspectHUDPreview;
+        public GameObject inspectHUDTitle;
     }
 
     public GameObject listObject;
+    public GameObject inspectHUD;
 
     public CollectableItems[] itemsArray;
 
@@ -23,11 +26,20 @@ public class CollectableLogic : MonoBehaviour {
 
     public int currentSelected;
 
+
     bool inspect;
 
     Color selected;
     Color unselected;
     Color uncollected;
+
+    Color inspectHUDColor;
+    Color inspectPreviewColor;
+    Color inspectTitleColor;
+    int targetIndex;
+
+    bool fadeIn;
+    bool inspectPrompt;
 
     // Use this for initialization
     void Start()
@@ -57,10 +69,17 @@ public class CollectableLogic : MonoBehaviour {
                 itemsArray[i].selectUI.GetComponent<Text>().color = unselected;
             }
         }
+
+        inspectHUDColor = inspectHUD.GetComponent<Image>().color;
+        inspectPreviewColor = inspectHUD.GetComponent<Image>().color;
+        inspectTitleColor = inspectHUD.GetComponent<Image>().color;
+
+        fadeIn = false;
+        inspectPrompt = false;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
 
         if (!inspect)
         {
@@ -82,8 +101,38 @@ public class CollectableLogic : MonoBehaviour {
                 itemsArray[currentSelected].selectUI.GetComponent<Text>().color = selected;
             }
         }
-	
-	}
+
+        if (fadeIn)
+        {
+            inspectPreviewColor = itemsArray[targetIndex].inspectHUDPreview.GetComponent<Image>().color;
+            inspectPreviewColor.a += 0.01f;
+
+            inspectTitleColor = itemsArray[targetIndex].inspectHUDTitle.GetComponent<Image>().color;
+            inspectTitleColor.a += 0.01f;
+
+            inspectHUDColor = inspectHUD.GetComponent<Image>().color;
+            inspectHUDColor.a += 0.01f;
+        }
+        else if (!fadeIn)
+        {
+            inspectPreviewColor = itemsArray[targetIndex].inspectHUDPreview.GetComponent<Image>().color;
+            inspectPreviewColor.a -= 0.01f;
+
+            inspectTitleColor = itemsArray[targetIndex].inspectHUDTitle.GetComponent<Image>().color;
+            inspectTitleColor.a -= 0.01f;
+
+            inspectHUDColor = inspectHUD.GetComponent<Image>().color;
+            inspectHUDColor.a -= 0.01f;
+        }
+
+        //Inspect HUD
+        inspectPreviewColor.a = Mathf.Clamp(inspectPreviewColor.a, 0.0f, 1.0f);
+        itemsArray[targetIndex].inspectHUDPreview.GetComponent<Image>().color = inspectPreviewColor;
+        inspectTitleColor.a = Mathf.Clamp(inspectTitleColor.a, 0.0f, 1.0f);
+        itemsArray[targetIndex].inspectHUDTitle.GetComponent<Image>().color = inspectTitleColor;
+        inspectHUDColor.a = Mathf.Clamp(inspectHUDColor.a, 0.0f, 1.0f);
+        inspectHUD.GetComponent<Image>().color = inspectHUDColor;
+    }
 
     void ScrollItem(string target)
     {
@@ -138,9 +187,39 @@ public class CollectableLogic : MonoBehaviour {
                 indexList.Add(i);
                 indexList.Sort();
                 target.SetActive(false);
+                fadeIn = true;
+                inspectPrompt = true;
+                targetIndex = i;
+                StartCoroutine(FadeDelay());
                 break;
             }
         }
+    }
+
+    IEnumerator FadeDelay()
+    {
+        yield return new WaitForSeconds(10);
+        fadeIn = false;
+        inspectPrompt = false;
+        StopCoroutine(FadeDelay());
+    }
+
+    public bool IsPrompting()
+    {
+        return inspectPrompt;
+    }
+
+    public int InspectIndex()
+    {
+        return targetIndex;
+    }
+
+    public void SetSelected()
+    {
+        currentSelected = targetIndex;
+        fadeIn = false;
+        inspectPrompt = false;
+        StopCoroutine(FadeDelay());
     }
 
     int ClampInRange(int target, string target2)
