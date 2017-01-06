@@ -182,7 +182,7 @@ public class SettingsConfig : MonoBehaviour {
                 SaveLoad.Load();
                 break;
 
-            case "Canel":
+            case "Cancel":
                 loadCheck = false;
                 break;
         }
