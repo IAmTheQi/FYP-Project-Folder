@@ -22,6 +22,13 @@ public class PlayerLogic : MonoBehaviour {
 
     GameObject flashlightObject;
 
+    GameObject crosshairLeft;
+    GameObject crosshairRight;
+    GameObject crosshairTop;
+    GameObject crosshairBottom;
+    float crosshairScale;
+    float spreadFactor;
+
     CollectableLogic collectScript;
 
     public ParticleSystem gunParticle;
@@ -190,6 +197,13 @@ public class PlayerLogic : MonoBehaviour {
         leanPivot = GameObject.Find("LeanPivot");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
+
+        crosshairLeft = GameObject.Find("CrosshairLeft");
+        crosshairRight = GameObject.Find("CrosshairRight");
+        crosshairTop = GameObject.Find("CrosshairTop");
+        crosshairBottom = GameObject.Find("CrosshairBottom");
+        crosshairScale = 0f;
+        spreadFactor = 0f;
 
         flashlightObject = GameObject.Find("Flashlight");
 
@@ -503,6 +517,8 @@ public class PlayerLogic : MonoBehaviour {
                     if (currentWeaponIndex != 2 && weapons[currentWeaponIndex].currentAmmo > 0)
                     {
                         ShootRay();
+                        crosshairScale += 25f;
+                        spreadFactor += 0.1f;
                         if (currentWeaponIndex == 0)
                         {
                             rifleAnimator.SetBool("Firing", true);
@@ -520,6 +536,7 @@ public class PlayerLogic : MonoBehaviour {
                             pistolBullets[weapons[1].currentAmmo - 1].GetComponent<Image>().sprite = weapons[1].emptyBullet;
                         }
                         weapons[currentWeaponIndex].currentAmmo -= 1;
+
                     }
 
                     timeStamp = Time.time;
@@ -536,6 +553,9 @@ public class PlayerLogic : MonoBehaviour {
                     pistolAnimator.SetBool("Firing", false);
                 }
             }
+
+            spreadFactor -= 0.001f;
+            spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
 
             if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
             {
@@ -765,6 +785,14 @@ public class PlayerLogic : MonoBehaviour {
         shadowAlpha.a = Mathf.Clamp(shadowAlpha.a, 0.0f, 0.8f);
         shadowOverlay.GetComponent<Image>().color = shadowAlpha;
 
+        //Crosshair Clamp
+        crosshairScale -= 1f;
+        crosshairScale = Mathf.Clamp(crosshairScale, 0f, 70f);
+        crosshairLeft.transform.localPosition = new Vector3(-crosshairScale, 0, 0);
+        crosshairRight.transform.localPosition = new Vector3(crosshairScale, 0, 0);
+        crosshairTop.transform.localPosition = new Vector3(0, crosshairScale, 0);
+        crosshairBottom.transform.localPosition = new Vector3(0, -crosshairScale, 0);
+
         switch (currentWeaponIndex)
         {
             case 0:
@@ -830,7 +858,13 @@ public class PlayerLogic : MonoBehaviour {
     void ShootRay()
     {
         //Fires ray from camera, centre of screen into 3D space
-        Ray ray = new Ray(camTransform.position, camTransform.forward);
+        Vector3 shootDirection = camTransform.forward;
+        shootDirection.z += (Random.Range(-spreadFactor, spreadFactor))/10;
+        shootDirection.y += (Random.Range(-spreadFactor, spreadFactor))/10;
+
+        Ray ray = new Ray(camTransform.position, shootDirection);
+        
+
         if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
         {
             if (hit.collider.tag == "Mutant" || hit.collider.tag == "MutantBack")

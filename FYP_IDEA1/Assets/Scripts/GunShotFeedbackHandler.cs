@@ -48,7 +48,6 @@ public class GunShotFeedbackHandler : MonoBehaviour {
             bulletMarkArray[bulletMarkIndex].transform.position = hit.point + (hit.normal * 0.01f);
             bulletMarkArray[bulletMarkIndex].transform.rotation = Quaternion.LookRotation(-hit.normal);
             bulletMarkArray[bulletMarkIndex].SetActive(true);
-            Debug.LogFormat("index:{0}      normal:{1}", bulletMarkIndex, hit.normal);
 
             if (bulletMarkIndex < bulletMarkArray.Length - 1)
             {
