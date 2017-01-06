@@ -137,9 +137,9 @@ public class MutantSimple : MonoBehaviour
 
     public IEnumerator AlertMutant()
     {
-        currentState = MutantStates.Alert;
+        currentState = MutantStates.Alert;	
         mutantAnimator.SetTrigger("Alert");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.1f);
         mutantAnimator.SetBool("Chase", true);
         currentState = MutantStates.Chase;
         StopCoroutine(AlertMutant());

@@ -8,6 +8,7 @@ public class PlayerLogic : MonoBehaviour {
 
     GameObject gameController;
     SettingsConfig settingsScript;
+    GunShotFeedbackHandler gunShotScript;
 
     GameObject cam1;
     GameObject focusCam;
@@ -180,6 +181,7 @@ public class PlayerLogic : MonoBehaviour {
     void Start() {
         gameController = GameObject.Find("GameController");
         settingsScript = gameController.GetComponent<SettingsConfig>();
+        gunShotScript = gameController.GetComponent<GunShotFeedbackHandler>();
 
         cam1 = GameObject.Find("Main Camera");
         focusCam = GameObject.Find("FocusCamera");
@@ -835,19 +837,21 @@ public class PlayerLogic : MonoBehaviour {
             {
                 hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
                 StartCoroutine(Blink());
+                gunShotScript.CreateMark(true, hit);
             }
             else if (hit.collider.tag == "MutantHead")
             {
                 hit.collider.transform.root.gameObject.SendMessage("TakeDamage", 6969);
                 StartCoroutine(Blink());
+                gunShotScript.CreateMark(true, hit);
+            }
+            else if (hit.collider.tag != "Mutant" && hit.collider.tag != "MutantBack" && hit.collider.tag != "MutantHead")
+            {
+                gunShotScript.CreateMark(false, hit);
             }
             //Debug.Log(hit.collider.name);
         }
-
-        if (currentWeaponIndex == 0 || currentWeaponIndex == 1)
-        {
-            GunNoise();
-        }
+        GunNoise();
     }
 
     IEnumerator Stab()
