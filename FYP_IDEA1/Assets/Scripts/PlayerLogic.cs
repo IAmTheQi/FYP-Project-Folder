@@ -12,8 +12,6 @@ public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
     GameObject focusCam;
-    GameObject scopeCam;
-    GameObject scopeFocusCam;
     GameObject leanPivot;
     public Texture scopeTexture;
     SmoothMouseLook lookScript;
@@ -192,8 +190,6 @@ public class PlayerLogic : MonoBehaviour {
 
         cam1 = GameObject.Find("Main Camera");
         focusCam = GameObject.Find("FocusCamera");
-        scopeCam = GameObject.Find("ScopeCamera");
-        scopeFocusCam = GameObject.Find("ScopeFocusCamera");
         leanPivot = GameObject.Find("LeanPivot");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
@@ -554,8 +550,6 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
-            spreadFactor -= 0.001f;
-            spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
 
             if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
             {
@@ -563,6 +557,11 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = 0f;
                     aimDownSight = true;
+
+                    crosshairLeft.SetActive(false);
+                    crosshairRight.SetActive(false);
+                    crosshairTop.SetActive(false);
+                    crosshairBottom.SetActive(false);
                 }
             }
 
@@ -572,9 +571,16 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = 0f;
                     aimDownSight = false;
+
+                    crosshairLeft.SetActive(true);
+                    crosshairRight.SetActive(true);
+                    crosshairTop.SetActive(true);
+                    crosshairBottom.SetActive(true);
                 }
             }
 
+
+            //Scoped variables
             if (aimDownSight)
             {
                 lerpStart += Time.deltaTime;
@@ -582,19 +588,23 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = lerpTime;
                 }
+
+                spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
             }
 
             if (!aimDownSight)
             {
-                    lerpStart += Time.deltaTime;
-                    if (lerpStart >= lerpTime)
-                    {
-                        lerpStart = lerpTime;
+                lerpStart += Time.deltaTime;
+                if (lerpStart >= lerpTime)
+                {
+                    lerpStart = lerpTime;
 
-                        frontfree = false;
-                        leftfree = false;
-                        rightfree = false;
-                    }
+                    frontfree = false;
+                    leftfree = false;
+                    rightfree = false;
+                }
+
+                spreadFactor = Mathf.Clamp(spreadFactor, 0f, 0.2f);
             }
 
             //Collectable item menu
@@ -788,10 +798,17 @@ public class PlayerLogic : MonoBehaviour {
         //Crosshair Clamp
         crosshairScale -= 1f;
         crosshairScale = Mathf.Clamp(crosshairScale, 0f, 70f);
-        crosshairLeft.transform.localPosition = new Vector3(-crosshairScale, 0, 0);
-        crosshairRight.transform.localPosition = new Vector3(crosshairScale, 0, 0);
-        crosshairTop.transform.localPosition = new Vector3(0, crosshairScale, 0);
-        crosshairBottom.transform.localPosition = new Vector3(0, -crosshairScale, 0);
+
+        //Shoot Spread
+        spreadFactor -= 0.001f;
+
+        if (!aimDownSight)
+        {
+            crosshairLeft.transform.localPosition = new Vector3(-crosshairScale, 0, 0);
+            crosshairRight.transform.localPosition = new Vector3(crosshairScale, 0, 0);
+            crosshairTop.transform.localPosition = new Vector3(0, crosshairScale, 0);
+            crosshairBottom.transform.localPosition = new Vector3(0, -crosshairScale, 0);
+        }
 
         switch (currentWeaponIndex)
         {
@@ -807,31 +824,18 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (aimDownSight)
                 {
-                    scopeCam.SetActive(true);
                     rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
-
-                    if (focus)
-                    {
-                        focusCam.SetActive(false);
-                        scopeFocusCam.SetActive(true);
-                    }
-                    else if (!focus)
-                    {
-                        scopeFocusCam.SetActive(false);
-                    }
                     rifleAnimator.SetBool("Scoped", true);
                 }
 
                 if (!aimDownSight)
                 {
-                    scopeCam.SetActive(false);
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
                     rifleAnimator.SetBool("Scoped", false);
                 }
                 break;
 
             case 1:
-                scopeCam.SetActive(false);
                 if (currentState == PlayerStates.Run)
                 {
                     pistolAnimator.SetBool("Sprinting", true);
