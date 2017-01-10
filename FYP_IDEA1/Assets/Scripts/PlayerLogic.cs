@@ -770,6 +770,28 @@ public class PlayerLogic : MonoBehaviour {
                         {
                             collectScript.CollectItem(interactHit.collider.gameObject);
                         }
+
+                        if (interactHit.collider.tag == "PistolBox")
+                        {
+                            weapons[1].remainingAmmo += 12;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+                        else if (interactHit.collider.tag == "PistolAmmo")
+                        {
+                            weapons[1].remainingAmmo += 4;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+
+                        if (interactHit.collider.tag == "RifleBox")
+                        {
+                            weapons[0].remainingAmmo += 30;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+                        else if (interactHit.collider.tag == "RifleAmmo")
+                        {
+                            weapons[0].remainingAmmo += 7;
+                            Destroy(interactHit.collider.gameObject);
+                        }
                     }
                 }
             }
@@ -1010,8 +1032,9 @@ public class PlayerLogic : MonoBehaviour {
         }
         else //Normal reload
         {
+            int fillUp = weapons[currentWeaponIndex].magazineSize - weapons[currentWeaponIndex].currentAmmo;
             weapons[currentWeaponIndex].currentAmmo = weapons[currentWeaponIndex].magazineSize;
-            weapons[currentWeaponIndex].remainingAmmo -= weapons[currentWeaponIndex].magazineSize;
+            weapons[currentWeaponIndex].remainingAmmo -= fillUp;
 
             if (currentWeaponIndex == 0)
             {
