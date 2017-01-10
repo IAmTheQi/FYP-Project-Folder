@@ -155,6 +155,11 @@ public class MutantSimple : MonoBehaviour
         if ((health - value) > 0)
         {
             health -= value;
+
+            if (currentState != MutantStates.Chase)
+            {
+                StartCoroutine(AlertMutant());
+            }
         }
         else if ((health - value) <= 0)
         {
