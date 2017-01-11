@@ -41,11 +41,9 @@ public class PlayerLogic : MonoBehaviour {
     public bool itemView;
     public bool inspectView;
     public bool optionsView;
+    public bool quickInspect;
 
     public bool aimDownSight;
-    public bool frontfree;
-    public bool rightfree;
-    public bool leftfree;
 
     GameObject ammoText;
     GameObject reloadText;
@@ -213,6 +211,7 @@ public class PlayerLogic : MonoBehaviour {
         pauseGame = false;
         itemView = false;
         inspectView = false;
+        quickInspect = false;
 
         rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         knifeAnimator = knifeObject.GetComponent<Animator>();
@@ -221,9 +220,6 @@ public class PlayerLogic : MonoBehaviour {
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         aimDownSight = false;
-        frontfree = false;
-        rightfree = false;
-        leftfree = false;
 
         hitMarker = GameObject.Find("HitMarker");
         hitMarker.SetActive(false);
@@ -343,12 +339,23 @@ public class PlayerLogic : MonoBehaviour {
                     ButtonTrigger("inspect");
                 }
 
-                if (inspectView)
+                if (inspectView && !quickInspect)
                 {
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         collectScript.InspectItem();
                         inspectView = false;
+                    }
+                }
+                else if (inspectView && quickInspect)
+                {
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        collectScript.InspectItem();
+                        inspectView = false;
+                        itemView = false;
+                        pauseGame = false;
+                        quickInspect = false;
                     }
                 }
                 else if (!inspectView)
@@ -598,10 +605,6 @@ public class PlayerLogic : MonoBehaviour {
                 if (lerpStart >= lerpTime)
                 {
                     lerpStart = lerpTime;
-
-                    frontfree = false;
-                    leftfree = false;
-                    rightfree = false;
                 }
 
                 spreadFactor = Mathf.Clamp(spreadFactor, 0f, 0.2f);
@@ -754,6 +757,8 @@ public class PlayerLogic : MonoBehaviour {
                     inspectView = true;
                     collectScript.SetSelected();
                     collectScript.InspectItem();
+                    quickInspect = true;
+                    Debug.Log(pauseGame + "," + itemView + "," + inspectView);
                 }
                 else
                 {
@@ -769,6 +774,28 @@ public class PlayerLogic : MonoBehaviour {
                         if (interactHit.collider.tag == "Collectable")
                         {
                             collectScript.CollectItem(interactHit.collider.gameObject);
+                        }
+
+                        if (interactHit.collider.tag == "PistolBox")
+                        {
+                            weapons[1].remainingAmmo += 12;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+                        else if (interactHit.collider.tag == "PistolAmmo")
+                        {
+                            weapons[1].remainingAmmo += 4;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+
+                        if (interactHit.collider.tag == "RifleBox")
+                        {
+                            weapons[0].remainingAmmo += 30;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+                        else if (interactHit.collider.tag == "RifleAmmo")
+                        {
+                            weapons[0].remainingAmmo += 7;
+                            Destroy(interactHit.collider.gameObject);
                         }
                     }
                 }
@@ -1010,8 +1037,9 @@ public class PlayerLogic : MonoBehaviour {
         }
         else //Normal reload
         {
+            int fillUp = weapons[currentWeaponIndex].magazineSize - weapons[currentWeaponIndex].currentAmmo;
             weapons[currentWeaponIndex].currentAmmo = weapons[currentWeaponIndex].magazineSize;
-            weapons[currentWeaponIndex].remainingAmmo -= weapons[currentWeaponIndex].magazineSize;
+            weapons[currentWeaponIndex].remainingAmmo -= fillUp;
 
             if (currentWeaponIndex == 0)
             {
