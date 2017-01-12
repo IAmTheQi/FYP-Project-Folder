@@ -35,6 +35,21 @@ public class MutantSimple : MonoBehaviour
     public GameObject backColliderObject;
     public GameObject headColliderObject;
 
+    [FMODUnity.EventRef]
+    public string idleSound = "event:/Mutant/Idle";
+    FMOD.Studio.EventInstance idleEv;
+
+    [FMODUnity.EventRef]
+    public string alertSound = "event:/Mutant/Alert";
+
+    [FMODUnity.EventRef]
+    public string attackSound = "event:/Mutant/Attack";
+
+    [FMODUnity.EventRef]
+    public string dyingSound = "event:/Mutant/Dying";
+
+    [FMODUnity.EventRef]
+    public string hitSound = "event:/Mutant/BulletPunch";
 
     // Use this for initialization
     protected void Start()
@@ -53,6 +68,9 @@ public class MutantSimple : MonoBehaviour
         modelObject = transform.Find("MutantModel").gameObject;
         mutantAnimator = modelObject.GetComponent<Animator>();
         mutantAgent = GetComponent<NavMeshAgent>();
+
+        idleEv = FMODUnity.RuntimeManager.CreateInstance(idleSound);
+        idleEv.start();
     }
 
     // Update is called once per frame
@@ -148,8 +166,10 @@ public class MutantSimple : MonoBehaviour
 
     public IEnumerator AlertMutant()
     {
+        idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         currentState = MutantStates.Alert;	
         mutantAnimator.SetTrigger("Alert");
+        FMODUnity.RuntimeManager.PlayOneShot(alertSound);
         yield return new WaitForSeconds(2.1f);
         mutantAnimator.SetBool("Chase", true);
         currentState = MutantStates.Chase;
@@ -171,6 +191,8 @@ public class MutantSimple : MonoBehaviour
             {
                 StartCoroutine(AlertMutant());
             }
+
+            FMODUnity.RuntimeManager.PlayOneShot(hitSound);
         }
         else if ((health - value) <= 0)
         {
@@ -181,8 +203,13 @@ public class MutantSimple : MonoBehaviour
 
     protected IEnumerator Death()
     {
+        if (currentState != MutantStates.Chase || currentState != MutantStates.Alert)
+        {
+            idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
         dead = true;
         mutantAnimator.SetTrigger("Death");
+        FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
         yield return new WaitForSeconds(2.5f);
         DeleteColliders();
         StopCoroutine(Death());
@@ -190,8 +217,13 @@ public class MutantSimple : MonoBehaviour
 
     protected IEnumerator Die()
     {
+        if (currentState != MutantStates.Chase || currentState != MutantStates.Alert)
+        {
+            idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
         dead = true;
         mutantAnimator.SetTrigger("Die");
+        FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
         yield return new WaitForSeconds(2.5f);
         DeleteColliders();
         StopCoroutine(Die());
@@ -207,7 +239,7 @@ public class MutantSimple : MonoBehaviour
     protected void AttackPlayer()
     {
         playerObject.GetComponent<PlayerLogic>().TakeDamage(damage);
-        Debug.Log("attack");
+        FMODUnity.RuntimeManager.PlayOneShot(attackSound);
     }
 
     public string ReturnState()

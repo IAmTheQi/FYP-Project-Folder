@@ -30,10 +30,17 @@ public class TutorialHandler : MonoBehaviour {
     bool ctrlkey;
     bool collected;
 
+    float timer;
+    float timerLimit;
+
     Color promptColor;
 
-	// Use this for initialization
-	void Start () {
+    bool low;
+    [FMODUnity.EventRef]
+    public string ammoLowSound = "event:/Player VO/AmmoLow";
+
+    // Use this for initialization
+    void Start () {
 
         currentState = TutorialState.step0;
 
@@ -48,11 +55,15 @@ public class TutorialHandler : MonoBehaviour {
         ctrlkey = false;
         collected = false;
 
+        timer = 0f;
+        timerLimit = 10f;
+
         step0Prompt.SetActive(true);
         step1Prompt.SetActive(false);
         step2Prompt.SetActive(false);
         step3Prompt.SetActive(false);
 
+        low = false;
     }
 	
 	// Update is called once per frame
@@ -60,6 +71,11 @@ public class TutorialHandler : MonoBehaviour {
 
         if (!playerScript.pauseGame)
         {
+            if (playerScript.weapons[playerScript.currentWeaponIndex].currentAmmo < 5 && !low)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(ammoLowSound);
+                low = true;
+            }
 
             switch (currentState)
             {
@@ -68,19 +84,13 @@ public class TutorialHandler : MonoBehaviour {
                     {
                         promptColor = step0Prompt.GetComponent<Image>().color;
                         promptColor.a += 0.02f;
-                        StartCoroutine(FadeDelay());
+                        FadeDelay();
                     }
 
                     if (transition)
                     {
                         promptColor = step0Prompt.GetComponent<Image>().color;
                         promptColor.a -= 0.02f;
-
-                        if (promptColor.a == 0)
-                        {
-                            step0Prompt.SetActive(false);
-                            StateTransition();
-                        }
                     }
 
                     promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
@@ -93,19 +103,13 @@ public class TutorialHandler : MonoBehaviour {
                     {
                         promptColor = step1Prompt.GetComponent<Image>().color;
                         promptColor.a += 0.02f;
-                        StartCoroutine(FadeDelay());
+                        FadeDelay();
                     }
 
                     if (transition)
                     {
                         promptColor = step1Prompt.GetComponent<Image>().color;
                         promptColor.a -= 0.02f;
-
-                        if (promptColor.a == 0)
-                        {
-                            step1Prompt.SetActive(false);
-                            StateTransition();
-                        }
                     }
 
                     promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
@@ -117,19 +121,13 @@ public class TutorialHandler : MonoBehaviour {
                     {
                         promptColor = step2Prompt.GetComponent<Image>().color;
                         promptColor.a += 0.02f;
-                        StartCoroutine(FadeDelay());
+                        FadeDelay();
                     }
 
                     if (transition)
                     {
                         promptColor = step2Prompt.GetComponent<Image>().color;
                         promptColor.a -= 0.02f;
-
-                        if (promptColor.a == 0)
-                        {
-                            step2Prompt.SetActive(false);
-                            StateTransition();
-                        }
                     }
 
                     promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
@@ -141,19 +139,13 @@ public class TutorialHandler : MonoBehaviour {
                     {
                         promptColor = step3Prompt.GetComponent<Image>().color;
                         promptColor.a += 0.02f;
-                        StartCoroutine(FadeDelay());
+                        FadeDelay();
                     }
 
                     if (transition)
                     {
                         promptColor = step3Prompt.GetComponent<Image>().color;
                         promptColor.a -= 0.02f;
-
-                        if (promptColor.a == 0)
-                        {
-                            step3Prompt.SetActive(false);
-                            StateTransition();
-                        }
                     }
 
                     promptColor.a = Mathf.Clamp(promptColor.a, 0.0f, 1.0f);
@@ -165,6 +157,8 @@ public class TutorialHandler : MonoBehaviour {
             {
                 DismissTutorial();
             }
+
+            Debug.Log(currentState + "," + triggered + "," + transition);
         }
     }
 
@@ -173,29 +167,43 @@ public class TutorialHandler : MonoBehaviour {
         switch (currentState)
         {
             case TutorialState.step0:
+                step0Prompt.SetActive(false);
+                step1Prompt.SetActive(true);
                 currentState = TutorialState.step1;
                 break;
 
             case TutorialState.step1:
+                step1Prompt.SetActive(false);
+                step2Prompt.SetActive(true);
                 currentState = TutorialState.step2;
                 break;
 
             case TutorialState.step2:
+                step2Prompt.SetActive(false);
                 currentState = TutorialState.step3;
                 break;
         }
 
         transition = false;
-        triggered = false;
+        triggered = true;
+        IsPrompting();
+        prompting = true;
     }
 
-    IEnumerator FadeDelay()
+    void FadeDelay()
     {
-        yield return new WaitForSeconds(10);
-        transition = true;
-        prompting = false;
-        IsPrompting();
-        StopCoroutine(FadeDelay());
+        Debug.Log(currentState);
+        if (timer < timerLimit)
+        {
+            timer += Time.deltaTime;
+        }
+        else if (timer >= timerLimit)
+        {
+            transition = true;
+            prompting = false;
+            IsPrompting();
+            timer = 0;
+        }
     }
 
     public void DismissTutorial()
@@ -203,7 +211,7 @@ public class TutorialHandler : MonoBehaviour {
         transition = true;
         prompting = false;
         IsPrompting();
-        StopCoroutine(FadeDelay());
+        timer = 0;
     }
 
     public void Collect()
@@ -218,6 +226,6 @@ public class TutorialHandler : MonoBehaviour {
 
     public void Trigger()
     {
-        triggered = true;
+        StateTransition();
     }
 }
