@@ -13,12 +13,11 @@ public class PlayerLogic : MonoBehaviour {
     GameObject cam1;
     GameObject focusCam;
     GameObject leanPivot;
-    public Texture scopeTexture;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
 
-    GameObject flashlightObject;
+    public GameObject flashlightObject;
 
     GameObject crosshairLeft;
     GameObject crosshairRight;
@@ -198,8 +197,6 @@ public class PlayerLogic : MonoBehaviour {
         crosshairBottom = GameObject.Find("CrosshairBottom");
         crosshairScale = 0f;
         spreadFactor = 0f;
-
-        flashlightObject = GameObject.Find("Flashlight");
 
         collectScript = GetComponent<CollectableLogic>();
 
