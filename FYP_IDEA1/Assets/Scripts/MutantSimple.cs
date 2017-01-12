@@ -8,6 +8,7 @@ public class MutantSimple : MonoBehaviour
     {
         Roam,
         Idle,
+        Eat,
         Alert,
         Chase
     }
@@ -58,11 +59,11 @@ public class MutantSimple : MonoBehaviour
     protected void Update()
     {
 
-        if (playerObject.GetComponent<PlayerLogic>().pauseGame || playerObject.GetComponent<PlayerLogic>().itemView)
+        if (playerObject.GetComponent<PlayerLogic>().pauseGame)
         {
 
         }
-        else if (!dead)
+        else if (!dead && !playerObject.GetComponent<PlayerLogic>().pauseGame)
         {
             if (currentState == MutantStates.Chase)
             {
@@ -70,13 +71,23 @@ public class MutantSimple : MonoBehaviour
 
                 //Debug.LogFormat("name:{0}       distance:{1}", gameObject.name, Vector3.Distance(transform.position, playerObject.transform.position));
                 //Debug.Log(mutantAgent.speed);
-                if (Vector3.Distance(transform.position, playerObject.transform.position) <= 2.1f)
+                if (Vector3.Distance(transform.position, playerObject.transform.position) <= 2f)
                 {
                     attacking = true;
                 }
                 else if (mutantAgent.velocity.magnitude > 0f)
                 {
                     attacking = false;
+                }
+            }
+            else if (currentState == MutantStates.Idle)
+            {
+                if (mutantAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                {
+                    if (Random.Range(0f, 1f) < 0.05f)
+                    {
+                        mutantAnimator.SetTrigger("IdleBreaker");
+                    }
                 }
             }
 

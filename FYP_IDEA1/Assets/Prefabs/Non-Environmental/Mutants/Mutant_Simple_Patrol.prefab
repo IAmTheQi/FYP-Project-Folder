@@ -50,7 +50,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012893347554}
-  - 114: {fileID: 114000011520815868}
   - 195: {fileID: 195000014007497526}
   - 136: {fileID: 136000011010938802}
   - 114: {fileID: 114000014192944362}
@@ -375,28 +374,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 0
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000011520815868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010822700328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/Mutant
-  PlayEvent: 1
-  StopEvent: 2
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!114 &114000012257196724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,11 +429,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d58a9c6e3700e4c9c0a1fb5789438a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
   attacking: 0
   currentState: 0
   damage: 10
-  attackDelay: 0
+  attackDelay: 2
   focusRing: {fileID: 1000013604887794}
   backColliderObject: {fileID: 1000012650022600}
   headColliderObject: {fileID: 1000010087889608}
