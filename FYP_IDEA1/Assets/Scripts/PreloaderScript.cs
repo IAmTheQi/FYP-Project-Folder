@@ -26,6 +26,12 @@ public class PreloaderScript : MonoBehaviour {
     IEnumerator LoadScene()
     {
         async = SceneManager.LoadSceneAsync(scene);
+        async.allowSceneActivation = false;
+
+        /*if (async.progress >= 100f)
+        {
+            async.allowSceneActivation = true;
+        }*/
 
         while(!async.isDone)
         {
