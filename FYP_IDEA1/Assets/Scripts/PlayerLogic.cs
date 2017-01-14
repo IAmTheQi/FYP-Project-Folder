@@ -12,15 +12,12 @@ public class PlayerLogic : MonoBehaviour {
 
     GameObject cam1;
     GameObject focusCam;
-    GameObject scopeCam;
-    GameObject scopeFocusCam;
     GameObject leanPivot;
-    public Texture scopeTexture;
     SmoothMouseLook lookScript;
     Transform camTransform;
     Vector3 startPosition;
 
-    GameObject flashlightObject;
+    public GameObject flashlightObject;
 
     GameObject crosshairLeft;
     GameObject crosshairRight;
@@ -43,11 +40,9 @@ public class PlayerLogic : MonoBehaviour {
     public bool itemView;
     public bool inspectView;
     public bool optionsView;
+    public bool quickInspect;
 
     public bool aimDownSight;
-    public bool frontfree;
-    public bool rightfree;
-    public bool leftfree;
 
     GameObject ammoText;
     GameObject reloadText;
@@ -192,8 +187,6 @@ public class PlayerLogic : MonoBehaviour {
 
         cam1 = GameObject.Find("Main Camera");
         focusCam = GameObject.Find("FocusCamera");
-        scopeCam = GameObject.Find("ScopeCamera");
-        scopeFocusCam = GameObject.Find("ScopeFocusCamera");
         leanPivot = GameObject.Find("LeanPivot");
         camTransform = cam1.transform;
         lookScript = cam1.GetComponent<SmoothMouseLook>();
@@ -205,8 +198,6 @@ public class PlayerLogic : MonoBehaviour {
         crosshairScale = 0f;
         spreadFactor = 0f;
 
-        flashlightObject = GameObject.Find("Flashlight");
-
         collectScript = GetComponent<CollectableLogic>();
 
         if (SceneManager.GetActiveScene().name == "Level1")
@@ -217,6 +208,7 @@ public class PlayerLogic : MonoBehaviour {
         pauseGame = false;
         itemView = false;
         inspectView = false;
+        quickInspect = false;
 
         rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         knifeAnimator = knifeObject.GetComponent<Animator>();
@@ -225,9 +217,6 @@ public class PlayerLogic : MonoBehaviour {
         startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         aimDownSight = false;
-        frontfree = false;
-        rightfree = false;
-        leftfree = false;
 
         hitMarker = GameObject.Find("HitMarker");
         hitMarker.SetActive(false);
@@ -347,12 +336,23 @@ public class PlayerLogic : MonoBehaviour {
                     ButtonTrigger("inspect");
                 }
 
-                if (inspectView)
+                if (inspectView && !quickInspect)
                 {
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         collectScript.InspectItem();
                         inspectView = false;
+                    }
+                }
+                else if (inspectView && quickInspect)
+                {
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        collectScript.InspectItem();
+                        inspectView = false;
+                        itemView = false;
+                        pauseGame = false;
+                        quickInspect = false;
                     }
                 }
                 else if (!inspectView)
@@ -554,8 +554,6 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
-            spreadFactor -= 0.001f;
-            spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
 
             if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
             {
@@ -563,6 +561,11 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = 0f;
                     aimDownSight = true;
+
+                    crosshairLeft.SetActive(false);
+                    crosshairRight.SetActive(false);
+                    crosshairTop.SetActive(false);
+                    crosshairBottom.SetActive(false);
                 }
             }
 
@@ -572,9 +575,16 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = 0f;
                     aimDownSight = false;
+
+                    crosshairLeft.SetActive(true);
+                    crosshairRight.SetActive(true);
+                    crosshairTop.SetActive(true);
+                    crosshairBottom.SetActive(true);
                 }
             }
 
+
+            //Scoped variables
             if (aimDownSight)
             {
                 lerpStart += Time.deltaTime;
@@ -582,19 +592,19 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     lerpStart = lerpTime;
                 }
+
+                spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
             }
 
             if (!aimDownSight)
             {
-                    lerpStart += Time.deltaTime;
-                    if (lerpStart >= lerpTime)
-                    {
-                        lerpStart = lerpTime;
+                lerpStart += Time.deltaTime;
+                if (lerpStart >= lerpTime)
+                {
+                    lerpStart = lerpTime;
+                }
 
-                        frontfree = false;
-                        leftfree = false;
-                        rightfree = false;
-                    }
+                spreadFactor = Mathf.Clamp(spreadFactor, 0f, 0.2f);
             }
 
             //Collectable item menu
@@ -744,6 +754,8 @@ public class PlayerLogic : MonoBehaviour {
                     inspectView = true;
                     collectScript.SetSelected();
                     collectScript.InspectItem();
+                    quickInspect = true;
+                    Debug.Log(pauseGame + "," + itemView + "," + inspectView);
                 }
                 else
                 {
@@ -759,6 +771,28 @@ public class PlayerLogic : MonoBehaviour {
                         if (interactHit.collider.tag == "Collectable")
                         {
                             collectScript.CollectItem(interactHit.collider.gameObject);
+                        }
+
+                        if (interactHit.collider.tag == "PistolBox")
+                        {
+                            weapons[1].remainingAmmo += 12;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+                        else if (interactHit.collider.tag == "PistolAmmo")
+                        {
+                            weapons[1].remainingAmmo += 4;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+
+                        if (interactHit.collider.tag == "RifleBox")
+                        {
+                            weapons[0].remainingAmmo += 30;
+                            Destroy(interactHit.collider.gameObject);
+                        }
+                        else if (interactHit.collider.tag == "RifleAmmo")
+                        {
+                            weapons[0].remainingAmmo += 7;
+                            Destroy(interactHit.collider.gameObject);
                         }
                     }
                 }
@@ -788,10 +822,17 @@ public class PlayerLogic : MonoBehaviour {
         //Crosshair Clamp
         crosshairScale -= 1f;
         crosshairScale = Mathf.Clamp(crosshairScale, 0f, 70f);
-        crosshairLeft.transform.localPosition = new Vector3(-crosshairScale, 0, 0);
-        crosshairRight.transform.localPosition = new Vector3(crosshairScale, 0, 0);
-        crosshairTop.transform.localPosition = new Vector3(0, crosshairScale, 0);
-        crosshairBottom.transform.localPosition = new Vector3(0, -crosshairScale, 0);
+
+        //Shoot Spread
+        spreadFactor -= 0.001f;
+
+        if (!aimDownSight)
+        {
+            crosshairLeft.transform.localPosition = new Vector3(-crosshairScale, 0, 0);
+            crosshairRight.transform.localPosition = new Vector3(crosshairScale, 0, 0);
+            crosshairTop.transform.localPosition = new Vector3(0, crosshairScale, 0);
+            crosshairBottom.transform.localPosition = new Vector3(0, -crosshairScale, 0);
+        }
 
         switch (currentWeaponIndex)
         {
@@ -807,31 +848,18 @@ public class PlayerLogic : MonoBehaviour {
 
                 if (aimDownSight)
                 {
-                    scopeCam.SetActive(true);
                     rifleObject.transform.position = Vector3.Lerp(rifleHip.transform.position, rifleSight.transform.position, lerpStart / lerpTime);
-
-                    if (focus)
-                    {
-                        focusCam.SetActive(false);
-                        scopeFocusCam.SetActive(true);
-                    }
-                    else if (!focus)
-                    {
-                        scopeFocusCam.SetActive(false);
-                    }
                     rifleAnimator.SetBool("Scoped", true);
                 }
 
                 if (!aimDownSight)
                 {
-                    scopeCam.SetActive(false);
                     rifleObject.transform.position = Vector3.Lerp(rifleSight.transform.position, rifleHip.transform.position, lerpStart / lerpTime);
                     rifleAnimator.SetBool("Scoped", false);
                 }
                 break;
 
             case 1:
-                scopeCam.SetActive(false);
                 if (currentState == PlayerStates.Run)
                 {
                     pistolAnimator.SetBool("Sprinting", true);
@@ -1006,8 +1034,9 @@ public class PlayerLogic : MonoBehaviour {
         }
         else //Normal reload
         {
+            int fillUp = weapons[currentWeaponIndex].magazineSize - weapons[currentWeaponIndex].currentAmmo;
             weapons[currentWeaponIndex].currentAmmo = weapons[currentWeaponIndex].magazineSize;
-            weapons[currentWeaponIndex].remainingAmmo -= weapons[currentWeaponIndex].magazineSize;
+            weapons[currentWeaponIndex].remainingAmmo -= fillUp;
 
             if (currentWeaponIndex == 0)
             {

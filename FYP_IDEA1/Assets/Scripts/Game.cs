@@ -54,8 +54,8 @@ public class Game{
             MutantData currentMutant = new MutantData();
             currentMutant.mutantObject = mutantObject;
             currentMutant.lastTransform = mutantObject.transform;
-            currentMutant.currentState = mutantObject.GetComponent<MutantBaseClass>().ReturnState();
-            currentMutant.health = mutantObject.GetComponent<MutantBaseClass>().health;
+            currentMutant.currentState = mutantObject.GetComponent<MutantSimple>().ReturnState();
+            currentMutant.health = mutantObject.GetComponent<MutantSimple>().health;
 
             Debug.Log(currentMutant.mutantObject + "," + currentMutant.lastTransform + "," + currentMutant.currentState + "," + currentMutant.health);
 
