@@ -12510,6 +12510,47 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: e42cb94ff663eb546b5fd2ffe115a1c0, type: 3}
   m_PrefabInternal: {fileID: 359707029}
+--- !u!1 &359726525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 359726526}
+  - 65: {fileID: 359726527}
+  m_Layer: 0
+  m_Name: Staircase Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &359726526
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359726525}
+  m_LocalRotation: {x: -0, y: -0, z: 0.42731696, w: 0.9041019}
+  m_LocalPosition: {x: -1.4, y: 1.89, z: 1.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50.335003}
+  m_Children: []
+  m_Father: {fileID: 2105688874}
+  m_RootOrder: 41
+--- !u!65 &359726527
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359726525}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 6.78, z: 2.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &359753169
 GameObject:
   m_ObjectHideFlags: 0
@@ -28399,6 +28440,35 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 65000012732290386, guid: fc484001945d60a4da5c69adda4f4746,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000011044737956, guid: fc484001945d60a4da5c69adda4f4746,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000012915605034, guid: fc484001945d60a4da5c69adda4f4746,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000012825890450, guid: fc484001945d60a4da5c69adda4f4746,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000011114317394, guid: fc484001945d60a4da5c69adda4f4746,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013397760124, guid: fc484001945d60a4da5c69adda4f4746, type: 2}
+      propertyPath: m_RootOrder
+      value: 42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc484001945d60a4da5c69adda4f4746, type: 2}
   m_IsPrefabParent: 0
@@ -30329,6 +30399,47 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7010e62ba31a49e41a52cfdae500b9a0, type: 3}
   m_PrefabInternal: {fileID: 855025607}
+--- !u!1 &855598362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 855598363}
+  - 65: {fileID: 855598364}
+  m_Layer: 0
+  m_Name: Staircase Collider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &855598363
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855598362}
+  m_LocalRotation: {x: -0, y: -0, z: 0.42731696, w: 0.9041019}
+  m_LocalPosition: {x: -11.97, y: 1.8899999, z: 1.06}
+  m_LocalScale: {x: 1.0000005, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50.335003}
+  m_Children: []
+  m_Father: {fileID: 2105688874}
+  m_RootOrder: 43
+--- !u!65 &855598364
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855598362}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 6.78, z: 2.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &857568069
 Prefab:
   m_ObjectHideFlags: 0
