@@ -117,6 +117,7 @@ public class PlayerLogic : MonoBehaviour {
     public bool focus;
 
     public byte currentWeaponIndex;
+    bool stabbing;
 
     public float playerHealth;
     public float playerSpeed;
@@ -292,6 +293,7 @@ public class PlayerLogic : MonoBehaviour {
         
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
+        stabbing = false;
 
         timeStamp = Time.time;
         reloadState = false;
@@ -491,7 +493,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Reload key ("R" key)
-            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
             {
                 reloadState = true;
                 timeStamp = Time.time;
@@ -510,7 +512,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Left Mouse Button Shoot
-            if (Input.GetMouseButton(0) && currentState != PlayerStates.Run)
+            if (Input.GetMouseButton(0) && currentState != PlayerStates.Run && !stabbing)
             {
                 if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
                 {
@@ -554,8 +556,15 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
+            //'G' Key Stabbing
+            if (Input.GetKeyDown(KeyCode.G) && !stabbing)
+            {
+                stabbing = true;
+                StartCoroutine(Stab());
+            }
 
-            if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
+            //Right Mouse Button Scope In
+            if (Input.GetMouseButton(1) && currentState != PlayerStates.Run && !stabbing)
             {
                 if (!aimDownSight && !reloadState)
                 {
@@ -627,7 +636,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Check for Reload need
-            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
+            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
             {
                 reloadState = true;
                 timeStamp = Time.time;
@@ -825,6 +834,7 @@ public class PlayerLogic : MonoBehaviour {
 
         //Shoot Spread
         spreadFactor -= 0.001f;
+        spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
 
         if (!aimDownSight)
         {
@@ -891,19 +901,29 @@ public class PlayerLogic : MonoBehaviour {
         shootDirection.y += (Random.Range(-spreadFactor, spreadFactor))/10;
 
         Ray ray = new Ray(camTransform.position, shootDirection);
-        
+        HitData hitData = new HitData();
 
         if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
         {
             if (hit.collider.tag == "Mutant" || hit.collider.tag == "MutantBack")
             {
-                hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
+                hitData.damageValue = weapons[currentWeaponIndex].damageValue;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
                 StartCoroutine(Blink());
                 gunShotScript.CreateMark(true, hit);
             }
             else if (hit.collider.tag == "MutantHead")
             {
-                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", 6969);
+                hitData.damageValue = 6969;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
                 StartCoroutine(Blink());
                 gunShotScript.CreateMark(true, hit);
             }
@@ -911,14 +931,48 @@ public class PlayerLogic : MonoBehaviour {
             {
                 gunShotScript.CreateMark(false, hit);
             }
-            //Debug.Log(hit.collider.name);
+            Debug.Log(hit.collider.name);
         }
         GunNoise();
     }
 
     IEnumerator Stab()
     {
-        yield return new WaitForSeconds(2f);
+        rifleObject.SetActive(false);
+        knifeObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Ray ray = new Ray(camTransform.position, camTransform.forward);
+        HitData hitData = new HitData();
+
+        if (Physics.Raycast(ray, out hit, 5f))
+        {
+            if (hit.collider.tag == "Mutant" || hit.collider.tag == "MutantBack")
+            {
+                hitData.damageValue = weapons[currentWeaponIndex].damageValue;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
+                StartCoroutine(Blink());
+                gunShotScript.CreateMark(true, hit);
+            }
+            else if (hit.collider.tag == "MutantHead")
+            {
+                hitData.damageValue = 6969;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
+                StartCoroutine(Blink());
+                gunShotScript.CreateMark(true, hit);
+            }
+        }
+        yield return new WaitForSeconds(0.5f);
+        knifeObject.SetActive(false);
+        rifleObject.SetActive(true);
+        stabbing = false;
     }
 
     void GunNoise()

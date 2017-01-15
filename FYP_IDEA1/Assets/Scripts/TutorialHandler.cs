@@ -157,8 +157,6 @@ public class TutorialHandler : MonoBehaviour {
             {
                 DismissTutorial();
             }
-
-            Debug.Log(currentState + "," + triggered + "," + transition);
         }
     }
 
@@ -192,7 +190,6 @@ public class TutorialHandler : MonoBehaviour {
 
     void FadeDelay()
     {
-        Debug.Log(currentState);
         if (timer < timerLimit)
         {
             timer += Time.deltaTime;
