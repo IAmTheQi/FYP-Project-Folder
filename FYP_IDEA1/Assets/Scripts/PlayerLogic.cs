@@ -45,7 +45,6 @@ public class PlayerLogic : MonoBehaviour {
     public bool aimDownSight;
 
     GameObject ammoText;
-    GameObject reloadText;
     GameObject weaponIcon;
 
     GameObject hitMarker;
@@ -223,8 +222,6 @@ public class PlayerLogic : MonoBehaviour {
         hitMarker.SetActive(false);
 
         ammoText = GameObject.Find("AmmoText");
-        reloadText = GameObject.Find("ReloadText");
-        reloadText.SetActive(false);
         weaponIcon = GameObject.Find("Weapon Icon");
 
         healthBar = GameObject.Find("Health Bar");
@@ -654,7 +651,6 @@ public class PlayerLogic : MonoBehaviour {
 
             if (reloadState)
             {
-                reloadText.SetActive(true);
                 if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
                 {
                     ReloadWeapon();
@@ -1103,7 +1099,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         
         reloadState = false;
-        reloadText.SetActive(false);
     }
 
     public IEnumerator SwitchWeapon(int target)
