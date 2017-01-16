@@ -1458,22 +1458,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000010578099314
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000010823068362}
-  - 65: {fileID: 65000011207471518}
-  m_Layer: 0
-  m_Name: BackCollider
-  m_TagString: MutantBack
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000010589249154
 GameObject:
   m_ObjectHideFlags: 1
@@ -13082,7 +13066,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 123.006004, z: 0}
   m_Children:
   - {fileID: 4000010756719872}
-  - {fileID: 4000010823068362}
   - {fileID: 4000012964810136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -15110,19 +15093,6 @@ Transform:
   - {fileID: 4000013794726624}
   m_Father: {fileID: 4000010034169054}
   m_RootOrder: 0
---- !u!4 &4000010823068362
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010578099314}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.052698, y: -0.68, z: -0.81242}
-  m_LocalScale: {x: 1.0319407, y: 1.2074182, z: 1.3759208}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000010083280510}
-  m_RootOrder: 1
 --- !u!4 &4000010829424138
 Transform:
   m_ObjectHideFlags: 1
@@ -21061,7 +21031,7 @@ Transform:
   - {fileID: 4000013915752032}
   - {fileID: 4000012589921930}
   m_Father: {fileID: 4000010083280510}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &4000012978951664
 Transform:
   m_ObjectHideFlags: 1
@@ -25068,18 +25038,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000011207471518
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010578099314}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7684704, y: 1.368556, z: 0.16232419}
-  m_Center: {x: 0.035869602, y: 1.1262121, z: 0.16883846}
 --- !u!65 &65000011760385108
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -25113,7 +25071,7 @@ Animator:
   m_GameObject: {fileID: 1000012263637058}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a7736dce4854f864a805532525cee485, type: 3}
-  m_Controller: {fileID: 9100000, guid: 09b426f09a2fa4a4da7b35e213bda767, type: 2}
+  m_Controller: {fileID: 9100000, guid: 109a304bcc6270f4886847d286959cfc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1

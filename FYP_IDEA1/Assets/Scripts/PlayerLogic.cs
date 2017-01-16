@@ -965,11 +965,11 @@ public class PlayerLogic : MonoBehaviour {
 
     void GunNoise()
     {
-        GameObject[] mutantObjects = FindObjectsOfType(typeof(MutantSimple)) as GameObject[];
+        GameObject[] mutantObjects = GameObject.FindGameObjectsWithTag("Mutant");
         int i = 0;
         while (i < mutantObjects.Length)
         {
-            if (mutantObjects[i].gameObject.GetComponent<MutantSimple>() != null)
+            if (mutantObjects[i].GetComponent<MutantSimple>() != null)
             {
                 mutantObjects[i].SendMessage("PlayerEnter");
             }
