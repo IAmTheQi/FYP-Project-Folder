@@ -399,7 +399,6 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
-                        //Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
                         {
                             ChangeSurface("Concrete");
@@ -453,7 +452,6 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
             {
                 walkingParam.setValue(speedModifier * currentVelocity);
-                //Debug.Log(speedModifier * currentVelocity);
             }
             else
             {
@@ -764,14 +762,12 @@ public class PlayerLogic : MonoBehaviour {
                     collectScript.SetSelected();
                     collectScript.InspectItem();
                     quickInspect = true;
-                    Debug.Log(pauseGame + "," + itemView + "," + inspectView);
                 }
                 else
                 {
                     Ray ray = new Ray(camTransform.position, camTransform.forward);
                     if (Physics.Raycast(ray, out interactHit, 7))
                     {
-                        Debug.Log(interactHit.collider.gameObject.name);
                         if (interactHit.collider.tag == "Interactable")
                         {
                             interactHit.collider.gameObject.SendMessage("Activate");
@@ -834,7 +830,6 @@ public class PlayerLogic : MonoBehaviour {
 
         //Shoot Spread
         spreadFactor -= 0.001f;
-        spreadFactor = Mathf.Clamp(spreadFactor, 0f, 1f);
 
         if (!aimDownSight)
         {
@@ -931,7 +926,6 @@ public class PlayerLogic : MonoBehaviour {
             {
                 gunShotScript.CreateMark(false, hit);
             }
-            Debug.Log(hit.collider.name);
         }
         GunNoise();
     }
