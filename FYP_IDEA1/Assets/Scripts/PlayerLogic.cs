@@ -965,13 +965,13 @@ public class PlayerLogic : MonoBehaviour {
 
     void GunNoise()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRange);
+        GameObject[] mutantObjects = FindObjectsOfType(typeof(MutantSimple)) as GameObject[];
         int i = 0;
-        while (i < hitColliders.Length)
+        while (i < mutantObjects.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<MutantSimple>() != null)
+            if (mutantObjects[i].gameObject.GetComponent<MutantSimple>() != null)
             {
-                hitColliders[i].SendMessage("PlayerEnter");
+                mutantObjects[i].SendMessage("PlayerEnter");
             }
             i++;
         }
