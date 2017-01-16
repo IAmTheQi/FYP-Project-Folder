@@ -15,7 +15,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject leanPivot;
     SmoothMouseLook lookScript;
     Transform camTransform;
-    Vector3 startPosition;
 
     public GameObject flashlightObject;
 
@@ -45,7 +44,6 @@ public class PlayerLogic : MonoBehaviour {
     public bool aimDownSight;
 
     GameObject ammoText;
-    GameObject reloadText;
     GameObject weaponIcon;
 
     GameObject hitMarker;
@@ -177,8 +175,7 @@ public class PlayerLogic : MonoBehaviour {
     [FMODUnity.EventRef]
     public string knifeSound = "event:/Knife";
 
-
-    float param;
+    Animation dyingClip;
 
     // Use this for initialization
     void Start() {
@@ -215,16 +212,12 @@ public class PlayerLogic : MonoBehaviour {
         knifeAnimator = knifeObject.GetComponent<Animator>();
         pistolAnimator = pistolObject.GetComponent<Animator>();
 
-        startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
         aimDownSight = false;
 
         hitMarker = GameObject.Find("HitMarker");
         hitMarker.SetActive(false);
 
         ammoText = GameObject.Find("AmmoText");
-        reloadText = GameObject.Find("ReloadText");
-        reloadText.SetActive(false);
         weaponIcon = GameObject.Find("Weapon Icon");
 
         healthBar = GameObject.Find("Health Bar");
@@ -309,6 +302,8 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.start();
         walkingParam.setValue(0.0f);
         surfaceParam.setValue(0.0f);
+
+        dyingClip = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -654,7 +649,6 @@ public class PlayerLogic : MonoBehaviour {
 
             if (reloadState)
             {
-                reloadText.SetActive(true);
                 if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
                 {
                     ReloadWeapon();
@@ -678,7 +672,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 bloodAlpha = bloodOverlay.GetComponent<Image>().color;
                 bloodAlpha.a += 0.05f;
-                if (playerHealth <= 0)
+                if (playerHealth <= 0 && !dead)
                 {
                     playerHealth = 0;
                     StartCoroutine(KillPlayer());
@@ -1018,8 +1012,9 @@ public class PlayerLogic : MonoBehaviour {
     IEnumerator KillPlayer()
     {
         dead = true;
+        dyingClip["PlayerFall"].wrapMode = WrapMode.Once;
+        dyingClip.Play("PlayerFall");
         yield return new WaitForSeconds(3.0f);
-        transform.position = startPosition;
     }
 
     public bool IsDead()
@@ -1103,7 +1098,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         
         reloadState = false;
-        reloadText.SetActive(false);
     }
 
     public IEnumerator SwitchWeapon(int target)
