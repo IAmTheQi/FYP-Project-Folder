@@ -4517,6 +4517,7 @@ GameObject:
   - 4: {fileID: 4000010083280510}
   - 195: {fileID: 195000013812820594}
   - 114: {fileID: 114000011687416280}
+  - 114: {fileID: 114000010947333224}
   m_Layer: 0
   m_Name: Mutant_Simple
   m_TagString: Mutant
@@ -25078,6 +25079,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010947333224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011423532822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f26e7ca62c0fc4ca4e691d45bd1b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollToMecanimBlendTime: 0.5
 --- !u!114 &114000011016868766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -25251,7 +25264,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 80544fc640069a5459f40918b8c33be1, type: 2}
+  - {fileID: 2100000, guid: 3a5950f993b865447884c07f1c63d087, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

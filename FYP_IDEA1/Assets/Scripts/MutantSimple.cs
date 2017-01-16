@@ -155,17 +155,20 @@ public class MutantSimple : MonoBehaviour
         }
         dead = true;
         FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
-
         DeleteColliders();
         mutantAnimator.enabled = false;
-        Component[] components = GetComponentsInChildren(typeof(Rigidbody));
+
+        /*Component[] components = GetComponentsInChildren(typeof(Rigidbody));
 
         foreach(Component component in components)
         {
             (component as Rigidbody).isKinematic = value;
-        }
+        }*/
 
         //Debug.Log(target.impactTarget.name);
+
+        RagdollHelper ragdollHelper = GetComponent<RagdollHelper>();
+        ragdollHelper.ragdolled = true;
     }
 
     public void TakeDamage(HitData value)
