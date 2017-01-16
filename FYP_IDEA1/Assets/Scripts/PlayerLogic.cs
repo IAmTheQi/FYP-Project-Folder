@@ -15,7 +15,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject leanPivot;
     SmoothMouseLook lookScript;
     Transform camTransform;
-    Vector3 startPosition;
 
     public GameObject flashlightObject;
 
@@ -176,8 +175,7 @@ public class PlayerLogic : MonoBehaviour {
     [FMODUnity.EventRef]
     public string knifeSound = "event:/Knife";
 
-
-    float param;
+    Animation dyingClip;
 
     // Use this for initialization
     void Start() {
@@ -213,8 +211,6 @@ public class PlayerLogic : MonoBehaviour {
         rifleAnimator = rifleObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         knifeAnimator = knifeObject.GetComponent<Animator>();
         pistolAnimator = pistolObject.GetComponent<Animator>();
-
-        startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         aimDownSight = false;
 
@@ -306,6 +302,8 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.start();
         walkingParam.setValue(0.0f);
         surfaceParam.setValue(0.0f);
+
+        dyingClip = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -674,7 +672,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 bloodAlpha = bloodOverlay.GetComponent<Image>().color;
                 bloodAlpha.a += 0.05f;
-                if (playerHealth <= 0)
+                if (playerHealth <= 0 && !dead)
                 {
                     playerHealth = 0;
                     StartCoroutine(KillPlayer());
@@ -1014,8 +1012,9 @@ public class PlayerLogic : MonoBehaviour {
     IEnumerator KillPlayer()
     {
         dead = true;
+        dyingClip["PlayerFall"].wrapMode = WrapMode.Once;
+        dyingClip.Play("PlayerFall");
         yield return new WaitForSeconds(3.0f);
-        transform.position = startPosition;
     }
 
     public bool IsDead()
