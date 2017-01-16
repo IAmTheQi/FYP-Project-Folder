@@ -57,6 +57,9 @@ public class PlayerLogic : MonoBehaviour {
     GameObject shadowOverlay;
     Color shadowAlpha;
 
+    GameObject[] hitFeedbackArray;
+    int feedbackIndex;
+
     GameObject itemMenu;
     GameObject pauseMenu;
     GameObject optionsMenu;
@@ -175,8 +178,6 @@ public class PlayerLogic : MonoBehaviour {
     [FMODUnity.EventRef]
     public string knifeSound = "event:/Knife";
 
-    Animation dyingClip;
-
     // Use this for initialization
     void Start() {
         gameController = GameObject.Find("GameController");
@@ -242,6 +243,13 @@ public class PlayerLogic : MonoBehaviour {
         shadowOverlay = GameObject.Find("ShadowOverlay");
         shadowAlpha = shadowOverlay.GetComponent<Image>().color;
 
+        hitFeedbackArray = new GameObject[5];
+        for (int k = 0; k< hitFeedbackArray.Length; k++)
+        {
+            hitFeedbackArray[k] = GameObject.Find("HitFeedback (" + k + ")");
+        }
+        feedbackIndex = 0;
+
         itemMenu = GameObject.Find("ItemSelect");
         itemMenu.SetActive(false);
         pauseMenu = GameObject.Find("PauseMenu");
@@ -302,8 +310,6 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.start();
         walkingParam.setValue(0.0f);
         surfaceParam.setValue(0.0f);
-
-        dyingClip = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -486,7 +492,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Reload key ("R" key)
-            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing && (weapons[currentWeaponIndex].currentAmmo == weapons[currentWeaponIndex].magazineSize))
             {
                 reloadState = true;
                 timeStamp = Time.time;
@@ -1006,14 +1012,22 @@ public class PlayerLogic : MonoBehaviour {
     {
         playerHealth -= value;
         regenTimer = 0.0f;
+
+        hitFeedbackArray[feedbackIndex].GetComponent<SlashLogic>().Activate();
+        if (feedbackIndex < hitFeedbackArray.Length)
+        {
+            feedbackIndex += 1;
+        }
+        else
+        {
+            feedbackIndex = 0;
+        }
     }
 
     //Die function
     IEnumerator KillPlayer()
     {
         dead = true;
-        dyingClip["PlayerFall"].wrapMode = WrapMode.Once;
-        dyingClip.Play("PlayerFall");
         yield return new WaitForSeconds(3.0f);
     }
 
