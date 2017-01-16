@@ -15,7 +15,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject leanPivot;
     SmoothMouseLook lookScript;
     Transform camTransform;
-    Vector3 startPosition;
 
     public GameObject flashlightObject;
 
@@ -45,7 +44,6 @@ public class PlayerLogic : MonoBehaviour {
     public bool aimDownSight;
 
     GameObject ammoText;
-    GameObject reloadText;
     GameObject weaponIcon;
 
     GameObject hitMarker;
@@ -117,6 +115,7 @@ public class PlayerLogic : MonoBehaviour {
     public bool focus;
 
     public byte currentWeaponIndex;
+    bool stabbing;
 
     public float playerHealth;
     public float playerSpeed;
@@ -176,8 +175,7 @@ public class PlayerLogic : MonoBehaviour {
     [FMODUnity.EventRef]
     public string knifeSound = "event:/Knife";
 
-
-    float param;
+    Animation dyingClip;
 
     // Use this for initialization
     void Start() {
@@ -214,16 +212,12 @@ public class PlayerLogic : MonoBehaviour {
         knifeAnimator = knifeObject.GetComponent<Animator>();
         pistolAnimator = pistolObject.GetComponent<Animator>();
 
-        startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
         aimDownSight = false;
 
         hitMarker = GameObject.Find("HitMarker");
         hitMarker.SetActive(false);
 
         ammoText = GameObject.Find("AmmoText");
-        reloadText = GameObject.Find("ReloadText");
-        reloadText.SetActive(false);
         weaponIcon = GameObject.Find("Weapon Icon");
 
         healthBar = GameObject.Find("Health Bar");
@@ -292,6 +286,7 @@ public class PlayerLogic : MonoBehaviour {
         
         currentState = PlayerStates.Idle;
         currentWeaponIndex = 0;
+        stabbing = false;
 
         timeStamp = Time.time;
         reloadState = false;
@@ -307,6 +302,8 @@ public class PlayerLogic : MonoBehaviour {
         walkingEv.start();
         walkingParam.setValue(0.0f);
         surfaceParam.setValue(0.0f);
+
+        dyingClip = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -397,7 +394,6 @@ public class PlayerLogic : MonoBehaviour {
 
                     if (Physics.Raycast(surfaceRay, out surfaceHit, controller.height))
                     {
-                        //Debug.LogFormat("name:{0}       tag:{1}",surfaceHit.collider.name, surfaceHit.collider.tag);
                         if (surfaceHit.collider.tag == "Concrete")
                         {
                             ChangeSurface("Concrete");
@@ -451,7 +447,6 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0)
             {
                 walkingParam.setValue(speedModifier * currentVelocity);
-                //Debug.Log(speedModifier * currentVelocity);
             }
             else
             {
@@ -491,7 +486,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Reload key ("R" key)
-            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
             {
                 reloadState = true;
                 timeStamp = Time.time;
@@ -510,7 +505,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Left Mouse Button Shoot
-            if (Input.GetMouseButton(0) && currentState != PlayerStates.Run)
+            if (Input.GetMouseButton(0) && currentState != PlayerStates.Run && !stabbing)
             {
                 if (Time.time > (timeStamp + weapons[currentWeaponIndex].shootDelay) && !reloadState)
                 {
@@ -554,8 +549,15 @@ public class PlayerLogic : MonoBehaviour {
                 }
             }
 
+            //'G' Key Stabbing
+            if (Input.GetKeyDown(KeyCode.G) && !stabbing)
+            {
+                stabbing = true;
+                StartCoroutine(Stab());
+            }
 
-            if (Input.GetMouseButton(1) && currentState != PlayerStates.Run)
+            //Right Mouse Button Scope In
+            if (Input.GetMouseButton(1) && currentState != PlayerStates.Run && !stabbing)
             {
                 if (!aimDownSight && !reloadState)
                 {
@@ -627,7 +629,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Check for Reload need
-            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0)
+            if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
             {
                 reloadState = true;
                 timeStamp = Time.time;
@@ -647,7 +649,6 @@ public class PlayerLogic : MonoBehaviour {
 
             if (reloadState)
             {
-                reloadText.SetActive(true);
                 if (Time.time >= timeStamp + weapons[currentWeaponIndex].reloadDelay)
                 {
                     ReloadWeapon();
@@ -671,7 +672,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 bloodAlpha = bloodOverlay.GetComponent<Image>().color;
                 bloodAlpha.a += 0.05f;
-                if (playerHealth <= 0)
+                if (playerHealth <= 0 && !dead)
                 {
                     playerHealth = 0;
                     StartCoroutine(KillPlayer());
@@ -755,14 +756,12 @@ public class PlayerLogic : MonoBehaviour {
                     collectScript.SetSelected();
                     collectScript.InspectItem();
                     quickInspect = true;
-                    Debug.Log(pauseGame + "," + itemView + "," + inspectView);
                 }
                 else
                 {
                     Ray ray = new Ray(camTransform.position, camTransform.forward);
                     if (Physics.Raycast(ray, out interactHit, 7))
                     {
-                        Debug.Log(interactHit.collider.gameObject.name);
                         if (interactHit.collider.tag == "Interactable")
                         {
                             interactHit.collider.gameObject.SendMessage("Activate");
@@ -891,19 +890,29 @@ public class PlayerLogic : MonoBehaviour {
         shootDirection.y += (Random.Range(-spreadFactor, spreadFactor))/10;
 
         Ray ray = new Ray(camTransform.position, shootDirection);
-        
+        HitData hitData = new HitData();
 
         if (Physics.Raycast(ray, out hit, weapons[currentWeaponIndex].range))
         {
             if (hit.collider.tag == "Mutant" || hit.collider.tag == "MutantBack")
             {
-                hit.collider.gameObject.SendMessage("TakeDamage", weapons[currentWeaponIndex].damageValue);
+                hitData.damageValue = weapons[currentWeaponIndex].damageValue;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
                 StartCoroutine(Blink());
                 gunShotScript.CreateMark(true, hit);
             }
             else if (hit.collider.tag == "MutantHead")
             {
-                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", 6969);
+                hitData.damageValue = 6969;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
                 StartCoroutine(Blink());
                 gunShotScript.CreateMark(true, hit);
             }
@@ -911,25 +920,58 @@ public class PlayerLogic : MonoBehaviour {
             {
                 gunShotScript.CreateMark(false, hit);
             }
-            //Debug.Log(hit.collider.name);
         }
         GunNoise();
     }
 
     IEnumerator Stab()
     {
-        yield return new WaitForSeconds(2f);
+        rifleObject.SetActive(false);
+        knifeObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Ray ray = new Ray(camTransform.position, camTransform.forward);
+        HitData hitData = new HitData();
+
+        if (Physics.Raycast(ray, out hit, 5f))
+        {
+            if (hit.collider.tag == "Mutant" || hit.collider.tag == "MutantBack")
+            {
+                hitData.damageValue = weapons[currentWeaponIndex].damageValue;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
+                StartCoroutine(Blink());
+                gunShotScript.CreateMark(true, hit);
+            }
+            else if (hit.collider.tag == "MutantHead")
+            {
+                hitData.damageValue = 6969;
+                hitData.hitPoint = hit;
+                hitData.ray = ray;
+                hitData.impactTarget = hit.rigidbody;
+
+                hit.collider.transform.root.gameObject.SendMessage("TakeDamage", hitData, SendMessageOptions.DontRequireReceiver);
+                StartCoroutine(Blink());
+                gunShotScript.CreateMark(true, hit);
+            }
+        }
+        yield return new WaitForSeconds(0.5f);
+        knifeObject.SetActive(false);
+        rifleObject.SetActive(true);
+        stabbing = false;
     }
 
     void GunNoise()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRange);
+        GameObject[] mutantObjects = GameObject.FindGameObjectsWithTag("Mutant");
         int i = 0;
-        while (i < hitColliders.Length)
+        while (i < mutantObjects.Length)
         {
-            if (hitColliders[i].gameObject.GetComponent<MutantSimple>() != null)
+            if (mutantObjects[i].GetComponent<MutantSimple>() != null)
             {
-                hitColliders[i].SendMessage("PlayerEnter");
+                mutantObjects[i].SendMessage("PlayerEnter");
             }
             i++;
         }
@@ -970,8 +1012,9 @@ public class PlayerLogic : MonoBehaviour {
     IEnumerator KillPlayer()
     {
         dead = true;
+        dyingClip["PlayerFall"].wrapMode = WrapMode.Once;
+        dyingClip.Play("PlayerFall");
         yield return new WaitForSeconds(3.0f);
-        transform.position = startPosition;
     }
 
     public bool IsDead()
@@ -1055,7 +1098,6 @@ public class PlayerLogic : MonoBehaviour {
         }
         
         reloadState = false;
-        reloadText.SetActive(false);
     }
 
     public IEnumerator SwitchWeapon(int target)

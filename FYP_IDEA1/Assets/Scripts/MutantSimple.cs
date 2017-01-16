@@ -26,14 +26,9 @@ public class MutantSimple : MonoBehaviour
     public float attackDelay;
     float timeStamp;
 
-    public GameObject focusRing;
-
     GameObject modelObject;
     Animator mutantAnimator;
     protected NavMeshAgent mutantAgent;
-
-    public GameObject backColliderObject;
-    public GameObject headColliderObject;
 
     [FMODUnity.EventRef]
     public string idleSound = "event:/Mutant/Idle";
@@ -62,8 +57,6 @@ public class MutantSimple : MonoBehaviour
         timeStamp = Time.time;
 
         attacking = false;
-
-        focusRing.SetActive(false);
 
         modelObject = transform.Find("MutantModel").gameObject;
         mutantAnimator = modelObject.GetComponent<Animator>();
@@ -130,28 +123,6 @@ public class MutantSimple : MonoBehaviour
                     mutantAnimator.SetTrigger("Kill");
                 }
             }
-
-            //Heartbeat sensing
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                playerObject.GetComponent<PlayerLogic>().focus = true;
-                if (Vector3.Distance(transform.position, playerObject.transform.position) < 500)
-                {
-                    //lineRenderer.enabled = true;
-                    focusRing.SetActive(true);
-                }
-                else
-                {
-                    //lineRenderer.enabled = false;
-                    focusRing.SetActive(false);
-                }
-            }
-            else if (Input.GetKeyUp(KeyCode.C))
-            {
-                playerObject.GetComponent<PlayerLogic>().focus = false;
-                //lineRenderer.enabled = false;
-                focusRing.SetActive(false);
-            }
         }
 
         if (dead)
@@ -176,16 +147,34 @@ public class MutantSimple : MonoBehaviour
         StopCoroutine(AlertMutant());
     }
 
-    public void TakeDamage(float value)
+    void Ragdoll(bool value, HitData target)
     {
-        if (value == 6969)
+        if (currentState != MutantStates.Chase || currentState != MutantStates.Alert)
         {
-            StartCoroutine(Death());
+            idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+        dead = true;
+        FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
+        DeleteColliders();
+        mutantAnimator.enabled = false;
+
+        RagdollHelper ragdollHelper = GetComponent<RagdollHelper>();
+        ragdollHelper.ragdolled = true;
+
+        target.impactTarget.AddForce(target.ray.direction * 1000f);
+    }
+
+    public void TakeDamage(HitData value)
+    {
+        if (value.damageValue == 6969)
+        {
+            health = 0;
+            Ragdoll(false, value);
         }
 
-        if ((health - value) > 0)
+        if ((health - value.damageValue) > 0)
         {
-            health -= value;
+            health -= value.damageValue;
 
             if (currentState != MutantStates.Chase)
             {
@@ -194,46 +183,20 @@ public class MutantSimple : MonoBehaviour
 
             FMODUnity.RuntimeManager.PlayOneShot(hitSound);
         }
-        else if ((health - value) <= 0)
+        else if ((health - value.damageValue) <= 0)
         {
             health = 0;
-            StartCoroutine(Die());
+            Ragdoll(false, value);
         }
     }
 
-    protected IEnumerator Death()
+    protected void Die()
     {
-        if (currentState != MutantStates.Chase || currentState != MutantStates.Alert)
-        {
-            idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        }
-        dead = true;
-        mutantAnimator.SetTrigger("Death");
-        FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
-        yield return new WaitForSeconds(2.5f);
-        DeleteColliders();
-        StopCoroutine(Death());
-    }
-
-    protected IEnumerator Die()
-    {
-        if (currentState != MutantStates.Chase || currentState != MutantStates.Alert)
-        {
-            idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        }
-        dead = true;
-        mutantAnimator.SetTrigger("Die");
-        FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
-        yield return new WaitForSeconds(2.5f);
-        DeleteColliders();
-        StopCoroutine(Die());
     }
 
     protected void DeleteColliders()
     {
         Destroy(this.GetComponent<CapsuleCollider>());
-        Destroy(headColliderObject);
-        Destroy(backColliderObject);
     }
 
     protected void AttackPlayer()
