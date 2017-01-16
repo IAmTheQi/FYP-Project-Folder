@@ -158,17 +158,10 @@ public class MutantSimple : MonoBehaviour
         DeleteColliders();
         mutantAnimator.enabled = false;
 
-        /*Component[] components = GetComponentsInChildren(typeof(Rigidbody));
-
-        foreach(Component component in components)
-        {
-            (component as Rigidbody).isKinematic = value;
-        }*/
-
-        //Debug.Log(target.impactTarget.name);
-
         RagdollHelper ragdollHelper = GetComponent<RagdollHelper>();
         ragdollHelper.ragdolled = true;
+
+        target.impactTarget.AddForce(target.ray.direction * 1000f);
     }
 
     public void TakeDamage(HitData value)
