@@ -334,7 +334,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 itemMenu.SetActive(true);
 
-                if (Input.GetKeyDown(KeyCode.F) && !inspectView)
+                if (Input.GetKeyDown(KeyCode.E) && !inspectView)
                 {
                     ButtonTrigger("inspect");
                 }
@@ -556,7 +556,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //'G' Key Stabbing
-            if (Input.GetKeyDown(KeyCode.G) && !stabbing)
+            if (Input.GetKeyDown(KeyCode.F) && !stabbing)
             {
                 stabbing = true;
                 StartCoroutine(Stab());
@@ -752,7 +752,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Item Interaction & Collection
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (collectScript.IsPrompting())
                 {
@@ -932,8 +932,17 @@ public class PlayerLogic : MonoBehaviour {
 
     IEnumerator Stab()
     {
-        rifleObject.SetActive(false);
+        if (currentWeaponIndex == 0)
+        {
+            rifleObject.SetActive(false);
+        }
+        else if (currentWeaponIndex == 1)
+        {
+            pistolObject.SetActive(false);
+        }
+
         knifeObject.SetActive(true);
+
         yield return new WaitForSeconds(0.5f);
         Ray ray = new Ray(camTransform.position, camTransform.forward);
         HitData hitData = new HitData();
@@ -965,7 +974,15 @@ public class PlayerLogic : MonoBehaviour {
         }
         yield return new WaitForSeconds(0.5f);
         knifeObject.SetActive(false);
-        rifleObject.SetActive(true);
+
+        if (currentWeaponIndex == 0)
+        {
+            rifleObject.SetActive(true);
+        }
+        else if (currentWeaponIndex == 1)
+        {
+            pistolObject.SetActive(true);
+        }
         stabbing = false;
     }
 
