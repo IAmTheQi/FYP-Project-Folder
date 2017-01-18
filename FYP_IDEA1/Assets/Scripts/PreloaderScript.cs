@@ -15,6 +15,8 @@ public class PreloaderScript : MonoBehaviour {
     void Awake()
     {
         StartCoroutine(LoadScene());
+
+        loadScene = false;
     }
 	
 	// Update is called once per frame
@@ -28,13 +30,17 @@ public class PreloaderScript : MonoBehaviour {
         async = SceneManager.LoadSceneAsync(scene);
         async.allowSceneActivation = false;
 
-        /*if (async.progress >= 100f)
+        if (async.isDone)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                loadScene = true;
+            }
+        }
+
+        while(loadScene)
         {
             async.allowSceneActivation = true;
-        }*/
-
-        while(!async.isDone)
-        {
             yield return null;
         }
     }
