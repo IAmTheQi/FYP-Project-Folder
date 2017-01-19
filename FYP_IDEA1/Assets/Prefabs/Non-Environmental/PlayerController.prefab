@@ -2201,7 +2201,7 @@ GameObject:
   - 114: {fileID: 114000013699120068}
   - 114: {fileID: 114000010154830916}
   - 114: {fileID: 114000012783476338}
-  - 111: {fileID: 111000014238747848}
+  - 111: {fileID: 111000012360080988}
   m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2881,7 +2881,7 @@ GameObject:
   - 4: {fileID: 4000012511112148}
   - 198: {fileID: 198000011224612788}
   - 199: {fileID: 199000010217673758}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: JermGunshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6059,7 +6059,7 @@ GameObject:
   - 4: {fileID: 4000010994001710}
   - 198: {fileID: 198000012454464012}
   - 199: {fileID: 199000012609540414}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: JermGunshot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10778,7 +10778,7 @@ Transform:
   m_GameObject: {fileID: 1000012963322058}
   m_LocalRotation: {x: -0.0000000470785, y: 0.7071068, z: -0.000000047078508, w: 0.7071067}
   m_LocalPosition: {x: -0.2356, y: -0.0068, z: -0.0015}
-  m_LocalScale: {x: 0.9425232, y: 0.9425353, z: 0.94252264}
+  m_LocalScale: {x: 0.16964471, y: 0.16964692, z: 0.16964465}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010660558580}
@@ -12533,10 +12533,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011130748310}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.2699995, z: -1.0199972}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.7479532, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013590348238}
   - {fileID: 4000012478548238}
@@ -16939,7 +16939,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012744788402}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -19.6, y: 5.329, z: 20.559}
+  m_LocalPosition: {x: -18.36, y: 5.26, z: 21.13}
   m_LocalScale: {x: 0.34338537, y: 0.3433856, z: 0.34338537}
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
   m_Children:
@@ -17787,7 +17787,7 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!111 &111000014238747848
+--- !u!111 &111000012360080988
 Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -17795,10 +17795,11 @@ Animation:
   m_GameObject: {fileID: 1000011130748310}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_Animation: {fileID: 7400000, guid: ead9e94505043a948b126504947f8e8d, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ead9e94505043a948b126504947f8e8d, type: 2}
+  m_WrapMode: 8
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &114000010154830916
@@ -18020,6 +18021,9 @@ MonoBehaviour:
   rifleReloadSound: event:/RifleReload
   pistolSound: event:/Pistol
   knifeSound: event:/Knife
+  playerGrunt: event:/Player VO/Grunt
+  playerDying: event:/Player VO/PlayerDying
+  playerIdlePrompt: event:/Player VO/IdleRemind
 --- !u!114 &114000012082452788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22140,7 +22144,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -573514852
+  randomSeed: 636603951
   InitialModule:
     serializedVersion: 2
     enabled: 1
