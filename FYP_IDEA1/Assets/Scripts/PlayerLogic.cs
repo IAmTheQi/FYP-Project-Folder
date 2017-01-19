@@ -969,6 +969,8 @@ public class PlayerLogic : MonoBehaviour {
 
         knifeObject.SetActive(true);
 
+        FMODUnity.RuntimeManager.PlayOneShot(knifeSound);
+
         yield return new WaitForSeconds(0.5f);
         Ray ray = new Ray(camTransform.position, camTransform.forward);
         HitData hitData = new HitData();

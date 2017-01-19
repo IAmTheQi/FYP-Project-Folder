@@ -26,10 +26,6 @@ public class TutorialHandler : MonoBehaviour {
     bool triggered;
     bool prompting;
 
-    bool ckey;
-    bool ctrlkey;
-    bool collected;
-
     float timer;
     float timerLimit;
 
@@ -50,10 +46,6 @@ public class TutorialHandler : MonoBehaviour {
         transition = false;
         triggered = true;
         prompting = true;
-
-        ckey = false;
-        ctrlkey = false;
-        collected = false;
 
         timer = 0f;
         timerLimit = 10f;
@@ -209,11 +201,6 @@ public class TutorialHandler : MonoBehaviour {
         prompting = false;
         IsPrompting();
         timer = 0;
-    }
-
-    public void Collect()
-    {
-        collected = true;
     }
 
     public void IsPrompting()
