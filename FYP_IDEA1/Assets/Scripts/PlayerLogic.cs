@@ -160,6 +160,11 @@ public class PlayerLogic : MonoBehaviour {
     bool regenHealth;
     bool dead;
 
+    float idleTimer;
+    float idleLimit;
+
+    Animation cameraAnimation;
+
     [FMODUnity.EventRef]
     public string footsteps = "event:/PlayerFootstep";
     FMOD.Studio.EventInstance walkingEv;
@@ -177,6 +182,15 @@ public class PlayerLogic : MonoBehaviour {
 
     [FMODUnity.EventRef]
     public string knifeSound = "event:/Knife";
+
+    [FMODUnity.EventRef]
+    public string playerGrunt = "event:/Player VO/Grunt";
+
+    [FMODUnity.EventRef]
+    public string playerDying = "event:/Player VO/PlayerDying";
+
+    [FMODUnity.EventRef]
+    public string playerIdlePrompt = "event:/Player VO/IdleRemind";
 
     // Use this for initialization
     void Start() {
@@ -304,6 +318,11 @@ public class PlayerLogic : MonoBehaviour {
         regenHealth = false;
         dead = false;
 
+        idleTimer = 0.0f;
+        idleLimit = 120.0f;
+
+        cameraAnimation = cam1.GetComponent<Animation>();
+
         walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
         walkingEv.getParameter("Speed", out walkingParam);
         walkingEv.getParameter("Surface", out surfaceParam);
@@ -371,7 +390,7 @@ public class PlayerLogic : MonoBehaviour {
                 itemMenu.SetActive(false);
             }
         }
-        else
+        else if (!pauseGame && !dead)
         {
             pauseMenu.SetActive(false);
             itemMenu.SetActive(false);
@@ -380,6 +399,7 @@ public class PlayerLogic : MonoBehaviour {
             {
                 if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
                 {
+                    idleTimer = 0;
                     moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                     currentVelocity += forwardAccelerationRate * Time.deltaTime;
                     moveDirection = transform.TransformDirection(moveDirection);
@@ -492,7 +512,7 @@ public class PlayerLogic : MonoBehaviour {
             }
 
             //Reload key ("R" key)
-            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing && (weapons[currentWeaponIndex].currentAmmo == weapons[currentWeaponIndex].magazineSize))
+            if (Input.GetKeyDown(KeyCode.R) && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing && weapons[currentWeaponIndex].currentAmmo < weapons[currentWeaponIndex].magazineSize)
             {
                 reloadState = true;
                 timeStamp = Time.time;
@@ -802,6 +822,8 @@ public class PlayerLogic : MonoBehaviour {
                     }
                 }
             }
+
+            IdleTimer();
         }
 
         
@@ -1016,22 +1038,15 @@ public class PlayerLogic : MonoBehaviour {
         StopCoroutine(MuzzleFlash(null));
     }
 
-    //Enemy detection
-    void OnControllerColliderHit(ControllerColliderHit collider)
-    {
-        /*if (collider.gameObject.tag == "Mutant")
-        {
-            `();
-        }*/
-    }
-
     public void TakeDamage(float value)
     {
-        playerHealth -= value;
+        //playerHealth -= value;
         regenTimer = 0.0f;
 
+        FMODUnity.RuntimeManager.PlayOneShot(playerGrunt);
+
         hitFeedbackArray[feedbackIndex].GetComponent<SlashLogic>().Activate();
-        if (feedbackIndex < hitFeedbackArray.Length)
+        if (feedbackIndex < hitFeedbackArray.Length - 1)
         {
             feedbackIndex += 1;
         }
@@ -1039,13 +1054,26 @@ public class PlayerLogic : MonoBehaviour {
         {
             feedbackIndex = 0;
         }
+        Debug.Log(feedbackIndex);
     }
 
     //Die function
     IEnumerator KillPlayer()
     {
         dead = true;
-        yield return new WaitForSeconds(3.0f);
+        if (currentWeaponIndex == 0)
+        {
+            rifleAnimator.SetTrigger("Swapping");
+        }
+        else if (currentWeaponIndex == 1)
+        {
+            pistolAnimator.SetTrigger("Swapping");
+        }
+
+        cameraAnimation.Play("Dying");
+        yield return new WaitForSeconds(5.0f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public bool IsDead()
@@ -1160,11 +1188,15 @@ public class PlayerLogic : MonoBehaviour {
         }
     }
 
-    public IEnumerator PlayerJump()
+    void IdleTimer()
     {
-        yield return new WaitForSeconds(0.25f);
+        idleTimer += Time.deltaTime;
 
-        
+        if (idleTimer >= idleLimit)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(playerIdlePrompt);
+            idleTimer = 0;
+        }
     }
     
     public void ChangeSurface(string target)
@@ -1222,28 +1254,4 @@ public class PlayerLogic : MonoBehaviour {
     {
         tutorialPrompt = !tutorialPrompt;
     }
-    /*
-    var bulletSpeed: float = 1000; // bullet speed in meters/second var shotSound: AudioClip;
-
-    //Delayed raycast shooting (KIV)
-    function Fire()
-    {
-        if (audio) audio.PlayOneShot(shotSound); // the sound plays immediately 
-        var hit: RaycastHit; // do the exploratory raycast first: 
-        if (Physics.Raycast(transform.position, transform.forward, hit))
-        {
-            var delay = hit.distance / bulletSpeed; // calculate the flight time 
-            var hitPt = hit.point;
-            hitPt.y -= delay * 9.8; // calculate the bullet drop at the target 
-            var dir = hitPt - transform.position; // use this to modify the shot direction 
-            yield WaitForSeconds(delay); // wait for the flight time 
-
-            // then do the actual shooting: 
-            if (Physics.Raycast(transform.position, dir, hit)
-            {
-                // do here the usual job when something is hit: 
-                // apply damage, instantiate particles etc. 
-            }
-        }
-    }*/
 }

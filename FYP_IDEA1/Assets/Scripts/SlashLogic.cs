@@ -59,9 +59,10 @@ public class SlashLogic : MonoBehaviour {
     void RandomTransform()
     {
         float scaleFactor = Random.Range(0.5f, 1.0f);
-        float offset = (GetComponent<RectTransform>().rect.width * scaleFactor) / 2;
-
-        GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(0, Screen.width - offset), -Random.Range(0, Screen.height - offset));
+        float offsetWidth = (Screen.width - GetComponent<RectTransform>().rect.width * scaleFactor) / 2;
+        float offsetHeight = (Screen.height - GetComponent<RectTransform>().rect.height * scaleFactor) / 2;
+        
+        GetComponent<RectTransform>().anchoredPosition = new Vector2((Random.Range(0, Screen.width) - Screen.width / 2), Random.Range(0, Screen.height) - Screen.height / 2);
         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         transform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
     }
