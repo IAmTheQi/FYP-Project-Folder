@@ -5,7 +5,7 @@
             <value>SomethingFeelsOff</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{b351a000-24b9-4920-8387-291857fdca2f}</destination>
@@ -118,7 +118,11 @@
             <destination>{3742cce3-b8c3-4f58-8f8e-c9e53edd7d1b}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{f953751d-ecdc-4367-9ea8-97d088a59830}"/>
+    <object class="MixerBusPanner" id="{f953751d-ecdc-4367-9ea8-97d088a59830}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{9199c0d1-a58f-4fb8-b214-df3263b643e8}"/>
     <object class="MixerBusEffectChain" id="{355e97e6-03d6-417a-a75b-130ad7792df8}">
         <relationship name="effects">

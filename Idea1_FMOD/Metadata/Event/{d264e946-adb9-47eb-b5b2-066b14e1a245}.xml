@@ -5,7 +5,7 @@
             <value>Prisoner_RadiationTest</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{2cf8ef6c-eed7-4b58-89ae-9cf5fec43209}</destination>
@@ -118,7 +118,11 @@
             <destination>{164cc9bd-b0d9-4334-8fab-8919f9fe8fa4}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{4e3dbf59-d422-4f3a-b735-1196c28e42e3}"/>
+    <object class="MixerBusPanner" id="{4e3dbf59-d422-4f3a-b735-1196c28e42e3}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{abba1a9d-a809-4650-bb60-60c191e1c2f5}"/>
     <object class="MixerBusEffectChain" id="{edf40a5f-c726-40b8-8615-2ab181a96602}">
         <relationship name="effects">

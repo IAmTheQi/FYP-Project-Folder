@@ -5,7 +5,7 @@
             <value>WhereWorkersStayed</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{d473329f-496c-4378-b68e-d4d9289e1f55}</destination>
@@ -118,7 +118,11 @@
             <destination>{ed638ce8-82a2-4bdd-a92c-7bdf18db685f}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{a44b9c6f-f717-4e30-9564-678e18bbb775}"/>
+    <object class="MixerBusPanner" id="{a44b9c6f-f717-4e30-9564-678e18bbb775}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{52b8771e-4c24-4e00-8ecc-447cdab7f443}"/>
     <object class="MixerBusEffectChain" id="{a8977e33-3366-4430-ae75-784bcb7fd587}">
         <relationship name="effects">

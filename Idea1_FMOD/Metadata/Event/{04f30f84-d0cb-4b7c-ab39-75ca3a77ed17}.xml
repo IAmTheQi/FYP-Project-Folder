@@ -5,7 +5,7 @@
             <value>CommandDoYouRead</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{43fee925-6ac1-4f1e-aca6-f55a56102a0e}</destination>
@@ -118,7 +118,11 @@
             <destination>{4fbdb04f-5fdf-4fe1-bc7b-13262d51d896}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{33c2b340-bb78-437e-8f55-ea9ea7e7e49f}"/>
+    <object class="MixerBusPanner" id="{33c2b340-bb78-437e-8f55-ea9ea7e7e49f}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{6e509f10-cbd8-454c-bcd3-bbdaf1ed1c57}"/>
     <object class="MixerBusEffectChain" id="{f9eff445-9920-4759-9f3d-0a101ee47300}">
         <relationship name="effects">

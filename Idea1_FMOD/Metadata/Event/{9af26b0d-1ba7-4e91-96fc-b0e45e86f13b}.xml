@@ -5,7 +5,7 @@
             <value>ShitGetOut</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{55beeab3-c865-4559-86ac-fc2fa6549209}</destination>
@@ -118,7 +118,11 @@
             <destination>{50d29322-1810-41c6-a089-a096eca9c1b8}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{c1d1471f-e188-4720-89f2-8f7b30f32699}"/>
+    <object class="MixerBusPanner" id="{c1d1471f-e188-4720-89f2-8f7b30f32699}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{d7d34709-af5a-44eb-ad4e-5ff67c710de5}"/>
     <object class="MixerBusEffectChain" id="{c5e45476-114c-44c0-b46c-78dfc5e18bd3}">
         <relationship name="effects">

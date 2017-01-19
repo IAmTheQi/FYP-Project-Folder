@@ -5,7 +5,7 @@
             <value>WerentAllowedToLeave</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{121b6ebf-5084-4402-bba2-0c2d974fa553}</destination>
@@ -118,7 +118,11 @@
             <destination>{3f17c411-6159-402d-8d4a-f3cf7a3fe69e}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{2d5e51fc-7af7-48d3-ba55-3e8089f3571c}"/>
+    <object class="MixerBusPanner" id="{2d5e51fc-7af7-48d3-ba55-3e8089f3571c}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{79c619e8-7882-4d52-a0aa-99c6776f5bec}"/>
     <object class="MixerBusEffectChain" id="{2c9cfc04-5c50-4990-b64f-070081a9ad3f}">
         <relationship name="effects">

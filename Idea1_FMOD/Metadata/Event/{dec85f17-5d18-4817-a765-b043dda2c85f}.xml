@@ -5,7 +5,7 @@
             <value>WhatsThis_ADiary</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{8c8b760c-5d73-4509-871c-0ae848418b3b}</destination>
@@ -118,7 +118,11 @@
             <destination>{e1e1a786-0f9d-4678-9764-b274972f0f3a}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{61438aa5-468c-4c19-95f8-16d00996d45b}"/>
+    <object class="MixerBusPanner" id="{61438aa5-468c-4c19-95f8-16d00996d45b}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{a7831f82-7d8c-4030-a351-0bdfbdaa3e8a}"/>
     <object class="MixerBusEffectChain" id="{c20fed70-6fef-4bf9-a662-d743e2e87667}">
         <relationship name="effects">

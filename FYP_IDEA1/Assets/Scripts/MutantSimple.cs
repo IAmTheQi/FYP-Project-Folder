@@ -63,6 +63,8 @@ public class MutantSimple : MonoBehaviour
         mutantAgent = GetComponent<NavMeshAgent>();
 
         idleEv = FMODUnity.RuntimeManager.CreateInstance(idleSound);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(idleEv, transform, GetComponent<Rigidbody>());
+        //idleEv.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform, GetComponent<Rigidbody>()));
         idleEv.start();
     }
 
@@ -101,6 +103,10 @@ public class MutantSimple : MonoBehaviour
                     }
                 }
             }
+            else if (currentState == MutantStates.Roam)
+            {
+                mutantAnimator.SetBool("Moving", true);
+            }
 
             if (!attacking)
             {
@@ -137,10 +143,8 @@ public class MutantSimple : MonoBehaviour
 
     public IEnumerator AlertMutant()
     {
-        idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        currentState = MutantStates.Alert;	
-        mutantAnimator.SetTrigger("Alert");
-        FMODUnity.RuntimeManager.PlayOneShot(alertSound);
+        currentState = MutantStates.Alert;
+        FMODUnity.RuntimeManager.PlayOneShot(alertSound, transform.position);
         yield return new WaitForSeconds(2.1f);
         mutantAnimator.SetBool("Chase", true);
         currentState = MutantStates.Chase;
@@ -154,7 +158,7 @@ public class MutantSimple : MonoBehaviour
             idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
         dead = true;
-        FMODUnity.RuntimeManager.PlayOneShot(dyingSound);
+        FMODUnity.RuntimeManager.PlayOneShot(dyingSound, transform.position);
         DeleteColliders();
         mutantAnimator.enabled = false;
 
@@ -162,6 +166,7 @@ public class MutantSimple : MonoBehaviour
         ragdollHelper.ragdolled = true;
 
         target.impactTarget.AddForce(target.ray.direction * 1000f);
+        idleEv.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     public void TakeDamage(HitData value)
@@ -181,7 +186,7 @@ public class MutantSimple : MonoBehaviour
                 StartCoroutine(AlertMutant());
             }
 
-            FMODUnity.RuntimeManager.PlayOneShot(hitSound);
+            FMODUnity.RuntimeManager.PlayOneShot(hitSound, transform.position);
         }
         else if ((health - value.damageValue) <= 0)
         {
@@ -202,7 +207,7 @@ public class MutantSimple : MonoBehaviour
     protected void AttackPlayer()
     {
         playerObject.GetComponent<PlayerLogic>().TakeDamage(damage);
-        FMODUnity.RuntimeManager.PlayOneShot(attackSound);
+        FMODUnity.RuntimeManager.PlayOneShot(attackSound, transform.position);
     }
 
     protected void KillPlayer()

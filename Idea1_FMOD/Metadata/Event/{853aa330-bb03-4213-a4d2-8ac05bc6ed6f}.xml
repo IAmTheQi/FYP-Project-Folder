@@ -5,7 +5,7 @@
             <value>MaybeICanFindMoreAmmo</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{31840b59-8c9e-4948-94d4-c4c6d0077f27}</destination>
@@ -118,7 +118,11 @@
             <destination>{7aa1b987-6e59-4b9a-b718-4017990efe54}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{76294ba0-df08-4615-8b60-37baa0da5eb2}"/>
+    <object class="MixerBusPanner" id="{76294ba0-df08-4615-8b60-37baa0da5eb2}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{9a2cf60f-3820-4ed2-8e09-19277cc9f25d}"/>
     <object class="MixerBusEffectChain" id="{7ca2a9b9-538e-4baf-b2d6-8c717d3ec28b}">
         <relationship name="effects">

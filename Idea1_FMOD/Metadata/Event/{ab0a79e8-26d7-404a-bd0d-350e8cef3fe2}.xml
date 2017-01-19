@@ -5,7 +5,7 @@
             <value>AJournal_TellMeMore</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{65453cd5-888d-4b43-a5f2-cdf5ef747ce9}</destination>
@@ -118,7 +118,11 @@
             <destination>{da8054f9-99be-4e46-938d-ce56758ea79d}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{0b3a08b7-c6d0-46bb-ae25-72a3c6c5da1e}"/>
+    <object class="MixerBusPanner" id="{0b3a08b7-c6d0-46bb-ae25-72a3c6c5da1e}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{390cbece-dbe8-435d-a4a7-97da63f8e337}"/>
     <object class="MixerBusEffectChain" id="{6b2a5b31-a526-4f79-9e13-c3f84fcf9c95}">
         <relationship name="effects">

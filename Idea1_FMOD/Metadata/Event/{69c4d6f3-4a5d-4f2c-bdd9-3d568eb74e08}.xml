@@ -5,7 +5,7 @@
             <value>Grunt</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{28c1b2e4-dc0f-4ecb-9feb-24082c600f84}</destination>
@@ -120,7 +120,11 @@
             <destination>{c15682a4-9535-45c4-ad44-a02bb1da21dd}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{7b46ac00-23b8-4861-b3a8-b7caa003875c}"/>
+    <object class="MixerBusPanner" id="{7b46ac00-23b8-4861-b3a8-b7caa003875c}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{759a7ae5-bbd2-48f8-b23c-837ea2e5e5d1}"/>
     <object class="SingleSound" id="{1c49fec1-2ee2-49ac-b9e6-57d4018dfac7}">
         <relationship name="audioFile">

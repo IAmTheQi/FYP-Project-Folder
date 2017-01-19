@@ -5,7 +5,7 @@
             <value>MilitaryIntervention</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{e06c8e97-258e-4eef-9623-0ca35919d388}</destination>
@@ -118,7 +118,11 @@
             <destination>{893bc5d9-7318-4a51-87ab-64772fac8e21}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{3369e083-85e1-48e8-a7e5-e05122e7e13a}"/>
+    <object class="MixerBusPanner" id="{3369e083-85e1-48e8-a7e5-e05122e7e13a}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{3c1f969e-1460-480a-a122-2329b5dba215}"/>
     <object class="MixerBusEffectChain" id="{1d2a50f3-463c-473a-bc3b-ae36933a94a9}">
         <relationship name="effects">

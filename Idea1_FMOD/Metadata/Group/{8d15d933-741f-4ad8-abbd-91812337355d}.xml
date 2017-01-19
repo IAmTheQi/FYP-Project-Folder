@@ -16,11 +16,53 @@
     </object>
     <object class="MixerBusEffectChain" id="{218377d4-3393-44c4-a38e-62f4062b4f4f}">
         <relationship name="effects">
+            <destination>{8101d342-cef6-4dc1-877a-92e9fcda7e7c}</destination>
+            <destination>{fd6a80a5-5ad0-42db-8f0e-bfe188e2b994}</destination>
+            <destination>{170ca690-26eb-472d-aee0-8a307e83a10d}</destination>
+            <destination>{2a632a5f-b7fa-4a04-b94d-d6af3849b98a}</destination>
             <destination>{5d892a56-e485-48ce-9685-54bea2ff01ce}</destination>
             <destination>{ed59f81a-c26a-4f45-8ed4-ce907445a5c7}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{66eca7ee-cf6a-4fae-b42f-55e20359072d}"/>
+    <object class="HighpassEffect" id="{8101d342-cef6-4dc1-877a-92e9fcda7e7c}">
+        <property name="cutoff">
+            <value>95</value>
+        </property>
+        <property name="resonance">
+            <value>5.0999999</value>
+        </property>
+    </object>
+    <object class="LowpassEffect" id="{fd6a80a5-5ad0-42db-8f0e-bfe188e2b994}">
+        <property name="cutoff">
+            <value>15000</value>
+        </property>
+        <property name="resonance">
+            <value>1.91999996</value>
+        </property>
+    </object>
+    <object class="ThreeEQEffect" id="{170ca690-26eb-472d-aee0-8a307e83a10d}">
+        <property name="lowGain">
+            <value>2.5</value>
+        </property>
+        <property name="highGain">
+            <value>3</value>
+        </property>
+        <property name="lowCrossover">
+            <value>200</value>
+        </property>
+        <property name="highCrossover">
+            <value>3800</value>
+        </property>
+    </object>
+    <object class="CompressorEffect" id="{2a632a5f-b7fa-4a04-b94d-d6af3849b98a}">
+        <property name="threshold">
+            <value>-10.5</value>
+        </property>
+        <property name="ratio">
+            <value>19</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{5d892a56-e485-48ce-9685-54bea2ff01ce}"/>
     <object class="Sidechain" id="{ed59f81a-c26a-4f45-8ed4-ce907445a5c7}">
         <relationship name="targets">
