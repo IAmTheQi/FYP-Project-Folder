@@ -120,7 +120,7 @@ public class MutantSimple : MonoBehaviour
                 }
                 else
                 {
-                    mutantAnimator.SetTrigger("Kill");
+                    KillPlayer();
                 }
             }
         }
@@ -203,6 +203,14 @@ public class MutantSimple : MonoBehaviour
     {
         playerObject.GetComponent<PlayerLogic>().TakeDamage(damage);
         FMODUnity.RuntimeManager.PlayOneShot(attackSound);
+    }
+
+    protected void KillPlayer()
+    {
+        attacking = false;
+        mutantAnimator.SetBool("Attack", false);
+        mutantAnimator.SetBool("Chase", false);
+        mutantAnimator.SetTrigger("Kill");
     }
 
     public string ReturnState()
