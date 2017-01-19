@@ -5,7 +5,7 @@
             <value>LooksLikeSomeTriedLivingHere</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{bfd975e7-9a65-4ef9-888c-b66ab561c2ac}</destination>
@@ -118,7 +118,11 @@
             <destination>{078fc01d-d86a-4395-804b-56ed0d90765c}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{951d0f30-41ce-4816-8623-d8628e215915}"/>
+    <object class="MixerBusPanner" id="{951d0f30-41ce-4816-8623-d8628e215915}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{b5012657-b42a-4df0-b0cc-5a285d0ba3b7}"/>
     <object class="MixerBusEffectChain" id="{dc266948-220e-424d-a8c2-c92783cacb9b}">
         <relationship name="effects">

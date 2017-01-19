@@ -5,7 +5,7 @@
             <value>Ammo_IShouldPickThatUp</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{ffe43179-19f1-42f4-8bfd-c621d3444854}</destination>
@@ -118,7 +118,11 @@
             <destination>{d34713e2-ff0f-42a2-8671-78a81bb099b1}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{917cfc1a-e911-40e7-86f0-0220a05dd637}"/>
+    <object class="MixerBusPanner" id="{917cfc1a-e911-40e7-86f0-0220a05dd637}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{551bb275-e6a4-4612-8703-61425d1e15f3}"/>
     <object class="MixerBusEffectChain" id="{58b515b9-3e80-400b-9742-d8f7577a3786}">
         <relationship name="effects">

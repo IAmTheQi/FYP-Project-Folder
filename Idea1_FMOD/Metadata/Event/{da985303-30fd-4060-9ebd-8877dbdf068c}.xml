@@ -5,7 +5,7 @@
             <value>PlayerDying</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{2776b118-8fb4-4945-9283-a0830b8b6330}</destination>
@@ -119,7 +119,11 @@
             <destination>{58eac68d-c73d-4453-81d5-bee9995f9661}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{e4aefe18-6baf-405a-9674-7ca902899a7d}"/>
+    <object class="MixerBusPanner" id="{e4aefe18-6baf-405a-9674-7ca902899a7d}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{8ad7a179-9610-4a24-adcb-f0ae534ba316}"/>
     <object class="SingleSound" id="{d8dd6a2d-fc29-4241-b27e-40a1de0bcc69}">
         <relationship name="audioFile">

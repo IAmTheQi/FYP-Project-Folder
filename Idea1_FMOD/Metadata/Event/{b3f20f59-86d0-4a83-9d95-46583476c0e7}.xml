@@ -5,7 +5,7 @@
             <value>AmmoLow</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{50e1fd61-d6f2-4ff2-a345-60fe117b3060}</destination>
@@ -118,7 +118,11 @@
             <destination>{4f949909-a6c2-45b3-8f3b-22a3e1e263ee}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{a481eb04-3f00-4e2d-bf54-6197f4d37328}"/>
+    <object class="MixerBusPanner" id="{a481eb04-3f00-4e2d-bf54-6197f4d37328}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{71797997-a3f9-4e91-be55-2b99dfc3f7b0}"/>
     <object class="MixerBusEffectChain" id="{88e3055d-9440-483c-be71-0014137fa001}">
         <relationship name="effects">

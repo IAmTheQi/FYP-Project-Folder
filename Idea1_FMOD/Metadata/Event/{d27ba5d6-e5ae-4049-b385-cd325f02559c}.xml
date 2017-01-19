@@ -5,7 +5,7 @@
             <value>PlantMustBeThisWay</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{c738da73-5f4d-4051-a31c-8cc2cc994438}</destination>
@@ -118,7 +118,11 @@
             <destination>{8fb645d4-8927-4fb2-b45f-dbf7b7408775}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{52502f89-566d-4967-a3c6-edc6d3b4ef67}"/>
+    <object class="MixerBusPanner" id="{52502f89-566d-4967-a3c6-edc6d3b4ef67}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{85a87391-d85a-4ae3-b44b-86b8e98c746f}"/>
     <object class="MixerBusEffectChain" id="{f3fbd344-5382-455a-9b14-0a4a27436d32}">
         <relationship name="effects">

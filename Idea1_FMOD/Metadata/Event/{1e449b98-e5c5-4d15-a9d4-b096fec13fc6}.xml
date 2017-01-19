@@ -5,7 +5,7 @@
             <value>CantSeeAThing_Flashlight</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{58d053c8-11da-4294-b77b-13d1b6106c7e}</destination>
@@ -118,7 +118,11 @@
             <destination>{c3100089-5474-44a7-99af-e690bd1c31d4}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{139b9bb9-108f-4cc9-bb42-d2ec19a9e8ab}"/>
+    <object class="MixerBusPanner" id="{139b9bb9-108f-4cc9-bb42-d2ec19a9e8ab}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{b1dd5664-d0dd-45cd-af36-af87eb037fea}"/>
     <object class="MixerBusEffectChain" id="{c13438b3-e1e1-4d08-aa27-42b50e2c0d82}">
         <relationship name="effects">

@@ -5,7 +5,7 @@
             <value>MustBeTheEntrance</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{1c59ce17-0706-4cb0-b05f-75e49dbbfbd2}</destination>
@@ -118,7 +118,11 @@
             <destination>{a31045a4-cf7b-4de4-afd5-4d4d1bbf297d}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{88c93064-f37f-4893-ab65-8d6d087ebd7f}"/>
+    <object class="MixerBusPanner" id="{88c93064-f37f-4893-ab65-8d6d087ebd7f}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{507041fd-66e1-461d-ad48-a91a05b94413}"/>
     <object class="MixerBusEffectChain" id="{3d1148d4-4c90-4a1a-94a1-8778970193d7}">
         <relationship name="effects">

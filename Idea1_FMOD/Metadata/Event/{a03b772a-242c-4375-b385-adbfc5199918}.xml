@@ -5,7 +5,7 @@
             <value>LooksInteresting_PickItUp</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{bb2573b0-f271-4e0a-804b-4a1dcdc06dbc}</destination>
@@ -118,7 +118,11 @@
             <destination>{b78634f2-1629-4daf-b2d1-1719189f36f5}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{8230ed07-5c3f-43eb-8263-6824c9b8aa7b}"/>
+    <object class="MixerBusPanner" id="{8230ed07-5c3f-43eb-8263-6824c9b8aa7b}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{b9233d61-54cc-46f3-9cb0-fcde2aaaa7de}"/>
     <object class="MixerBusEffectChain" id="{28801403-4198-4d2c-bd9b-05129962f66e}">
         <relationship name="effects">

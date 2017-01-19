@@ -5,7 +5,7 @@
             <value>MustBeTheDoctorInCharge</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{1005c78b-4093-419a-a4ab-7d270b9c3fb9}</destination>
@@ -118,7 +118,11 @@
             <destination>{923fa201-e980-47c3-9be5-64caee385be0}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{d7e0b2cd-99f6-4a73-81c5-f7fcb5b6bfe3}"/>
+    <object class="MixerBusPanner" id="{d7e0b2cd-99f6-4a73-81c5-f7fcb5b6bfe3}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{36bb352e-a0d6-4d00-90e7-cd6cc6307ac3}"/>
     <object class="MixerBusEffectChain" id="{31a5a77c-4a96-4868-89e3-8c6f7458fa37}">
         <relationship name="effects">

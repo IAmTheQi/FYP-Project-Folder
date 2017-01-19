@@ -5,7 +5,7 @@
             <value>Alright_Navigate</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{ee3ec1cb-9e53-401d-a856-b521cd3f79ab}</destination>
@@ -118,7 +118,11 @@
             <destination>{c0aabd25-fa8d-482d-9f94-6f7eca3e2ce5}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{107ece32-389d-4263-941d-061f161e8982}"/>
+    <object class="MixerBusPanner" id="{107ece32-389d-4263-941d-061f161e8982}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{9dd97e3b-12df-48bf-82e6-2e96b9c8118f}"/>
     <object class="MixerBusEffectChain" id="{68e45fd3-fb55-4770-912e-f0825667728d}">
         <relationship name="effects">

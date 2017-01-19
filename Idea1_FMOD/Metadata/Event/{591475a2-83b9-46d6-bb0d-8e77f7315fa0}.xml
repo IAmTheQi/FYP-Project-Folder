@@ -5,7 +5,7 @@
             <value>ASchool_HoledUpHere</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{b0116607-4cf0-42e9-8dcf-913b3d263fd9}</destination>
@@ -118,7 +118,11 @@
             <destination>{19c0a852-db74-4b69-8c1f-e1a1ebd45083}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{8496f3b4-c0d3-45a1-b575-f3aabd99a88a}"/>
+    <object class="MixerBusPanner" id="{8496f3b4-c0d3-45a1-b575-f3aabd99a88a}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{705ec550-1352-4965-9791-a22d81006cf9}"/>
     <object class="MixerBusEffectChain" id="{b9e227da-ad2a-4bca-95f0-861726ff73e2}">
         <relationship name="effects">

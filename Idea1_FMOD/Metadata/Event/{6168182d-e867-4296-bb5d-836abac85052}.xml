@@ -5,7 +5,7 @@
             <value>Rifle</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{d56fce2e-aab3-4c3c-961d-f371ab9fa9dd}</destination>
@@ -93,10 +93,7 @@
             <value>0</value>
         </property>
         <property name="length">
-            <value>0.69999999999999996</value>
-        </property>
-        <property name="looping">
-            <value>true</value>
+            <value>2.8399999999999999</value>
         </property>
         <relationship name="modulators">
             <destination>{94780ee7-a4cc-4024-b6a9-1154b0a784e9}</destination>
@@ -129,7 +126,11 @@
             <destination>{19e6f530-fa8b-4285-9821-699246de2727}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{c71758c4-d649-4324-9ae3-44164cc1e1c0}"/>
+    <object class="MixerBusPanner" id="{c71758c4-d649-4324-9ae3-44164cc1e1c0}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{2a0f5c52-d0ee-49f1-9049-fc112605e300}"/>
     <object class="RandomizerModulator" id="{94780ee7-a4cc-4024-b6a9-1154b0a784e9}">
         <property name="nameOfPropertyBeingModulated">
@@ -175,11 +176,9 @@
     <object class="MixerBusEffectChain" id="{3ea8d421-0144-4694-89f2-e2037a8c39e1}">
         <relationship name="effects">
             <destination>{8f9d50da-70ce-4d6f-8bb6-5af59cd2070e}</destination>
-            <destination>{878a3e64-38a9-49af-bf6b-9a747dacdb1c}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{9198b2be-8925-4a53-b323-feb63f9c3e03}"/>
     <object class="MixerBusFader" id="{19e6f530-fa8b-4285-9821-699246de2727}"/>
     <object class="MixerBusFader" id="{8f9d50da-70ce-4d6f-8bb6-5af59cd2070e}"/>
-    <object class="SFXReverbEffect" id="{878a3e64-38a9-49af-bf6b-9a747dacdb1c}"/>
 </objects>

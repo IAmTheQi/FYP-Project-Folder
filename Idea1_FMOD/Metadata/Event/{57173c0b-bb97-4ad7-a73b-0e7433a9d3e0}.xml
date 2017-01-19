@@ -5,7 +5,7 @@
             <value>Shit_TriggeredAlarm</value>
         </property>
         <property name="outputFormat">
-            <value>1</value>
+            <value>0</value>
         </property>
         <relationship name="mixer">
             <destination>{c2620a02-52e9-43f7-b29d-058323410f0d}</destination>
@@ -118,7 +118,11 @@
             <destination>{18b15ba7-c1ea-4d8d-b568-667f023cae09}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{dba23220-a396-4e4f-9557-0584d70cc281}"/>
+    <object class="MixerBusPanner" id="{dba23220-a396-4e4f-9557-0584d70cc281}">
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{b45bc942-73c7-4722-b68f-0021c7380f6f}"/>
     <object class="MixerBusEffectChain" id="{1334f135-83d2-4ee1-a458-1b47a661209f}">
         <relationship name="effects">
