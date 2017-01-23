@@ -81,9 +81,6 @@ public class MutantSimple : MonoBehaviour
             if (currentState == MutantStates.Chase)
             {
                 mutantAgent.destination = playerObject.transform.position;
-
-                //Debug.LogFormat("name:{0}       distance:{1}", gameObject.name, Vector3.Distance(transform.position, playerObject.transform.position));
-                //Debug.Log(mutantAgent.speed);
                 if (Vector3.Distance(transform.position, playerObject.transform.position) <= 2f)
                 {
                     attacking = true;
@@ -138,12 +135,16 @@ public class MutantSimple : MonoBehaviour
     }
     public void PlayerEnter()
     {
-        StartCoroutine(AlertMutant());
+        if (currentState == MutantStates.Idle || currentState == MutantStates.Eat || currentState == MutantStates.Roam)
+        {
+            StartCoroutine(AlertMutant());
+        }
     }
 
     public IEnumerator AlertMutant()
     {
         currentState = MutantStates.Alert;
+        mutantAnimator.SetTrigger("Alert");
         FMODUnity.RuntimeManager.PlayOneShot(alertSound, transform.position);
         yield return new WaitForSeconds(2.1f);
         mutantAnimator.SetBool("Chase", true);

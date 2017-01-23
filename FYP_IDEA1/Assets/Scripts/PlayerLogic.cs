@@ -1020,10 +1020,7 @@ public class PlayerLogic : MonoBehaviour {
         int i = 0;
         while (i < mutantObjects.Length)
         {
-            if (mutantObjects[i].GetComponent<MutantSimple>() != null)
-            {
-                mutantObjects[i].SendMessage("PlayerEnter");
-            }
+            mutantObjects[i].SendMessage("PlayerEnter", SendMessageOptions.DontRequireReceiver);
             i++;
         }
     }
@@ -1060,7 +1057,6 @@ public class PlayerLogic : MonoBehaviour {
         {
             feedbackIndex = 0;
         }
-        Debug.Log(feedbackIndex);
     }
 
     //Die function

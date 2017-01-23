@@ -3,6 +3,9 @@ using System.Collections;
 
 public class MutantPatrol : MutantSimple {
 
+    public float patrolSpeed;
+    float chaseSpeed;
+
     public Transform[] targetsArray;
 
     byte currentIndex;
@@ -11,6 +14,8 @@ public class MutantPatrol : MutantSimple {
 
     // Use this for initialization
     void Start () {
+
+        chaseSpeed = mutantAgent.speed;
 
         base.Start();
 
@@ -28,6 +33,7 @@ public class MutantPatrol : MutantSimple {
 
         if (currentState == MutantStates.Roam)
         {
+            mutantAgent.speed = patrolSpeed;
             mutantAgent.destination = targetsArray[currentIndex].position;
 
             if (Vector3.Distance(transform.position, targetsArray[currentIndex].position) <= 2f)
@@ -57,6 +63,10 @@ public class MutantPatrol : MutantSimple {
                     }
                 }
             }
+        }
+        else
+        {
+            mutantAgent.speed = chaseSpeed;
         }
     }
 }
