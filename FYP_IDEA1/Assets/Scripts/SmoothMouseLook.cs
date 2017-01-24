@@ -22,8 +22,8 @@ public class SmoothMouseLook : MonoBehaviour
 
     float multiplier;
 
-    float rotationX = 0F;
-    float rotationY = 0F;
+    public float rotationX;
+    public float rotationY;
 
     private List<float> rotArrayX = new List<float>();
     float rotAverageX = 0F;
