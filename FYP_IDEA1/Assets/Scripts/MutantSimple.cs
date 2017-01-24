@@ -16,6 +16,7 @@ public class MutantSimple : MonoBehaviour
     GameObject playerObject;
 
     public bool attacking;
+    public bool aggro;
 
     bool dead;
 
@@ -78,6 +79,16 @@ public class MutantSimple : MonoBehaviour
         }
         else if (!dead && !playerObject.GetComponent<PlayerLogic>().pauseGame)
         {
+            if (aggro)
+            {
+                if (currentState == MutantStates.Idle || currentState == MutantStates.Roam || currentState == MutantStates.Eat)
+                {
+                    PlayerEnter();
+                    aggro = false;
+                }
+            }
+
+
             if (currentState == MutantStates.Chase)
             {
                 mutantAgent.destination = playerObject.transform.position;
@@ -133,6 +144,7 @@ public class MutantSimple : MonoBehaviour
             mutantAgent.Stop();
         }
     }
+
     public void PlayerEnter()
     {
         if (currentState == MutantStates.Idle || currentState == MutantStates.Eat || currentState == MutantStates.Roam)
