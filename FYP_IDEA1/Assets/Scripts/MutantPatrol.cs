@@ -13,11 +13,12 @@ public class MutantPatrol : MutantSimple {
     bool forward;
 
     // Use this for initialization
-    void Start () {
-
+    void Start ()
+    {
+        base.Start();
         chaseSpeed = mutantAgent.speed;
 
-        base.Start();
+        mutantAgent.speed = patrolSpeed;
 
         currentIndex = 0;
 
