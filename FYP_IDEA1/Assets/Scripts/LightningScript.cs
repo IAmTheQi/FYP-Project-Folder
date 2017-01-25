@@ -8,28 +8,14 @@ public class LightningScript : MonoBehaviour {
     public GameObject options;
     public GameObject credits;
 
-    public GameObject creditsText;
-    Vector3 originalPos;
-
     bool optionsMenu;
     bool creditsMenu;
-
-    float lastTime;
 
     [FMODUnity.EventRef]
     public string clickFeedback = "event:/Click";
 
     // Use this for initialization
     void Start () {
-
-        lastTime = 0f;
-
-        buttons = GameObject.Find("Buttons");
-        options = GameObject.Find("Options");
-        credits = GameObject.Find("Credits");
-
-        creditsText = GameObject.Find("CreditsText");
-        originalPos = creditsText.transform.position;
 
         optionsMenu = false;
         creditsMenu = false;
@@ -55,12 +41,17 @@ public class LightningScript : MonoBehaviour {
             buttons.SetActive(false);
             options.SetActive(false);
             credits.SetActive(true);
+        }
 
-            creditsText.transform.Translate(Vector3.up * Time.deltaTime * 20);
+        if (creditsMenu)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ReturnFrom("credits");
+            }
         }
 
         Debug.LogFormat("credits:{0}      options:{1}", creditsMenu, optionsMenu);
-	
 	}
 
     public void PlayGame()
@@ -102,7 +93,6 @@ public class LightningScript : MonoBehaviour {
         FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         if (target == "credits")
         {
-            creditsText.transform.position = originalPos;
             creditsMenu = false;
         }
         else if (target == "options")

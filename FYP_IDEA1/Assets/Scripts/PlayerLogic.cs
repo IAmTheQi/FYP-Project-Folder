@@ -179,6 +179,9 @@ public class PlayerLogic : MonoBehaviour {
     public string pistolSound = "event:/Pistol";
 
     [FMODUnity.EventRef]
+    public string pistolReloadSound = "event:/PistolReload";
+
+    [FMODUnity.EventRef]
     public string knifeSound = "event:/Knife";
 
     [FMODUnity.EventRef]
@@ -535,6 +538,7 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         pistolAnimator.SetBool("Firing", false);
                         pistolAnimator.SetTrigger("Reload");
+                        FMODUnity.RuntimeManager.PlayOneShot(pistolReloadSound);
                     }
                 }
 
@@ -681,6 +685,7 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         pistolAnimator.SetBool("Firing", false);
                         pistolAnimator.SetTrigger("Reload");
+                        FMODUnity.RuntimeManager.PlayOneShot(pistolReloadSound);
                     }
                 }
 
