@@ -16938,10 +16938,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012744788402}
-  m_LocalRotation: {x: -0, y: 0.99999624, z: -0, w: -0.0027506924}
-  m_LocalPosition: {x: -31.7, y: 3.36, z: -22.2}
+  m_LocalRotation: {x: -0, y: 0.94557154, z: -0, w: -0.32541448}
+  m_LocalPosition: {x: -30.763, y: 3.36, z: -22.13}
   m_LocalScale: {x: 0.34338537, y: 0.3433856, z: 0.34338537}
-  m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 218.25, z: 0}
   m_Children:
   - {fileID: 4000012517014996}
   - {fileID: 4000011805307920}
@@ -17911,6 +17911,8 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -80
   maximumY: 80
+  rotationX: 0
+  rotationY: 0
   frameCounter: 0
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114000011475773282
@@ -17964,7 +17966,7 @@ MonoBehaviour:
   pistolSight: {fileID: 1000010431255862}
   pistolHip: {fileID: 1000012324220668}
   knifeObject: {fileID: 1000014240836444}
-  alertRange: 2000
+  alertRange: 0
   walkHeight: 4.5
   crouchHeight: 0
   proneHeight: 0
@@ -17988,12 +17990,12 @@ MonoBehaviour:
     locked: 0
     currentAmmo: 30
     magazineSize: 30
-    remainingAmmo: 60
+    remainingAmmo: 120
     totalAmmo: 60
-    shootDelay: 0.08
+    shootDelay: 0.06
     reloadDelay: 3
     range: 3000
-    damageValue: 10
+    damageValue: 33
   - weaponName: Pistol
     weaponUI: {fileID: 0}
     fullBullet: {fileID: 21300000, guid: a9ccd97889226df4aad44e6e5140c9e1, type: 3}
@@ -18006,7 +18008,7 @@ MonoBehaviour:
     shootDelay: 0.2
     reloadDelay: 2
     range: 1000
-    damageValue: 7
+    damageValue: 60
   timeStamp: 0
   reloadState: 0
   footsteps: event:/PlayerFootstep
@@ -18101,6 +18103,8 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -80
   maximumY: 80
+  rotationX: 180
+  rotationY: 0
   frameCounter: 0
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!119 &119000013798558442
@@ -18574,8 +18578,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 7
   m_Radius: 1
-  m_SlopeLimit: 0
-  m_StepOffset: 0.4
+  m_SlopeLimit: 5
+  m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
