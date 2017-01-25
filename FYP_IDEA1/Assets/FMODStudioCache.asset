@@ -61,9 +61,10 @@ MonoBehaviour:
   - {fileID: 114000010653531556}
   - {fileID: 114000012353628772}
   - {fileID: 114000013391724250}
+  - {fileID: 114000011126884392}
   MasterBankRef: {fileID: 114000010701874202}
   StringsBankRef: {fileID: 114000010335513414}
-  stringsBankWriteTime: 636209909223001214
+  stringsBankWriteTime: 636209964927377322
   cacheVersion: 2
 --- !u!114 &114000010009171794
 MonoBehaviour:
@@ -2107,11 +2108,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636209909223001214
+  lastModified: 636209964927377322
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 3306
+    Value: 3354
   Exists: 1
 --- !u!114 &114000010336115602
 MonoBehaviour:
@@ -4322,11 +4323,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: F:\FYP\FYP-Project-Folder\Idea1_FMOD\Build\Desktop\Master Bank.bank
-  lastModified: 636209909222671195
+  lastModified: 636209964927067304
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 3606400
+    Value: 3619008
   Exists: 1
 --- !u!114 &114000010705674834
 MonoBehaviour:
@@ -6032,6 +6033,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 5
   MaxDistance: 20
+--- !u!114 &114000010947704650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Surface
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114000010950412486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7085,6 +7101,27 @@ MonoBehaviour:
   guid: b9b909e1026a364aa72d984e5fa09f76
   Banks:
   - {fileID: 114000011902835592}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000011126884392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PistolReload
+  guid: 12d9f97958d18243863c7aa6cb3663bc
+  Banks:
+  - {fileID: 114000010701874202}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -12609,8 +12646,8 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114000010565890966}
-  - {fileID: 114000010073882054}
+  - {fileID: 114000012853678456}
+  - {fileID: 114000010947704650}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000011970991734
@@ -18456,6 +18493,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114000012853678456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Speed
+  Min: 0
+  Max: 14
+  Default: 0
 --- !u!114 &114000012855404988
 MonoBehaviour:
   m_ObjectHideFlags: 0
