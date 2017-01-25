@@ -190,6 +190,9 @@ public class PlayerLogic : MonoBehaviour {
     [FMODUnity.EventRef]
     public string playerIdlePrompt = "event:/Player VO/IdleRemind";
 
+    [FMODUnity.EventRef]
+    public string feedbackClick = "event:/Click";
+
     // Use this for initialization
     void Start() {
         gameController = GameObject.Find("GameController");
@@ -345,6 +348,7 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Escape) && !itemView)
             {
                 pauseGame = false;
+                FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
             }
 
             if (itemView)
@@ -362,6 +366,7 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         collectScript.InspectItem();
                         inspectView = false;
+                        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
                     }
                 }
                 else if (inspectView && quickInspect)
@@ -373,6 +378,7 @@ public class PlayerLogic : MonoBehaviour {
                         itemView = false;
                         pauseGame = false;
                         quickInspect = false;
+                        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
                     }
                 }
                 else if (!inspectView)
@@ -380,6 +386,7 @@ public class PlayerLogic : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         itemView = false;
+                        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
                     }
                 }
             }
@@ -649,11 +656,14 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         collectScript.SetSelected();
                     }
-                    else if (!collectScript.IsPrompting() && !tutorialPrompt)
+
+                    if (!collectScript.IsPrompting() && !tutorialPrompt)
                     {
                         pauseGame = true;
                     }
                 }
+
+                Debug.Log(tutorialPrompt + "," + collectScript.IsPrompting());
 
                 //Check for Reload need
                 if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
@@ -1218,6 +1228,7 @@ public class PlayerLogic : MonoBehaviour {
 
     public void ButtonTrigger(string target)
     {
+        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
         switch (target)
         {
             case "artifacts":

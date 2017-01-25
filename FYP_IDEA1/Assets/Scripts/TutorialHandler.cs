@@ -145,8 +145,9 @@ public class TutorialHandler : MonoBehaviour {
                     break;
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && prompting)
             {
+                IsPrompting();
                 DismissTutorial();
             }
         }
@@ -170,6 +171,7 @@ public class TutorialHandler : MonoBehaviour {
 
             case TutorialState.step2:
                 step2Prompt.SetActive(false);
+                step3Prompt.SetActive(true);
                 currentState = TutorialState.step3;
                 break;
         }
@@ -199,7 +201,6 @@ public class TutorialHandler : MonoBehaviour {
     {
         transition = true;
         prompting = false;
-        IsPrompting();
         timer = 0;
     }
 
