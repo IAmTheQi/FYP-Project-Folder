@@ -191,7 +191,7 @@ public class PlayerLogic : MonoBehaviour {
     public string playerIdlePrompt = "event:/Player VO/IdleRemind";
 
     [FMODUnity.EventRef]
-    public string feedbackClick = "event:/Click";
+    public string clickFeedback = "event:/Click";
 
     // Use this for initialization
     void Start() {
@@ -348,7 +348,7 @@ public class PlayerLogic : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Escape) && !itemView)
             {
                 pauseGame = false;
-                FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
+                FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
             }
 
             if (itemView)
@@ -366,7 +366,7 @@ public class PlayerLogic : MonoBehaviour {
                     {
                         collectScript.InspectItem();
                         inspectView = false;
-                        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
+                        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
                     }
                 }
                 else if (inspectView && quickInspect)
@@ -378,7 +378,7 @@ public class PlayerLogic : MonoBehaviour {
                         itemView = false;
                         pauseGame = false;
                         quickInspect = false;
-                        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
+                        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
                     }
                 }
                 else if (!inspectView)
@@ -386,7 +386,7 @@ public class PlayerLogic : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         itemView = false;
-                        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
+                        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
                     }
                 }
             }
@@ -1228,7 +1228,7 @@ public class PlayerLogic : MonoBehaviour {
 
     public void ButtonTrigger(string target)
     {
-        FMODUnity.RuntimeManager.PlayOneShot(feedbackClick);
+        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         switch (target)
         {
             case "artifacts":

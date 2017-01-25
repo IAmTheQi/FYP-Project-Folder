@@ -16,8 +16,11 @@ public class LightningScript : MonoBehaviour {
 
     float lastTime;
 
-	// Use this for initialization
-	void Start () {
+    [FMODUnity.EventRef]
+    public string clickFeedback = "event:/Click";
+
+    // Use this for initialization
+    void Start () {
 
         lastTime = 0f;
 
@@ -62,6 +65,7 @@ public class LightningScript : MonoBehaviour {
 
     public void PlayGame()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         SceneManager.LoadScene("LevelPreloader");
     }
 
@@ -77,21 +81,25 @@ public class LightningScript : MonoBehaviour {
 
     public void QuitGame()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         Application.Quit();
     }
 
     public void OpenOptions()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         optionsMenu = true;
     }
 
     public void OpenCredits()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         creditsMenu = true;
     }
 
     public void ReturnFrom(string target)
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
         if (target == "credits")
         {
             creditsText.transform.position = originalPos;
