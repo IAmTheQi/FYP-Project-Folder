@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [AddComponentMenu("Camera-Control/Smooth Mouse Look")]
 public class SmoothMouseLook : MonoBehaviour
@@ -22,8 +23,8 @@ public class SmoothMouseLook : MonoBehaviour
 
     float multiplier;
 
-    public float rotationX;
-    public float rotationY;
+    float rotationX;
+    float rotationY;
 
     private List<float> rotArrayX = new List<float>();
     float rotAverageX = 0F;
@@ -48,7 +49,16 @@ public class SmoothMouseLook : MonoBehaviour
 
         multiplier = 1.0f;
 
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            rotationX = 90f;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            rotationX = 180f;
+        }
 
+        rotationY = 0f;
     }
 
     void Update()
