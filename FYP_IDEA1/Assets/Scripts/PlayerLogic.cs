@@ -822,6 +822,8 @@ public class PlayerLogic : MonoBehaviour {
                                 weapons[0].remainingAmmo += 7;
                                 Destroy(interactHit.collider.gameObject);
                             }
+
+                            Debug.Log(interactHit.collider.name);
                         }
                     }
                 }

@@ -16,6 +16,7 @@ public class MutantSimple : MonoBehaviour
     GameObject playerObject;
 
     public bool attacking;
+    public bool aggro;
 
     bool dead;
 
@@ -66,6 +67,11 @@ public class MutantSimple : MonoBehaviour
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(idleEv, transform, GetComponent<Rigidbody>());
         //idleEv.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform, GetComponent<Rigidbody>()));
         idleEv.start();
+
+        if (currentState == MutantStates.Idle)
+        {
+            transform.Rotate(new Vector3(0, Random.Range(0.0f, 360.0f), 0));
+        }
     }
 
     // Update is called once per frame
@@ -78,6 +84,16 @@ public class MutantSimple : MonoBehaviour
         }
         else if (!dead && !playerObject.GetComponent<PlayerLogic>().pauseGame)
         {
+            if (aggro)
+            {
+                if (currentState == MutantStates.Idle || currentState == MutantStates.Roam || currentState == MutantStates.Eat)
+                {
+                    PlayerEnter();
+                    aggro = false;
+                }
+            }
+
+
             if (currentState == MutantStates.Chase)
             {
                 mutantAgent.destination = playerObject.transform.position;
@@ -133,6 +149,7 @@ public class MutantSimple : MonoBehaviour
             mutantAgent.Stop();
         }
     }
+
     public void PlayerEnter()
     {
         if (currentState == MutantStates.Idle || currentState == MutantStates.Eat || currentState == MutantStates.Roam)

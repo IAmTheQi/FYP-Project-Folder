@@ -27,12 +27,14 @@ public class ObjectiveTrigger : MonoBehaviour {
     {
         if (triggered && !fade)
         {
-            objColor.a += 0.05f;
+            objColor = objectiveImage.GetComponent<Image>().color;
+            objColor.a += 0.03f;
             objectiveImage.GetComponent<Image>().color = objColor;
         }
         else if (triggered && fade)
         {
-            objColor.a -= 0.05f;
+            objColor = objectiveImage.GetComponent<Image>().color;
+            objColor.a -= 0.03f;
             objectiveImage.GetComponent<Image>().color = objColor;
 
             if (objColor.a <= 0.05f)
