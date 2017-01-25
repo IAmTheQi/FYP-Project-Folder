@@ -16,11 +16,20 @@
     </object>
     <object class="MixerBusEffectChain" id="{e1257943-2f6a-44c2-a87a-a051b365f158}">
         <relationship name="effects">
+            <destination>{9627c3a7-5dd7-447f-827c-380c59aa167c}</destination>
             <destination>{585998d1-9c8b-4e70-8a10-6476ef18d28b}</destination>
             <destination>{d2231d6a-66ea-4f77-94d5-36deac7bedd2}</destination>
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{f79c86db-f8d3-4961-bb94-6b23fa48aa03}"/>
+    <object class="CompressorEffect" id="{9627c3a7-5dd7-447f-827c-380c59aa167c}">
+        <property name="threshold">
+            <value>-32.5</value>
+        </property>
+        <property name="sidechainEnabled">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{585998d1-9c8b-4e70-8a10-6476ef18d28b}"/>
     <object class="SFXReverbEffect" id="{d2231d6a-66ea-4f77-94d5-36deac7bedd2}">
         <property name="decayTime">

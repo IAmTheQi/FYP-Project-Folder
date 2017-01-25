@@ -13,7 +13,6 @@ public class PlayerLogic : MonoBehaviour {
     GameObject cam1;
     GameObject focusCam;
     GameObject leanPivot;
-    SmoothMouseLook lookScript;
     Transform camTransform;
 
     public GameObject flashlightObject;
@@ -98,11 +97,9 @@ public class PlayerLogic : MonoBehaviour {
         public GameObject weaponUI;
         public Sprite fullBullet;
         public Sprite emptyBullet;
-        public bool locked;
         public int currentAmmo;
         public int magazineSize;
         public int remainingAmmo;
-        public int totalAmmo;
         public float shootDelay;
         public float reloadDelay;
         public float range;
@@ -159,6 +156,7 @@ public class PlayerLogic : MonoBehaviour {
     float regenDelay;
     bool regenHealth;
     bool dead;
+    bool endGame;
 
     float idleTimer;
     float idleLimit;
@@ -202,7 +200,6 @@ public class PlayerLogic : MonoBehaviour {
         focusCam = GameObject.Find("FocusCamera");
         leanPivot = GameObject.Find("LeanPivot");
         camTransform = cam1.transform;
-        lookScript = cam1.GetComponent<SmoothMouseLook>();
 
         crosshairLeft = GameObject.Find("CrosshairLeft");
         crosshairRight = GameObject.Find("CrosshairRight");
@@ -317,6 +314,7 @@ public class PlayerLogic : MonoBehaviour {
         regenDelay = 5.0f;
         regenHealth = false;
         dead = false;
+        endGame = false;
 
         idleTimer = 0.0f;
         idleLimit = 120.0f;
@@ -742,26 +740,18 @@ public class PlayerLogic : MonoBehaviour {
                 {
                     case PlayerStates.Walk:
                         controller.height = walkHeight;
-                        lookScript.minimumY = -80f;
-                        lookScript.maximumY = 80f;
                         speedModifier = settingsScript.walkModifier;
                         break;
                     case PlayerStates.Run:
                         controller.height = walkHeight;
-                        lookScript.minimumY = -80f;
-                        lookScript.maximumY = 80f;
                         speedModifier = settingsScript.runModifier;
                         break;
                     case PlayerStates.Idle:
                         controller.height = walkHeight;
-                        lookScript.minimumY = -80f;
-                        lookScript.maximumY = 80f;
                         speedModifier = settingsScript.walkModifier;
                         break;
                     case PlayerStates.Jump:
                         controller.height = crouchHeight;
-                        lookScript.minimumY = -80f;
-                        lookScript.maximumY = 80f;
 
                         if (currentWeaponIndex == 0)
                         {
@@ -1079,7 +1069,12 @@ public class PlayerLogic : MonoBehaviour {
 
         yield return new WaitForSeconds(5.0f);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (!endGame)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        StopCoroutine(KillPlayer());
     }
 
     public bool IsDead()
@@ -1259,5 +1254,10 @@ public class PlayerLogic : MonoBehaviour {
     public void PromptTutorial()
     {
         tutorialPrompt = !tutorialPrompt;
+    }
+
+    public void EndGame()
+    {
+        endGame = true;
     }
 }

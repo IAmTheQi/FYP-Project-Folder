@@ -45,7 +45,7 @@ public class ObjectiveTrigger : MonoBehaviour {
         }
 
 
-        objColor.a = Mathf.Clamp(objColor.a, 1.0f, 0.0f);
+        objColor.a = Mathf.Clamp(objColor.a, 0.0f, 1.0f);
     }
 
     void OnTriggerEnter(Collider collider)

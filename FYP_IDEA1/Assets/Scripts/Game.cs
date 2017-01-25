@@ -70,7 +70,6 @@ public class Game{
         for (var i = 0; i < 5; i++)
         {
             playerData.weaponsArray[i].weaponName = playerScript.weapons[i].weaponName;
-            playerData.weaponsArray[i].locked = playerScript.weapons[i].locked;
             playerData.weaponsArray[i].currentAmmo = playerScript.weapons[i].currentAmmo;
             playerData.weaponsArray[i].remainingAmmo = playerScript.weapons[i].remainingAmmo;
         }
