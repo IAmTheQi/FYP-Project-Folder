@@ -7,7 +7,6 @@ using System.Collections;
 public class PlayerLogic : MonoBehaviour {
 
     GameObject gameController;
-    SettingsConfig settingsScript;
     GunShotFeedbackHandler gunShotScript;
 
     GameObject cam1;
@@ -106,10 +105,6 @@ public class PlayerLogic : MonoBehaviour {
         public float damageValue;
     }
 
-    public float walkHeight;
-    public float crouchHeight;
-    public float proneHeight;
-
     bool isWalking;
 
     public bool focus;
@@ -118,8 +113,6 @@ public class PlayerLogic : MonoBehaviour {
     bool stabbing;
 
     public float playerHealth;
-    public float playerSpeed;
-    public float strafeSlow;
     public float jumpForce;
     public float gravity;
     bool playerCrouch;
@@ -127,14 +120,11 @@ public class PlayerLogic : MonoBehaviour {
     public float speedModifier;
     public float runModifier;
     public float walkModifier;
-    public float crouchModifier;
-    public float proneModifier;
 
     float initialVelocity;
     float currentVelocity;
     float maxVelocity;
     float forwardAccelerationRate;
-    float reverseAccelerationRate;
     float deccelerationRate;
 
     Vector3 moveDirection;
@@ -199,7 +189,6 @@ public class PlayerLogic : MonoBehaviour {
     // Use this for initialization
     void Start() {
         gameController = GameObject.Find("GameController");
-        settingsScript = gameController.GetComponent<SettingsConfig>();
         gunShotScript = gameController.GetComponent<GunShotFeedbackHandler>();
 
         cam1 = GameObject.Find("Main Camera");
@@ -277,29 +266,20 @@ public class PlayerLogic : MonoBehaviour {
         lerpStart = 0f;
         lerpTime = 0.2f;
 
-        playerHealth = settingsScript.playerHealth;
-        playerSpeed = settingsScript.playerSpeed;
-        strafeSlow = settingsScript.strafeSlow;
-        jumpForce = settingsScript.jumpForce;
-        gravity = settingsScript.gravity;
+        playerHealth = 100f;
+        jumpForce = 2f;
+        gravity = 10f;
         playerCrouch = false;
 
-        speedModifier = settingsScript.walkModifier;
-        runModifier = settingsScript.runModifier;
-        walkModifier = settingsScript.walkModifier;
-        crouchModifier = settingsScript.crouchModifier;
-        proneModifier = settingsScript.proneModifier;
+        speedModifier = 1f;
+        runModifier = 2f;
+        walkModifier = 1f;
 
-        initialVelocity = settingsScript.initialVelocity;
-        currentVelocity = settingsScript.currentVelocity;
-        maxVelocity = settingsScript.maxVelocity;
-        forwardAccelerationRate = settingsScript.forwardAccelerationRate;
-        reverseAccelerationRate = settingsScript.reverseAccelerationRate;
-        deccelerationRate = settingsScript.deccelerationRate;
-
-        walkHeight = settingsScript.walkHeight;
-        crouchHeight = settingsScript.crouchHeight;
-        proneHeight = settingsScript.proneHeight;
+        initialVelocity = 1f;
+        currentVelocity = 0f;
+        maxVelocity = 5f;
+        forwardAccelerationRate = 2.5f;
+        deccelerationRate = 5f;
 
         isWalking = false;
 
@@ -752,19 +732,15 @@ public class PlayerLogic : MonoBehaviour {
                 switch (currentState)
                 {
                     case PlayerStates.Walk:
-                        controller.height = walkHeight;
-                        speedModifier = settingsScript.walkModifier;
+                        speedModifier = 1;
                         break;
                     case PlayerStates.Run:
-                        controller.height = walkHeight;
-                        speedModifier = settingsScript.runModifier;
+                        speedModifier = 2;
                         break;
                     case PlayerStates.Idle:
-                        controller.height = walkHeight;
-                        speedModifier = settingsScript.walkModifier;
+                        speedModifier = 1;
                         break;
                     case PlayerStates.Jump:
-                        controller.height = crouchHeight;
 
                         if (currentWeaponIndex == 0)
                         {

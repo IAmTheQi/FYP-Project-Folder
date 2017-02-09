@@ -8,7 +8,6 @@ public class SmoothMouseLook : MonoBehaviour
 {
     GameObject parentObject;
     GameObject gameController;
-    SettingsConfig settingsConfig;
 
     public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
     public RotationAxes axes = RotationAxes.MouseXAndY;
@@ -40,12 +39,11 @@ public class SmoothMouseLook : MonoBehaviour
     {
         gameController = GameObject.Find("GameController");
         parentObject = GameObject.Find("PlayerController");
-        settingsConfig = gameController.GetComponent<SettingsConfig>();
 
-        sensitivityX = settingsConfig.mouseSense;
-        sensitivityY = settingsConfig.mouseSense;
+        sensitivityX = 5f;
+        sensitivityY = 5f;
 
-        frameCounter = settingsConfig.mouseDrag;
+        frameCounter = 5f;
 
         multiplier = 1.0f;
 
