@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000013558047514}
   - 33: {fileID: 33000012685103226}
   - 23: {fileID: 23000011574367106}
-  - 65: {fileID: 65000011412414992}
+  - 64: {fileID: 64000013282578194}
   m_Layer: 0
   m_Name: WeaponRack
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011858402346}
   m_Mesh: {fileID: 4300000, guid: 8b075c1baa292c443a47c2cad21f1157, type: 3}
---- !u!65 &65000011412414992
-BoxCollider:
+--- !u!64 &64000013282578194
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8250207, y: 3.316687, z: 0.92964435}
-  m_Center: {x: -0.91250986, y: 1.6583436, z: 0.46482217}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 8b075c1baa292c443a47c2cad21f1157, type: 3}

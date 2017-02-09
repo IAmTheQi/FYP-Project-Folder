@@ -36,7 +36,7 @@ GameObject:
   - 4: {fileID: 4000012944568072}
   - 33: {fileID: 33000013023818214}
   - 23: {fileID: 23000010974753824}
-  - 65: {fileID: 65000012741862612}
+  - 64: {fileID: 64000014059065422}
   m_Layer: 0
   m_Name: RestaurantSofa1
   m_TagString: Untagged
@@ -54,7 +54,7 @@ GameObject:
   - 4: {fileID: 4000010278507262}
   - 33: {fileID: 33000010777208810}
   - 23: {fileID: 23000013597250386}
-  - 65: {fileID: 65000010323018790}
+  - 64: {fileID: 64000013463823158}
   m_Layer: 0
   m_Name: RestaurantTable
   m_TagString: Untagged
@@ -72,7 +72,7 @@ GameObject:
   - 4: {fileID: 4000011183053916}
   - 33: {fileID: 33000011469433736}
   - 23: {fileID: 23000011601891910}
-  - 65: {fileID: 65000014174538144}
+  - 64: {fileID: 64000011338460990}
   m_Layer: 0
   m_Name: RestaurantSofa
   m_TagString: Untagged
@@ -243,32 +243,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013107516966}
   m_Mesh: {fileID: 4300002, guid: 64f9ffd129f6795429206a089c78c263, type: 3}
---- !u!65 &65000010323018790
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013758343436}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.2640312, y: 1.0659084, z: 1.500055}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000012741862612
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013107516966}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.2640307, y: 1.5255067, z: 1.1573731}
-  m_Center: {x: 1.6320177, y: 0.76275337, z: -0.5787235}
---- !u!65 &65000014174538144
-BoxCollider:
+--- !u!64 &64000011338460990
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -277,5 +253,29 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.264031, y: 1.5255067, z: 1.1573731}
-  m_Center: {x: -1.6320176, y: 0.76275337, z: 0.57872504}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 64f9ffd129f6795429206a089c78c263, type: 3}
+--- !u!64 &64000013463823158
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013758343436}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: 64f9ffd129f6795429206a089c78c263, type: 3}
+--- !u!64 &64000014059065422
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013107516966}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300002, guid: 64f9ffd129f6795429206a089c78c263, type: 3}

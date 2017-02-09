@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000013542911808}
   - 33: {fileID: 33000011663089746}
   - 23: {fileID: 23000010666226758}
-  - 65: {fileID: 65000012066687620}
+  - 64: {fileID: 64000011265600610}
   m_Layer: 0
   m_Name: ShippingContainer
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010191355218}
   m_Mesh: {fileID: 4300000, guid: 33c16a367b4bf5045821fa07bdd13c15, type: 3}
---- !u!65 &65000012066687620
-BoxCollider:
+--- !u!64 &64000011265600610
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15.16834, y: 5.0556717, z: 4.916015}
-  m_Center: {x: 7.5841975, y: 2.5278358, z: -2.4579823}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 33c16a367b4bf5045821fa07bdd13c15, type: 3}

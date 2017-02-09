@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 442774}
   - 33: {fileID: 3370032}
   - 23: {fileID: 2359102}
-  - 65: {fileID: 6585342}
+  - 64: {fileID: 64000014191282508}
   m_Layer: 0
   m_Name: Dustbin
   m_TagString: Untagged
@@ -67,18 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187968}
   m_Mesh: {fileID: 4300000, guid: 523afe0f13da33d4c94effbdae5693a9, type: 3}
---- !u!65 &6585342
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9134436, y: 0.6157497, z: 0.4632516}
-  m_Center: {x: 0.346723, y: 0.30787486, z: -0.07864353}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -90,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 187968}
   m_IsPrefabParent: 1
+--- !u!64 &64000014191282508
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187968}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 523afe0f13da33d4c94effbdae5693a9, type: 3}

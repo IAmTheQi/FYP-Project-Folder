@@ -21,7 +21,6 @@ GameObject:
   - 4: {fileID: 4000010384685396}
   - 33: {fileID: 33000011367733420}
   - 23: {fileID: 23000012102212050}
-  - 65: {fileID: 65000013051674348}
   - 64: {fileID: 64000013420311540}
   m_Layer: 0
   m_Name: Metal_shelves_2
@@ -87,19 +86,7 @@ MeshCollider:
   m_GameObject: {fileID: 1000011218038736}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 625b18b8bd94db24f903c2c19fa8c568, type: 3}
---- !u!65 &65000013051674348
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011218038736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.6131659, y: 3.0738993, z: 1.4106867}
-  m_Center: {x: -1.3065829, y: 1.5369496, z: 0.70534337}

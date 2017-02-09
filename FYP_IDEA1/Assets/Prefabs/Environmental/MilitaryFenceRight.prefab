@@ -23,6 +23,7 @@ GameObject:
   - 23: {fileID: 23000010847992994}
   - 95: {fileID: 95000014160375260}
   - 65: {fileID: 65000011739833634}
+  - 64: {fileID: 64000010308829094}
   m_Layer: 0
   m_Name: MilitaryFenceRight
   m_TagString: Untagged
@@ -79,6 +80,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010881335366}
   m_Mesh: {fileID: 4300000, guid: 2b5807306d4f60641a66564f8fc5f99a, type: 3}
+--- !u!64 &64000010308829094
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010881335366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 2b5807306d4f60641a66564f8fc5f99a, type: 3}
 --- !u!65 &65000011739833634
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -87,7 +100,7 @@ BoxCollider:
   m_GameObject: {fileID: 1000010881335366}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.21374, y: 4.9607077, z: 0.6}
   m_Center: {x: 1.1066943, y: 2.4803538, z: 0.3353833}

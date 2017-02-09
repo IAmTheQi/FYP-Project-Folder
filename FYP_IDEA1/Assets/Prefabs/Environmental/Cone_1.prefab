@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011836214464}
   - 23: {fileID: 23000011731845598}
   - 95: {fileID: 95000012721021516}
-  - 65: {fileID: 65000010375105390}
+  - 64: {fileID: 64000011909893522}
   m_Layer: 0
   m_Name: Cone_1
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013394303458}
   m_Mesh: {fileID: 4300000, guid: 3052aaf8d7df0774fbe518a7f223c9c3, type: 3}
---- !u!65 &65000010375105390
-BoxCollider:
+--- !u!64 &64000011909893522
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.57403386, y: 1.0320724, z: 0.56895405}
-  m_Center: {x: -0.28701693, y: 0.5160362, z: 0.28447703}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 3052aaf8d7df0774fbe518a7f223c9c3, type: 3}
 --- !u!95 &95000012721021516
 Animator:
   serializedVersion: 3

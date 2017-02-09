@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 496806}
   - 33: {fileID: 3389070}
   - 23: {fileID: 2329124}
-  - 65: {fileID: 6550942}
+  - 64: {fileID: 64000010167333608}
   m_Layer: 0
   m_Name: Radio
   m_TagString: Untagged
@@ -67,18 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138886}
   m_Mesh: {fileID: 4300000, guid: cb88ec2e59d271b48b49156412614ca2, type: 3}
---- !u!65 &6550942
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138886}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3937949, y: 0.87076306, z: 0.55581033}
-  m_Center: {x: -0.66906005, y: 0.43538153, z: -0.22688621}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -90,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 138886}
   m_IsPrefabParent: 1
+--- !u!64 &64000010167333608
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: cb88ec2e59d271b48b49156412614ca2, type: 3}

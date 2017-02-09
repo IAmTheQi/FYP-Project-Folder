@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011056601436}
   - 33: {fileID: 33000012900140922}
   - 23: {fileID: 23000011670760934}
-  - 65: {fileID: 65000011689092812}
+  - 64: {fileID: 64000013754662720}
   m_Layer: 0
   m_Name: Circuit_Boxes_2
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012281832356}
   m_Mesh: {fileID: 4300000, guid: 591baa436e910d54799cf7ac44647ba1, type: 3}
---- !u!65 &65000011689092812
-BoxCollider:
+--- !u!64 &64000013754662720
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7803149, y: 1.0073323, z: 0.98618126}
-  m_Center: {x: 0.39015746, y: 0.50366616, z: -0.49309063}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 591baa436e910d54799cf7ac44647ba1, type: 3}

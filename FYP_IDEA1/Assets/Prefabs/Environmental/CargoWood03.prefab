@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 438302}
   - 33: {fileID: 3341996}
   - 23: {fileID: 2302502}
-  - 65: {fileID: 6531360}
+  - 64: {fileID: 64000011359365654}
   m_Layer: 0
   m_Name: CargoWood03
   m_TagString: Untagged
@@ -67,18 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 117248}
   m_Mesh: {fileID: 4300000, guid: 3a2b66a04c2c052418d103ac5d59567a, type: 3}
---- !u!65 &6531360
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5678129, y: 0.11534443, z: 0.5294021}
-  m_Center: {x: -0.24308503, y: 0.05765489, z: 0.24574299}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -90,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 117248}
   m_IsPrefabParent: 1
+--- !u!64 &64000011359365654
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 3a2b66a04c2c052418d103ac5d59567a, type: 3}

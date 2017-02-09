@@ -21,8 +21,7 @@ GameObject:
   - 4: {fileID: 4000011556747634}
   - 33: {fileID: 33000011755267522}
   - 23: {fileID: 23000010171795772}
-  - 65: {fileID: 65000011228738062}
-  - 65: {fileID: 65000014283105618}
+  - 64: {fileID: 64000010503729436}
   m_Layer: 0
   m_Name: TicketOffice
   m_TagString: Untagged
@@ -79,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013634907252}
   m_Mesh: {fileID: 4300000, guid: c5a661837be26494180e16443efa271e, type: 3}
---- !u!65 &65000011228738062
-BoxCollider:
+--- !u!64 &64000010503729436
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,17 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 13.872778, y: 1.398685, z: 1.3348618}
-  m_Center: {x: -6.936389, y: 0.69934344, z: -0.5705261}
---- !u!65 &65000014283105618
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013634907252}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3362198, y: 1.398685, z: 7.5892725}
-  m_Center: {x: -13.204668, y: 0.69934344, z: -3.69773}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: c5a661837be26494180e16443efa271e, type: 3}

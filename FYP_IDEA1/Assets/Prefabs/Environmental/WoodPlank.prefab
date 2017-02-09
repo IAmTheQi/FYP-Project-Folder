@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011984567778}
   - 33: {fileID: 33000014197806906}
   - 23: {fileID: 23000012697326692}
-  - 65: {fileID: 65000011700732480}
+  - 64: {fileID: 64000012937849080}
   m_Layer: 0
   m_Name: WoodPlank
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014233142774}
   m_Mesh: {fileID: 4300000, guid: 0b68d75ba11b8c744b5a1a61faea0961, type: 3}
---- !u!65 &65000011700732480
-BoxCollider:
+--- !u!64 &64000012937849080
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.454525, y: 0.38777158, z: 2.5570679}
-  m_Center: {x: 4.6302013, y: 0.032444, z: 0.9409546}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 0b68d75ba11b8c744b5a1a61faea0961, type: 3}

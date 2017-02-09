@@ -10,8 +10,7 @@ GameObject:
   - 4: {fileID: 455930}
   - 33: {fileID: 3394716}
   - 23: {fileID: 2338996}
-  - 65: {fileID: 6561412}
-  - 65: {fileID: 6525476}
+  - 64: {fileID: 64000013623886306}
   m_Layer: 0
   m_Name: Bench02
   m_TagString: Untagged
@@ -68,30 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114526}
   m_Mesh: {fileID: 4300000, guid: bea9235f3112ce34d97572cd18167b86, type: 3}
---- !u!65 &6525476
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 114526}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2623127, y: 0.3531068, z: 0.4733171}
-  m_Center: {x: -0.44896293, y: 0.17640686, z: -0.10703087}
---- !u!65 &6561412
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 114526}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2807549, y: 0.4000486, z: 0.11734748}
-  m_Center: {x: -0.45707798, y: 0.44076204, z: -0.43497276}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -103,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 114526}
   m_IsPrefabParent: 1
+--- !u!64 &64000013623886306
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114526}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: bea9235f3112ce34d97572cd18167b86, type: 3}
