@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011967447308}
   - 23: {fileID: 23000010007108576}
   - 95: {fileID: 95000010144524958}
-  - 65: {fileID: 65000011440449064}
+  - 64: {fileID: 64000013158844220}
   m_Layer: 0
   m_Name: CeilingFan_3_BrokenBlades
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011119249590}
   m_Mesh: {fileID: 4300000, guid: 19d62365ee9dd284b8a5f3b772b620e0, type: 3}
---- !u!65 &65000011440449064
-BoxCollider:
+--- !u!64 &64000013158844220
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0413513, y: 0.23603351, z: 2.5548303}
-  m_Center: {x: -0.03441468, y: 0.11801676, z: -1.2741045}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 19d62365ee9dd284b8a5f3b772b620e0, type: 3}
 --- !u!95 &95000010144524958
 Animator:
   serializedVersion: 3

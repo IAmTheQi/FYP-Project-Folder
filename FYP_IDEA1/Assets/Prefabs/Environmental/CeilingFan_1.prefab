@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000013991386190}
   - 23: {fileID: 23000012575586016}
   - 95: {fileID: 95000011583445564}
-  - 65: {fileID: 65000011820466182}
+  - 64: {fileID: 64000012273928962}
   m_Layer: 0
   m_Name: CeilingFan_1
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010116695654}
   m_Mesh: {fileID: 4300000, guid: ff4564fb2bef9884cb002cd6cd0bfbda, type: 3}
---- !u!65 &65000011820466182
-BoxCollider:
+--- !u!64 &64000012273928962
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.6767027, y: 1.0986038, z: 3.3359694}
-  m_Center: {x: 0.020221353, y: -0.5493019, z: 0.40603876}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: ff4564fb2bef9884cb002cd6cd0bfbda, type: 3}
 --- !u!95 &95000011583445564
 Animator:
   serializedVersion: 3

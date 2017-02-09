@@ -37,6 +37,7 @@ GameObject:
   - 4: {fileID: 4000010399800092}
   - 33: {fileID: 33000013411217196}
   - 23: {fileID: 23000013199110214}
+  - 64: {fileID: 64000012142929740}
   m_Layer: 0
   m_Name: FirstAidTent
   m_TagString: Untagged
@@ -225,6 +226,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011619023392}
+  m_Mesh: {fileID: 4300000, guid: 14a7d1cc3f6bdf64fa0029bef53ebd36, type: 3}
+--- !u!64 &64000012142929740
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011619023392}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 14a7d1cc3f6bdf64fa0029bef53ebd36, type: 3}
 --- !u!65 &65000010102571450
 BoxCollider:

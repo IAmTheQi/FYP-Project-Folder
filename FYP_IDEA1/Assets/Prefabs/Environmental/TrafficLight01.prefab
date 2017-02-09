@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 491784}
   - 33: {fileID: 3347636}
   - 23: {fileID: 2331538}
-  - 136: {fileID: 13617854}
+  - 64: {fileID: 64000012208207354}
   m_Layer: 0
   m_Name: TrafficLight01
   m_TagString: Untagged
@@ -67,19 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183490}
   m_Mesh: {fileID: 4300000, guid: 900d9d0ee1d54164bb91d7e9cf8985d8, type: 3}
---- !u!136 &13617854
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 183490}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.03
-  m_Height: 1.25
-  m_Direction: 1
-  m_Center: {x: 0.0064382516, y: 0.54345113, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -91,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 183490}
   m_IsPrefabParent: 1
+--- !u!64 &64000012208207354
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183490}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 900d9d0ee1d54164bb91d7e9cf8985d8, type: 3}

@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011669689066}
   - 33: {fileID: 33000012728236216}
   - 23: {fileID: 23000011354317806}
-  - 65: {fileID: 65000014118884208}
+  - 64: {fileID: 64000011063237650}
   m_Layer: 0
   m_Name: KitchenTable02
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010980503776}
   m_Mesh: {fileID: 4300000, guid: c159bbc00347fa14d9be4841e6b75fdf, type: 3}
---- !u!65 &65000014118884208
-BoxCollider:
+--- !u!64 &64000011063237650
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.058402, y: 1.3929527, z: 1.6609373}
-  m_Center: {x: -0.93119335, y: 0.6964755, z: -0.7483635}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: c159bbc00347fa14d9be4841e6b75fdf, type: 3}

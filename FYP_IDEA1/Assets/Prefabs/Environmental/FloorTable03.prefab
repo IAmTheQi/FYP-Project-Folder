@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010589446374}
   - 33: {fileID: 33000012287281552}
   - 23: {fileID: 23000010103865998}
-  - 65: {fileID: 65000012185651978}
+  - 64: {fileID: 64000011710989478}
   m_Layer: 0
   m_Name: FloorTable03
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011626760636}
   m_Mesh: {fileID: 4300000, guid: 1258fec19e51dfe488627066bd8424c3, type: 3}
---- !u!65 &65000012185651978
-BoxCollider:
+--- !u!64 &64000011710989478
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.0848284, y: 0.4988832, z: 3.7134824}
-  m_Center: {x: -1.9366766, y: 0.2494416, z: -1.7577643}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 1258fec19e51dfe488627066bd8424c3, type: 3}

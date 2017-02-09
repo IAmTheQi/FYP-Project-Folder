@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011157277818}
   - 23: {fileID: 23000013628061452}
   - 95: {fileID: 95000011769147274}
-  - 65: {fileID: 65000010063644492}
+  - 64: {fileID: 64000013123403940}
   m_Layer: 0
   m_Name: WallClock_1
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013750361650}
   m_Mesh: {fileID: 4300000, guid: 2b4e7caca2ba3bf49ab2504338143652, type: 3}
---- !u!65 &65000010063644492
-BoxCollider:
+--- !u!64 &64000013123403940
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0118883, y: 0.07812505, z: 1.017462}
-  m_Center: {x: -0.0055891573, y: 0.039062526, z: 0.000000029802322}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 2b4e7caca2ba3bf49ab2504338143652, type: 3}
 --- !u!95 &95000011769147274
 Animator:
   serializedVersion: 3

@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011551564618}
   - 33: {fileID: 33000013072787864}
   - 23: {fileID: 23000012291372872}
-  - 65: {fileID: 65000013467292472}
+  - 64: {fileID: 64000010470838956}
   m_Layer: 0
   m_Name: TallChair
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013929437256}
   m_Mesh: {fileID: 4300000, guid: 396655c824949bd4c80895c3eaf02e19, type: 3}
---- !u!65 &65000013467292472
-BoxCollider:
+--- !u!64 &64000010470838956
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.6330343, y: 1.1633393, z: 0.530677}
-  m_Center: {x: -0.2515861, y: 0.5816696, z: 0.2539219}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 396655c824949bd4c80895c3eaf02e19, type: 3}

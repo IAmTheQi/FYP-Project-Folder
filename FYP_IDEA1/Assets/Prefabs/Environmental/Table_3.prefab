@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011190473614}
   - 33: {fileID: 33000010543147596}
   - 23: {fileID: 23000013880473886}
-  - 65: {fileID: 65000013347270202}
+  - 64: {fileID: 64000011694173236}
   m_Layer: 0
   m_Name: Table_3
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011335803604}
   m_Mesh: {fileID: 4300000, guid: c0cf89fec1a639848aa316a318cd0749, type: 3}
---- !u!65 &65000013347270202
-BoxCollider:
+--- !u!64 &64000011694173236
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8057808, y: 1.0184792, z: 1.2649218}
-  m_Center: {x: 0.85209125, y: 0.5068744, z: 0.5041109}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: c0cf89fec1a639848aa316a318cd0749, type: 3}

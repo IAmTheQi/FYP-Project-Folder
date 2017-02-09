@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000012902615016}
   - 33: {fileID: 33000012377501446}
   - 23: {fileID: 23000010066209184}
-  - 65: {fileID: 65000012304550420}
+  - 64: {fileID: 64000012686422254}
   m_Layer: 0
   m_Name: Plank2
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011463037512}
   m_Mesh: {fileID: 4300000, guid: 015c20969ffbdb449ad50768fefab6b5, type: 3}
---- !u!65 &65000012304550420
-BoxCollider:
+--- !u!64 &64000012686422254
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.4332273, y: 1.4690733, z: 0.19262695}
-  m_Center: {x: -1.7022582, y: 0.44584116, z: 0.091333}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 015c20969ffbdb449ad50768fefab6b5, type: 3}

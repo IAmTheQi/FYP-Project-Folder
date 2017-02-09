@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 481640}
   - 33: {fileID: 3380882}
   - 23: {fileID: 2347884}
-  - 65: {fileID: 6503960}
+  - 64: {fileID: 64000010457574128}
   m_Layer: 0
   m_Name: RoadBlock02
   m_TagString: Untagged
@@ -67,18 +67,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169022}
   m_Mesh: {fileID: 4300000, guid: 490ed4231788370419410ad89b7607c3, type: 3}
---- !u!65 &6503960
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169022}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5257583, y: 0.73252165, z: 0.3524476}
-  m_Center: {x: -0.76287913, y: 0.3650821, z: -0.1762238}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -90,3 +78,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 169022}
   m_IsPrefabParent: 1
+--- !u!64 &64000010457574128
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 490ed4231788370419410ad89b7607c3, type: 3}

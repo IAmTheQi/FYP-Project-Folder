@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011282369918}
   - 33: {fileID: 33000014201949714}
   - 23: {fileID: 23000014155042662}
-  - 65: {fileID: 65000013277610268}
+  - 64: {fileID: 64000012325242400}
   m_Layer: 0
   m_Name: MetalBarricade
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014027058652}
   m_Mesh: {fileID: 4300000, guid: defdac4e511c3d0459a86acb2c29efd9, type: 3}
---- !u!65 &65000013277610268
-BoxCollider:
+--- !u!64 &64000012325242400
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.8, y: 1.6, z: 0.2}
-  m_Center: {x: 1.7600952, y: 0.7822818, z: 0.49334002}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: defdac4e511c3d0459a86acb2c29efd9, type: 3}

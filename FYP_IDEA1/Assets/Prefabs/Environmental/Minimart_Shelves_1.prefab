@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011518934720}
   - 33: {fileID: 33000013446092080}
   - 23: {fileID: 23000011501262560}
-  - 65: {fileID: 65000010959424650}
+  - 64: {fileID: 64000011035271868}
   m_Layer: 0
   m_Name: Minimart_Shelves_1
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012592038494}
   m_Mesh: {fileID: 4300000, guid: d274ffc9861dde14ebcb9298355267ff, type: 3}
---- !u!65 &65000010959424650
-BoxCollider:
+--- !u!64 &64000011035271868
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -88,5 +88,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.916938, y: 2.4465597, z: 1.5005468}
-  m_Center: {x: 1.458469, y: 1.2232794, z: -0.7502734}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: d274ffc9861dde14ebcb9298355267ff, type: 3}
