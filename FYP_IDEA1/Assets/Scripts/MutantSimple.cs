@@ -15,6 +15,7 @@ public class MutantSimple : MonoBehaviour
 
     GameObject playerObject;
 
+    public bool anim2;
     public bool attacking;
     public bool aggro;
 
@@ -163,7 +164,14 @@ public class MutantSimple : MonoBehaviour
         currentState = MutantStates.Alert;
         mutantAnimator.SetTrigger("Alert");
         FMODUnity.RuntimeManager.PlayOneShot(alertSound, transform.position);
-        yield return new WaitForSeconds(2.1f);
+        if (!anim2)
+        {
+            yield return new WaitForSeconds(2.1f);
+        }
+        else if (anim2)
+        {
+            yield return new WaitForSeconds(4f);
+        }
         mutantAnimator.SetBool("Chase", true);
         currentState = MutantStates.Chase;
         StopCoroutine(AlertMutant());

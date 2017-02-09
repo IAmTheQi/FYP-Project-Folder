@@ -667,8 +667,6 @@ public class PlayerLogic : MonoBehaviour {
                     }
                 }
 
-                Debug.Log(tutorialPrompt + "," + collectScript.IsPrompting());
-
                 //Check for Reload need
                 if (weapons[currentWeaponIndex].currentAmmo <= 0 && !reloadState && weapons[currentWeaponIndex].remainingAmmo > 0 && !stabbing)
                 {
@@ -959,6 +957,8 @@ public class PlayerLogic : MonoBehaviour {
             {
                 gunShotScript.CreateMark(false, hit);
             }
+
+            Debug.Log(hit.collider.name);
         }
         GunNoise();
     }
