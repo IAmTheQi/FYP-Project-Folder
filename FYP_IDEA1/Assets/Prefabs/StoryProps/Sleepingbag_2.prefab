@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011677570608}
   - 23: {fileID: 23000013102753764}
   - 95: {fileID: 95000014155289918}
-  - 65: {fileID: 65000014261212916}
+  - 64: {fileID: 64000010061840522}
   m_Layer: 0
   m_Name: Sleepingbag_2
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013732987698}
   m_Mesh: {fileID: 4300000, guid: 05073b2106371134fb107a3ea3516943, type: 3}
---- !u!65 &65000014261212916
-BoxCollider:
+--- !u!64 &64000010061840522
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9306238, y: 0.31605142, z: 1.1734885}
-  m_Center: {x: -1.6436168, y: 0.25068912, z: -0.5867441}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 05073b2106371134fb107a3ea3516943, type: 3}
 --- !u!95 &95000014155289918
 Animator:
   serializedVersion: 3

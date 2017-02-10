@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000012656634356}
   - 23: {fileID: 23000014163118234}
   - 95: {fileID: 95000011470944538}
-  - 65: {fileID: 65000011439211398}
+  - 64: {fileID: 64000011378119080}
   m_Layer: 0
   m_Name: OpenedBoxes_3
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011422490768}
   m_Mesh: {fileID: 4300000, guid: e1e347cd41a1c4343a45788dd85a7738, type: 3}
---- !u!65 &65000011439211398
-BoxCollider:
+--- !u!64 &64000011378119080
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.144547, y: 0.8142394, z: 1.0264676}
-  m_Center: {x: 0.52649474, y: 0.4071197, z: -0.5132338}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: e1e347cd41a1c4343a45788dd85a7738, type: 3}
 --- !u!95 &95000011470944538
 Animator:
   serializedVersion: 3

@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000010779899512
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000011314742484
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +58,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000011766244230
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +74,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000011926973620
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +86,7 @@ GameObject:
   - 33: {fileID: 33000010220567490}
   - 23: {fileID: 23000010882515236}
   - 95: {fileID: 95000013375886994}
+  - 64: {fileID: 64000010394525266}
   m_Layer: 0
   m_Name: Tent_1
   m_TagString: Untagged
@@ -202,6 +203,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011926973620}
+  m_Mesh: {fileID: 4300000, guid: 42b454050d24e62408315a4836535c67, type: 3}
+--- !u!64 &64000010394525266
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011926973620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 42b454050d24e62408315a4836535c67, type: 3}
 --- !u!65 &65000010902228334
 BoxCollider:

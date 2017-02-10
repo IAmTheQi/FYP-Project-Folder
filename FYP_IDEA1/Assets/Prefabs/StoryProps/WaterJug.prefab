@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000013201951744}
   - 23: {fileID: 23000012298569706}
   - 95: {fileID: 95000011339745624}
-  - 65: {fileID: 65000012263204586}
+  - 64: {fileID: 64000010328679662}
   m_Layer: 0
   m_Name: WaterJug
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010958654006}
   m_Mesh: {fileID: 4300000, guid: 32571be7fc603c04e8f97fb85dfa46f9, type: 3}
---- !u!65 &65000012263204586
-BoxCollider:
+--- !u!64 &64000010328679662
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.68243515, y: 1.2034781, z: 0.721458}
-  m_Center: {x: 0.23807622, y: 0.60173905, z: -0.26252893}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 32571be7fc603c04e8f97fb85dfa46f9, type: 3}
 --- !u!95 &95000011339745624
 Animator:
   serializedVersion: 3

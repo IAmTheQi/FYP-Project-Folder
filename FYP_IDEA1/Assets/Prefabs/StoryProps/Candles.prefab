@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000013835786726}
   - 23: {fileID: 23000012375068538}
   - 95: {fileID: 95000012741618868}
-  - 65: {fileID: 65000010453222146}
+  - 64: {fileID: 64000011593916184}
   m_Layer: 0
   m_Name: Candles
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012895108304}
   m_Mesh: {fileID: 4300000, guid: cd72c36a16d059e4085830f87e8b85b9, type: 3}
---- !u!65 &65000010453222146
-BoxCollider:
+--- !u!64 &64000011593916184
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.34605676, y: 0.3763505, z: 0.38081244}
-  m_Center: {x: 0.013840012, y: 0.18817522, z: 0.008058101}
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: cd72c36a16d059e4085830f87e8b85b9, type: 3}
 --- !u!95 &95000012741618868
 Animator:
   serializedVersion: 3
