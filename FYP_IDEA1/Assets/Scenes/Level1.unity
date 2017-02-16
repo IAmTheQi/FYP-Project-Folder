@@ -14,7 +14,7 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.11372549, g: 0.10980392, b: 0.07450981, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01075
@@ -8182,6 +8182,36 @@ Prefab:
       propertyPath: m_Name
       value: RifleBulletPrefab2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.2351821
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.26903963
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.22621688
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0.085091814
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.13451982
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.z
+      value: -0.061965868
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2af7451ebdbc32e449c5087b53f340c8, type: 2}
   m_IsPrefabParent: 0
@@ -9341,7 +9371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013562237374, guid: 3ea14c09b2453984dbde3e8d128d2a04, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.8517606
       objectReference: {fileID: 0}
     - target: {fileID: 4000013562237374, guid: 3ea14c09b2453984dbde3e8d128d2a04, type: 2}
       propertyPath: m_LocalRotation.z
@@ -9349,11 +9379,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013562237374, guid: 3ea14c09b2453984dbde3e8d128d2a04, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.5239312
       objectReference: {fileID: 0}
     - target: {fileID: 4000013562237374, guid: 3ea14c09b2453984dbde3e8d128d2a04, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 33000010493177614, guid: 3ea14c09b2453984dbde3e8d128d2a04,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300004, guid: 6a6afadc7ddb63946bfa8a4f243a9043, type: 3}
+    - target: {fileID: 4000013562237374, guid: 3ea14c09b2453984dbde3e8d128d2a04, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -116.698006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ea14c09b2453984dbde3e8d128d2a04, type: 2}
@@ -15761,6 +15800,36 @@ Prefab:
     - target: {fileID: 1000012186016676, guid: 2af7451ebdbc32e449c5087b53f340c8, type: 2}
       propertyPath: m_Name
       value: RifleBulletPrefab2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.2351821
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.26903963
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.22621688
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0.085091814
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.13451982
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.z
+      value: -0.061965868
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2af7451ebdbc32e449c5087b53f340c8, type: 2}
@@ -44177,6 +44246,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.2351821
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.26903963
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.22621688
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0.085091814
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.13451982
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.z
+      value: -0.061965868
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2af7451ebdbc32e449c5087b53f340c8, type: 2}
   m_IsPrefabParent: 0
@@ -64750,6 +64854,36 @@ Prefab:
       propertyPath: m_Name
       value: RifleBulletPrefab2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.2351821
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.26903963
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.22621688
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0.085091814
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.13451982
+      objectReference: {fileID: 0}
+    - target: {fileID: 65000010479972250, guid: 2af7451ebdbc32e449c5087b53f340c8,
+        type: 2}
+      propertyPath: m_Center.z
+      value: -0.061965868
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2af7451ebdbc32e449c5087b53f340c8, type: 2}
   m_IsPrefabParent: 0
@@ -70398,6 +70532,10 @@ Prefab:
     - target: {fileID: 4000011891676700, guid: 2b0ced1457010ff4982dcc4d5afe4bda, type: 2}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010966666150, guid: 2b0ced1457010ff4982dcc4d5afe4bda, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b0ced1457010ff4982dcc4d5afe4bda, type: 2}
