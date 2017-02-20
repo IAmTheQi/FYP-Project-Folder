@@ -228,19 +228,6 @@ public class PlayerLogic : MonoBehaviour {
         weaponIcon = GameObject.Find("Weapon Icon");
 
         healthBar = GameObject.Find("Health Bar");
-        rifleBullets = new GameObject[30];
-        for (int i = 0; i < rifleBullets.Length; i++)
-        {
-            rifleBullets[i] = GameObject.Find("Bullet " + i);
-            rifleBullets[i].GetComponent<Image>().sprite = weapons[0].fullBullet;
-        }
-
-        pistolBullets = new GameObject[12];
-        for (int j = 0; j < pistolBullets.Length; j++)
-        {
-            pistolBullets[j] = GameObject.Find("PBullet " + j);
-            pistolBullets[j].GetComponent<Image>().sprite = weapons[1].fullBullet;
-        }
 
         weapons[1].weaponUI.SetActive(false);
 
@@ -306,6 +293,26 @@ public class PlayerLogic : MonoBehaviour {
         idleLimit = 120.0f;
 
         cameraAnimation = cam1.GetComponent<Animation>();
+
+        if (SceneManager.GetActiveScene().name != "Level1")
+        {
+            GameHandler.Load(this.gameObject);
+        }
+
+
+        rifleBullets = new GameObject[30];
+        for (int i = 0; i < weapons[0].currentAmmo; i++)
+        {
+            rifleBullets[i] = GameObject.Find("Bullet " + i);
+            rifleBullets[i].GetComponent<Image>().sprite = weapons[0].fullBullet;
+        }
+
+        pistolBullets = new GameObject[12];
+        for (int j = 0; j < weapons[1].currentAmmo; j++)
+        {
+            pistolBullets[j] = GameObject.Find("PBullet " + j);
+            pistolBullets[j].GetComponent<Image>().sprite = weapons[1].fullBullet;
+        }
 
         walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
         walkingEv.getParameter("Speed", out walkingParam);

@@ -10,16 +10,26 @@ public class PortalLogic : MonoBehaviour {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        int level = 0;
+
+        if (SceneManager.GetActiveScene().name == "Level1")
         {
+            level = 1;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            level = 2;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level3")
+        {
+            level = 3;
+        }
+            if (collider.tag == "Player")
+        {
+            GameHandler.Save(collider.gameObject, level);
             collider.gameObject.GetComponent<PlayerLogic>().StopSoundInstances();
             SceneManager.LoadScene(targetScene);
         }

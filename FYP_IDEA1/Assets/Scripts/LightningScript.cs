@@ -8,8 +8,14 @@ public class LightningScript : MonoBehaviour {
     public GameObject options;
     public GameObject credits;
 
+    public GameObject creditContent;
+
     bool optionsMenu;
     bool creditsMenu;
+    bool scrollStart;
+
+    RectTransform contentTransform;
+    Vector2 contentlocalPosition;
 
     [FMODUnity.EventRef]
     public string clickFeedback = "event:/Click";
@@ -19,6 +25,7 @@ public class LightningScript : MonoBehaviour {
 
         optionsMenu = false;
         creditsMenu = false;
+        scrollStart = false;
 	}
 	
 	// Update is called once per frame
@@ -45,6 +52,28 @@ public class LightningScript : MonoBehaviour {
 
         if (creditsMenu)
         {
+            if (!scrollStart && creditContent.GetComponent<RectTransform>().localPosition.y == -1170f)
+            {
+                scrollStart = true;
+            }
+            else if (!scrollStart && creditContent.GetComponent<RectTransform>().localPosition.y != -1170f)
+            {
+                contentlocalPosition = creditContent.GetComponent<RectTransform>().localPosition;
+                contentlocalPosition.y = -1170f;
+                creditContent.GetComponent<RectTransform>().localPosition = contentlocalPosition;
+            }
+
+            if (scrollStart && creditContent.GetComponent<RectTransform>().localPosition.y < 1730f)
+            {
+                creditContent.transform.Translate(Vector3.up * Time.deltaTime * 50f);
+            }
+            else if (scrollStart && creditContent.GetComponent<RectTransform>().localPosition.y >= 1730f)
+            {
+                contentlocalPosition = creditContent.GetComponent<RectTransform>().localPosition;
+                contentlocalPosition.y = -1170f;
+                creditContent.GetComponent<RectTransform>().localPosition = contentlocalPosition;
+            }
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ReturnFrom("credits");
@@ -57,7 +86,7 @@ public class LightningScript : MonoBehaviour {
     public void PlayGame()
     {
         FMODUnity.RuntimeManager.PlayOneShot(clickFeedback);
-        SceneManager.LoadScene("LevelPreloader");
+        SceneManager.LoadScene("Cinematics");
     }
 
     IEnumerator LoadScene()
