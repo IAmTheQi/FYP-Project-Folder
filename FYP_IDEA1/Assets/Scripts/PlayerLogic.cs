@@ -787,25 +787,16 @@ public class PlayerLogic : MonoBehaviour {
                                 collectScript.CollectItem(interactHit.collider.gameObject);
                             }
 
-                            if (interactHit.collider.tag == "PistolBox")
-                            {
-                                weapons[1].remainingAmmo += 12;
-                                Destroy(interactHit.collider.gameObject);
-                            }
-                            else if (interactHit.collider.tag == "PistolAmmo")
-                            {
-                                weapons[1].remainingAmmo += 4;
-                                Destroy(interactHit.collider.gameObject);
-                            }
-
                             if (interactHit.collider.tag == "RifleBox")
                             {
-                                weapons[0].remainingAmmo += 30;
+                                weapons[0].remainingAmmo += weapons[0].magazineSize;
+                                weapons[1].remainingAmmo += weapons[1].magazineSize;
                                 Destroy(interactHit.collider.gameObject);
                             }
                             else if (interactHit.collider.tag == "RifleAmmo")
                             {
-                                weapons[0].remainingAmmo += 7;
+                                weapons[0].remainingAmmo += weapons[0].magazineSize * 2;
+                                weapons[1].remainingAmmo += weapons[1].magazineSize * 2;
                                 Destroy(interactHit.collider.gameObject);
                             }
 
