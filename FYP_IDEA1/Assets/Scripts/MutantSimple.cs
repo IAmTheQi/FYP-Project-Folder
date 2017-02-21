@@ -161,6 +161,7 @@ public class MutantSimple : MonoBehaviour
 
     public IEnumerator AlertMutant()
     {
+        yield return new WaitForSeconds(Random.Range(0.0f, 1.0f));
         currentState = MutantStates.Alert;
         mutantAnimator.SetTrigger("Alert");
         FMODUnity.RuntimeManager.PlayOneShot(alertSound, transform.position);

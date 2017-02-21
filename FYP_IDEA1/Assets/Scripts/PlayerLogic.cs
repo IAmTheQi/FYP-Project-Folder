@@ -229,6 +229,26 @@ public class PlayerLogic : MonoBehaviour {
 
         healthBar = GameObject.Find("Health Bar");
 
+        if (SceneManager.GetActiveScene().name != "Level1")
+        {
+            GameHandler.Load(this.gameObject);
+        }
+
+
+        rifleBullets = new GameObject[30];
+        for (int i = 0; i < weapons[0].currentAmmo; i++)
+        {
+            rifleBullets[i] = GameObject.Find("Bullet " + i);
+            rifleBullets[i].GetComponent<Image>().sprite = weapons[0].fullBullet;
+        }
+
+        pistolBullets = new GameObject[12];
+        for (int j = 0; j < weapons[1].currentAmmo; j++)
+        {
+            pistolBullets[j] = GameObject.Find("PBullet " + j);
+            pistolBullets[j].GetComponent<Image>().sprite = weapons[1].fullBullet;
+        }
+
         weapons[1].weaponUI.SetActive(false);
 
         bloodOverlay = GameObject.Find("BloodOverlay");
@@ -293,26 +313,6 @@ public class PlayerLogic : MonoBehaviour {
         idleLimit = 120.0f;
 
         cameraAnimation = cam1.GetComponent<Animation>();
-
-        if (SceneManager.GetActiveScene().name != "Level1")
-        {
-            GameHandler.Load(this.gameObject);
-        }
-
-
-        rifleBullets = new GameObject[30];
-        for (int i = 0; i < weapons[0].currentAmmo; i++)
-        {
-            rifleBullets[i] = GameObject.Find("Bullet " + i);
-            rifleBullets[i].GetComponent<Image>().sprite = weapons[0].fullBullet;
-        }
-
-        pistolBullets = new GameObject[12];
-        for (int j = 0; j < weapons[1].currentAmmo; j++)
-        {
-            pistolBullets[j] = GameObject.Find("PBullet " + j);
-            pistolBullets[j].GetComponent<Image>().sprite = weapons[1].fullBullet;
-        }
 
         walkingEv = FMODUnity.RuntimeManager.CreateInstance(footsteps);
         walkingEv.getParameter("Speed", out walkingParam);
@@ -787,25 +787,16 @@ public class PlayerLogic : MonoBehaviour {
                                 collectScript.CollectItem(interactHit.collider.gameObject);
                             }
 
-                            if (interactHit.collider.tag == "PistolBox")
-                            {
-                                weapons[1].remainingAmmo += 12;
-                                Destroy(interactHit.collider.gameObject);
-                            }
-                            else if (interactHit.collider.tag == "PistolAmmo")
-                            {
-                                weapons[1].remainingAmmo += 4;
-                                Destroy(interactHit.collider.gameObject);
-                            }
-
                             if (interactHit.collider.tag == "RifleBox")
                             {
-                                weapons[0].remainingAmmo += 30;
+                                weapons[0].remainingAmmo += weapons[0].magazineSize;
+                                weapons[1].remainingAmmo += weapons[1].magazineSize;
                                 Destroy(interactHit.collider.gameObject);
                             }
                             else if (interactHit.collider.tag == "RifleAmmo")
                             {
-                                weapons[0].remainingAmmo += 7;
+                                weapons[0].remainingAmmo += weapons[0].magazineSize * 2;
+                                weapons[1].remainingAmmo += weapons[1].magazineSize * 2;
                                 Destroy(interactHit.collider.gameObject);
                             }
 
