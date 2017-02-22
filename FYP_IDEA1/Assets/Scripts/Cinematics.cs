@@ -6,17 +6,12 @@ public class Cinematics : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+        StartCoroutine(Timer());
 	}
 
     IEnumerator Timer()
     {
-        yield return new WaitForSeconds(9.7f);
+        yield return new WaitForSeconds(36f);
         SceneManager.LoadScene("Level1");
     }
 }

@@ -95,7 +95,7 @@ public class MutantSimple : MonoBehaviour
             }
 
 
-            if (currentState == MutantStates.Chase)
+            if (currentState == MutantStates.Chase && !playerObject.GetComponent<PlayerLogic>().IsDead())
             {
                 mutantAgent.destination = playerObject.transform.position;
                 if (Vector3.Distance(transform.position, playerObject.transform.position) <= 2f)

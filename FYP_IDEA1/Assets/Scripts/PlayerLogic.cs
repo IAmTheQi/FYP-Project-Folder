@@ -61,6 +61,7 @@ public class PlayerLogic : MonoBehaviour {
     GameObject itemMenu;
     GameObject pauseMenu;
     GameObject optionsMenu;
+    GameObject deathScreen;
 
     public GameObject rifleObject;
     public GameObject rifleSight;
@@ -147,6 +148,7 @@ public class PlayerLogic : MonoBehaviour {
     bool regenHealth;
     bool dead;
     bool endGame;
+    bool deathPrompt;
 
     float idleTimer;
     float idleLimit;
@@ -269,6 +271,8 @@ public class PlayerLogic : MonoBehaviour {
         pauseMenu.SetActive(false);
         optionsMenu = GameObject.Find("OptionsMenu");
         optionsMenu.SetActive(false);
+        deathScreen = GameObject.Find("DeathScreen");
+        deathScreen.SetActive(false);
 
         lerpStart = 0f;
         lerpTime = 0.2f;
@@ -308,6 +312,7 @@ public class PlayerLogic : MonoBehaviour {
         regenHealth = false;
         dead = false;
         endGame = false;
+        deathPrompt = false;
 
         idleTimer = 0.0f;
         idleLimit = 120.0f;
@@ -815,6 +820,19 @@ public class PlayerLogic : MonoBehaviour {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        // Death Prompt
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StopCoroutine(KillPlayer());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu");
+            StopCoroutine(KillPlayer());
+        }
+
 
         //UI Elements
         //Ammo Text
@@ -1056,14 +1074,13 @@ public class PlayerLogic : MonoBehaviour {
         cameraAnimation.Play("Dying");
         FMODUnity.RuntimeManager.PlayOneShot(playerDying);
 
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(4.0f);
 
+        deathScreen.SetActive(true);
         if (!endGame)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            deathPrompt = true;
         }
-
-        StopCoroutine(KillPlayer());
     }
 
     public bool IsDead()
