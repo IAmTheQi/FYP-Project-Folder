@@ -821,16 +821,19 @@ public class PlayerLogic : MonoBehaviour {
         }
 
         // Death Prompt
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (deathPrompt)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            StopCoroutine(KillPlayer());
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                StopCoroutine(KillPlayer());
+            }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("MainMenu");
-            StopCoroutine(KillPlayer());
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MainMenu");
+                StopCoroutine(KillPlayer());
+            }
         }
 
 
